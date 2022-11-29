@@ -44,6 +44,11 @@ export class HeaderComponent implements OnInit {
     this.identity = JSON.parse(data);
   }
 
+  showProfile() {
+    console.log('hey');
+    this._router.navigate(['/pages/profile']);
+  }
+
   async loadUser() {
     // let data = await this.userSvc.getIdentity();
     // this.identity = JSON.parse(data);

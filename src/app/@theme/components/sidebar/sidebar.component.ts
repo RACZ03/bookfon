@@ -26,15 +26,20 @@ export class SidebarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    if (this.isAdmin) {
+    // if (this.isAdmin) {
+    //   this.menu = MENU_ITEMS;
+    //   this.menuFooter = MENU_ITEMS_SETTINGS;
+    // } else {
+    //   // this.menu = MENU_ITEMS_COACH;
+    // }
+
+    // this.getScreenWidth = window.innerWidth;
+    // this.getScreenHeight = window.innerHeight;
       this.menu = MENU_ITEMS;
       this.menuFooter = MENU_ITEMS_SETTINGS;
-    } else {
-      // this.menu = MENU_ITEMS_COACH;
-    }
+      this.isAdmin = true;
+      this.isExist = true;
 
-    this.getScreenWidth = window.innerWidth;
-    this.getScreenHeight = window.innerHeight;
   }
   
   loadData() {
