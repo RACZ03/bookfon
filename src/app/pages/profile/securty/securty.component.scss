@@ -1,0 +1,46 @@
+.card {
+    border: none;
+    margin-bottom: 40px;
+
+    .card-body {
+        color: #7A7A7A;
+
+        h6 {
+            color: #7A7A7A;
+            font-weight: 600;
+        }
+
+        .btn-add-service {
+            color: #1F72EA;
+            position: absolute;
+            right: 0;
+            top: 10px;
+        }
+
+        li {
+            list-style-type: none;
+            border-bottom: 1px solid #c2c1c1;
+            padding: 20px 0px;
+
+            img {
+                margin-right: 20px;
+            }
+            a {
+                text-decoration: none;
+            }
+        }
+
+        .btn-save {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            background: #1F72EA;
+            padding: 6px 50px;
+            border-radius: 8px;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            -ms-border-radius: 8px;
+            -o-border-radius: 8px;
+        }
+    }
+
+}

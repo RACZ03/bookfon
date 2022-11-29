@@ -1,0 +1,349 @@
+
+<section>
+    
+    <div class="imgBox">
+        <img src="assets/images/bookfons/bg-login.jpg" alt="lg.png">
+    </div>
+    <div class="contentBx">
+        <div class="logo">
+            <img src="assets/images/bookfons/bookfon.png" alt="logo.png">
+        </div>
+
+        <!-- Forms STEP 1-->
+        <div class="formBx" *ngIf="step1">
+            <div class="headerBx">
+                <h5>
+                    Sign in
+                </h5>
+                <p>Select which Account you want to use to Access Bookfon.</p>
+            </div>
+            <div class="bodyBx">
+
+                <div class="itemBx">
+                    <img src="assets/images/bookfons/user-found-1.png" alt="">
+                    <label for="">charlesjhonson@mail.test</label>
+                </div>
+
+                <button class="btn btn-primary" (click)="onContinue()" style="margin-left: 7%;">
+                    SIGN IN
+                </button>
+
+                <p>
+                    By selecting account you agree to our <a href="#">Terms</a> 
+                    <br>
+                    and have read and acknowledge our <a href="#">Global Privacy Statement</a>
+                </p>
+            </div>
+
+            <div class="otherBx">
+                <img src="assets/images/bookfons/user-found-2.png" alt="">
+                <label for="">Use a different user ID</label>
+                <i class="bi bi-chevron-right"></i>
+            </div>
+
+            <div class="footerBx">
+                <p>
+                    New the bookfon? <a href="#">Create an account</a>
+                </p>
+
+                <div class="divGrays">
+                    Invisible reCAPTCHA by Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- Forms STEP 2-->
+        <div class="formBx" *ngIf="step2">
+            <div class="headerBx">
+                <h5>Let's make sure you're you</h5>
+                <p>
+                    Choose how you want to verify your identity
+                    <br><a href="#">Learn more</a>
+                </p>
+
+            </div>
+
+            <div class="bodyBx">
+                <div class="itemBx2">
+                    <img src="assets/images/icons/padlock.svg" class="icons" alt="">
+                    <label for="">Enter password</label>
+                </div>
+                <div class="itemBx2">
+                    <img src="assets/images/icons/email.svg" class="icons" alt="">
+                    <label for="">Text a code</label><br>
+                    <label for="" class="text-item">***********79</label>
+                </div>
+                <div class="itemBx2">
+                    <img src="assets/images/icons/sms.svg" class="icons" alt="">
+                    <label for="">Email code</label><br>
+                    <label for="" class="text-item">c*******mail.tes</label>
+                </div>
+                <div class="itemBx2">
+                    <a href="#">Contact Customer support</a>
+                </div>
+            </div>
+        </div>
+        <!-- Forms STEP 3-->
+        <div class="formBx" *ngIf="step3">
+            <div class="headerBx">
+                <h5>Check your phone</h5>
+                <p>
+                    Enter the 6-digit code we just sent to
+                    <br><span>**************79</span>
+                    <br><br>
+                    <a href="#">Use a different number</a>
+                </p>
+
+            </div>
+
+            <div class="bodyBx">
+                <div class="itemBx3">
+                    <img src="assets/images/icons/sms-check.svg" alt="">
+
+                    <br>
+                    <label for="">Verification code</label>
+
+                    <h5>005897</h5>
+
+                    <button class="btn btn-primary">
+                        CONTINUE
+                    </button>
+
+                    <br><br>
+                    <a href="#" class="item-link">I didn't get a text message</a>
+                    <br><br>
+                </div>
+
+            </div>
+        </div>
+        <!-- Forms STEP 4-->
+        <div class="formBx" *ngIf="step4">
+            <div class="headerBx">
+                <h5>Welcomme back!</h5>
+                <p>
+                    Choose how to sign in to
+                    <br><span>charlesjhonson@mail.test</span>
+                    <br><br>
+                    <a href="#">Use a different number</a>
+                </p>
+
+            </div>
+
+            <div class="bodyBx">
+                <div class="itemBx3">
+                    
+                    <label for="" class="label-pass">Password</label>
+                    <input type="password" class="form-control input-pass" value="12345678">
+                    <button class="btn btn-primary">
+                        CONTINUE
+                    </button>
+
+                </div>
+                <br>
+                <div class="itemBx3">
+                    
+                    <label for="" class="label-or">OR</label>
+                    <br>
+                    <input type="text" class="form-control input-code" 
+                        placeholder="Tex a code to (****)***********79">
+                
+                    <br><br>
+                    <a href="#" class="item-link">Sign in a different way</a>
+                    <br><br>
+                </div>
+            </div>
+        </div>
+        <!-- Forms STEP 5-->
+        <div class="formBx" *ngIf="step5">
+            <div class="headerBx">
+                <h5>Select one of your businesses</h5>
+
+            </div>
+
+            <div class="bodyBx">
+                <div class="itemBx3">
+                    
+                    <div class="item-account">
+                        <img src="assets/images/icons/house.svg" alt="">
+                        <label for="">BPB Training</label>
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                    <div class="item-account">
+                        <img src="assets/images/icons/account.png" alt="">
+                        <label for="">Orange Theory</label>
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+                    
+                </div>
+                <div class="itemBx3">
+                    <br>
+                    <button class="btn btn-primary" style="margin-bottom: 40px;">
+                        <i class="bi bi-plus-lg"></i>
+                        CREATE A NEW BUSINESS
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Forms STEP 6-->
+        <div class="formBx" *ngIf="step6">
+            <div class="headerBx">
+                <h5>Create an Bookfon account</h5>
+                <p style="font-size: 12px;">
+                    Use Bookfon and all our products
+                </p>
+            </div>
+            <div class="bodyBx">
+                <div class="itemBx4">
+                    
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Email address (User ID)</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="charlesjhonson@mail.test">
+                    </div>
+                    
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Mobile number</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="(201) 666-1789">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Password</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="XXXXXXXXXXX">
+                    </div>
+            
+                    <button class="btn btn-primary" style="margin-bottom: 10px;">
+                        ONE MORE STEP
+                    </button>
+
+                    <p>
+                        By selecting One more step, you agree to our terms and have read and acknowledge our <a href="#">Global Privacy Statement.</a>
+                    </p>
+                    <p>
+                        Adding a company to an existing account? <a href="#">Sign in</a>
+                    </p>
+                </div>
+                <div class="footerBx">
+                    <div class="divGrays">
+                        Invisible reCAPTCHA by Google <a href="#">Privacy Policy</a> and <a href="#">Terms of Use</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Forms STEP 7-->
+        <div class="formBx" *ngIf="step7">
+            <div class="headerBx">
+                <h5>Check your phone</h5>
+                <p>
+                    Enter the 6-digit code we just sent to
+                    <br><span>**************79</span>
+                    <br><br>
+                    <a href="#">Callme instead</a>
+                </p>
+
+            </div>
+
+            <div class="bodyBx">
+                <div class="itemBx3">
+                    <img src="assets/images/icons/sms-check.svg" alt="">
+
+                    <br>
+                    <label for="">Verification code</label>
+
+                    <!-- <h5>005897</h5> -->
+                    <input type="text" class="form-control input-code2" value="0005897">
+
+                    <button class="btn btn-primary">
+                        CONTINUE
+                    </button>
+
+                    <br><br>
+                    <a href="#" class="item-link">I didn't get a text message</a>
+                    <br><br>
+                </div>
+
+            </div>
+        </div>
+        <!-- Forms STEP 8-->
+        <div class="formBx" *ngIf="step8">
+            <div class="headerBx">
+                <h5>Create your first business</h5>
+
+            </div>
+
+            <div class="bodyBx">
+                <div class="itemBx4">
+                    <button class="btn btn-primary">
+                        CREATE A NEW BUSINESS
+                    </button>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- Forms STEP 9-->
+        <div class="formBx" *ngIf="step9">
+            <div class="headerBx">
+                <h5>What do you call your business</h5>
+                <p>We'll use this yo get your Started in Bookfon</p>
+            </div>
+            <hr>
+            <div class="bodyBx">
+                <div class="itemBx4">
+                    <div class="mb-2">
+                        <label for="exampleFormControlInput1" class="form-label">Business name</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter a new business name">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked">
+                          This is my legal business name
+                        </label>
+                      </div>
+
+                    <button class="btn btn-secondary">
+                        GO BACK
+                    </button>
+                    <button class="btn btn-primary">
+                        CREATE BUSINESS
+                    </button>
+
+                    <p>
+                        This business Will be connected to <strong>charlesjhonson@mail.test</strong>
+                        <br>
+                        Credit Card is not required to setup your business dashboard
+                    </p>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- Forms STEP 10-->
+        <div class="formBx" *ngIf="step10">
+            <div class="headerBx">
+                <h5>Welcome, we're glad you're here!</h5>
+                <p>Here's what we'll do together right now</p>
+            </div>
+            <div class="bodyBx">
+                <div class="itemBx3">
+                    <img src="assets/images/icons/messenger.svg" class="img-item" alt="">
+                    <p>Ask us for help whenever you need it, just click on the Support icon inside your Dashboard</p>
+                </div>
+                <div class="itemBx3">
+                    <img src="assets/images/icons/uploader.svg" class="img-item" alt="">
+                    <p>We bring your products and services, customers to bookfon from your actual software. <strong>Free charge.</strong></p>
+                </div>
+                <div class="itemBx3">
+                    <img src="assets/images/icons/calendar.svg" class="img-item" alt="">
+                    <p>Activate your sales channels and value-added marketing services so you can <strong>hit the target.</strong></p>
+                
+                    <button class="btn btn-primary" style="margin-top: 0px; margin-bottom: 20px;">
+                        START NOW!
+                    </button>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+        
+        <div class="footer-book">
+            <label for="">bookfon, All Rights Reserved.</label>
+        </div>
+    </div>
+</section>

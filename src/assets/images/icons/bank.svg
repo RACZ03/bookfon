@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16.101" height="16.16" viewBox="0 0 16.101 16.16">
+  <g id="bank" transform="translate(-0.927 0)">
+    <path id="Trazado_31" data-name="Trazado 31" d="M368.927,220.854h2.968v5.241h-2.968Z" transform="translate(-356.382 -213.882)" fill="#7a7a7a"/>
+    <path id="Trazado_32" data-name="Trazado 32" d="M208.927,220.854h2.968v5.241h-2.968Z" transform="translate(-201.433 -213.882)" fill="#7a7a7a"/>
+    <path id="Trazado_33" data-name="Trazado 33" d="M16.081,416.854H1.874a.948.948,0,0,0-.947.947v1.1a.948.948,0,0,0,.947.947H16.081a.948.948,0,0,0,.947-.947v-1.1A.948.948,0,0,0,16.081,416.854Z" transform="translate(0 -403.694)" fill="#7a7a7a"/>
+    <path id="Trazado_34" data-name="Trazado 34" d="M16.435,2.973,9.329.068a.943.943,0,0,0-.707,0l-7.1,2.9a.943.943,0,0,0-.594.879V5.078a.948.948,0,0,0,.947.947H16.081a.948.948,0,0,0,.947-.947V3.852a.943.943,0,0,0-.594-.879Zm-6.983.558a.474.474,0,1,1-.947,0V2.521a.474.474,0,1,1,.947,0Z" transform="translate(0 0)" fill="#7a7a7a"/>
+    <path id="Trazado_35" data-name="Trazado 35" d="M48.927,220.854h2.968v5.241H48.927Z" transform="translate(-46.485 -213.882)" fill="#7a7a7a"/>
+  </g>
+</svg>

@@ -1,0 +1,48 @@
+<!-- Side Bar -->
+<div class="sidenav-menu">
+    <div class="nav accordion" id="accordionSidenav">
+        <!-- Sidenav Menu Heading (Account)-->
+        <!-- * * Note: * * Visible only on and above the sm breakpoint-->
+        
+        <!-- Sidenav Menu Heading (Core)-->
+        <div class="sidenav-menu-heading">
+            <img src="assets/images/bookfons/bookfon.png" alt="">
+
+        </div>
+        <div class="info-business">
+            <img src="assets/images/bookfons/user-found-1.png" alt="" class="avatar">
+            <label for="">Company name</label><br>
+            <span class="info-active">
+                <div class="circulo"></div>
+                Active now
+            </span>
+        </div>
+        <!-- Sidenav Accordion Admin-->
+        <hr style="margin: 0px 20px;">
+        <div *ngFor="let item of menu; let i = index">
+            <!-- Module Admin -->
+            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" 
+                [attr.data-bs-target]="'#collapseDashboards' + i" aria-expanded="false" aria-controls="collapseDashboards"
+                [routerLink]="!isExist ? (item?.title === 'Dashboard') ? (item.link + '/2/' +identity?.id) : (item.link + identity?.id) : item.link" 
+                (click)="onSelectOption(item.link)">
+                <div class="nav-link-icon">
+                    <img [src]="'assets/images/icons/' + item.icon + '.svg'" alt="">
+                </div>
+                {{ item.title }}
+            </a>
+        </div>
+        <br>
+        <div *ngFor="let item of menuFooter; let i = index" style="margin-left: 10px;">
+            <!-- Module Admin -->
+            <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" 
+                [attr.data-bs-target]="'#collapseDashboards' + i" aria-expanded="false" aria-controls="collapseDashboards"
+                [routerLink]="!isExist ? (item?.title === 'Dashboard') ? (item.link + '/2/' +identity?.id) : (item.link + identity?.id) : item.link" 
+                (click)="onSelectOption(item.link)">
+                <div class="nav-link-icon">
+                    <img [src]="'assets/images/icons/' + item.icon + '.svg'" alt="">
+                </div>
+                {{ item.title }}
+            </a>
+        </div>
+    </div>
+</div>

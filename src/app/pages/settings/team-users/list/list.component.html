@@ -1,0 +1,124 @@
+<div class="row" style="margin-left: 0px;">
+    <div class="content-1" style="padding-left: 0px !important;">
+        <ul class="scroll-menu" style="margin: 0px !important; padding: 0px !important">
+            <li *ngFor="let item of scrollOptions; let i = index;" [ngClass]="{'active': item.active}"
+                class="menu-item" (click)="changeOptions(item, i)">
+                {{ item.title }}
+            </li>
+        </ul>
+    </div>
+    
+    <div class="content-2">
+        <div [ngSwitch]="optionSelected">
+            <div *ngSwitchCase="0">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+                    <label class="form-check-label" for="flexSwitchCheckChecked">Require two-step authentication for your team</label>
+                </div>
+                <p>
+                    This Will require any team member without two-step authentication to enable in the next time they sign in.
+                </p>
+
+                <div class="row">
+                    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-6 col-xs-12">
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Filter by name or email..." aria-label="Search">
+                        </form>
+                    </div>
+                    <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
+                        <button class="btn btn-add">
+                            <i class="bi bi-plus"></i>
+                            Add new staff
+                        </button>
+
+                        <button class="btn btn-table">
+                            <img src="assets/images/icons/settings2.svg" alt="">
+                        </button>
+                        <button class="btn btn-table">
+                            <img src="assets/images/icons/pdf.svg" alt="">
+                        </button>
+                        <button class="btn btn-table">
+                            <img src="assets/images/icons/download.svg" alt="">
+                        </button>
+                        
+                    </div>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" name="" id="">
+                                </th>
+                                <th>Mamber</th>
+                                <th>Roles</th>
+                                <th>Authentication</th>
+                                <th>Last login</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="align-middle">
+                                    <input type="checkbox" name="" id="">
+                                </td>
+                                <td class="align-middle">
+                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                                    <label for="" class="td-name">Mario Harrinson</label><br>
+                                    <label for="" class="td-email">Marioharrison@mail.com</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">Administrador</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">TOP-STEP</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">September 22, 2022, 6:38 PM</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">
+                                    <input type="checkbox" name="" id="">
+                                </td>
+                                <td class="align-middle">
+                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                                    <label for="" class="td-name">Mario Harrinson</label><br>
+                                    <label for="" class="td-email">Marioharrison@mail.com</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">Administrador</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">TOP-STEP</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">September 22, 2022, 6:38 PM</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="align-middle">
+                                    <input type="checkbox" name="" id="">
+                                </td>
+                                <td class="align-middle">
+                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                                    <label for="" class="td-name">Mario Harrinson</label><br>
+                                    <label for="" class="td-email">Marioharrison@mail.com</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">Administrador</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">TOP-STEP</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">September 22, 2022, 6:38 PM</label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

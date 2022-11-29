@@ -1,0 +1,58 @@
+.card {
+    color: #9F9F9F;
+    border: none;
+    font-size: 12px;
+
+    input {
+        font-size: 12px;
+    }
+
+    .card-new {
+        margin: auto;
+    }
+
+    h5, h6 {
+        color: #181C33;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .item-bank {
+        background: #ECECEC;
+        padding: 20px;
+
+    }
+
+    .btn-add {
+        border-style: dashed;
+        border-width: 1px;
+        border-color: #1F72EA;
+        color: #1F72EA;
+        padding: 6px 30px;
+        margin-top: 10px;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+    }
+
+    p {
+        margin: 0px !important;
+    }
+
+    .btn-save {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background: #1F72EA;
+        padding: 6px 50px;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+    }
+    
+}

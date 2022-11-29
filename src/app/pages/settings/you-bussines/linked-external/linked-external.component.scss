@@ -1,0 +1,41 @@
+.card-content {
+    color: #9F9F9F;
+    border: none;
+    margin-top: 80px;
+    text-align: center;
+    font-size: 12px;
+
+    .card-new {
+        margin: auto;
+    }
+
+    h5 {
+        color: #181C33;
+    }
+
+    .btn-add {
+        border-style: dashed;
+        border-width: 1px;
+        border-color: #1F72EA;
+        color: #1F72EA;
+        padding: 6px 30px;
+        margin-left: 10px;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+}
+
+    .btn-save {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background: #1F72EA;
+        padding: 6px 50px;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+    }
+}

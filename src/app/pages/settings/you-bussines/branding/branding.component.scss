@@ -1,0 +1,27 @@
+.card-container {
+    color: #696974;
+    font-size: 12px;
+    margin-bottom: 40px;
+
+    .content-1 {
+        background: #ECECEC 0% 0% no-repeat padding-box;
+        opacity: 1;
+
+        .item {
+            text-align: center;
+
+            label {
+                margin-top: 10px;
+                color: #181C33;
+                font-size: 13px;
+                font-weight: 600;
+            }
+        }
+
+        .subtitle {
+            color: #181C33;
+            font-size: 13px;
+            font-weight: 600;
+        }
+    }
+}
