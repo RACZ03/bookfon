@@ -16,6 +16,11 @@ import { StaffSettingsComponent } from './you-bussines/staff-settings/staff-sett
 import { AmindSettingsComponent } from './you-bussines/amind-settings/amind-settings.component';
 import { BranchesComponent } from './you-bussines/branches/branches.component';
 import { AppMarketplaceComponent } from './app-marketplace/app-marketplace.component';
+import { CustomerComponent } from './you-bussines/branding/customer/customer.component';
+import { InvoicepaymentComponent } from './you-bussines/branding/invoicepayment/invoicepayment.component';
+import { InvoicePdfComponent } from './you-bussines/branding/invoice-pdf/invoice-pdf.component';
+import { IdentityComponent } from './you-bussines/branding/identity/identity.component';
+import { ChekoutComponent } from './you-bussines/branding/chekout/chekout.component';
 
 
 
@@ -35,8 +40,17 @@ import { AppMarketplaceComponent } from './app-marketplace/app-marketplace.compo
     StaffSettingsComponent,
     AmindSettingsComponent,
     BranchesComponent,
-    AppMarketplaceComponent
-  ],
+    AppMarketplaceComponent,
+    CustomerComponent,
+    InvoicepaymentComponent,
+    InvoicePdfComponent,
+    IdentityComponent,
+    ChekoutComponent,
+    IdentityComponent,
+    InvoicepaymentComponent,
+    InvoicePdfComponent,
+    CustomerComponent,
+    ],
   imports: [
     CommonModule,
     SettingsRoutingModule

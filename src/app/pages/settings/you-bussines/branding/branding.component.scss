@@ -55,3 +55,50 @@
     }
 }
 
+.btn-return {
+    position: absolute; 
+    left: 20px; 
+    top: 90px; 
+    color: #ADA7A7;
+}
+
+
+.links{
+    text-decoration:none;
+}
+
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #556ee6;
+    background-color:#ffffff00 ;
+    border-bottom-color: rgb(1, 60, 255);
+    border-width: 5px !important;
+    background-color: #ffffff00;
+    border-top: #ffffff00;
+    border-left: #ffffff00;
+    border-right: #ffffff00;
+}
+
+
+.nav {
+    --bs-nav-link-padding-x: 1rem;
+    --bs-nav-link-padding-y: 0.5rem;
+    --bs-nav-link-font-weight: ;
+    --bs-nav-link-color:#9F9F9F;
+    --bs-nav-link-hover-color: var(--bs-link-hover-color);
+    --bs-nav-link-disabled-color: #6c757d;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+
+
+.btn-return {
+    position: absolute; 
+    left: 20px; 
+    top: 90px; 
+    color: #ADA7A7;
+}
