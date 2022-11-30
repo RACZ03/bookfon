@@ -24,4 +24,34 @@
             font-weight: 600;
         }
     }
+
+    .imgFondo{
+        background-image: url("../../../../../assets/images/bookfons/card.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 223px;
+        width: 372px;
+      
+    }
+
+    
+    .btn-add {
+        border-style: dashed;
+        border-width: 1px;
+        border-color: #1F72EA;
+        color: #1F72EA;
+        padding: 6px 30px;
+        margin-top: 15px;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+        margin-left: 15px;
+        height: 25px;
+
+
+    }
 }
+
