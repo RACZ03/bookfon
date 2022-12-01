@@ -1,0 +1,36 @@
+<div class="row m-4" style="margin-left: 0px;">
+    <div class="content-1" style="padding-left: 0px !important;">
+        <ul class="scroll-menu" style="margin: 0px !important; padding: 0px !important">
+            <li *ngFor="let item of scrollOptions; let i = index;" [ngClass]="{'active': item.active}"
+                class="menu-item" (click)="changeOptions(item, i)">
+                {{ item.title }}
+            </li>
+        </ul>
+    </div>
+    
+    <div class="content-2">
+        <div [ngSwitch]="optionSelected">
+            <div *ngSwitchCase="0">
+              <app-all-service></app-all-service>
+            </div>
+            <div *ngSwitchCase="1">
+                <app-categories></app-categories>
+            </div>
+            <div *ngSwitchCase="2">
+               <app-sub-categories></app-sub-categories>
+            </div>
+            <div *ngSwitchCase="3">
+                <app-clasifications></app-clasifications>
+            </div>
+            <div *ngSwitchCase="4">
+              <app-tax-rates></app-tax-rates>
+            </div>
+            <div *ngSwitchCase="5">
+             <app-coupons></app-coupons>
+            </div>
+            <div *ngSwitchCase="6">
+               <app-subcriptions></app-subcriptions>
+            </div>
+        </div>
+    </div>
+</div>

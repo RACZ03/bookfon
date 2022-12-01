@@ -22,6 +22,10 @@ const routes: Routes = [
         // , canLoad: [AdminGuard]
       },
       {
+        path: 'services', loadChildren: () => import('./service-product/service-product-routing.module').then(m => m.ServiceProductRoutingModule)
+        // , canLoad: [AdminGuard]
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
