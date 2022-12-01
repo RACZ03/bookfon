@@ -17,6 +17,8 @@ import { TaxRatesComponent } from './services/tax-rates/tax-rates.component';
 import { CouponsComponent } from './services/coupons/coupons.component';
 import { SubcriptionsComponent } from './services/subcriptions/subcriptions.component';
 import { ServiceProductComponent } from './service-product.component';
+import { ServiceAddComponent } from './services/service-add/service-add.component';
+import { ServiceinitComponent } from './services/serviceinit/serviceinit.component';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { ServiceProductComponent } from './service-product.component';
     CouponsComponent,
     SubcriptionsComponent,
     ServiceProductComponent,
+    ServiceAddComponent,
+    ServiceinitComponent,
   ],
   imports: [
     CommonModule,
