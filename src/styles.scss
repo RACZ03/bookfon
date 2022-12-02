@@ -864,8 +864,9 @@ body {
   border-style: dashed;
   border-width: 1px;
   border-color: #1F72EA;
-  color: #1F72EA;
-  
+  color: #1F72EA !important;
+  padding: 6px 30px;
+
   p{
     color : #9F9F9F;
 }
@@ -874,4 +875,11 @@ span{
     color : #9F9F9F;
 }
     color : #9F9F9F;
+}
+.btn-add:hover{
+  border-style: dashed;
+  border-width: 1px;
+  border-color: #1F72EA;
+  color: #1F72EA;
+  padding: 6px 30px;
 }
