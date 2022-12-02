@@ -8,12 +8,21 @@ import {
 
 import { LayoutComponent } from './layouts/layout/layout.component'
 import { RouterModule } from '@angular/router';
+import { BrokenImagenDirective } from './directives/broken-imagen.directive';
+import { BtnNextDirective } from './directives/btn-next.directive';
+import { BtnPrevDirective } from './directives/btn-prev.directive';
 
 const COMPONENTS = [
   LayoutComponent,
   HeaderComponent,
   FooterComponent,
   SidebarComponent
+];
+
+const DIRECTIVES = [
+  BrokenImagenDirective,
+  BtnNextDirective,
+  BtnPrevDirective 
 ];
 
 @NgModule({
@@ -23,10 +32,12 @@ const COMPONENTS = [
   ],
   declarations: [
     ...COMPONENTS,
+    ...DIRECTIVES,
     LayoutComponent
   ],
   exports: [
     ...COMPONENTS,
+    ...DIRECTIVES,
     LayoutComponent
   ]
 })

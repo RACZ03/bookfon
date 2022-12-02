@@ -20,65 +20,91 @@
         <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="home-tab">
             <div class="card">
                 <div class="card-body">
-                    <!-- NAME & LAST NAME & PHONE NUMBER -->
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Charles">
+                    <form [formGroup]="profileForm" (ngSubmit)="handleSave()">
+                        <!-- NAME & LAST NAME & PHONE NUMBER -->
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Charles"
+                                            formControlName="firstName">
+                                    <span *ngIf="validInput('firstName')" class="text-danger mt-2">
+                                        Required field
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Last name</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Smith">
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Last name</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Smith"
+                                            formControlName="lastName">
+                                    <span *ngIf="validInput('lastName')" class="text-danger mt-2">
+                                        Required field
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Phone number</label>
-                                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="47855695595959">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Image</label>
-                                <div class="uploadFile">
-                                    <p>
-                                        <i class="bi bi-arrow-up"></i>
-                                        Upload
-                                    </p>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Phone number</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""
+                                            mask="(000) 000-0000" formControlName="phone" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                                    <span *ngIf="validInput('phone')" class="text-danger mt-2">
+                                        Required field
+                                    </span>
+                                    <span *ngIf="validInputMin('phone')" class="text-danger mt-2">
+                                        Phone number must be 10 digits
+                                    </span>
+                                    <span *ngIf="validInputMax('phone')" class="text-danger mt-2">
+                                        Phone number must be 10 digits
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Review</label>
-                                <textarea class="form-control" id="exampleFormControlInput1" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repudiandae eligendi odit incidunt deserunt provident veritatis autem quia odio assumenda? Architecto natus doloremque corporis voluptate eveniet quis maxime vero? Minima!
-                                </textarea>
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-4 col-xs-12">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Image</label>
+                                    <div class="uploadFile">
+                                        <p>
+                                            <i class="bi bi-arrow-up"></i>
+                                            Upload
+                                            <input type="file" class="btn-upload input-file" id="file" (change)="onFileSelected($event)">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-8 col-xs-12" *ngIf="!isAdmin">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Review</label>
+                                    <textarea class="form-control" id="exampleFormControlInput1" rows="5"
+                                            formControlName="review">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab repudiandae eligendi odit incidunt deserunt provident veritatis autem quia odio assumenda? Architecto natus doloremque corporis voluptate eveniet quis maxime vero? Minima!
+                                    </textarea>
+                                    <span *ngIf="validInput('review')" class="text-danger mt-2">
+                                        Required field
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-        
-                    <hr style="color: #9F9F9F;">
-        
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-8 col-xs-10">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="charlesmith@mail.com">
+            
+                        <hr style="color: #9F9F9F;">
+            
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-8 col-xs-10">
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                    <input type="text" class="form-control" placeholder="mail@mail.com" value="charlesmith@mail.com" [disabled]="true"
+                                            formControlName="email"><br>
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-4 col-xs-2 verified">
+                                <i class="bi bi-check-circle"></i>Verified
                             </div>
                         </div>
-                        <div class="col-xl-7 col-lg-7 col-md-6 col-sm-4 col-xs-2 verified">
-                            <i class="bi bi-check-circle"></i>Verified
-                        </div>
-                    </div>
-        
-                    <button class="btn btn-primary btn-save">
-                        Save
-                    </button>
+            
+                        <button class="btn btn-primary btn-save" [disabled]="profileForm.invalid">
+                            Save
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -107,60 +107,39 @@ section {
         }
   
         .bodyBx {
-            .itemBx {
-                img {
-                    width: 35px;
-                    height: 35px;
-                    margin-right: 10px;
-                }
-                margin-top: 30px;
-                text-align: center;
-                font: normal normal medium 12px/12px Poppins;
-                letter-spacing: 0px;
-                color: #495057;
-                opacity: 1;
   
-                .input-email {
-                  padding: 8px;
-                  border: 1px solid #efefef;
-                  border-radius: 8px;
-                  -webkit-border-radius: 8px;
-                  -moz-border-radius: 8px;
-                  -ms-border-radius: 8px;
-                  -o-border-radius: 8px;
-                }
-            }
-  
-            .itemBx2 {
-                border-top: 1px solid #e5e5e5;
-                max-height: 70px;
-                min-height: 70px;
+            .itemBx4 {
+                width: 80%;
+                margin: auto;
                 font-size: 12px;
-                padding: 14px 0px;                
+                color: #9F9F9F;
   
-                label {
-                    letter-spacing: 0px;
-                    color: #495057;
-                    opacity: 1;
+                button {
+                    width: 100%;
                 }
-                .icons {
-                    width: 25px;
-                    height: 25px;
-                    margin-left: 35%;
-                    margin-right: 15px;
-                    margin-top: 6px;
-                }
-                .text-item {
-                    margin-left: 45%;
-                    font-size: 11px;
-                }
-  
-                a {
-                    text-align: center;
-                    margin-left: 35%;
+                input {
+                    font-size: 12px;
                 }
             }
   
+            button {
+                margin-top: 15px;
+                width: 85%;
+                text-align: center;
+            }
+  
+            p {
+                margin-top: 10px;
+                text-align: center;
+                letter-spacing: 0px;
+                opacity: 1;
+                font-size: 12px;
+                color: #000000 !important;
+                a {
+                    text-decoration: none;
+                    color: #556EE6;
+                }
+            }
             .itemBx3 {
                 border-top: 1px solid #e5e5e5;
                 img {
@@ -296,39 +275,6 @@ section {
 
             .itemBx3 .item-account.disabled {
                 cursor: not-allowed;;    
-            }
-  
-            .itemBx4 {
-                width: 80%;
-                margin: auto;
-                font-size: 12px;
-                color: #9F9F9F;
-  
-                button {
-                    width: 100%;
-                }
-                input {
-                    font-size: 12px;
-                }
-            }
-  
-            button {
-                margin-top: 15px;
-                width: 85%;
-                text-align: center;
-            }
-  
-            p {
-                margin-top: 10px;
-                text-align: center;
-                letter-spacing: 0px;
-                opacity: 1;
-                font-size: 12px;
-                color: #000000 !important;
-                a {
-                    text-decoration: none;
-                    color: #556EE6;
-                }
             }
         }
   
