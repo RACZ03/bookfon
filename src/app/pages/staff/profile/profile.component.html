@@ -1,1 +1,30 @@
-<p>profile works!</p>
+<div class="row m-0">
+  <div class="content-1 p-0">
+      <ul class="scroll-menu m-0 p-0">
+          <li *ngFor="let item of scrollOptions; let i = index;" [ngClass]="{'active': item.active}"
+              class="menu-item" (click)="changeOptions(item, i)">
+              {{ item.title }}
+          </li>
+      </ul>
+  </div>
+
+  <div class="content-2">
+      <div [ngSwitch]="optionSelected">
+          <div *ngSwitchCase="0">
+           <app-profile-edit></app-profile-edit>
+          </div>
+          <div *ngSwitchCase="1">
+              2
+          </div>
+          <div *ngSwitchCase="2">
+             3
+          </div>
+          <div *ngSwitchCase="3">
+          4
+          </div>
+          <div *ngSwitchCase="4">
+              5
+          </div>
+      </div>
+  </div>
+</div>
