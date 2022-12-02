@@ -13,7 +13,7 @@ export class UsersService {
 
   constructor(
     private connectionSvc: ConnectionService,
-    // private storage: AngularFireStorage
+    private storage: AngularFireStorage
   ) { }
 
   get(): Promise<any> {
