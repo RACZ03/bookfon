@@ -1,0 +1,65 @@
+
+<div class="container-flex mt-5">
+    <ul class="nav nav-tabs auto flex-column flex-sm-row" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active links" id="home-tab" data-bs-toggle="tab" data-bs-target="#Services" type="button"
+                role="tab" aria-controls="Services" aria-selected="true" 
+                >Services
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button (click)="showRetailProduct=true" class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#RetailProduct" type="button"
+                role="tab" aria-controls="RetailProduct" aria-selected="false">Retail products</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button (click)="showRoomsEquipments=true"  class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#RoomsEquipments" type="button"
+                role="tab" aria-controls="RoomsEquipments" aria-selected="false">Rooms & Equipments</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button (click)="showEventWorkshops=true" class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#EventWorkshops" type="button"
+                role="tab" aria-controls="EventWorkshops" aria-selected="false">Events & Workshops</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button (click)="showwaltlist=true" class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#waltlist" type="button"
+                role="tab" aria-controls="EventWorkshops" aria-selected="false">Waitlist</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button (click)="showBookingServices=true" class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#BookingServices" type="button"
+                role="tab" aria-controls="BookingServices" aria-selected="false">Booking Services</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button (click)="showPickaSpot=true" class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#PickaSpot" type="button"
+                role="tab" aria-controls="PickaSpot" aria-selected="false">Pick a Spot</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#plus" type="button"
+                role="tab" aria-controls="plus" aria-selected="false"><i class="bi bi-plus-circle-fill"></i></button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="Services" role="tabpanel" aria-labelledby="Services-tab" >
+            <app-services></app-services>
+        </div>
+        <div class="tab-pane fade show active" id="RetailProduct" role="tabpanel" aria-labelledby="RetailProduct-tab" >
+           <app-retail-produc *ngIf="showRetailProduct"></app-retail-produc>
+        </div>
+        <div  class="tab-pane fade show active" id="RoomsEquipments" role="tabpanel" aria-labelledby="RoomsEquipments-tab" >
+          <app-rooms-equipment *ngIf="showRoomsEquipments"></app-rooms-equipment>
+        </div>
+        <div class="tab-pane fade show active" id="EventWorkshops" role="tabpanel" aria-labelledby="EventWorkshops-tab" >
+           <app-event-workshop *ngIf="showEventWorkshops"></app-event-workshop>
+        </div>
+        <div class="tab-pane fade show active" id="waltlist" role="tabpanel" aria-labelledby="waltlist-tab" >
+            <app-walt-list *ngIf="showwaltlist"></app-walt-list>
+         </div>
+         <div class="tab-pane fade show active" id="BookingServices" role="tabpanel" aria-labelledby="BookingServices-tab" >
+            <app-booking-service *ngIf="showBookingServices"></app-booking-service>
+         </div>
+         <div class="tab-pane fade show active" id="PickaSpot" role="tabpanel" aria-labelledby="PickaSpot-tab" >
+            <app-pick-spot *ngIf="showPickaSpot"></app-pick-spot>
+         </div>
+         <div class="tab-pane fade show active" id="plus" role="plus" aria-labelledby="plus-tab" >
+           
+         </div>
+    </div>
+</div>

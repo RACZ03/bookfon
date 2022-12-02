@@ -8,9 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+/* Firebase */
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireStorageModule } from '@angular/fire/compat/storage'
+
 /* components */
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -18,10 +24,10 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule,
     AppRoutingModule,
     CommonModule,
-    HttpClientModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(
       {
@@ -30,6 +36,8 @@ import { HttpClientModule } from '@angular/common/http';
         preventDuplicates: true,
       }
     ), // ToastrModule added
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule, // storage
   ],
   providers: [],
   bootstrap: [AppComponent]
