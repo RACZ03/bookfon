@@ -1,6 +1,6 @@
 <section class="card-container">
     <div class="row">
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 content-1">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4 content-1">
             <div class="item">
                 <label for="">Brand elements</label>
                 <p>Customize how your Brand appears globally across the Bookfon services.</p>
@@ -27,5 +27,104 @@
             <label for="" class="subtitle" style="margin-top: 10px;">Branding for connected account</label>
             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod</p>
         </div>
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-6 content-2">
+            <div>
+                <label class="fw-bolder">Brand elements</label>
+                <p class="mt-2">Email receipts</p>
+            </div>
+            <div class="imgFondo">
+                <button class="btn btn-add">
+                    <span style="font-size: 8px; display: flex;">Send test receipt</span>
+                </button>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: flex;">
+                        <img src="assets/images/bookfons/icon.png" style="height: 45px;width: 45px; margin-left: 15px; margin-top: 5px;">
+                       <div class="m-2">
+                        <span class="fw-bolder ">Orange Theory Fitness</span><br>
+                        <span>Receipt #124-2569</span>
+                       </div>
+                    </div>
+                </div>
+                <div class="row">
+                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="m-2">
+                            <span class="fw-bolder" style="font-size: 9px;">AMOUNT PAID</span><br>
+                            <span>$49.50</span>
+                           </div>
+                     </div>
+                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="m-2">
+                            <span class="fw-bolder" style="font-size: 9px;">DATE PAID</span><br>
+                            <span>$49.50</span>
+                           </div>
+                     </div>
+                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                        <div class="m-2">
+                            <span class="fw-bolder" style="font-size: 9px;">PAYMENT METHOD</span><br>
+                            <img src="/src/assets/images/bookfons/logom.png" width="20px" height="20px"> <span>-0879</span>
+                           </div>
+                     </div>
+                </div>
+                    <span style="font-size: 12px; border: 2px;">SUMMARY</span>
+                    <div class="row" style=" background-color: #CCCCCC !important;
+                    width: 342px !important;
+                    height: 32px !important;; 
+                    margin-left: 12px !important;
+                    margin-top: 5px !important;">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6" style="text-align: start; margin-top: 5px;">
+                          <span class="fw-bolder">One Year's Membership</span>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-x s-6" style="text-align: end; margin-top: 5px;">
+                        <span class="fw-border">$25.50</span>
+                    </div>
+                 </div>
+            </div>
+            <div>
+                <div class="container-flex mt-2">
+                    <ul class="nav nav-tabs auto flex-column flex-sm-row" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active links" id="home-tab" data-bs-toggle="tab" data-bs-target="#Checkout" type="button"
+                                role="tab" aria-controls="Checkout" aria-selected="true" 
+                                >Checkout & Payments
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#Customerportal" type="button"
+                                role="tab" aria-controls="Customerportal" aria-selected="false"  (click)="showCustomer=true">Customer portal</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#InvoicePaymentPage" type="button"
+                                role="tab" aria-controls="InvoicePaymentPage" aria-selected="false"  (click)="showInvoicePay=true">Invoice payment page</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button  class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#InvoicePDF" type="button"
+                                role="tab" aria-controls="InvoicePDF" aria-selected="false"  (click)="showInvoicPdf=true">Invoice PDF</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button  class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#Identity" type="button"
+                                role="tab" aria-controls="Identity" aria-selected="false"  (click)="showIdentity=true">Identity</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="Checkout" role="tabpanel" aria-labelledby="Checkout-tab">
+                            <app-chekout></app-chekout>
+                        </div>
+                        <div class="tab-pane fade show active" id="Customerportal" role="tabpanel" aria-labelledby="Customerportal-tab">
+                           <app-customer *ngIf="showCustomer"></app-customer>
+                        </div>
+                        <div  class="tab-pane fade show active" id="InvoicePaymentPage" role="tabpanel" aria-labelledby="InvoicePaymentPage-tab">
+                          <app-invoicepayment *ngIf="showInvoicePay"></app-invoicepayment>
+                        </div>
+                        <div class="tab-pane fade show active" id="InvoicePDF" role="tabpanel" aria-labelledby="InvoicePDF-tab">
+                            <app-invoice-pdf  *ngIf="showInvoicPdf"> </app-invoice-pdf>
+                        </div>
+                        <div class="tab-pane fade show active" id="Identity" role="tabpanel" aria-labelledby="Identity-tab"> 
+                           <app-identity *ngIf="showIdentity"></app-identity>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
