@@ -1,0 +1,64 @@
+.container{
+
+    margin-top: 15px;
+    h5{
+        font-weight: 800;
+        color: #181C33;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    span{
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .row{
+        margin: 20px;
+        .col-md-6{
+            .form-group{
+                label{
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: #181C33;
+                }
+                input{
+                    border: 1px solid #181C33;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                }
+            }
+        }
+
+        .row{
+            span{
+                font-size: 12px;
+                color: #7A7A7A;
+            }
+            .chek{
+                margin-top: 10px;
+                .form-check{
+
+                    margin: 10px;
+                    label{
+                        font-size: 14px;
+                        color: #7A7A7A;
+            
+                    }
+                }
+            }
+        }
+    }
+
+    .row{
+        .timer{
+            width: 112px;
+            height: 41px;
+            border: 1px solid #c2c2c2;
+            color: #7A7A7A;
+            border-radius: 5px;
+        }
+    }
+
+   
+}
