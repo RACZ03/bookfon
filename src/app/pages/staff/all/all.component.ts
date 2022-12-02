@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output } from '@angular/core';
+import {Staff} from '../models/staff';
 
 @Component({
   selector: 'app-all',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./all.component.scss']
 })
 export class AllComponent implements OnInit {
+  @Output () selectedStaff = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  editStaff(staff: Staff) {
+    this.selectedStaff.emit(staff);
+  }
 }

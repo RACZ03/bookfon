@@ -22,6 +22,10 @@ const routes: Routes = [
         // , canLoad: [AdminGuard]
       },
       {
+        path: 'staff', loadChildren: () => import('./staff/staff.module').then(m => m.StaffModule)
+        // , canLoad: [AdminGuard]
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

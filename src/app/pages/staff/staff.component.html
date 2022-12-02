@@ -1,1 +1,38 @@
-<p>staff works!</p>
+<section class="module-container">
+  <h3 class="title-module">Staff</h3>
+
+  <!-- Tabs -->
+  <ul class="nav nav-tabs auto" id="myTab" role="tablist">
+    <li class="nav-item col-md-1 m-0" role="settings">
+      <button (click)="editStaff = false;activeTab=0" class="nav-link active links float-start" id="setting-tab"
+        data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings-tab"
+        aria-selected="true">Settings
+      </button>
+    </li>
+    <li class="nav-item col-md-2" role="all">
+      <button (click)="editStaff = false;activeTab=1" class="nav-link float-start  ms-2" id="all-tab"
+        data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all-tab"
+        aria-selected="false">All staff
+        {{editStaff ? ' / edit' : ''}}</button>
+    </li>
+    <div *ngIf="activeTab==1" class="justify-content-end col-md-9">
+      <button type="button" class="btn btn-primary float-end m-1"><i class="bi bi-list-ol"></i> Change display
+        position</button>
+      <button class="btn btn-add border-dashed-primary float-end m-1">
+        <i class="bi bi-plus"></i>
+        Add new staff
+      </button>
+    </div>
+
+  </ul>
+  <br>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="setting-tab" role="tabpanel" aria-labelledby="setting-tab">
+      <app-settings></app-settings>
+    </div>
+    <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="all-tab">
+      <app-all *ngIf="!editStaff" (selectedStaff)='selectedStaff($event)'></app-all>
+      <app-profile *ngIf="editStaff"></app-profile>
+    </div>
+  </div>
+</section>
