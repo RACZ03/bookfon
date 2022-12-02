@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // APIUrl: 'https://schema.postman.com/json/collection/v2.1.0', // <-- URL Production
+  APIUrl: 'http://bookfon-env.eba-kjzyjna4.us-east-1.elasticbeanstalk.com' // <-- URL Development
 };
 
 /*

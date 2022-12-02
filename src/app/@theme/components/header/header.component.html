@@ -118,35 +118,32 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                 <h6 class="dropdown-header d-flex align-items-center">
-                    <!-- <img class="dropdown-user-img" appBrokenImagen [src]="identity != undefined ? identity?.imagen : 'assets/img/users/Profile.png'"/> -->
-                    <img class="dropdown-user-img" appBrokenImagen [src]="'assets/images/bookfons/user-found-1.png'"/>
+                    <img class="dropdown-user-img" appBrokenImagen [src]="identity != undefined ? identity?.imagen : 'assets/img/users/Profile.png'"/>
+                    <!-- <img class="dropdown-user-img" appBrokenImagen [src]="'assets/images/bookfons/user-found-1.png'"/> -->
                     <div class="dropdown-user-details">
                         <div class="dropdown-user-details-name">
-                            <!-- {{  identity != undefined ? identity?.nombre : 'Default' }} {{  identity != undefined ? identity?.apellido : 'Default' }} -->
-                            Elise Beverley
+                            {{  identity != undefined ? identity?.firstName : 'Default' }} {{  identity != undefined ? identity?.LastName : 'Default' }}
+                            <!-- Elise Beverley -->
                         </div>
                         <div class="dropdown-user-details-email">
-                            <!-- {{  identity != undefined ? identity?.email : 'email@gmail.com' }} -->
-                            elise@mail.com
+                            {{  identity != undefined ? identity?.email : 'email@gmail.com' }}
+                            <!-- elise@mail.com -->
                         </div>
                     </div>
                 </h6>
                 <div class="dropdown-divider"></div>
-                <button class="dropdown-item" (click)="showProfile()">
+                <a class="dropdown-item" routerLink="/pages/profile">
                     <div class="dropdown-item-icon">
-                        <!-- <i-feather name="user" style="margin-top: 10px;"></i-feather> -->
                     </div>
                     Profile
-                </button>
+                </a>
                 <a class="dropdown-item" routerLink="/pages/user/change-password">
                     <div class="dropdown-item-icon">
-                        <!-- <i-feather name="settings" style="margin-top: 10px;"></i-feather> -->
                     </div>
                     Change Password
                 </a>
-                <button class="dropdown-item">
+                <button class="dropdown-item" (click)="logout()">
                     <div class="dropdown-item-icon">
-                        <!-- <i-feather name="log-out" style="margin-top: 10px;"></i-feather> -->
                     </div>
                     Logout
                 </button>

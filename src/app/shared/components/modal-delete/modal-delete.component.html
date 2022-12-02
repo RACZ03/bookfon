@@ -1,0 +1,22 @@
+
+<div class="modal-dialog modal-md" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="modal-header text-center" style="border-bottom: none;">
+				<i class="fa-regular fa-circle-xmark text-danger" style="height: 80px; width: 80px; margin: auto;"></i>
+                					
+			</div>
+			<div class="modal-body">
+                <div class="text-center">
+                    <h4 class="modal-title w-100">Are you sure?</h4>	
+                </div>
+                <br>
+				<p>Do you really want to delete this record? This process cannot be undone.</p>
+			</div>
+			<div class="modal-footer justify-content-center">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Cancel</button>
+				<button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
+			</div>
+        </div>
+    </div>
+</div>
