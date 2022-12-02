@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/@core/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
   public isAdmin: any[] = [];
   public bandAdmin: boolean = false;
   constructor(
-    // private userSvc: UserService,
+    private authSvc: AuthService,
     private _router: Router,
   ) { 
     this.loadUser();
@@ -50,16 +51,16 @@ export class HeaderComponent implements OnInit {
   }
 
   async loadUser() {
-    // let data = await this.userSvc.getIdentity();
-    // this.identity = JSON.parse(data);
-    // let exists = this.identity?.roles.find( role => role.nombre == 'ADMIN');
-    // if ( exists != undefined ) {
-    //   this.bandAdmin = true;
-    // }
+    let data = await this.authSvc.getIdentity();
+    this.identity = JSON.parse(data);
+    let exists = this.identity?.roleList.find( (item: any) => item.role == 'ROLE_ADMIN');
+    if ( exists != undefined ) {
+      this.bandAdmin = true;
+    }
   }
 
   logout() {
-    // this.userSvc.logout();
+    this.authSvc.logout();
   }
 
 }

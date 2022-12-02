@@ -1,0 +1,108 @@
+
+<section>
+    
+    <div class="imgBox">
+        <img src="assets/images/bookfons/bg-login.jpg" alt="lg.png">
+    </div>
+    <div class="contentBx">
+        <div class="logo">
+            <img src="assets/images/bookfons/bookfon.png" alt="logo.png">
+        </div>
+
+        <form action="" [formGroup]="createForm">
+            <!-- STEP 1 -->
+            <div class="formBx" *ngIf="step1">
+                <div class="headerBx">
+                    <h5>Create your first business</h5>
+                
+                </div>
+                
+                <div class="bodyBx">
+                    <div class="itemBx4">
+                        <button class="btn btn-primary" type="button" (click)="openStep2()">
+                            CREATE A NEW BUSINESS
+                        </button>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <!-- STEP 2 -->
+            <div class="formBx" *ngIf="step2">
+                <div class="headerBx">
+                    <h5>What do you call your business</h5>
+                    <p>We'll use this yo get your Started in Bookfon</p>
+                </div>
+                <hr>
+                <div class="bodyBx">
+                    <div class="itemBx4">
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">
+                                Business name
+                            </label>
+                            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter a new business name"
+                                    formControlName="name">
+                            <span *ngIf="validInput('name')" class="text-danger mt-2">
+                                Campo requerido.
+                            </span>
+                            <span *ngIf="validInputMin('name')" class="text-danger mt-2">
+                                Mínimo 3 carácteres.
+                            </span>
+                            <span *ngIf="validInputMax('name')" class="text-danger mt-2">
+                                Mínimo 100 carácteres.
+                            </span>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" formControlName="legalBusiness">
+                            <label class="form-check-label" for="flexCheckChecked">
+                              This is my legal business name
+                            </label>
+                          </div>
+                
+                        <button class="btn btn-secondary" (click)="goBack()">
+                            GO BACK
+                        </button>
+                        <button class="btn btn-primary" (click)="openStep3()">
+                            CREATE BUSINESS
+                        </button>
+                
+                        <p>
+                            This business Will be connected to <strong>charlesjhonson@mail.test</strong>
+                            <br>
+                            Credit Card is not required to setup your business dashboard
+                        </p>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <!-- STEP3 -->
+            <div class="formBx" *ngIf="step3">
+                <div class="headerBx">
+                    <h5>Welcome, we're glad you're here!</h5>
+                    <p>Here's what we'll do together right now</p>
+                </div>
+                <div class="bodyBx">
+                    <div class="itemBx3">
+                        <img src="assets/images/icons/messenger.svg" class="img-item" alt="">
+                        <p>Ask us for help whenever you need it, just click on the Support icon inside your Dashboard</p>
+                    </div>
+                    <div class="itemBx3">
+                        <img src="assets/images/icons/uploader.svg" class="img-item" alt="">
+                        <p>We bring your products and services, customers to bookfon from your actual software. <strong>Free charge.</strong></p>
+                    </div>
+                    <div class="itemBx3">
+                        <img src="assets/images/icons/calendar.svg" class="img-item" alt="">
+                        <p>Activate your sales channels and value-added marketing services so you can <strong>hit the target.</strong></p>
+                    
+                        <button class="btn btn-primary" style="margin-top: 0px; margin-bottom: 20px;">
+                            START NOW!
+                        </button>
+                        <br>
+                    </div>
+                
+                </div>
+            </div>
+        </form>
+
+    </div>
+</section>

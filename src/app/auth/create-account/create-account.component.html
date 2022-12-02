@@ -1,0 +1,81 @@
+<section>
+    
+    <div class="imgBox">
+        <img src="assets/images/bookfons/bg-login.jpg" alt="lg.png">
+    </div>
+    <div class="contentBx">
+        <div class="logo">
+            <img src="assets/images/bookfons/bookfon.png" alt="logo.png">
+        </div>
+
+        <form action="" [formGroup]="createForm" (ngSubmit)="submit()">
+            <div class="formBx">
+                <div class="headerBx">
+                    <h5>Create an Bookfon account</h5>
+                    <p style="font-size: 12px;">
+                        Use Bookfon and all our products
+                    </p>
+                </div>
+                <div class="bodyBx">
+                    <div class="itemBx4">
+                        
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Email address (User ID)</label>
+                            <input type="email" class="form-control" placeholder="mail@mail.com" value=""
+                                formControlName="email"><br>
+                            <span *ngIf="validInput('email')" class="text-danger mt-2">
+                                Campo requerido.
+                            </span>
+                            <span *ngIf="validEmail('email')" class="text-danger mt-2">
+                                Email no valido.
+                            </span>
+                        </div>
+                        
+                        <div class="mb-2">
+                            <label for="exampleFormControlInput1" class="form-label">Mobile number</label>
+                            <input type="text" class="form-control mb-2" id="exampleFormControlInput1" 
+                                    placeholder="(201) 666-1789"
+                                    mask="(000) 000 - 0000" formControlName="phone_number"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                            <span *ngIf="validInput('phone_number')" class="text-danger mt-2">
+                                Campo requerido.
+                            </span>
+                            <span *ngIf="validInputMin('phone_number')" class="text-danger mt-2">
+                                Mínimo 10 carácteres.
+                            </span>
+                        </div>
+                
+                        <div class="mb-2" style="margin-top: 1rem !important;">
+                            <label for="exampleFormControlInput1" class="form-label">Password</label>
+                            <input type="password" class="form-control mb-2" id="exampleFormControlInput1" placeholder="XXXXXXXXXXX"
+                                    formControlName="password">
+                            <span *ngIf="validInput('password')" class="text-danger mt-2">
+                                Campo requerido.
+                            </span>
+                            <span *ngIf="validInputMin('password')" class="text-danger mt-2">
+                                Mínimo 6 carácteres.
+                            </span>
+                        </div>
+                
+                        <button class="btn btn-primary" style="margin-bottom: 10px;"
+                                [disabled]="createForm.invalid">
+                            ONE MORE STEP
+                        </button>
+                
+                        <p>
+                            By selecting One more step, you agree to our terms and have read and acknowledge our <a>Global Privacy Statement.</a>
+                        </p>
+                        <p>
+                            Adding a company to an existing account? <a [routerLink]="'/auth/login'">Sign in</a>
+                        </p>
+                    </div>
+                    <div class="footerBx">
+                        <div class="divGrays">
+                            Invisible reCAPTCHA by Google <a>Privacy Policy</a> and <a>Terms of Use</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
