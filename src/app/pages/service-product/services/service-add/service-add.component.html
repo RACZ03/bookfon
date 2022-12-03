@@ -82,7 +82,7 @@
        </div>
     </div>
     <div class="row border-bottom border-3">
-        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
             <div class="mb-3">
                 <label class="small" for="">Duration</label><br>
                 <input class="timer" type="time" id="appt" name="appt" min="06:00" max="24:00" required style="text-align: center;">
@@ -96,15 +96,16 @@
                     </div>
                   </div>
             </div>
-            <div class="btn-group btn-group-toggle mt-4" data-toggle="buttons">
-                <label class="btn btn-secondary me-4 ms-4" style="height: 41px; border-radius: 10px; width: 112px; background-color: #F9F9F9; color: black;">
-                  <input type="radio" name="options" id="option1" autocomplete="off" style="display: none;"> One time
-                </label>
-                <label class="btn btn-secondary" style="height: 41px; border-radius: 10px; width: 112px; background-color: #F9F9F9; color: black;">
-                  <input type="radio" name="options" id="option2" autocomplete="off" style="display: none;"> Recurring
-                </label>
-            </div>
-            <div class="mb-3 ms-3">
+            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 112px;">
+              <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio1">Onetime</label>
+               <div class="ms-4"></div>
+              <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio2">Recurring</label>
+           </div>
+          </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+            <div class="mb-3 ps-0">
                 <label>Billing period</label><br>
                 <select class="form-select" aria-label="Default select example" style="width: 170px; height: 41px;">
                     <option selected>Baseball</option>
@@ -119,7 +120,7 @@
                     Add /Create Tax Rate
                 </button>
             </div>
-        </div>
+          </div>
         <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
         font-weight: 600; font-size: 12px;">+ Add more currencies</button>
         <span class="mb-3" style="font-size: 12px; margin-left: 15%;">This is a suggested price based on today’s exchange rate. <br> Price won’t automatically update if exchange rate changes.</span>
@@ -141,14 +142,13 @@
                     </div>
                   </div>
             </div>
-            <div class="btn-group btn-group-toggle mt-4" data-toggle="buttons">
-                <label class="btn btn-secondary me-4 ms-4" style="height: 41px; border-radius: 10px; width: 112px; background-color: #F9F9F9; color: black;">
-                  <input type="radio" name="options" id="option1" autocomplete="off" style="display: none;"> One time
-                </label>
-                <label class="btn btn-secondary" style="height: 41px; border-radius: 10px; width: 112px; background-color: #F9F9F9; color: black;">
-                  <input type="radio" name="options" id="option2" autocomplete="off" style="display: none;"> Recurring
-                </label>
-            </div>
+            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 112px;">
+              <input type="radio" class="btn-check" name="btnradio2" id="btnR1" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnR1">Onetime</label>
+               <div class="ms-4"></div>
+              <input type="radio" class="btn-check" name="btnradio2" id="btnR2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnR2">Recurring</label>
+           </div>
         </div>
         <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
         font-weight: 600; font-size: 12px;">+ Add more currencies</button>
@@ -156,7 +156,7 @@
     
     </div>
     <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
             <div class="mb-3">
                 <label class="small" for="">Duration</label><br>
                 <input class="timer" type="time" id="appt" name="appt" min="06:00" max="24:00" required style="text-align: center;">
@@ -170,24 +170,25 @@
                     </div>
                   </div>
             </div>
-            <div class="btn-group btn-group-toggle mt-4" data-toggle="buttons">
-                <label class="btn btn-secondary me-4 ms-4" style="height: 41px; border-radius: 10px; width: 112px; background-color: #F9F9F9; color: black;">
-                  <input type="radio" name="options" id="option1" autocomplete="off" style="display: none;"> One time
-                </label>
-                <label class="btn btn-secondary" style="height: 41px; border-radius: 10px; width: 112px; background-color: #F9F9F9; color: black;">
-                  <input type="radio" name="options" id="option2" autocomplete="off" style="display: none;"> Recurring
-                </label>
-            </div>
-            <div class="mb-3 ms-3">
-                <label>Billing period</label><br>
-                <select class="form-select" aria-label="Default select example" style="width: 170px; height: 41px;">
-                    <option selected>Baseball</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                  </select>
-            </div>
+            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 250px;">
+              <input type="radio" class="btn-check" name="btnrad" id="btnrad1" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnrad1">Onetime</label>
+               <div class="ms-4"></div>
+              <input type="radio" class="btn-check" name="btnrad" id="btnrad2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnrad2">Recurring</label>
+           </div>
         </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+        <div class="mb-3 ms-3">
+          <label>Billing period</label><br>
+          <select class="form-select" aria-label="Default select example" style="width: 170px; height: 41px;">
+              <option selected>Baseball</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+      </div>
+    </div>
         <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
         font-weight: 600; font-size: 12px;">+ Add more currencies</button>
         <span class="mb-3" style="font-size: 12px; margin-left: 15%;">This is a suggested price based on today’s exchange rate. <br> Price won’t automatically update if exchange rate changes.</span>

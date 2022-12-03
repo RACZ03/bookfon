@@ -19,6 +19,14 @@ import { SubcriptionsComponent } from './services/subcriptions/subcriptions.comp
 import { ServiceProductComponent } from './service-product.component';
 import { ServiceAddComponent } from './services/service-add/service-add.component';
 import { ServiceinitComponent } from './services/serviceinit/serviceinit.component';
+import { ListCategoriesComponent } from './services/categories/list-categories/list-categories.component';
+import { ListSubcategoriesComponent } from './services/sub-categories/list-subcategories/list-subcategories.component';
+import { ListClasificationsComponent } from './services/clasifications/list-clasifications/list-clasifications.component';
+import { ListTaxrateComponent } from './services/tax-rates/list-taxrate/list-taxrate.component';
+import { AddCategoriesComponent } from './services/categories/add-categories/add-categories.component';
+import { AddSubcategoriesComponent } from './services/sub-categories/add-subcategories/add-subcategories.component';
+import { AddClasificationsComponent } from './services/clasifications/add-clasifications/add-clasifications.component';
+import { AddTaxratesComponent } from './services/tax-rates/add-taxrates/add-taxrates.component';
 
 
 @NgModule({
@@ -40,6 +48,14 @@ import { ServiceinitComponent } from './services/serviceinit/serviceinit.compone
     ServiceProductComponent,
     ServiceAddComponent,
     ServiceinitComponent,
+    ListCategoriesComponent,
+    ListSubcategoriesComponent,
+    ListClasificationsComponent,
+    ListTaxrateComponent,
+    AddCategoriesComponent,
+    AddSubcategoriesComponent,
+    AddClasificationsComponent,
+    AddTaxratesComponent,
   ],
   imports: [
     CommonModule,
