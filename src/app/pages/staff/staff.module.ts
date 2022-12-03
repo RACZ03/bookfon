@@ -11,7 +11,20 @@ import { StaffRoutingModule } from './staff-routing.module';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileEditComponent } from './profile/profile/profile.component';
 
+import { FullCalendarModule, Theme } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
+import interactionPlugin from '@fullcalendar/interaction';
+import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+dayGridPlugin,
+timeGridPlugin,
+listPlugin,
+interactionPlugin,
+bootstrap5Plugin
+]);
 
 @NgModule({
     declarations: [
@@ -27,7 +40,11 @@ import { ProfileEditComponent } from './profile/profile/profile.component';
     ],
     imports: [
         CommonModule,
-        StaffRoutingModule
-    ]
+        StaffRoutingModule,
+        FullCalendarModule
+    ],
+    exports: [
+      ScheduleComponent
+    ],
 })
 export class StaffModule { }
