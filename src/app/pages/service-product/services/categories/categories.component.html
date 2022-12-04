@@ -1,6 +1,49 @@
-<!--Lista categories-->
-<div class="container">
-  <app-list-categories></app-list-categories>
-</div>
-<!--Add Categories Principal-->
+<!--add categories-->
+<div class="modal fade" id="modalNewCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <app-add-categories></app-add-categories>
+</div>
+<!--List Categories-->
+<div class="container">
+  <div class="col-12">
+      <button class="btn btn-add " (click)="showModalCategoriesAdd(true)">
+          <i class="bi bi-plus"></i>
+          Add new Categories
+      </button>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th  class="align-middle text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <td class="align-middle">
+                    <div class="ms-3">
+                        <label for="" class="td-name">{{item.name}}</label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                  <div class="ms-3">
+                      <label for="" class="td-name">{{item.Descripcion}}</label>
+                  </div>
+              </td>
+              <td class="align-middle text-center">
+                <button class="btn btn-sm btn-ng-primary" >
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="btn btn-sm ms-2 btn-ng-danger">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+                <button class="btn btn-sm ms-2 btn-ng-primary">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
