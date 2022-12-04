@@ -24,13 +24,16 @@ export class UsersService {
     return this.connectionSvc.send('get', `users/${ id }`);
   }
 
+  findByEmail(email: string): Promise<any> {
+    return this.connectionSvc.send('get', `users/byEmail/${ email }/`);
+  }
+
   post(params: any): Promise<any> {
     return this.connectionSvc.send('post', 'users', params);
   }
 
   put(params: any): Promise<any> {
     let id = params.id;
-    delete params.id;
     return this.connectionSvc.send('put', `users/update/${ id }`, params);
   }
 
@@ -39,42 +42,33 @@ export class UsersService {
   }
 
   
-  uploadImage (file: any, data: any, band: any, isAdmin: any): Promise<any> {
-
-    // If there is a new image registration
-    if ( band ) {
-      let current = new Date().getTime();
-      this.filePath = `coach/${ file.name }-${ current }`;
-      const fileRef = this.storage.ref(this.filePath);
-      const task = this.storage.upload(this.filePath, file);
-      return new Promise ( (resolve, reject) => {
-        task.snapshotChanges()
-         .pipe(
-           finalize( async () => {
-             fileRef.getDownloadURL().subscribe( async urlImage => {
-              // let saveCoach = await this.post(data, urlImage, isAdmin);
-              
-              // if ( saveCoach.status == 200 ) {
-              //   resolve(saveCoach);
-              // } else {
-              //   resolve(saveCoach);
-              // }
-             })
-           })
-         )
-        .subscribe();
-      });
+  uploadImage(file: any, data: any, idAdmin: boolean = false): Promise<any> {
+    // method update image profile
+    let current = new Date().getTime();
+    if ( idAdmin ) {
+      this.filePath = `admin/${ file.name }-${ current }`;
     } else {
-      // 
-      return new Promise ( async (resolve, reject) => {
-        // let saveCoach = await this.save(data, file, isAdmin);
-        // if ( saveCoach.status == 200 ) {
-        //   resolve(saveCoach);
-        // } else {
-        //   resolve(saveCoach);
-        // }
-      });
+      this.filePath = `coach/${ file.name }-${ current }`;
     }
-
+    const fileRef = this.storage.ref(this.filePath);
+    const task = this.storage.upload(this.filePath, file);
+    return new Promise ( (resolve, reject) => {
+      task.snapshotChanges()
+        .pipe(
+          finalize( async () => {
+            fileRef.getDownloadURL().subscribe( async urlImage => {
+              data.image = urlImage;
+              let saveCoach = await this.put(data);
+              
+              if ( saveCoach.status == 200 ) {
+                resolve(saveCoach);
+              } else {
+                resolve(saveCoach);
+              }
+            })
+          })
+        )
+      .subscribe();
+    });
   }
 }
