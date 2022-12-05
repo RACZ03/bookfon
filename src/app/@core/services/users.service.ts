@@ -8,7 +8,7 @@ import { finalize } from 'rxjs';
   providedIn: 'root'
 })
 export class UsersService {
-  
+
   public filePath!: string;
 
   constructor(
@@ -41,7 +41,10 @@ export class UsersService {
     return this.connectionSvc.send('delete', `users/${ id }`);
   }
 
-  
+  getAllStaffByBusiness(businessCode: string): Promise<any>{
+    return this.connectionSvc.send('get', `public/v1/${businessCode}/allStaffByBusiness`);
+  }
+
   uploadImage(file: any, data: any, idAdmin: boolean = false): Promise<any> {
     // method update image profile
     let current = new Date().getTime();
@@ -59,7 +62,7 @@ export class UsersService {
             fileRef.getDownloadURL().subscribe( async urlImage => {
               data.image = urlImage;
               let saveCoach = await this.put(data);
-              
+
               if ( saveCoach.status == 200 ) {
                 resolve(saveCoach);
               } else {
