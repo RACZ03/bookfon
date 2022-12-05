@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ServiceProductComponent } from './service-product.component';
+import { ServiceAddComponent } from './services/service-add/service-add.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ServiceProductComponent,
-  }
+  },
+   { path: 'addService', component : ServiceAddComponent },
 ];
 
 @NgModule({

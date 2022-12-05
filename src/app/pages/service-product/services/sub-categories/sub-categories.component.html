@@ -1,4 +1,61 @@
-<!--list Subcategories-->
-<app-list-subcategories></app-list-subcategories>
-<!--Sub Categories-->
-<app-add-subcategories></app-add-subcategories>
+
+<!--add  Sub categories categories-->
+<div class="modal fade" id="modalNewSubCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-add-subcategories  [dataupdateSubCategories]="module" (onClose)="closeModalSubCategories($event)"></app-add-subcategories>
+    </div>
+    <!--List Categories-->
+    <div class="container">
+    
+      <div class="mt-5" style="display: flex; gap: 20px;">
+            <button class="btn btn-add" (click)="showModalSubCategoriesAdd(true)">
+                <i class="bi bi-plus"></i>
+                Add new Sub-Categories
+            </button>
+        <div class="container-seach">
+            <span class="input-group-text icon-search" id="basic-addon1" style="background: #fff;">
+                <i class="bi bi-search"></i>
+                <input class="form-control input-search ms-3" 
+                type="text" placeholder="Buscar..." aria-label="Search" style="border: none;"
+                (keyup)="searchData($event)">
+            </span>
+        </div>
+    </div>
+    
+      <div class="table-responsive">
+        <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"> 
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th class="align-middle text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td class="align-middle">
+                        <div class="ms-3">
+                            <label for="" class="td-name">{{item.name}}</label>
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                      <div class="ms-3">
+                          <label for="" class="td-name">{{item.description}}</label>
+                      </div>
+                  </td>
+                  <td class="align-middle text-center">
+                    <button class="btn btn-sm btn-ng-primary" (click)="onEditSubCategories(item?.id)" >
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class="btn btn-sm ms-2 btn-ng-danger">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                    <button class="btn btn-sm ms-2 btn-ng-primary">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    

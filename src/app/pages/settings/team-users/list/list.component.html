@@ -1,4 +1,67 @@
-<div class="row" style="margin-left: 0px;">
+<div class="modal fade" id="modalNewStaff" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <label>New Staff</label>
+      </div>
+      <div class="modal-body">
+        <div class="container-flex">
+          <form action="">
+            <div class="row mt-4">
+              <div class="col">
+                <label for="name" class="">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="name">
+              </div>
+              <div class="col">
+                <label for="last name" class="">last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="email">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col">
+                <label for="email" class="">Email</label>
+                <input type="text" class="form-control" id="email" placeholder="email">
+              </div>
+              <div class="col">
+                <label for="phone" class="">Phone</label>
+                <input type="text" class="form-control" id="phone" placeholder="phone">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col">
+                <label for="password" class="">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="password">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col">
+                <textarea name="profile" id="profile" style="width: 100%;" rows="5" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col">
+                <label for="Sex">Sex</label>
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                  <option value="3">Undefined</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4 offset-4">
+                <button type="submit" style="width: 100%" class="btn btn-success">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div div class="row" style="margin-left: 0px;">
     <div class="content-1" style="padding-left: 0px !important;">
         <ul class="scroll-menu" style="margin: 0px !important; padding: 0px !important">
             <li *ngFor="let item of scrollOptions; let i = index;" [ngClass]="{'active': item.active}"
@@ -7,7 +70,7 @@
             </li>
         </ul>
     </div>
-    
+
     <div class="content-2">
         <div [ngSwitch]="optionSelected">
             <div *ngSwitchCase="0">
@@ -26,7 +89,7 @@
                         </form>
                     </div>
                     <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
-                        <button class="btn btn-add">
+                        <button class="btn btn-add" (click)="showModal(true)">
                             <i class="bi bi-plus"></i>
                             Add new staff
                         </button>
@@ -40,7 +103,7 @@
                         <button class="btn btn-table">
                             <img src="assets/images/icons/download.svg" alt="">
                         </button>
-                        
+
                     </div>
                 </div>
                 <br>
@@ -53,12 +116,27 @@
                                 </th>
                                 <th>Mamber</th>
                                 <th>Roles</th>
-                                <th>Authentication</th>
                                 <th>Last login</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let item of userList">
+                                <td class="align-middle">
+                                    <input type="checkbox" name="" id="">
+                                </td>
+                                <td class="align-middle">
+                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                                    <label for="" class="td-name">{{item.firstName}} {{item.lastName}}</label><br>
+                                    <label for="" class="td-email">{{item.email}}</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">{{'role'}}</label>
+                                </td>
+                                <td class="align-middle">
+                                    <label for="">{{item.lastLogin}}</label>
+                                </td>
+                            </tr>
+                            <!-- <tr>
                                 <td class="align-middle">
                                     <input type="checkbox" name="" id="">
                                 </td>
@@ -69,9 +147,6 @@
                                 </td>
                                 <td class="align-middle">
                                     <label for="">Administrador</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">TOP-STEP</label>
                                 </td>
                                 <td class="align-middle">
                                     <label for="">September 22, 2022, 6:38 PM</label>
@@ -90,31 +165,9 @@
                                     <label for="">Administrador</label>
                                 </td>
                                 <td class="align-middle">
-                                    <label for="">TOP-STEP</label>
-                                </td>
-                                <td class="align-middle">
                                     <label for="">September 22, 2022, 6:38 PM</label>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="align-middle">
-                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
-                                    <label for="" class="td-name">Mario Harrinson</label><br>
-                                    <label for="" class="td-email">Marioharrison@mail.com</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">Administrador</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">TOP-STEP</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">September 22, 2022, 6:38 PM</label>
-                                </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
