@@ -78,4 +78,8 @@ export class UsersService {
       .subscribe();
     });
   }
+
+  changePassword(id: number, pass: string): Promise<any> {
+    return this.connectionSvc.send('put', `users/updatePassword/${ id }?password=${ pass }`);
+  }
 }
