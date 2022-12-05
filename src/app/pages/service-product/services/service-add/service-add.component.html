@@ -81,21 +81,149 @@
            </div>
        </div>
     </div>
-    <div class="row border-bottom border-3 ">
-        <div class="row">
-
-            <label class="small mb-1 ps-0" for="inputid_branchOfiice">Duration</label>
-            <input class="timer" type="time" id="appt" name="appt" min="06:00" max="24:00" required>
-  
-      
-                <label for="exampleInputEmail1" class="form-label ps-0">Price</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name" style="width: 112px;
-                height: 41px;
-                border: 1px solid #c2c2c2;
-                color: #7A7A7A;
-                border-radius: 5px;">
-
-
+    <div class="row border-bottom border-3">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+            <div class="mb-3">
+                <label class="small" for="">Duration</label><br>
+                <input class="timer" type="time" id="appt" name="appt" min="06:00" max="24:00" required style="text-align: center;">
+            </div>
+            <div class="mb-3 ms-2 ">
+                <label for="exampleInputEmail1" class="small">Price</label><br>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">USD</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 112px;">
+              <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio1">Onetime</label>
+               <div class="ms-4"></div>
+              <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnradio2">Recurring</label>
+           </div>
+          </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+            <div class="mb-3 ps-0">
+                <label>Billing period</label><br>
+                <select class="form-select" aria-label="Default select example" style="width: 170px; height: 41px;">
+                    <option selected>Baseball</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-add">
+                    <i class="bi bi-plus"></i>
+                    Add /Create Tax Rate
+                </button>
+            </div>
+          </div>
+        <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
+        font-weight: 600; font-size: 12px;">+ Add more currencies</button>
+        <span class="mb-3" style="font-size: 12px; margin-left: 15%;">This is a suggested price based on today’s exchange rate. <br> Price won’t automatically update if exchange rate changes.</span>
+     </div>
+     <div class="row border-bottom border-3">
+        <button type="button" class="mb-2 text-primary" style="width: 15%; background-color: rgba(255, 248, 220, 0); border: 0;
+        font-weight: 600; font-size: 12px;">+ Add more currencies</button>
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+            <div class="mb-3">
+                <label class="small" for="">Duration</label><br>
+                <input class="timer" type="time" id="appt" name="appt" min="06:00" max="24:00" required style="text-align: center;">
+            </div>
+            <div class="mb-3 ms-2 ">
+                <label for="exampleInputEmail1" class="small">Price</label><br>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">USD</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 112px;">
+              <input type="radio" class="btn-check" name="btnradio2" id="btnR1" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnR1">Onetime</label>
+               <div class="ms-4"></div>
+              <input type="radio" class="btn-check" name="btnradio2" id="btnR2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnR2">Recurring</label>
+           </div>
         </div>
+        <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
+        font-weight: 600; font-size: 12px;">+ Add more currencies</button>
+        <span class="mb-3" style="font-size: 12px; margin-left: 15%;">This is a suggested price based on today’s exchange rate. <br> Price won’t automatically update if exchange rate changes.</span>
+    
     </div>
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+            <div class="mb-3">
+                <label class="small" for="">Duration</label><br>
+                <input class="timer" type="time" id="appt" name="appt" min="06:00" max="24:00" required style="text-align: center;">
+            </div>
+            <div class="mb-3 ms-2 ">
+                <label for="exampleInputEmail1" class="small">Price</label><br>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">USD</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 250px;">
+              <input type="radio" class="btn-check" name="btnrad" id="btnrad1" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnrad1">Onetime</label>
+               <div class="ms-4"></div>
+              <input type="radio" class="btn-check" name="btnrad" id="btnrad2" autocomplete="off">
+              <label class="btn btn-outline-primary" for="btnrad2">Recurring</label>
+           </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+        <div class="mb-3 ms-3">
+          <label>Billing period</label><br>
+          <select class="form-select" aria-label="Default select example" style="width: 170px; height: 41px;">
+              <option selected>Baseball</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+      </div>
+    </div>
+        <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
+        font-weight: 600; font-size: 12px;">+ Add more currencies</button>
+        <span class="mb-3" style="font-size: 12px; margin-left: 15%;">This is a suggested price based on today’s exchange rate. <br> Price won’t automatically update if exchange rate changes.</span>
+  
+        <div style="display: flex;">
+          <button type="button" class="ms-2 text-primary" style="width: 15%; background-color: rgba(255, 248, 220, 0); border: 0;
+            font-weight: 600; font-size: 12px;">+ Add free trial</button>
+           <button type="button" class="ms-2 text-primary" style="width: 15%; background-color: rgba(255, 248, 220, 0); border: 0;
+            font-weight: 600; font-size: 12px;">+ Add free trial</button>
+            <button type="button" class="ms-2 text-primary" style="width: 15%; background-color: rgba(255, 248, 220, 0); border: 0;
+            font-weight: 600; font-size: 12px;">+ Add free trial</button>
+         </div>
+ </div>
+    <div class="row border-bottom border-3">
+        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
+            <div class="mb-3 ms-2 ">
+                <label for="exampleInputEmail1" class="small">Price</label><br>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="1" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">One time</span>
+                    </div>
+                  </div>
+            </div>
+            <div class="mb-3 ms-2 ">
+                <label for="exampleInputEmail1" class="small">Price</label><br>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="1" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">Recurring</span>
+                    </div>
+                  </div>
+            </div>
+   
+        </div>
+     </div>
 </div>
+

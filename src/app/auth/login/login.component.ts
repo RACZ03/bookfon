@@ -106,7 +106,7 @@ export class LoginComponent implements OnInit {
   nextHome(item: any) {
     // set business in localstorage
     localStorage.setItem('businessSelected', JSON.stringify(item));
-    this.router.navigate(['/pages/home']);
+    this.router.navigate(['pages/home']);
   }
 
   /* SECTION VALIDATIONS */

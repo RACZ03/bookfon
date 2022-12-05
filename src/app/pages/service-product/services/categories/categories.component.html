@@ -1,22 +1,49 @@
-<div class="card shadow-sm">
- <div class="row m-5">
-    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Name</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-          </div>
-    </div>
-    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center;
-                                                                       position: absolute;
-                                                                       bottom: 0;
-                                                                       right: 0;
-                                                                       margin-bottom: 75px;" >
-      <button type="button" class="btn btn-success mb-3">Save and add more</button>
-      <button type="button" class="btn btn-primary">Save service</button>
-    </div>
- </div>
+<!--add categories-->
+<div class="modal fade" id="modalNewCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<app-add-categories></app-add-categories>
+</div>
+<!--List Categories-->
+<div class="container">
+  <div class="col-12">
+      <button class="btn btn-add " (click)="showModalCategoriesAdd(true)">
+          <i class="bi bi-plus"></i>
+          Add new Categories
+      </button>
+  </div>
+  <div class="table-responsive">
+    <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"> 
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th  class="align-middle text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data">
+                <td class="align-middle">
+                    <div class="ms-3">
+                        <label for="" class="td-name">{{item.name}}</label>
+                    </div>
+                </td>
+                <td class="align-middle">
+                  <div class="ms-3">
+                      <label for="" class="td-name">{{item.description}}</label>
+                  </div>
+              </td>
+              <td class="align-middle text-center">
+                <button class="btn btn-sm btn-ng-primary" >
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="btn btn-sm ms-2 btn-ng-danger">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+                <button class="btn btn-sm ms-2 btn-ng-primary">
+                    <i class="bi bi-eye"></i>
+                </button>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </div>

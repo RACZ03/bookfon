@@ -1,6 +1,7 @@
 .container{
 
     margin-top: 15px;
+    color: #7A7A7A;
     h5{
         font-weight: 800;
         color: #181C33;
@@ -58,6 +59,17 @@
             color: #7A7A7A;
             border-radius: 5px;
         }
+       
+        
+       .btn-add {
+           border-style: dashed;
+           border-width: 1px;
+           border-color: #1F72EA;
+           color: #1F72EA;
+           padding: 6px 30px;
+           margin-top: 24px;
+           margin-left: 15px;
+       }
     }
 
    
