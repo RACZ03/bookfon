@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/@core/services/users.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
 
 @Component({
   selector: 'app-general',
@@ -16,7 +17,8 @@ export class GeneralComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userSvc: UsersService
+    private userSvc: UsersService,
+    private alertSvc: AlertService
   ) { 
     this.identity = JSON.parse(localStorage.getItem('identity') || '{}');
     this.roleList = this.identity?.roleList;
@@ -24,36 +26,40 @@ export class GeneralComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileForm = this.initForm();
+    setTimeout(() => {
+      console.log(this.identity)
+      this.updateDataUser();
+    }, 1000);
   }
 
   async handleSave() {
     if (this.profileForm.valid) {
       let resp = await this.userSvc.put(this.profileForm.value);
-      console.log(resp);
+      // console.log(resp);
     }
   }
 
+  handleInputFile() {
+    let input = document.getElementById('file') as HTMLInputElement;
+    input?.click();
+  }
   /* Upload file */
   async onFileSelected(event: any) {
     // get file selected and send to service
     let file = event.target.files[0];
-    let id = this.identity.id;
-    // let resp = await this.userSvc.uploadImage(file, id);
+    let resp = await this.userSvc.uploadImage(file, this.identity, this.isAdmin);
 
-    // console.log(resp);s
-    // if ( resp != null || resp != undefined ) {
-    //   let { status } = resp;
-    //   if ( status == 200 ) {
-    //     this.alertSvc.showAlert(1, resp?.message, 'Success')
-    //     this.identity.image_profile = resp?.image;
-    //     localStorage.setItem('identity', JSON.stringify(this.identity));
-    //     this.loadData();
-    //   } else {
-    //     this.alertSvc.showAlert(4, resp?.message, 'Error')
-    //   }
-    // } else {
-    //   this.alertSvc.showAlert(4, 'Error al guardar', 'Error')
-    // }
+    if ( resp != null || resp != undefined ) {
+      let { status } = resp;
+      if ( status == 200 ) {
+        this.alertSvc.showAlert(1, resp?.message, 'Success')
+        this.updateDataUser();
+      } else {
+        this.alertSvc.showAlert(4, resp?.message, 'Error')
+      }
+    } else {
+      this.alertSvc.showAlert(4, 'Error al guardar', 'Error')
+    }
   }
 
 
@@ -98,6 +104,14 @@ export class GeneralComponent implements OnInit {
         idSex: [(this.identity?.idSex !== null ? this.identity?.idSex : 0), [Validators.required]],      
       });
     }
+  }
+
+  async updateDataUser() {
+    console.log(this.identity);
+    let id = this.identity.id;
+    
+  //   let resp = await this.userSvc.findByEmail(this.identity?.email);
+  //   console.log(resp)
   }
 
 }

@@ -1,16 +1,16 @@
 <div class="card p-3 m-0 w-100">
-  <form class="row">
+  <form class="row" accept="file">
     <div class="col-md-4">
       <label for="name" class="">Name</label>
-      <input type="text" class="form-control" id="name" placeholder="name">
+      <input required type="text" class="form-control" id="name" placeholder="name">
     </div>
     <div class="col-md-4">
       <label for="last_name" class="">Last name</label>
-      <input type="text" class="form-control" id="last_name" placeholder="last name">
+      <input required type="text" class="form-control" id="last_name" placeholder="last name">
     </div>
     <div class="col-md-4">
       <label for="phone_number" class="">Phone number</label>
-      <input type="text" class="form-control" id="phone_number sm" placeholder="phone number">
+      <input required type="text" class="form-control" id="phone_number sm" placeholder="phone number">
     </div>
     <div class="col-md-4 mt-3">
       <label for="phone_number" class="">Image</label>
@@ -21,34 +21,33 @@
     </div>
     <div class="col-md-8 mt-3">
       <label for="review" class="">Review</label>
-      <textarea class="form-control" id="review" rows="3">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae dolores, dolorum quisquam quam placeat ducimus, veritatis quo sit odio provident ipsam fuga. Quia sint exercitationem tempore, ipsam minima dolor illum.
+      <textarea required class="form-control" id="review" rows="2" placeholder="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae dolores">
       </textarea>
     </div>
 
     <div class="col-md-4 mt-3">
       <label for="id" class="">ID</label>
-      <input type="text" class="form-control" id="id" placeholder="id">
+      <input required type="text" class="form-control" id="id" placeholder="id">
     </div>
     <div class="col-md-4 mt-3">
       <label for="email" class="">Email</label>
-      <input type="text" class="form-control" id="email" placeholder="email">
+      <input required type="text" class="form-control" id="email" placeholder="email">
     </div>
     <div class="col-md-4 mt-3">
       <label for="email" class="">Social security</label>
-      <input type="text" class="form-control" id="social-security" placeholder="social security">
+      <input required type="text" class="form-control" id="social-security" placeholder="social security">
     </div>
 
     <div class="col-md-12 mt-3">
       <label for="address" class="">Address</label>
-      <textarea class="form-control" id="address" rows="2">
+      <textarea required class="form-control" id="address" rows="2">
       Quia sint exercitationem tempore, ipsam minima dolor illum.
       </textarea>
     </div>
 
     <div class="col-md-4 mt-3">
       <label for="city" class="">City</label>
-      <select class="form-select" id="city">
+      <select required class="form-select" id="city">
         <option selected>Choose...</option>
         <option value="1">New York</option>
         <option value="2">Los Angeles</option>
@@ -57,7 +56,7 @@
     </div>
     <div class="col-md-4 mt-3">
       <label for="state" class="">State</label>
-      <select  class="form-select" id="state">
+      <select required class="form-select" id="state">
         <option selected>Choose...</option>
         <option value="1">New York</option>
         <option value="2">Los Angeles</option>
@@ -66,7 +65,10 @@
     </div>
     <div class="col-md-4 mt-3">
       <label for="zip" class="">Zip code</label>
-      <input type="text" class="form-control" id="zip" placeholder="zip code">
+      <input required type="text" class="form-control" id="zip" placeholder="zip code">
+    </div>
+    <div class="col-md-12 mt-3">
+      <button type="submit" class="btn btn-primary">Save</button>
     </div>
   </form>
 </div>
