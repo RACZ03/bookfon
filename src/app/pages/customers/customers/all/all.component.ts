@@ -87,6 +87,11 @@ export class AllComponent implements OnInit {
     this.dtTrigger.next(this.dtOptions);
   } 
 
+  /* Section: Edit customers */
+  openEdit() {
+    this.formModalEdit.show();
+  }
+
   /* Section: Modal Change Password */
   openModalChangePass(id: number): void {
     this.idSelected = id;

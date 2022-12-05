@@ -29,6 +29,14 @@ export class SendMessageComponent implements OnInit {
     return this.messageForm.get(name)?.touched && this.messageForm.get(name)?.errors?.['required'];
   }
 
+  validInputMin(name: string) {
+    return this.messageForm.get(name)?.touched && this.messageForm.get(name)?.errors?.['minlength'];
+  }
+
+  validInputMax(name: string) {
+    return this.messageForm.get(name)?.touched && this.messageForm.get(name)?.errors?.['maxlength'];
+  }
+
   initForms(): FormGroup {
     return this.fb.group({
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)] ],
@@ -70,14 +78,6 @@ export class SendMessageComponent implements OnInit {
 
   returnTo() {
     this.changePass.emit(false);
-  }
-
-  validInputMin(name: string) {
-    return this.messageForm.get(name)?.touched && this.messageForm.get(name)?.errors?.['minlength'];
-  }
-
-  validInputMax(name: string) {
-    return this.messageForm.get(name)?.touched && this.messageForm.get(name)?.errors?.['maxlength'];
   }
 
 }
