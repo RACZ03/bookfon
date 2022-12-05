@@ -22,17 +22,13 @@ export class CategoriesComponent implements OnInit {
 
   public data: any[] = [];
   public module: any = false;
-  public idSelected: number = 0; 
+  public idSelected: number = 0;
+  public title: string = 'New Category'; 
 
   public formModal: any;
   public formModalDelete: any;
   public permissions: any[]=[];
 
-
-  @Input() set dataupdateCategories(value: any) {
-    if ( value !== null || value !== undefined )
-      this.loadDataForm(value);
-  }
 
 
   constructor(
@@ -61,36 +57,12 @@ export class CategoriesComponent implements OnInit {
     );
   }
 
-
-  loadDataForm(data: any = null) {
-    if ( this.ServiceSvr == undefined )
-      return;
-
-   // this.title = ( data == null || data == undefined ) ? 'Nuevo Servicio' : 'Actualizar Servicio';
-
-   // this.branchOfficeU = data?.offices
-   // let arrayOffices :any [] = [];
-   // if(this.branchOfficeU !== undefined){
-   //  for (let i = 0; i < this.branchOfficeU?.length; i++) {
-   //    arrayOffices.push(this.branchOfficeU[i].id) 
-   //  }
-   // }
-   // this.Serviceadd.reset({
-   //  id: (data == null) ? 0 : data?.id,
-   //  name: (data == null) ? '' : data?.name,
-   //  description: (data == null) ? '' : data?.description,
-   //  minutes: (data == null) ? '' : data?.minutes,
-   //  color: (data == null) ? '' : data?.color,
-   //  brachoffices: (arrayOffices == null) ? [] : arrayOffices,
-   // });
-  }
-
   closeModalCategories(band: boolean) {
     if ( band )
       this.formModal.hide();
 
-   //this.renderer();
-   //this.loadData();
+   this.renderer();
+   this.loadData();
   }
 
   showModalCategoriesAdd(e: boolean) {
@@ -103,21 +75,28 @@ export class CategoriesComponent implements OnInit {
 
   async loadData() {
     this.data = [];
-      let resp = await this.ServiceSvr.getData();
-      console.log(resp);
-      if ( resp != undefined || resp != null ) {
-        if ( resp.status === 404 ) {
-          this.alertSvc.showAlert(4, resp.statusText, 'Error');
-        } else {
+      let resp = await this.ServiceSvr.getDataCategory();
           let { data } = resp;
-          if ( data !== undefined ) {
-            this.data = data || [];
-          }
-        }
-      } else {
-       this.alertSvc.showAlert(3, 'No results found', '');
-      }
+            this.data =data || [];
+            console.log(this.data);
     this.dtTrigger.next(this.dtOptions);
+  }
+
+  async onEditCategories(id: number) {
+    let resp = await this.ServiceSvr.findById(id);
+    if ( resp != undefined ) {
+      let { data, status } = resp;
+
+      if ( status !== undefined && status === 200 ) {
+          this.module = data;
+          this.formModal.show();
+      } else {
+        this.alertSvc.showAlert(4, resp?.comment, 'Error');
+      }
+    } else {
+      this.alertSvc.showAlert(4, 'Error', 'Error');
+    }
+    
   }
 
   /* Section Render & Destoy */
@@ -129,7 +108,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    // this.renderer
+    this.renderer
     this.dtTrigger.unsubscribe();
   }
   
