@@ -9,14 +9,14 @@ export class CustomersListComponent implements OnInit {
 
   public scrollOptions: any[] = [
     { title: 'All', active: true },
-    { title: 'Account', active: false },
-    { title: 'Teams', active: false },
-    { title: 'Top Customers', active: false },
-    { title: 'Repeat Custumers', active: false },
-    { title: 'First-time Custumers', active: false },
-    { title: 'Recent Customers', active: false },
-    { title: 'High Refunds', active: false },
-    { title: 'High Disputes', active: false },
+    // { title: 'Account', active: false },
+    // { title: 'Teams', active: false },
+    // { title: 'Top Customers', active: false },
+    // { title: 'Repeat Custumers', active: false },
+    // { title: 'First-time Custumers', active: false },
+    // { title: 'Recent Customers', active: false },
+    // { title: 'High Refunds', active: false },
+    // { title: 'High Disputes', active: false },
   ];
   public optionSelected: number = 0;
 
