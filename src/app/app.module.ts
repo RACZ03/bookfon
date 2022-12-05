@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import { DataTablesModule } from "angular-datatables";
 
 /* libs */
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +39,7 @@ import { environment } from 'src/environments/environment';
     ), // ToastrModule added
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule, // storage
+    DataTablesModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
