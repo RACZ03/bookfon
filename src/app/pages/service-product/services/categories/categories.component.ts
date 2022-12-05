@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ServicesService } from 'src/app/@core/services/services.service';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { AlertService } from 'src/app/@core/utils/alert.service';
 declare var window: any;
 
 @Component({
@@ -10,10 +13,14 @@ declare var window: any;
 })
 export class CategoriesComponent implements OnInit {
 
- //dtOptions: DataTables.Settings = {};
- //dtTrigger: Subject<any> = new Subject<any>();
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
 
-   public data: any[] = [];
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+
+
+  public data: any[] = [];
   public module: any = false;
   public idSelected: number = 0; 
 
@@ -31,7 +38,21 @@ export class CategoriesComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private ServiceSvr : ServicesService,
-  ) { }
+    private alertSvc : AlertService,
+  ) {
+    this.dtOptions = {
+      // pagingType: 'full_numbers',
+      pagingType: "simple_numbers",
+      pageLength: 5,
+      scrollX: true,
+      autoWidth: false,
+      destroy: true,
+      responsive: true,
+      dom: 'Bfrtip',
+      searching: true,
+      info: false,
+  }
+   }
 
   ngOnInit(): void {
     this.loadData();
@@ -86,7 +107,7 @@ export class CategoriesComponent implements OnInit {
       console.log(resp);
       if ( resp != undefined || resp != null ) {
         if ( resp.status === 404 ) {
-         // this.alertSvc.showAlert(4, resp.statusText, 'Error');
+          this.alertSvc.showAlert(4, resp.statusText, 'Error');
         } else {
           let { data } = resp;
           if ( data !== undefined ) {
@@ -94,9 +115,28 @@ export class CategoriesComponent implements OnInit {
           }
         }
       } else {
-        //this.alertSvc.showAlert(3, 'No results found', '');
+       this.alertSvc.showAlert(3, 'No results found', '');
       }
-   // this.dtTrigger.next(this.dtOptions);
+    this.dtTrigger.next(this.dtOptions);
+  }
+
+  /* Section Render & Destoy */
+  renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+  });
+  }
+
+  ngOnDestroy(): void {
+    // this.renderer
+    this.dtTrigger.unsubscribe();
   }
   
+  searchData(e: any) {
+    let value = e.target.value;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.search(value).draw();
+    });
+  }
 }

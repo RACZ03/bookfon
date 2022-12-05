@@ -22,9 +22,8 @@ export class ServicesService {
   }
 
   getData(): Promise<any> {
-    let identity = JSON.parse(localStorage.getItem('identity') || '{}');
-    console.log(identity);
-    return this.connectionSvc.send('get', 'allCategoriesRServices');
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    return this.connectionSvc.send('get', `catalogs/byRefAndBusiness/${ identity.code }?ref=CATEGORY`);
   }
 
   findById(id: number): Promise<any> {
