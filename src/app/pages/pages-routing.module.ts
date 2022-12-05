@@ -33,6 +33,13 @@ const routes: Routes = [
         // , canLoad: [AdminGuard]
       },
       {
+        path: 'staff', loadChildren: () => import('./staff/staff.module').then(m => m.StaffModule)
+      },
+      {
+        path: 'services', loadChildren: () => import('./service-product/service-product-routing.module').then(m => m.ServiceProductRoutingModule)
+        // , canLoad: [AdminGuard]
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

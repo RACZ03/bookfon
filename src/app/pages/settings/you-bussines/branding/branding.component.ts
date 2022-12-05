@@ -6,6 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./branding.component.scss']
 })
 export class BrandingComponent implements OnInit {
+  public showCustomer = false;
+  public showInvoicePay = false;
+  public showInvoicPdf = false;
+  public showIdentity = false;
+
 
   constructor() { }
 

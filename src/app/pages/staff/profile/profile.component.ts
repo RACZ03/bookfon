@@ -6,10 +6,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-
+  public scrollOptions: any[] = [
+    { title: 'Profile', active: true },
+    { title: 'Schedule', active: false },
+    { title: 'Availability', active: false },
+    { title: 'Services', active: false },
+    { title: 'Branches', active: false },
+  ];
+  public optionSelected: number = 0;
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  changeOptions(e: any, index: number) {
+    for (let i = 0; i < this.scrollOptions.length; i++) {
+      this.scrollOptions[i].active = false;
+
+      if ( i == index )
+        this.scrollOptions[i].active = true;
+    }
+    this.optionSelected = index;
+  }
 }
