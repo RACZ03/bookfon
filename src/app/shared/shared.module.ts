@@ -4,13 +4,15 @@ import { ThemeModule } from '../@theme/theme.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
+import { SendMessageComponent } from './components/send-message/send-message.component';
 
 
 
 @NgModule({
   declarations: [
     ModalDeleteComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    SendMessageComponent,
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { ModalDeleteComponent } from './components/modal-delete/modal-delete.com
   ],
   exports:[
     ModalDeleteComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    SendMessageComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

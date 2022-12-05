@@ -25,7 +25,7 @@ import { AddSubcategoriesComponent } from './services/sub-categories/add-subcate
 import { AddClasificationsComponent } from './services/clasifications/add-clasifications/add-clasifications.component';
 import { AddTaxratesComponent } from './services/tax-rates/add-taxrates/add-taxrates.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTablesModule } from "angular-datatables";
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
