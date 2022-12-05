@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { CustomersComponent } from './customers.component';
 import { CustomerRoutingModule } from './customers-routing.module';
 import { CustomersListComponent } from './customers/customers.component';
-import { AccountsComponent } from './accounts/accounts.component';
 import { TeamsComponent } from './customers/teams/teams.component';
 import { TopCustomersComponent } from './customers/top-customers/top-customers.component';
 import { RepeatCustomersComponent } from './customers/repeat-customers/repeat-customers.component';
@@ -13,6 +12,7 @@ import { HighRefundsComponent } from './customers/high-refunds/high-refunds.comp
 import { HighDisputesComponent } from './customers/high-disputes/high-disputes.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AllComponent } from './customers/all/all.component';
+import { AccountsComponent } from './accounts/accounts.component';
 @NgModule({
   imports: [
     CommonModule,
