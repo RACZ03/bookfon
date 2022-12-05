@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
+  public identity: any;
   constructor() { }
 
   ngOnInit(): void {
+    let data = localStorage.getItem('identity') || '{}';
+    this.identity = JSON.parse(data);
+    console.log(this.identity);
   }
 
 }
