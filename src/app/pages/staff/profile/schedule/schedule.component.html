@@ -1,1 +1,10 @@
-<p>schedule works!</p>
+<div class="w-100 mb-3">
+  <app-full-calendar
+  [events]="events"
+  (refreshEventEmitter)="refreshEventEmitter($event)"
+  (dateClickEventEmitter)="dateClickEventEmitter($event)"
+  (dropEventEmitter)="dropEventEmitter($event)"
+  (resizeEventEmitter)="resizeEventEmitter($event)"
+  (clickEventEmitter)="clickEventEmitter($event)">
+  </app-full-calendar>
+</div>
