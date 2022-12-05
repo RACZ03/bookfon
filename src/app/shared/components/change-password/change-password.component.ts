@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsersService } from 'src/app/@core/services/users.service';
 import { AlertService } from 'src/app/@core/utils/alert.service';
 
 @Component({
@@ -11,12 +12,12 @@ export class ChangePasswordComponent implements OnInit {
 
   passForm!: FormGroup;
   public id!: number;
-  @Input() title = 'Cambiar Contraseña';
+  @Input() title = 'Change Password';
   @Input() showUser = false;
-  // @Input() set setId (id) {
-  //   this.id = id;
-  //   // console.log(this.id)
-  // };
+  @Input() set setId (id: any) {
+    this.id = id;
+    
+  };
   @Output() changePass: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public fieldTextType: boolean = true;
@@ -26,13 +27,12 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    // private staffSvc: UsersService,
+    private userSvc: UsersService,
     private alertSvc: AlertService
   ) { }
 
   ngOnInit(): void {
     this.passForm = this.initForms();
-    // console.log(this.id)
   }
 
   changeType(input: any) {
@@ -96,16 +96,16 @@ export class ChangePasswordComponent implements OnInit {
 
 
   async onSubmit() {
-    // if ( this.passForm.invalid ) 
-    //   return
-    // let pass = this.passForm.get('password')?.value;
-    // let resp = await this.staffSvc.resetPassword(this.id, pass );
-    // if ( resp ) {
-    //   this.alertSvc.showAlert(1, 'Exito', 'Contraseña actualizada');
-    //   this.changePass.emit(true);
-    // } else {
-    //   this.alertSvc.showAlert(4, 'Error', 'No se pudo actualizar la contraseña');
-    // }
+    if ( this.passForm.invalid ) 
+      return
+    let pass = this.passForm.get('password')?.value;
+    let resp = await this.userSvc.changePassword(this.id, pass );
+    if ( resp ) {
+      this.alertSvc.showAlert(1, 'Success', 'Updated password');
+      this.changePass.emit(true);
+    } else {
+      this.alertSvc.showAlert(4, 'Error', 'Could not update password');
+    }
   }
 
   onClose() {
