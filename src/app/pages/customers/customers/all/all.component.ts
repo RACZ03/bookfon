@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { CustomersService } from 'src/app/@core/services/customers.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
+
+declare var window: any;
 
 @Component({
   selector: 'app-all',
@@ -7,9 +13,133 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AllComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  
+  public data: any[] = [];
+
+  public idSelected: number = 0;
+
+  public formModalEdit: any;
+  public formModalChangePass: any;
+  public formModalSendMessage: any;
+
+  public divPrincipal: boolean = true;
+  public divWallet: boolean = false;
+  public divSchedule: boolean = false;
+  public divSubCustomers: boolean = false;
+
+  constructor(
+    private customerSvc: CustomersService,
+    private alertSvc: AlertService
+  ) { 
+    this.loadData();
+    this.dtOptions = {
+      // pagingType: 'full_numbers',
+      pagingType: "simple_numbers",
+      pageLength: 5,
+      scrollX: true,
+      autoWidth: false,
+      destroy: true,
+      responsive: true,
+      dom: 'Bfrtip',
+      searching: true,
+      search: false,
+      info: false,
+    }
+  }
 
   ngOnInit(): void {
+    this.formModalEdit = new window.bootstrap.Modal(
+      document.getElementById('modalEditCustomer'), 
+    );
+    this.formModalChangePass = new window.bootstrap.Modal(
+      document.getElementById('modalChangePassCustomers')
+    );
+    this.formModalSendMessage = new window.bootstrap.Modal(
+      document.getElementById('modalSendMessage')
+    );
+  }
+
+  searchData(e: any) {
+    let value = e.target.value;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.search(value).draw();
+    });
+  }
+
+  async loadData() {
+    let resp = await this.customerSvc.getAllUsers();
+    console.log(resp);
+    if ( resp?. status == 200 ) {
+      let { data } = resp;
+      if ( data !== undefined ) {
+        this.data = data;
+        console.log(this.data);
+      }
+    } else {
+      this.alertSvc.showAlert(3,'', 'No data found');
+    }
+
+    this.dtTrigger.next(this.dtOptions);
+  } 
+
+  /* Section: Modal Change Password */
+  openModalChangePass(id: number): void {
+    this.idSelected = id;
+    this.formModalChangePass.show();
+  }
+
+  closeModalChangePass(band: boolean) {
+    if ( band )
+      this.formModalChangePass.hide();
+
+    this.idSelected = 0;
+    this.renderer();
+    this.loadData();
+  }
+
+  /* Section: Modal SEND SMS */
+  openSendSMS(): void {
+    this.formModalSendMessage.show();
+  }
+
+  /* Section Render & Destoy */
+  renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+  });
+  }
+
+  ngOnDestroy(): void {
+    // this.renderer
+    this.dtTrigger.unsubscribe();
+  }
+
+  /* ACTIONS */
+  openWallet() {
+    this.divPrincipal = false;
+    this.divWallet = true;
+    this.divSchedule = false;
+    this.divSubCustomers = false;
+  }
+
+  openSchedule() {
+    this.divPrincipal = false;
+    this.divWallet = false;
+    this.divSchedule = true;
+    this.divSubCustomers = false;
+  }
+
+  openSubCustomers() {
+    this.divPrincipal = false;
+    this.divWallet = false;
+    this.divSchedule = false;
+    this.divSubCustomers = true;
   }
 
 }

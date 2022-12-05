@@ -1,84 +1,127 @@
 
-<div class="row">
-    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-6 col-xs-12">
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Filter by name or email..." aria-label="Search">
-        </form>
-    </div>
-    <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
-        <!-- <button class="btn btn-add">
-            <i class="bi bi-plus"></i>
-            Add new staff
-        </button> -->
+<!-- Edit profile -->
+<div class="modal fade" id="modalEditCustomer" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- <app-add [dataUpdate]="module" (onClose)="closeModal($event)"></app-add> -->
+    <app-edit-customer></app-edit-customer>
+</div>
+<!-- End Edit Profile -->
 
-        <button class="btn btn-table">
-            <img src="assets/images/icons/settings2.svg" alt="">
-        </button>
-        <button class="btn btn-table">
-            <img src="assets/images/icons/pdf.svg" alt="">
-        </button>
-        <button class="btn btn-table">
-            <img src="assets/images/icons/download.svg" alt="">
-        </button>
-        
+<!-- Change Password -->
+<div class="modal fade" id="modalChangePassCustomers" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-change-password [setId]="idSelected" (changePass)="closeModalChangePass($event)"></app-change-password>
+</div>
+<!-- End Change Password -->
+
+<!-- Send Message -->
+<div class="modal fade" id="modalSendMessage" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-send-message></app-send-message>
+</div>
+<!-- End Message -->
+
+<!-- Content Principal -->
+<div *ngIf="divPrincipal">
+    <div class="row">
+        <div class="col-xl-5 col-lg-5 col-md-7 col-sm-6 col-xs-12">
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Filter by name" aria-label="Search" (keyup)="searchData($event)">
+            </form>
+        </div>
+        <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
+            <!-- <button class="btn btn-add">
+                <i class="bi bi-plus"></i>
+                Add new staff
+            </button> -->
+    
+            <button class="btn btn-table">
+                <img src="assets/images/icons/settings2.svg" alt="">
+            </button>
+            <button class="btn btn-table">
+                <img src="assets/images/icons/pdf.svg" alt="">
+            </button>
+            <button class="btn btn-table">
+                <img src="assets/images/icons/download.svg" alt="">
+            </button>
+            
+        </div>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+        <!-- <table class="table" style="width:100%" > -->
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" name="" id="">
+                    </th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data; let i = index">
+                    <td class="align-middle">
+                        <input type="checkbox" name="" id="">
+                    </td>
+                    <td class="align-middle">
+                        <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                        <label for="" class="td-name">{{ item?.fullName }}</label><br>
+                    </td>
+                    <td class="align-middle">
+                        <label for="">{{ item?.phone | mask:'(000) 000-0000' }}</label>
+                    </td>
+                    <td class="align-middle">
+                        <!-- <button class="btn btn-table">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button> -->
+                        <!-- <button class="btn btn-table">
+                            <i class="bi bi-envelope-at-fill"></i>
+                        </button> -->
+                        <button class="btn btn-table" (click)="openSendSMS()">
+                            <i class="bi bi-envelope"></i>
+                        </button>
+                        <button class="btn btn-table" (click)="openModalChangePass(item?.id)">
+                            <i class="bi bi-key-fill"></i>
+                        </button>
+                        <button class="btn btn-table" (click)="openSubCustomers()">
+                            <i class="bi bi-people-fill"></i>
+                        </button>
+                        <button class="btn btn-table" (click)="openSchedule()">
+                            <i class="bi bi-calendar2-week-fill"></i>
+                        </button>
+                        <button class="btn btn-table" (click)="openWallet()">
+                            <i class="bi bi-wallet2"></i>
+                        </button>
+                        <!-- <button class="btn btn-table">
+                            <i class="bi bi-toggle-on"></i>
+                            <i class="bi bi-toggle-off"></i>
+                        </button> -->
+                        <button class="btn btn-table">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-<br>
-<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    <input type="checkbox" name="" id="">
-                </th>
-                <th>Customer</th>
-                <th>Phone</th>
-                <th class="text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="align-middle">
-                    <input type="checkbox" name="" id="">
-                </td>
-                <td class="align-middle">
-                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
-                    <label for="" class="td-name">Mario Harrinson</label><br>
-                </td>
-                <td class="align-middle">
-                    <label for="">1584587825</label>
-                </td>
-                <td class="align-middle">
-                    <button class="btn btn-table">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-envelope-at-fill"></i>
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-envelope"></i>
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-key-fill"></i>
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-people-fill"></i>
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-calendar2-week-fill"></i>
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-wallet2"></i>
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-toggle-on"></i>
-                        <!-- <i class="bi bi-toggle-off"></i> -->
-                    </button>
-                    <button class="btn btn-table">
-                        <i class="bi bi-pencil-square"></i>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+<!-- End principal -->
+
+<!-- Content Wallet -->
+<div *ngIf="divWallet">
+    <label>WALLET</label>
 </div>
+<!-- End Content Wallet -->
+
+
+<!-- Content Schedule -->
+<div *ngIf="divSchedule">
+    <h1>Schedule</h1>
+</div>
+<!-- End Content Schedule -->
+
+<!-- Content Sub-customers -->
+<div *ngIf="divSubCustomers">
+    <h1>Sub customers</h1>
+</div>
+<!-- End Content Sub-customers -->
