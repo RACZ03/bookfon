@@ -10,14 +10,28 @@ import { FirstTimeCustomersComponent } from './customers/first-time-customers/fi
 import { RecentCustomersComponent } from './customers/recent-customers/recent-customers.component';
 import { HighRefundsComponent } from './customers/high-refunds/high-refunds.component';
 import { HighDisputesComponent } from './customers/high-disputes/high-disputes.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AllComponent } from './customers/all/all.component';
-import { AccountsComponent } from './accounts/accounts.component';
+import { AccountsComponent } from './customers/accounts/accounts.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { EditCustomerComponent } from './customers/all/edit-customer/edit-customer.component';
+import { WalletComponent } from './customers/all/wallet/wallet.component';
+import { ScheduleComponent } from './customers/all/schedule/schedule.component';
+import { SubCustomerComponent } from './customers/all/sub-customer/sub-customer.component';
+import { DataTablesModule } from 'angular-datatables';
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+
 @NgModule({
   imports: [
     CommonModule,
     CustomerRoutingModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
+    SharedModule,
+    DataTablesModule,
   ],
   declarations: [
     CustomersComponent,
@@ -30,7 +44,11 @@ import { AccountsComponent } from './accounts/accounts.component';
     FirstTimeCustomersComponent,
     RecentCustomersComponent,
     HighRefundsComponent,
-    HighDisputesComponent
+    HighDisputesComponent,
+    EditCustomerComponent,
+    WalletComponent,
+    ScheduleComponent,
+    SubCustomerComponent
   ]
 })
 export class CustomersModule { }
