@@ -33,15 +33,20 @@ export class ServicesService {
 
   postCategory(Category: any): Promise<any> {
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-
     let obj: any = { 
       name:Category.name,
       description: Category.description,
       catalogTypeRef: 'CATEGORY',
     }
     const params = JSON.stringify(obj);
-    
-    return this.connectionSvc.send('post', `catalogs/saveCatalogToBusiness/${identity.code}`, params);
+    if(Category.id !== 0 && Category.id !== null){
+      //catalogs/update/{{id}}
+      return this.connectionSvc.send('put', `catalogs/update/${Category.id}`, params);
+
+    }else{
+      return this.connectionSvc.send('post', `catalogs/saveCatalogToBusiness/${identity.code}`, params);
+    }
+
   }
 
   put(params: any): Promise<any> {

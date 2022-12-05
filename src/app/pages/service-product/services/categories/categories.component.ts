@@ -78,26 +78,22 @@ export class CategoriesComponent implements OnInit {
       let resp = await this.ServiceSvr.getDataCategory();
           let { data } = resp;
             this.data =data || [];
-            console.log(this.data);
+           // console.log(this.data);
     this.dtTrigger.next(this.dtOptions);
   }
 
-  async onEditCategories(id: number) {
-    let resp = await this.ServiceSvr.findById(id);
+  async onEditCategories(category: any) {
+    let resp = category;
     if ( resp != undefined ) {
-      let { data, status } = resp;
-
-      if ( status !== undefined && status === 200 ) {
-          this.module = data;
-          this.formModal.show();
-      } else {
-        this.alertSvc.showAlert(4, resp?.comment, 'Error');
-      }
-    } else {
-      this.alertSvc.showAlert(4, 'Error', 'Error');
+      this.module = resp;
+      this.formModal.show();
     }
     
+   this.renderer();
+   this.loadData();
   }
+    
+
 
   /* Section Render & Destoy */
   renderer() {
