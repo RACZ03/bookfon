@@ -1,4 +1,10 @@
-
-<div class="card p-3 m-0 w-100 mb-3">
-<full-calendar #calendarMonitor [options]="calendarOptions"></full-calendar>
+<div class="w-100 mb-3">
+  <app-full-calendar
+  [events]="events"
+  (refreshEventEmitter)="refreshEventEmitter($event)"
+  (dateClickEventEmitter)="dateClickEventEmitter($event)"
+  (dropEventEmitter)="dropEventEmitter($event)"
+  (resizeEventEmitter)="resizeEventEmitter($event)"
+  (clickEventEmitter)="clickEventEmitter($event)">
+  </app-full-calendar>
 </div>

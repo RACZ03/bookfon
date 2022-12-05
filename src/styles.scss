@@ -883,3 +883,58 @@ span{
   color: #1F72EA;
   padding: 6px 30px;
 }
+
+// custom full calendar
+.fc-col-header thead tr th {
+  width: 59px;
+  height: 69px;
+  background: #EBEBEB 0% 0% no-repeat padding-box;
+  opacity: 1;
+
+  a {
+    margin-top: 20px;
+    font: var(--unnamed-font-style-normal) normal bold 20px/27px var(--unnamed-font-family-poppins);
+    color: var(--unnamed-color-7a7a7a);
+    font: normal normal bold 20px/27px Poppins;
+    letter-spacing: 0.14px;
+    opacity: 1;
+    color: #7A7A7A !important;
+  }
+}
+.fc-toolbar-chunk button{
+  padding: 5px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid #E2E2EA;
+  color: #53504E;
+  width: 50px;
+}
+.fc-toolbar-chunk button{
+  padding: 5px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid #E2E2EA;
+  color: #53504E;
+  width: 55px;
+}
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+  color: #FFFFFF;
+  background-color: var(--bs-btn-active-bg);
+  border-color: var(--bs-btn-active-border-color);
+}
+.fc-toolbar-chunk h2{
+  height: 12px;
+  font: var(--unnamed-font-style-normal) normal bold 9px/13px var(--unnamed-font-family-poppins);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--unnamed-color-7a7a7a);
+  text-align: right;
+  font: normal normal bold 9px/13px Poppins;
+  letter-spacing: 0px;
+  color: #7A7A7A;
+  opacity: 1;
+}
+.fc-newEvent-button{
+  padding: 7px !important;
+  color: #7A7A7A;
+  opacity: 1 !important;
+}

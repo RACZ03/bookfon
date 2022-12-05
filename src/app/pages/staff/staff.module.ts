@@ -10,22 +10,7 @@ import { BranchesComponent } from './profile/branches/branches.component';
 import { StaffRoutingModule } from './staff-routing.module';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileEditComponent } from './profile/profile/profile.component';
-
-import { FullCalendarModule, Theme } from '@fullcalendar/angular';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import interactionPlugin from '@fullcalendar/interaction';
-import bootstrap5Plugin from '@fullcalendar/bootstrap5';
-
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-dayGridPlugin,
-timeGridPlugin,
-listPlugin,
-interactionPlugin,
-bootstrap5Plugin
-]);
-
+import {BootFonFullCalendarModule} from '../../shared/components/full-calendar/full-calendar.module';
 @NgModule({
     declarations: [
         StaffComponent,
@@ -41,7 +26,7 @@ bootstrap5Plugin
     imports: [
         CommonModule,
         StaffRoutingModule,
-        FullCalendarModule
+        BootFonFullCalendarModule
     ],
     exports: [
       ScheduleComponent
