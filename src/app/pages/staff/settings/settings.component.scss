@@ -1,6 +1,16 @@
-.content{
+.content {
   color: rgb(36, 34, 34);
-  .w-100-px{
+
+  .w-100-px {
     width: 100px;
+  }
+
+  label {
+    opacity: .65;
+    color: black;
+  }
+
+  input {
+    font-size: 12px;
   }
 }
