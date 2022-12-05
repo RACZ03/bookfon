@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // APIUrl: 'https://schema.postman.com/json/collection/v2.1.0', // <-- URL Production
-  APIUrl: 'http://bookfon-env.eba-kjzyjna4.us-east-1.elasticbeanstalk.com', // <-- URL Development
+  APIUrl: 'https://api.bookfon.com', // <-- URL Development
   firebaseConfig: {
     apiKey: "AIzaSyAL81QAR_z-odJJ4cNgJuPozc2H0gWPa7w",
     authDomain: "bpb-training.firebaseapp.com",
