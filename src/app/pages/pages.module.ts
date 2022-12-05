@@ -1,3 +1,4 @@
+import { BookfonServiceRoutingModule } from './bookfon-services/bookfon-service-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PagesComponent } from './pages.component';
@@ -12,13 +13,13 @@ import { ServiceProductModule } from './service-product/service-product.module';
 @NgModule({
   declarations: [
     PagesComponent,
-
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     ThemeModule,
-    ServiceProductModule
+    ServiceProductModule,
+    BookfonServiceRoutingModule
   ]
 })
 export class PagesModule { }

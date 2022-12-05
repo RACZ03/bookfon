@@ -10,9 +10,7 @@ import { BranchesComponent } from './profile/branches/branches.component';
 import { StaffRoutingModule } from './staff-routing.module';
 import { SettingsComponent } from './settings/settings.component';
 import { ProfileEditComponent } from './profile/profile/profile.component';
-
-
-
+import {BootFonFullCalendarModule} from '../../shared/components/full-calendar/full-calendar.module';
 @NgModule({
     declarations: [
         StaffComponent,
@@ -27,7 +25,11 @@ import { ProfileEditComponent } from './profile/profile/profile.component';
     ],
     imports: [
         CommonModule,
-        StaffRoutingModule
-    ]
+        StaffRoutingModule,
+        BootFonFullCalendarModule
+    ],
+    exports: [
+      ScheduleComponent
+    ],
 })
 export class StaffModule { }

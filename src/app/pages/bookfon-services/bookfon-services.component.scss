@@ -1,0 +1,47 @@
+#title{
+  color: black;
+  font-weight: bold;
+  text-align: left !important;
+}
+
+.icon-button{
+  background-color: gray;
+  width: 37px;
+  height: 37px;
+  border-radius: 20px;
+  margin-left: 20px;
+  margin-right: 10px;
+  border: none;
+
+  i{
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+  }
+}
+label{
+  color:black;
+}
+mdb-carousel-item{
+  div{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    div:hover{
+      background-color: rgb(226, 255, 221);
+      cursor: pointer;
+    }
+    img{
+      width: 40px;
+      height: 40px;
+      border: lightskyblue 2px solid;
+      border-radius: 20px;
+    }
+    label{
+      font-size: 10px;
+      color: gray;
+      font-weight: bold;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  }
+}
