@@ -40,6 +40,9 @@ const routes: Routes = [
         // , canLoad: [AdminGuard]
       },
       {
+        path: 'bookfon-services', loadChildren: () => import('./bookfon-services/bookfon-services.module').then(m => m.BookFonServiceModule)
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
