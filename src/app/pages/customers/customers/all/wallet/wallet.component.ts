@@ -54,8 +54,8 @@ export class WalletComponent implements OnInit {
     // get id from url
     this.route.params.subscribe(params => {
       this.idSelected = params['id'];
-      this.loadDataBalance();
       this.loadDataTransactions();
+      this.loadDataBalance();
     });
 
   }
@@ -70,11 +70,11 @@ export class WalletComponent implements OnInit {
 
   async loadDataBalance() {
     let resp = await this.TransactionSvc.getBalance(this.idSelected);
-    // console.log(resp);
+    // console.log(resp)
     if ( resp?. status == 200 ) {
       let { data } = resp;
       if ( data !== undefined ) {
-        this.balanceObj = data;
+        this.balanceObj = {...data};
       }
     } else {
       this.alertSvc.showAlert(3,'', 'No data found');
@@ -85,11 +85,16 @@ export class WalletComponent implements OnInit {
 
   async loadDataTransactions() {
     let resp = await this.TransactionSvc.getTransacciones(this.idSelected);
-    console.log(resp);
+    // console.log(resp);
     if ( resp?. status == 200 ) {
       let { data } = resp;
       if ( data !== undefined ) {
         this.data = data;
+
+        if ( this.data.length > 0 ) {
+          this.balanceObj = { idWallet: this.data[0]?.wallet?.id };
+          // console.log(this.balanceObj)
+        }
       }
     } else {
       this.alertSvc.showAlert(3,'', 'No data found');
@@ -101,5 +106,25 @@ export class WalletComponent implements OnInit {
   /*  OPEN MODAL RECHARGE  */
   openModalRecharge() {
     this.formModalRecharge.show();
+  }
+
+  closeModalRecharge() {
+    this.formModalRecharge.hide();
+    this.renderer();
+    this.loadDataTransactions();
+    this.loadDataBalance();
+  }
+
+   /* Section Render & Destoy */
+   renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+  });
+  }
+
+  ngOnDestroy(): void {
+    // this.renderer
+    this.dtTrigger.unsubscribe();
   }
 }

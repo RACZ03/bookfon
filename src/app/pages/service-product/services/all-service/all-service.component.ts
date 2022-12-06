@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ServicesService } from 'src/app/@core/services/services.service';
@@ -19,6 +20,7 @@ export class AllServiceComponent implements OnInit {
 
   constructor(
     private serviceSvr : ServicesService,
+    public router: Router,
 
   ) { 
    // this.permissions = this.permissionsSvc.getPermissions('services');
@@ -44,9 +46,13 @@ export class AllServiceComponent implements OnInit {
     this.data = [];
     let resp = await this.serviceSvr.getServicesByBusinesset();
       this.data = resp.data;
-      console.log(this.data);
+    //  console.log(this.data);
       this.dtTrigger.next(this.dtOptions);
 
+  }
+
+  editService(id: any){
+    this.router.navigate([`/pages/services/updateServices/${id}`]);
   }
 
 }
