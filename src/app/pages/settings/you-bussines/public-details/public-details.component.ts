@@ -27,16 +27,16 @@ export class PublicDetailsComponent implements OnInit {
       id: [''],
       publicBusinessName: ['', [Validators.required ]],
       supportEmail: ['', Validators.required],
-      supporPhoneNumber: ['', Validators.required],
-      supporAddress: ['', Validators.required],
+      // supporPhoneNumber: ['', Validators.required],
+      // supporAddress: ['', Validators.required],
       addressLine1: ['', Validators.required],
-      addressLine2: ['', Validators.required],
+      // addressLine2: ['', Validators.required],
       city: ['', Validators.required],
       state: ['', Validators.required],
       zipCode: ['', [Validators.required ]],
       statementDescriptor: ['', Validators.required],
       shortenedDescriptor: ['', Validators.required],
-      bussinessWebSide: ['', Validators.required],
+      // bussinessWebSide: ['', Validators.required],
       supporWebSide: ['', Validators.required],
       privacyPolicy: ['', Validators.required],
       termsService: ['', Validators.required],
@@ -51,16 +51,16 @@ export class PublicDetailsComponent implements OnInit {
       this.ModalForm.reset({
         publicBusinessName: data.name,
         supportEmail: data.supportEmail,
-        supporPhoneNumber: ['', Validators.required],
-        supporAddress: ['', Validators.required],
+        // supporPhoneNumber: '',
+        // supporAddress: '',
         addressLine1: data.address,
-        addressLine2: ['', Validators.required],
+        // addressLine2: '',
         city: data.city,
         state: data.state,
         zipCode: data.zipCode,
         statementDescriptor: data.longDescription,
         shortenedDescriptor: data.shortDescription,
-        bussinessWebSide: ['', Validators.required],
+        // bussinessWebSide: '',
         supporWebSide: data.supportWebsite,
         privacyPolicy: data.privacyPolicy,
         termsService: data.termsOfService
@@ -69,6 +69,8 @@ export class PublicDetailsComponent implements OnInit {
     console.log(resp);
   }
 
-  onUpdate(){}
+  onUpdate(){
+
+  }
 
 }
