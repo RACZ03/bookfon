@@ -10,26 +10,22 @@
                 <label class="small mb-1" for="inputPassword">Payment Amount<span class="text-danger">*</span></label>
                 <div class="input-group mb-3">
                     <input class="form-control" type="text" placeholder="Enter payment amount"
-                        formControlName="parmentAmount" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"/>
+                        formControlName="incomeAmount" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"/>
                 </div>
-                <span *ngIf="validInput('parmentAmount')" class="text-danger">
+                <span *ngIf="validInput('incomeAmount')" class="text-danger">
                     Required field
                 </span>
             </div>
             <div class="col-12 mt-2">
-                <label class="small mb-1" for="inputPasswordVerify">Cash Back Amount<span class="text-danger">*</span></label>
+                <label class="small mb-1" for="inputPasswordVerify">Cash Back Amount</label>
                 <div class="input-group mb-3">
                     <input class="form-control"type="text" placeholder="Enter cash back amount" 
-                        formControlName="cashBackAmount" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"/>
+                        formControlName="promotionAmount" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"/>
                 </div>
-                <span *ngIf="validInput('cashBackAmount')" class="text-danger">
-                    Required field
-                </span>
             </div>
             
             <div class="mt-4 mb-0 text-center">
-                <button class="btn btn-primary"
-                    [disabled]="rechargeForm.invalid">
+                <button class="btn btn-primary">
                     Send
                 </button>
             </div>
