@@ -11,6 +11,7 @@ import { AlertService } from 'src/app/@core/utils/alert.service';
 export class AddCategoriesComponent implements OnInit {
 
   public title: string = 'New Category';
+  public butonFalse = true;
 
 
   @Output() onClose = new EventEmitter<boolean>();
@@ -39,6 +40,10 @@ export class AddCategoriesComponent implements OnInit {
 
    this.title = ( data == null || data == undefined ) ? 'New Category' : 'Update  Category';
 
+   if(data?.id != null && data?.id != undefined){
+    this.butonFalse= false;
+   }
+
       this.Categoryadd.reset({
        id: (data == null) ? 0 : data?.id,
        name: (data == null) ? '' : data?.name,
@@ -46,10 +51,25 @@ export class AddCategoriesComponent implements OnInit {
       });
   }
 
+async addCategories(){
+    if ( this.Categoryadd.invalid ) 
+    return;
+
+    let resp = await this.ServiceSrv.postCategory(this.Categoryadd.value);
+    if ( resp != null || resp != undefined ) {
+      if(resp.status == 200){
+        this.alertSvc.showAlert(1, resp?.comment, 'Success')
+        this.loadDataForm();
+      }else{
+        this.alertSvc.showAlert(2, resp?.comment, 'Error')
+      }
+    }
+  }
+
+
   async onSubmit() {
     if ( this.Categoryadd.invalid ) 
       return
-
 
     // Send Data
    let resp = await this.ServiceSrv.postCategory(this.Categoryadd.value);
