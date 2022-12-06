@@ -27,7 +27,6 @@ export class SettingsComponent implements OnInit {
 
   async getUsers(){
     let resp = await this.userService.getAllStaffByBusiness(this.identity.businessList[0].code);
-    console.log(resp);
     if (resp.status === '200' && resp.data){
       this.users = resp.data;
     }
