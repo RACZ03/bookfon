@@ -157,7 +157,7 @@ export class ServiceAddComponent implements OnInit {
         return;
 
       let data = this.Serviceadd.value;
-      console.log(data.categories);
+     // console.log(data.categories);
       let categoriesnew: any []=[];
       let subcategoriesnew: any []=[];
       categoriesnew.push({id: data.categories});
