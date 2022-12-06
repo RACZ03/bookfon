@@ -21,6 +21,7 @@ import { InvoicepaymentComponent } from './you-bussines/branding/invoicepayment/
 import { InvoicePdfComponent } from './you-bussines/branding/invoice-pdf/invoice-pdf.component';
 import { IdentityComponent } from './you-bussines/branding/identity/identity.component';
 import { ChekoutComponent } from './you-bussines/branding/chekout/chekout.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -50,10 +51,13 @@ import { ChekoutComponent } from './you-bussines/branding/chekout/chekout.compon
     InvoicepaymentComponent,
     InvoicePdfComponent,
     CustomerComponent,
+    AccountComponent
     ],
   imports: [
     CommonModule,
-    SettingsRoutingModule
+    SettingsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class SettingsModule { }

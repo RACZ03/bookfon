@@ -45,6 +45,10 @@ export class UsersService {
     return this.connectionSvc.send('get', `public/v1/${businessCode}/allStaffByBusiness`);
   }
 
+  saveStaff(params: any, businessCode: string): Promise<any>{
+    return this.connectionSvc.send('post', `v1/business/${businessCode}/users/saveStaff?roleName=ROLE_${params.role}`, params)
+  }
+
   uploadImage(file: any, data: any, idAdmin: boolean = false): Promise<any> {
     // method update image profile
     let current = new Date().getTime();

@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { CustomersService } from 'src/app/@core/services/customers.service';
@@ -11,7 +12,7 @@ declare var window: any;
   templateUrl: './all.component.html',
   styleUrls: ['./all.component.scss']
 })
-export class AllComponent implements OnInit {
+export class AllComponent implements OnInit, OnDestroy {
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement!: DataTableDirective;
@@ -22,6 +23,7 @@ export class AllComponent implements OnInit {
   public data: any[] = [];
 
   public idSelected: number = 0;
+  public itemSelected: any = null;
 
   public formModalEdit: any;
   public formModalChangePass: any;
@@ -32,9 +34,12 @@ export class AllComponent implements OnInit {
   public divSchedule: boolean = false;
   public divSubCustomers: boolean = false;
 
+  public phoneNumberSelected: number = 0;
+
   constructor(
     private customerSvc: CustomersService,
-    private alertSvc: AlertService
+    private alertSvc: AlertService,
+    private router: Router
   ) { 
     this.loadData();
     this.dtOptions = {
@@ -73,12 +78,11 @@ export class AllComponent implements OnInit {
 
   async loadData() {
     let resp = await this.customerSvc.getAllUsers();
-    console.log(resp);
+    // console.log(resp);
     if ( resp?. status == 200 ) {
       let { data } = resp;
       if ( data !== undefined ) {
         this.data = data;
-        console.log(this.data);
       }
     } else {
       this.alertSvc.showAlert(3,'', 'No data found');
@@ -88,7 +92,8 @@ export class AllComponent implements OnInit {
   } 
 
   /* Section: Edit customers */
-  openEdit() {
+  openEdit(obj: any) {
+    this.itemSelected = obj;
     this.formModalEdit.show();
   }
 
@@ -108,7 +113,8 @@ export class AllComponent implements OnInit {
   }
 
   /* Section: Modal SEND SMS */
-  openSendSMS(): void {
+  openSendSMS( item: any ): void {
+    this.phoneNumberSelected = item.phone;
     this.formModalSendMessage.show();
   }
 
@@ -126,25 +132,12 @@ export class AllComponent implements OnInit {
   }
 
   /* ACTIONS */
-  openWallet() {
-    this.divPrincipal = false;
-    this.divWallet = true;
-    this.divSchedule = false;
-    this.divSubCustomers = false;
+  openSubCustomers( id: number ) {
+    this.router.navigateByUrl(`/pages/customers/sub-customers/${id}`);
   }
 
-  openSchedule() {
-    this.divPrincipal = false;
-    this.divWallet = false;
-    this.divSchedule = true;
-    this.divSubCustomers = false;
-  }
-
-  openSubCustomers() {
-    this.divPrincipal = false;
-    this.divWallet = false;
-    this.divSchedule = false;
-    this.divSubCustomers = true;
+  openWallet( id: number ) {
+    this.router.navigateByUrl(`/pages/customers/wallet/${id}`);
   }
 
 }

@@ -1,3 +1,4 @@
+<!-- Modal -->
 <div class="modal fade" id="modalNewStaff" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -6,52 +7,64 @@
       </div>
       <div class="modal-body">
         <div class="container-flex">
-          <form action="">
+          <form (ngSubmit)="onSaveStaff()" [formGroup]="ModalStaffForm">
             <div class="row mt-4">
               <div class="col">
                 <label for="name" class="">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="name">
+                <input formControlName="name" required type="text" class="form-control" id="name" placeholder="name">
               </div>
               <div class="col">
                 <label for="last name" class="">last name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="email">
+                <input formControlName="lastName" required type="text" class="form-control" id="lastName" placeholder="lastname">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col">
                 <label for="email" class="">Email</label>
-                <input type="text" class="form-control" id="email" placeholder="email">
+                <input formControlName="email" required type="text" class="form-control" id="email" placeholder="email">
               </div>
               <div class="col">
                 <label for="phone" class="">Phone</label>
-                <input type="text" class="form-control" id="phone" placeholder="phone">
+                <input formControlName="phone" required type="text" class="form-control" id="phone" placeholder="phone">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col">
                 <label for="password" class="">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="password">
+                <input formControlName="password" required type="password" class="form-control" id="password" placeholder="password">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col">
-                <textarea name="profile" id="profile" style="width: 100%;" rows="5" class="form-control"></textarea>
+                <label for="password" class="">Profile</label>
+                <textarea formControlName="profile" required name="profile" id="profile" style="width: 100%;" rows="5" class="form-control"></textarea>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col">
                 <label for="Sex">Sex</label>
-                <select class="form-select" aria-label="Default select example">
+                <select formControlName="sex" required class="form-select" aria-label="Default select example">
                   <option selected>Open this select menu</option>
-                  <option value="1">Male</option>
-                  <option value="2">Female</option>
-                  <option value="3">Undefined</option>
+                  <option value="5">Male</option>
+                  <option value="6">Female</option>
+                  <option value="7">Undefined</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col">
+                <label for="role">Rol</label>
+                <select formControlName="role" required class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="ADMIN">Administrator</option>
+                  <option value="STAFF">Staff</option>
+                  <option value="CUSTOMER">Customer</option>
                 </select>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4 offset-4">
-                <button type="submit" style="width: 100%" class="btn btn-success">Save</button>
+                <button [disabled]="ModalStaffForm.invalid" type="submit" style="width: 100%" class="btn btn-success">Save</button>
               </div>
             </div>
           </form>
@@ -61,6 +74,7 @@
   </div>
 </div>
 
+<!-- Page -->
 <div div class="row" style="margin-left: 0px;">
     <div class="content-1" style="padding-left: 0px !important;">
         <ul class="scroll-menu" style="margin: 0px !important; padding: 0px !important">

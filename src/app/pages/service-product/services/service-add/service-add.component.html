@@ -1,24 +1,39 @@
+<!--add categories-->
+<div class="modal fade" id="modalNewCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-add-categories [dataupdateCategories]="module" (onClose)="closeModalCategories($event)"></app-add-categories>
+  </div>
+
+<!--add  Sub categories categories-->
+<div class="modal fade" id="modalNewSubCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-add-subcategories  [dataupdateSubCategories]="module" (onClose)="closeModalSubCategories($event)"></app-add-subcategories>
+  </div>
 
   <button class="btn btn-add" routerLink="/pages/services">
     <i class="bi bi-arrow-bar-left"></i>
    Return list Service
 </button>
 <div class="container">
-
-    <h5>Service Information</h5>
+   <form (ngSubmit)="onSubmit()" [formGroup]="Serviceadd">
+    <h5>{{title}}</h5>
     <div class="border-bottom border-3">
         <span>Service detail</span>
     </div>
     <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Name</label>
-                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Name">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="mb-3">
+                  <label class="small mb-1" for="inputName">Name Service: <span class="text-danger">*</span></label>
+                  <input class="form-control mb-2" id="inputtName" type="text" placeholder="Name Service" 
+                      formControlName="name" [class.is-invalid]="validInput('name')"/>
+                  <span *ngIf="validInput('name')" class="text-danger mt-2">
+                      Campo requerido.
+                  </span>
               </div>
               <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-              </div>
+                <label class="small mb-1" for="inputdescription">Description: <span class="text-danger">*</span></label>
+                <textarea class="form-control mb-2" id="inputdescription" type="text" placeholder="Ingrese la Descripcion"
+                    formControlName="description" rows="5"></textarea>
+            </div>
+              <!--
               <div class="row ms-0">
                 <span>Sales Channels</span>
                 <div class="col-xl-6 col-lg-6 col-md-7 col-sm-12 col-xs-12 chek">
@@ -49,7 +64,7 @@
                         </label>
                      </div>
                 </div>
-              </div>
+              </div>-->
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
            <span>Image</span>
@@ -57,24 +72,29 @@
             <span>carrucel va aqui</span>
            </div>
            <div class="row">
-            <label class="p-0 mb-2 ">Category</label>
-            <select class="form-select" aria-label="Default select example" style="width: 40%;">
-                <option selected>Baseball</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-              </select>
-                <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
-                font-weight: 600; font-size: 12px;">+ Add /Create more categories</button>
-               <label class="p-0 mb-2 mt-2">Sub-category</label>
-               <select class="form-select" aria-label="Default select example" style="width: 40%;">
-                   <option selected>Baseball</option>
-                   <option value="1">One</option>
-                   <option value="2">Two</option>
-                   <option value="3">Three</option>
-               </select>
+            <label class="small mb-1" for="inputibrachoffices">Category <span class="text-danger">*</span></label>
+            <div class="mb-3" style="display: flex;">
+              <ng-select #BusinessSelect [items]="categoryData" [selectOnTab]="true" [multiple]="true"
+                  bindValue="id" bindLabel="name" placeholder="select a category" formControlName="categories" style="width: 45%;">
+              </ng-select>
+              <span *ngIf="validInput('categories')" class="text-danger mt-2">
+                  This field is required.
+              </span>
+              <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
+              font-weight: 600; font-size: 12px;" (click)="showModalCategoriesAdd(true)">+ Add /Create more categories</button>
+            </div>
+            <label class="small mb-1" for="inputibrachoffices">Sub'Category <span class="text-danger">*</span></label>
+                <div class="mb-3" style="display: flex;">
+                  <ng-select #BusinessSelect [items]="subcategoryData" [selectOnTab]="true" [multiple]="true"
+                      bindValue="id" bindLabel="name" placeholder="select a sub_category" formControlName="subcategories" style="width: 45%;">
+                  </ng-select>
+                  <span *ngIf="validInput('categories')" class="text-danger mt-2">
+                      This field is required.
+                  </span>
                    <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
-                   font-weight: 600; font-size: 12px;">+ Add /Create more Sub-category</button>
+                   font-weight: 600; font-size: 12px;" (click)="showModalSubCategoriesAdd(true)">+ Add /Create more Sub-category</button>
+                </div>    
+                   <!--
                 <label class="p-0 mb-2 mt-2">Clasification</label>
                    <select class="form-select" aria-label="Default select example" style="width: 40%;">
                        <option selected>Baseball</option>
@@ -83,20 +103,23 @@
                        <option value="3">Three</option>
                      </select>
                        <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
-                         font-weight: 600; font-size: 12px;">+ Add /Create more Clasification</button>
+                         font-weight: 600; font-size: 12px;">+ Add /Create more Clasification</button>-->
            </div>
        </div>
     </div>
     <div class="row border-bottom border-3">
+
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
             <div class="mb-3">
                 <label class="small" for="">Duration</label><br>
-                <input class="timer" type="time" id="appt" name="appt" min="06:00" max="24:00" required style="text-align: center;">
+                <input type="text" class="form-control" placeholder="60" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="duration"
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
             </div>
             <div class="mb-3 ms-2 ">
                 <label for="exampleInputEmail1" class="small">Price</label><br>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;">
+                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="price"
+                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     <div class="input-group-append">
                       <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">USD</span>
                     </div>
@@ -110,6 +133,7 @@
               <label class="btn btn-outline-primary" for="btnradio2">Recurring</label>
            </div>
           </div>
+             <!-- 
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
             <div class="mb-3 ps-0">
                 <label>Billing period</label><br>
@@ -120,7 +144,7 @@
                     <option value="3">Three</option>
                   </select>
             </div>
-           <!--   <div class="mb-3">
+          <div class="mb-3">
                 <button class="btn btn-add">
                     <i class="bi bi-plus"></i>
                     Add /Create Tax Rate
@@ -130,8 +154,8 @@
         
         <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
         font-weight: 600; font-size: 12px;">+ Add more currencies</button>
-        <span class="mb-3" style="font-size: 12px; margin-left: 15%;">This is a suggested price based on today’s exchange rate. <br> Price won’t automatically update if exchange rate changes.</span>-->
-     </div>
+        <span class="mb-3" style="font-size: 12px; margin-left: 15%;">This is a suggested price based on today’s exchange rate. <br> Price won’t automatically update if exchange rate changes.</span>
+     </div>-->
 <!--
        <div class="row border-bottom border-3">
         <button type="button" class="mb-2 text-primary" style="width: 15%; background-color: rgba(255, 248, 220, 0); border: 0;
@@ -234,5 +258,10 @@
         </div>
      </div>
 -->
+    </div>
+    <div style="text-align: center;">
+      <button type="submit" class="btn btn-primary">Save Service</button>
+    </div>
+  </form>
 </div>
-
+  
