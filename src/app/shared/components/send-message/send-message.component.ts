@@ -13,7 +13,16 @@ export class SendMessageComponent implements OnInit {
   public title: string = 'Send Message';
 
   messageForm!: FormGroup;
+  public phone: number = 0;
   @Output() changePass: EventEmitter<boolean> = new EventEmitter<boolean>();
+  
+  @Input() set setNumber( value: any) {
+    if( value == 0 ) return;
+    
+
+    this.phone = value;
+    this.messageForm.get('phone')?.setValue(value);
+  }
 
   constructor(
     private readonly fb: FormBuilder,
@@ -39,7 +48,7 @@ export class SendMessageComponent implements OnInit {
 
   initForms(): FormGroup {
     return this.fb.group({
-      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)] ],
+      phone: [this.phone, [Validators.required, Validators.minLength(10), Validators.maxLength(10)] ],
       message: ['', [Validators.required] ],
     })
   }
@@ -57,7 +66,6 @@ export class SendMessageComponent implements OnInit {
 
 
   async onSubmit() {
-    console.log('hi')
     if ( this.messageForm.invalid ) 
       return
 

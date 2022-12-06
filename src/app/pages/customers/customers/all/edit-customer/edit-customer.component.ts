@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogsService } from 'src/app/@core/utils/catalogs.service';
 
@@ -12,6 +12,9 @@ export class EditCustomerComponent implements OnInit {
   public title: string = 'Edit Customer';
   formEdit!: FormGroup;
   public sexList: any[] = [];
+  @Input() set customer(obj: any) {
+    this.loadForm(obj);
+  }
 
   constructor(
     private readonly fb: FormBuilder,
@@ -25,17 +28,40 @@ export class EditCustomerComponent implements OnInit {
   }
 
   onSubmit() {
+    
   }
 
   async loadSex() {
     this.sexList = [];
     let resp = await this.catalogSvc.getSexs();
-    console.log(resp)
+    // console.log(resp)
     if ( resp?.status == '200' ) {
       let { data } = resp;
       this.sexList = data;
     }
   }
+
+  loadForm(obj: any = null) {
+    if ( obj === null || obj === undefined ) {
+      return
+    }
+
+    this.formEdit.reset({
+      id: obj.id,
+      firstName: obj.firstName,
+      lastName: obj.lastName,
+      phone: obj.phone,
+    });
+    let { idSex } = obj;
+    for (let i = 0; i < this.sexList.length; i++) {
+      if ( this.sexList[i].id == idSex ) {
+        // check the radio button
+        let radio = document.getElementById('radioSex'+i) as HTMLInputElement;
+        radio.checked = true;
+      }
+    }
+  }
+
   validInput(name: string) {
     return this.formEdit.get(name)?.touched && this.formEdit.get(name)?.errors?.['required'];
   }
@@ -53,7 +79,6 @@ export class EditCustomerComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       // email: ['', [Validators.required]],
-      idSex: ['', [Validators.required]],
       phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)] ],
     })
   }

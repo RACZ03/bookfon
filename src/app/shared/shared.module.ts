@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ChangePasswordComponent } from './components/change-password/change-password.component';
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 import { SendMessageComponent } from './components/send-message/send-message.component';
+import { RechargeComponent } from './components/recharge/recharge.component';
 
 
 
@@ -13,6 +14,7 @@ import { SendMessageComponent } from './components/send-message/send-message.com
     ModalDeleteComponent,
     ChangePasswordComponent,
     SendMessageComponent,
+    RechargeComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import { SendMessageComponent } from './components/send-message/send-message.com
     ModalDeleteComponent,
     ChangePasswordComponent,
     SendMessageComponent,
+    RechargeComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
