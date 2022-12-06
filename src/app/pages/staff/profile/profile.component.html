@@ -12,7 +12,7 @@
   <div class="content-2">
       <div [ngSwitch]="optionSelected">
           <div *ngSwitchCase="0">
-           <app-profile-edit></app-profile-edit>
+           <app-profile-edit [itemStaff]="itemStaff"></app-profile-edit>
           </div>
           <div *ngSwitchCase="1">
               <app-schedule></app-schedule>
