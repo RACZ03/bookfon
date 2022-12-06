@@ -1,0 +1,58 @@
+
+.content {
+    .container-sub {
+        margin: auto;
+        width: 80%;
+
+        .balance {
+            .text-balance,
+            .amount-balance {
+                position: absolute;
+                right: 230px;
+                z-index: 100;
+                font-size: 1rem;
+                font-weight: 600;
+                color: #626262;
+            }
+            .amount-balance {
+                right: 215px !important;
+                color: #4e44e0 !important;
+                font-size: 34px;
+                font-weight: 700;
+            }
+        }
+
+        table {
+            color: #393939;
+            background: #fff;
+            
+            tbody {
+                font-size: 12px;
+        
+                tr .td-name {
+                    margin-left: 8px;
+                }
+                tr .td-email {
+                    margin-left: 46px;
+                    position: absolute;
+                    margin-top: -12px;
+                }
+            }
+        }
+    }
+
+}
+
+@media (max-width: 768px) {
+    .content {
+        .balance {
+            img {
+                display: none;
+            }
+        }
+        .container-sub {
+            margin: auto;
+            width: 90%;
+        }
+    }
+}

@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
 
     if (sidebarToggle) {
       sidebarToggle.addEventListener('click', event => {
-        console.log('CLICK')
           event.preventDefault();
           document.body.classList.toggle('sidenav-toggled');
           localStorage.setItem('sb|sidebar-toggle',new Boolean( document.body.classList.contains('sidenav-toggled')).toString());

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SexsI } from '../Interfaces/Sexs';
 import { ConnectionService } from './connection.service';
 
 @Injectable({
