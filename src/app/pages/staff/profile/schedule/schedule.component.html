@@ -1,10 +1,28 @@
 <div class="w-100 mb-3">
-  <app-full-calendar
-  [events]="events"
-  (refreshEventEmitter)="refreshEventEmitter($event)"
-  (dateClickEventEmitter)="dateClickEventEmitter($event)"
-  (dropEventEmitter)="dropEventEmitter($event)"
-  (resizeEventEmitter)="resizeEventEmitter($event)"
-  (clickEventEmitter)="clickEventEmitter($event)">
+  <app-full-calendar *ngIf="loadingEvents" [events]="events" (refreshEventEmitter)="refreshEventEmitter($event)"
+    (dateClickEventEmitter)="dateClickEventEmitter($event)" (dropEventEmitter)="dropEventEmitter($event)"
+    (resizeEventEmitter)="resizeEventEmitter($event)" (clickEventEmitter)="clickEventEmitter($event)">
   </app-full-calendar>
+  <div class="d-flex justify-content-center">
+    <div class="spinner-grow text-dark mt-3" role="status" *ngIf="!loadingEvents">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- modal event -->
+<div class="modal fade" id="modalPopUp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h6 class="modal-title">
+          Detalle de evento
+        </h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
 </div>
