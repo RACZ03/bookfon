@@ -17,6 +17,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage'
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { environment } from 'src/environments/environment';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule, // storage
     DataTablesModule,
+    NgSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

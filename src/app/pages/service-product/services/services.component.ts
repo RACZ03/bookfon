@@ -11,10 +11,10 @@ export class ServicesComponent implements OnInit {
     { title: 'All Service', active: true },
     { title: 'Categories', active: false },
     { title: 'Sub-Categories', active: false },
-    { title: 'Clasifications', active: false },
-    { title: 'Tax rates', active: false },
+   // { title: 'Clasifications', active: false },
+   // { title: 'Tax rates', active: false },
     { title: 'Coupons', active: false },
-    { title: 'Subcriptions', active: false },
+   // { title: 'Subcriptions', active: false },
   ];
   public optionSelected: number = 0;
 

@@ -87,12 +87,10 @@ export class CategoriesComponent implements OnInit {
     if ( resp != undefined ) {
       this.module = resp;
       this.formModal.show();
-    }
-    
+    }   
    this.renderer();
    this.loadData();
   }
-    
 
 
   /* Section Render & Destoy */
