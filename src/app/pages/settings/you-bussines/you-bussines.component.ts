@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class YouBussinesComponent implements OnInit {
 
+  public identity: any;
+
   public scrollOptions: any[] = [
     { title: 'Account name', active: true },
     { title: 'Public details', active: false },
@@ -25,6 +27,8 @@ export class YouBussinesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    let data = localStorage.getItem('identity') || '{}';
+    this.identity = JSON.parse(data);
   }
 
   changeOptions(e: any, index: number) {

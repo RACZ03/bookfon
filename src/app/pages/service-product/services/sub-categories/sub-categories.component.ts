@@ -78,25 +78,18 @@ export class SubCategoriesComponent implements OnInit {
       let resp = await this.ServiceSvr.getDataSubCategories();
           let { data } = resp;
             this.data =data || [];
-            console.log(this.data);
+            //console.log(this.data);
     this.dtTrigger.next(this.dtOptions);
   }
 
-  async onEditSubCategories(id: number) {
-    let resp = await this.ServiceSvr.findById(id);
+  async onEditSubCategories(subcategory : any) {
+    let resp = subcategory;
     if ( resp != undefined ) {
-      let { data, status } = resp;
-
-      if ( status !== undefined && status === 200 ) {
-          this.module = data;
+          this.module = resp;
           this.formModal.show();
-      } else {
-        this.alertSvc.showAlert(4, resp?.comment, 'Error');
-      }
-    } else {
-      this.alertSvc.showAlert(4, 'Error', 'Error');
     }
-    
+    this.renderer();
+    this.loadData();
   }
 
   /* Section Render & Destoy */

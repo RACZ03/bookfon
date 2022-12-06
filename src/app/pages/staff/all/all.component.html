@@ -13,50 +13,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let item of staff">
             <td class="align-middle">
               <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
             </td>
             <td class="align-middle">
-              <label for="">Jose Maria Tellez Cajina</label>
+              <label for="">{{item?.fullName}}</label>
             </td>
             <td class="align-middle">
-              <label for="">1234567898</label>
+              <label for="">{{item?.phone? (item.phone | mask: '(000) 000-0000' ):'unknown' }}</label>
             </td>
             <td class="align-middle">
-              <button class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-success"></i></button>
+              <button *ngIf="item.lastLogin" class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-danger"></i></button>
+              <button *ngIf="!item.lastLogin"  class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-success"></i></button>
             </td>
             <td class="align-middle">
-              <label for="">12/06/22</label>
+              <label for="">{{ item?.lastLogin? (item.lastLogin | date: 'd/M/yyyy'): 'unknown'}}</label>
             </td>
             <td class="d-flex justify-content-center">
               <button (click)="editStaff({id:1,name:'jose cruz'})" class="btn btn-link m-1"><i
-                  class="bi bi-pencil-square"></i></button>
-              <div class="form-check form-switch">
-                <input class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
-              </div>
-              <button class="btn btn-link m-1"><i class="bi bi-key-fill"></i></button>
-              <button class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">
-              <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
-            </td>
-            <td class="align-middle">
-              <label for="">Jose Maria Tellez Cajina</label>
-            </td>
-            <td class="align-middle">
-              <label for="">1234567898</label>
-            </td>
-            <td class="align-middle">
-              <button class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-success"></i></button>
-            </td>
-            <td class="align-middle">
-              <label for="">12/06/22</label>
-            </td>
-            <td class="d-flex justify-content-center">
-              <button (click)="editStaff({id:2,name:'Carlos Lopez'})" class="btn btn-link m-1"><i
                   class="bi bi-pencil-square"></i></button>
               <div class="form-check form-switch">
                 <input class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">

@@ -26,6 +26,7 @@ import { AddClasificationsComponent } from './services/clasifications/add-clasif
 import { AddTaxratesComponent } from './services/tax-rates/add-taxrates/add-taxrates.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { DataTablesModule } from 'angular-datatables';
     ReactiveFormsModule,
     FormsModule, 
     DataTablesModule, 
+    NgSelectModule,
   
   ]
 })

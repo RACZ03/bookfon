@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffComponent implements OnInit {
   editStaff: boolean = false;
+  newStaff: boolean = false;
   activeTab: number = 0;
 
   constructor() {}
@@ -16,4 +17,11 @@ export class StaffComponent implements OnInit {
   selectedStaff(event: any) {
     this.editStaff = true;
   }
+
+  showScreenNewStaff() {
+    this.editStaff = false;
+    this.newStaff = true;
+  }
+
+
 }

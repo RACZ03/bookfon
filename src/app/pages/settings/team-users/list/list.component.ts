@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UsersService } from 'src/app/@core/services/users.service';
 declare var window: any;
 
 @Component({
@@ -9,19 +11,41 @@ declare var window: any;
 export class ListComponent implements OnInit {
 
   @Input() userList: any[] = [];
+  @Input() businessCode: string = '';
+  @Output() onCloseModal = new EventEmitter<boolean>();
+  public newUser: any = {};
   public formModalNew: any;
+  public ModalStaffForm!: FormGroup;
 
   public scrollOptions: any[] = [
     { title: 'Staff permissions', active: true },
   ];
   public optionSelected: number = 0;
 
-  constructor() { }
+  constructor(
+    private usersService: UsersService,
+    private readonly fb: FormBuilder,
+  ) { }
 
   ngOnInit(): void {
     this.formModalNew = new window.bootstrap.Modal(
       document.getElementById('modalNewStaff')
     );
+    this.ModalStaffForm = this.initForms();
+  }
+
+  initForms(): FormGroup {
+    return this.fb.group({
+     id: [''],
+     name: ['', [Validators.required ]],
+     lastName: ['', Validators.required],
+     email: ['', Validators.required],
+     phone: ['', Validators.required],
+     password: ['', Validators.required],
+     profile: ['', Validators.required],
+     sex: ['', Validators.required],
+     role: ['', Validators.required]
+    });
   }
 
   changeOptions(e: any, index: number) {
@@ -47,17 +71,28 @@ export class ListComponent implements OnInit {
     if ( band )
       this.formModalNew.hide();
 
-    // this.renderer();
-    // this.loadAppointments();
+    this.onCloseModal.emit(true);
   }
 
-  /* Section Render & Destoy */
-  // renderer() {
-  //   if ( this.dtElement !== undefined ) {
-  //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //       // Destroy the table first
-  //       dtInstance.destroy();
-  //     });
-  //   }
-  // }
+
+  async onSaveStaff(){
+    let data = {
+      firstName: this.ModalStaffForm.value.name,
+      lastName: this.ModalStaffForm.value.lastName,
+      phone: this.ModalStaffForm.value.phone,
+      email: this.ModalStaffForm.value.email,
+      password: this.ModalStaffForm.value.password,
+      profile: this.ModalStaffForm.value.profile,
+      image: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
+      idSex: this.ModalStaffForm.value.sex,
+      role: this.ModalStaffForm.value.role
+    }
+
+    let resp = await this.usersService.saveStaff(data, this.businessCode);
+
+    if (resp)
+    {
+      this.closeModal(true);
+    }
+  }
 }

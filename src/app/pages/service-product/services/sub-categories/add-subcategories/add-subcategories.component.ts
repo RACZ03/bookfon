@@ -10,6 +10,7 @@ import { AlertService } from 'src/app/@core/utils/alert.service';
 })
 export class AddSubcategoriesComponent implements OnInit {
   public title: string = 'New Sub-Category';
+  public butonFalse = true;
 
 
   @Output() onClose = new EventEmitter<boolean>();
@@ -36,6 +37,10 @@ export class AddSubcategoriesComponent implements OnInit {
     if ( this.SubCategoryadd == undefined )
       return;
 
+      if(data?.id != null && data?.id != undefined){
+        this.butonFalse= false;
+       }
+      //console.log(data);
    this.title = ( data == null || data == undefined ) ? 'New Sub-Category' : 'Update  Sub-Category';
 
       this.SubCategoryadd.reset({
@@ -43,6 +48,22 @@ export class AddSubcategoriesComponent implements OnInit {
        name: (data == null) ? '' : data?.name,
        description: (data == null) ? '' : data?.description,
       });
+  }
+
+  async addSubCategories(){
+    if ( this.SubCategoryadd.invalid ) 
+    return;
+
+    let resp = await this.ServiceSrv.postSubCategory(this.SubCategoryadd.value);
+    if ( resp != null || resp != undefined ) {
+      if(resp.status == 200){
+        this.alertSvc.showAlert(1, resp?.comment, 'Success')
+        this.loadDataForm();
+      }else{
+        this.alertSvc.showAlert(2, resp?.comment, 'Error')
+      }
+    }
+
   }
 
   async onSubmit() {
