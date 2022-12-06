@@ -18,7 +18,6 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
-
 @NgModule({
   declarations: [
     AppComponent,
