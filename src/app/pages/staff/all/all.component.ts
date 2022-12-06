@@ -21,7 +21,7 @@ export class AllComponent implements OnInit {
     this.loadStaff();
   }
 
-  editStaff(staff: Staff) {
+  editStaff(staff: object) {
     this.selectedStaff.emit(staff);
   }
 
