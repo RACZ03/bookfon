@@ -2,7 +2,7 @@
 
 <!-- Recharge -->
 <div class="modal fade" id="modalRecharge" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <app-recharge></app-recharge>
+    <app-recharge [setCustomer]="balanceObj" (rechargeEnd)="closeModalRecharge()"></app-recharge>
 </div>
 <!-- End Message -->
 
@@ -31,7 +31,7 @@
                 <img src="./assets/images/icons/balance.svg" alt="" style="position: absolute; margin-top: -30px !important; right: 120px !important;"
                     height="120" width="200">
                 <label for="" class="text-balance">Balance:</label><br>
-                <h3 for="" class="amount-balance">$ {{ balanceObj?.balance }}</h3>
+                <h3 for="" class="amount-balance">{{ ( balanceObj?.balance !== null) ? (balanceObj?.balance | currency:'USD') : (0 | currency:'USD')  }}</h3>
             </div>
         </div>
         <h5 class="mt-5" style="color: #000; font-weight: 600;">Transaction history</h5>
@@ -61,20 +61,20 @@
                         <td class="align-middle">
                             {{ item?.type == 1 ? 'Top-up' : 'Payment' }}
                         </td>
-                        <td class="align-middle">
-                            {{ item?.previusBalance | currency: '$': 'symbol': '1.0-0' }}
+                        <td class="align-middle"  style="text-align: right !important;">
+                            {{ item?.previousBalance | currency:'USD' }}
                         </td>
-                        <td class="align-middle">
-                            {{ item?.promotionAmount | currency: '$': 'symbol': '1.0-0' }}
+                        <td class="align-middle" style="text-align: right !important;">
+                            {{ item?.promotionAmount | currency:'USD' }}
                         </td>
-                        <td class="align-middle">
-                            {{ item?.incomeAmmount | currency: '$': 'symbol': '1.0-0' }}
+                        <td class="align-middle" style="text-align: right !important;">
+                            {{ item?.incomeAmount | currency:'USD' }}
                         </td>
-                        <td class="align-middle">
-                            {{ item?.expensesAmount | currency: '$': 'symbol': '1.0-0' }}
+                        <td class="align-middle" style="text-align: right !important;">
+                            {{ item?.expenseAmount | currency:'USD' }}
                         </td>
-                        <td class="align-middle text-success">
-                            {{ item?.newBalance | currency: '$': 'symbol': '1.0-0' }}
+                        <td class="align-middle text-success" style="text-align: right !important;">
+                            {{ item?.newBalance | currency:'USD' }}
                         </td>
                     </tr>
                 </tbody>
