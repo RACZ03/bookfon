@@ -19,6 +19,7 @@ export class ServiceAddComponent implements OnInit {
   public data: any [] = [];
   public categoryData: any[] = [];
   public subcategoryData: any[] = [];
+  public formModalCategorie: any;
   public formModal: any;
     // hasta aqui
     @Output() onClose = new EventEmitter<boolean>();
@@ -38,7 +39,7 @@ export class ServiceAddComponent implements OnInit {
      ) { }
 
      async ngOnInit(): Promise<void> {
-      this.formModal = new window.bootstrap.Modal(
+      this.formModalCategorie = new window.bootstrap.Modal(
         document.getElementById('modalNewCategories')
       );
       this.formModal = new window.bootstrap.Modal(
@@ -190,7 +191,7 @@ export class ServiceAddComponent implements OnInit {
     
   closeModalCategories(band: boolean) {
     if ( band )
-      this.formModal.hide();
+      this.formModalCategorie.hide();
       this.loadDataCategories();
   }
 
@@ -198,7 +199,7 @@ export class ServiceAddComponent implements OnInit {
     if ( !e ) {
       return
     }
-    this.formModal.show();
+    this.formModalCategorie.show();
     this.loadDataCategories();
   }
 
