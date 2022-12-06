@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ServicesService } from 'src/app/@core/services/services.service';
@@ -18,24 +18,24 @@ export class ServiceAddComponent implements OnInit {
   Serviceadd!: FormGroup;
   public data: any [] = [];
   public categoryData: any[] = [];
+  public categoryDataUpdate: any []= [];
   public subcategoryData: any[] = [];
+  public subcategoryUpdate: any [] = [];
   public formModalCategorie: any;
   public formModal: any;
+
     // hasta aqui
-    @Output() onClose = new EventEmitter<boolean>();
  
 
-    @Input() set dataUpdateServices(value: any) {
-      if ( value !== null && value !== undefined)
-        this.loadDataForm(value);
-    }
-  
+    public title = 'New Service';
+    public idSelected : number = 0;
 
   constructor(
      private readonly fb: FormBuilder,
      private serviceSvr : ServicesService,
      private alertSvc: AlertService,
-     private router:Router
+     private router:Router,
+     private actroute: ActivatedRoute,
      ) { }
 
      async ngOnInit(): Promise<void> {
@@ -49,6 +49,12 @@ export class ServiceAddComponent implements OnInit {
       this.loadData();
       this.loadDataCategories();
       this.loadDataSubCategory();
+
+      //recuperar datos de la ruta
+      this.actroute.params.subscribe(param => {
+          this.idSelected = param['id'];
+          this.loadData();
+        });
     }
 
       async loadDataSubCategory() {
@@ -101,50 +107,49 @@ export class ServiceAddComponent implements OnInit {
 
     async loadData() {
       this.data = [];
-       // let resp = await this.ModuleSrv.getData();
-  
-    //   if ( resp != undefined || resp != null ) {
-    //     if ( resp.status === 404 ) {
-    //       this.alertSvc.showAlert(4, resp.statusText, 'Error');
-    //     } else {
-    //       let { data } = resp;
-    //       if ( data !== undefined ) {
-    //         for (let i = 0; i < data.length; i++) {
-    //           data[i].permisos = {ver: false, crear: false, editar: false, eliminar: false};
-    //         }
-    //         this.data = data || [];
-    //       }
-    //     }
-    //   } else {
-    //     this.alertSvc.showAlert(3, 'No results found', '');
-    //   }
-    // this.dtTrigger.next(this.dtOptions);
+      let resp = await this.serviceSvr.getByIdServiceBusinness(this.idSelected);
+      if ( resp != undefined || resp != null ) {
+       this.loadDataForm(resp);
+      }
     }
 
     async loadDataForm(data: any = null) {
       if ( this.Serviceadd == undefined )
         return;
-      //this.title = ( data == null || data == undefined ) ? 'Nuevo Rol y Permiso' : 'Actualizar Rol y Permiso';
-  
-        this.Serviceadd.reset({
-          id: (data == null) ? 0 : data?.id,
-          name: (data == null) ? '' : data?.name,
-          description: (data == null) ? '' : data?.description,
-          duration: (data == null) ? '' : data?.duration,
-          price: (data == null) ? '' : data?.price,
-          categories: (data == null) ? '' : data?.categories,
-          subcategories: (data == null) ? '' : data?.subcategories,
 
+      this.title = ( data == null || data == undefined ) ? 'New Service' : 'Update Service';
+      console.log(data);
+        this.categoryDataUpdate = data?.data?.categoriesList;
+        let arraycategory :any [] = [];
+        if(this.categoryDataUpdate !== undefined){
+         for (let i = 0; i < this.categoryDataUpdate?.length; i++) {
+          arraycategory.push(this.categoryDataUpdate[i].id) 
+         }
+        }
+        this.subcategoryUpdate = data?.data?.subCategoriesList;
+        let arraysubcategory :any [] = [];
+        if(this.subcategoryUpdate !== undefined){
+          for (let i = 0; i < this.subcategoryUpdate?.length; i++) {
+            arraysubcategory.push(this.subcategoryUpdate[i].id)
+          }
+        }
+       if(data.data.recurrentPayment === true){
+        document.getElementById('btnradio2')?.setAttribute('checked', '');
+       }else{
+        document.getElementById('btnradio1')?.setAttribute('checked', '');
+       }
+
+        
+        this.Serviceadd.reset({
+          id: (data == null) ? 0 : data?.data?.id,
+          name: (data == null) ? '' : data?.data?.name,
+          description: (data == null) ? '' : data?.data?.description,
+          duration: (data == null) ? '' : data?.data?.duration,
+          price: (data == null) ? '' : data?.data?.cost,
+          categories: (arraycategory == null) ? [] : arraycategory,
+          subcategories: (arraysubcategory == null) ? [] : arraysubcategory,
+          
          });  
-         
-        // this.cargaTable(data.id_profile);
-    //  let permisos = await this.RolSrv.findById(data.id)
-     // let detalle = permisos?.detail;
-  
-     //  for (let i = 0; i < detalle?.length; i++) {
-     //      this.lista[i] = detalle[i].permissions.split('-');
-     // }
-     // this.asignarPermisos(this.lista);
       
     }
 
@@ -161,18 +166,29 @@ export class ServiceAddComponent implements OnInit {
      // console.log(data.categories);
       let categoriesnew: any []=[];
       let subcategoriesnew: any []=[];
-      categoriesnew.push({id: data.categories});
-      subcategoriesnew.push({id: data.subcategories});
+      for (let i = 0; i < data.categories.length; i++) {
+        categoriesnew.push( 
+                {id : data.categories[i]}
+          );
+      }
+      for (let i = 0; i < data.subcategories.length; i++) {
+        subcategoriesnew.push(
+          {id : data.subcategories[i]}
+        );
+      }
       let recurrentPayment = false;
       let recurrent = <HTMLInputElement>document.getElementById('btnradio2');
       if (recurrent.checked) {
         recurrentPayment=true;
       }
-
+     
+      console.log(categoriesnew);
         
       let resp = await this.serviceSvr.postService(this.Serviceadd.value, categoriesnew, subcategoriesnew, recurrentPayment);
+      //console.log(resp);
        if ( resp != null || resp != undefined ) {
          let { status } = resp;
+
          if ( status == 201 ) {
            this.alertSvc.showAlert(1, resp?.comment, 'Success')
            this.loadDataForm();

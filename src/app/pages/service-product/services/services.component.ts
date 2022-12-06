@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ServicesComponent implements OnInit {
 
+
   public scrollOptions: any[] = [
     { title: 'All Service', active: true },
     { title: 'Categories', active: false },
@@ -29,6 +30,7 @@ export class ServicesComponent implements OnInit {
 
       if ( i == index )
         this.scrollOptions[i].active = true;
+        
     }
     this.optionSelected = index;
   }
