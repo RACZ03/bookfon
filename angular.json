@@ -37,6 +37,7 @@
               "node_modules/@fullcalendar/timegrid/main.css",
               "node_modules/@fullcalendar/list/main.css",
               "node_modules/@fullcalendar/bootstrap5/main.css"
+              
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",

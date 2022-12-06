@@ -14,58 +14,34 @@
     </div-->
 </div>
 <div class="table-responsive">
-    <table class="table">
+    <table class="table" style="width:100% ;"
+    datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Created</th>
-                <th>Updated</th>
+                <th>Duration</th>
+                <th class="align-middle text-center">Actions</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let item of data; let i = index">
                 <td class="align-middle" style="display: flex;">
-                    <img src="assets/images/bookfons/user-found-1.png" class="avatar m-2" >
+                    <img src="{{item?.imagePrincipal}}" class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;">
                     <div class="ms-3">
-                        <label for="" class="td-name">Yoga Lesson</label><br>
-                       <label for="" class="td-Price">$180.00 USD</label>
+                        <label for="" class="td-name">{{item?.name}}</label><br>
+                       <label for="" class="td-Price">{{item?.cost}}</label>
                     </div>
                 </td>
                 <td class="align-middle">
-                    <label for="">Nov 23</label>
+                    <label for="">{{item?.duration}}</label>
                 </td>
-                <td class="align-middle">
-                    <label for="">Dec 13</label>
-                </td>
-            </tr>
-            <tr>
-                <td class="align-middle" style="display: flex;">
-                    <img src="assets/images/bookfons/user-found-1.png" class="avatar m-2" >
-                    <div class="ms-3">
-                        <label for="" class="td-name">Yoga Lesson</label><br>
-                       <label for="" class="td-Price">$180.00 USD</label>
-                    </div>
-                </td>
-                <td class="align-middle">
-                    <label for="">Nov 23</label>
-                </td>
-                <td class="align-middle">
-                    <label for="">Dec 13</label>
-                </td>
-            </tr>
-            <tr>
-                <td class="align-middle" style="display: flex;">
-                    <img src="assets/images/bookfons/user-found-1.png" class="avatar m-2" >
-                    <div class="ms-3">
-                        <label for="" class="td-name">Yoga Lesson</label><br>
-                       <label for="" class="td-Price">$180.00 USD</label>
-                    </div>
-                </td>
-                <td class="align-middle">
-                    <label for="">Nov 23</label>
-                </td>
-                <td class="align-middle">
-                    <label for="">Dec 13</label>
+                <td class="align-middle text-center">
+                    <button class="btn btn-sm btn-ng-primary">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class="btn btn-sm ms-2 btn-ng-danger">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
                 </td>
             </tr>
         </tbody>

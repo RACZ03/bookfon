@@ -6,7 +6,7 @@
       </div>
       <div class="modal-body">
         <form (ngSubmit)="onSubmit()" [formGroup]="messageForm">
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <label class="small mb-1" for="inputPassword">Phone Number<span class="text-danger">*</span></label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder=""
                        mask="(000) 000-0000" formControlName="phone" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
@@ -19,7 +19,7 @@
                 <span *ngIf="validInputMax('phone')" class="text-danger mt-2">
                     Phone number must be 10 digits
                 </span>
-            </div>
+            </div> -->
             <div class="col-12 mt-2">
                 <label class="small mb-1" for="inputPasswordVerify">Message<span class="text-danger">*</span></label>
                 <div class="input-group mb-3">

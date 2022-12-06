@@ -1,1 +1,84 @@
-<p>wallet works!</p>
+
+
+<!-- Recharge -->
+<div class="modal fade" id="modalRecharge" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-recharge></app-recharge>
+</div>
+<!-- End Message -->
+
+<div class="content mt-5">
+    <div class="container-sub mt-2">
+        <nav aria-label="breadcrumb" style="position: absolute; right: 30px; margin-top: -30px;">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a [routerLink]="'/pages/home'" style="color: rgb(114, 113, 113);">Home</a></li>
+              <li class="breadcrumb-item"><a [routerLink]="'/pages/customers'" style="color: rgb(114, 113, 113);">Customers</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Wallet</li>
+            </ol>
+          </nav>
+        <div class="row">
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-2">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="text" placeholder="Filter by name" aria-label="Search" (keyup)="searchData($event)">
+                </form>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-12 mt-2">
+                <button class="btn btn-primary" (click)="openModalRecharge()">
+                    <i class="bi bi-plus"></i>
+                    Wallet Top-up
+                </button>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-3 col-sm-6 col-xs-12 mt-2 balance text-left">
+                <img src="./assets/images/icons/balance.svg" alt="" style="position: absolute; margin-top: -30px !important; right: 120px !important;"
+                    height="120" width="200">
+                <label for="" class="text-balance">Balance:</label><br>
+                <h3 for="" class="amount-balance">$ {{ balanceObj?.balance }}</h3>
+            </div>
+        </div>
+        <h5 class="mt-5" style="color: #000; font-weight: 600;">Transaction history</h5>
+        <div class="table-responsive">
+            <table class="table" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <!-- <table class="table" style="width:100%" > -->
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date</th>
+                        <th>Concept</th>
+                        <th>Previus balance</th>
+                        <th>Amount promotion</th>
+                        <th>Income</th>
+                        <th>Expenses</th>
+                        <th>Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data; let i = index">
+                        <td class="align-middle">
+                            {{i + 1}}
+                        </td>
+                        <td class="align-middle">
+                            {{ item?.date | date: 'dd/MM/yyyy' }}
+                        </td>
+                        <td class="align-middle">
+                            {{ item?.type == 1 ? 'Top-up' : 'Payment' }}
+                        </td>
+                        <td class="align-middle">
+                            {{ item?.previusBalance | currency: '$': 'symbol': '1.0-0' }}
+                        </td>
+                        <td class="align-middle">
+                            {{ item?.promotionAmount | currency: '$': 'symbol': '1.0-0' }}
+                        </td>
+                        <td class="align-middle">
+                            {{ item?.incomeAmmount | currency: '$': 'symbol': '1.0-0' }}
+                        </td>
+                        <td class="align-middle">
+                            {{ item?.expensesAmount | currency: '$': 'symbol': '1.0-0' }}
+                        </td>
+                        <td class="align-middle text-success">
+                            {{ item?.newBalance | currency: '$': 'symbol': '1.0-0' }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
