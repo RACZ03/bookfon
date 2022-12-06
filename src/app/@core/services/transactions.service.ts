@@ -24,6 +24,7 @@ export class TransactionsService {
   }
 
   rechargeWallet(data: any): Promise<any> {
-    return this.connectionSvc.send('post', `v1/walletTransactions/recharge/${ this.getCode }`, data);
+    let code = this.getCode();
+    return this.connectionSvc.send('post', `v1/walletTransactions/recharge/${ code }`, data);
   }
 }
