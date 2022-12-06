@@ -7,14 +7,14 @@
             </li>
         </ul>
     </div>
-    
+
     <div class="content-2">
         <div [ngSwitch]="optionSelected">
             <div *ngSwitchCase="0">
                 <app-account></app-account>
             </div>
             <div *ngSwitchCase="1">
-                <app-public-details></app-public-details>
+                <app-public-details [identity]="identity"></app-public-details>
             </div>
             <div *ngSwitchCase="2">
                 <app-business-details></app-business-details>

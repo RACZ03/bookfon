@@ -22,7 +22,7 @@
     <br>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="team-users" role="tabpanel" aria-labelledby="home-tab">
-            <app-tearm-users-list [userList]="users"></app-tearm-users-list>
+            <app-tearm-users-list [userList]="users" [businessCode]="identity.businessList[0].code" (onCloseModal)="getUsers()"></app-tearm-users-list>
         </div>
         <div class="tab-pane fade" id="your-business" role="tabpanel" aria-labelledby="home-tab">
             <app-you-bussines></app-you-bussines>

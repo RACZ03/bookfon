@@ -18,4 +18,12 @@ export class CustomersService {
   async getAllUsers() {
     return this.connectionSvc.send('get', 'users/getByBusiness/oYvsH8VK/role/ROLE_CUSTOMER');
   }
+
+  async getAllSubCustomers(id: number) {
+    return this.connectionSvc.send('get', `dataSubCustomer/findByCustomer/${ id }`);
+  }
+
+  async UpdateUser(id: string, data: any) {
+    return this.connectionSvc.send('put', `users/${id}`, data);
+  }
 }

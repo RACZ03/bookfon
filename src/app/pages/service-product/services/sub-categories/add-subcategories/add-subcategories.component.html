@@ -33,8 +33,8 @@
                                                                                   bottom: 0;
                                                                                   right: 0;
                                                                                   margin-bottom: 75px;" >
-                 <button  class="btn btn-success " [disabled]="SubCategoryadd.invalid">Save and add more</button> <br><br>
-                 <button class="btn btn-primary" [disabled]="SubCategoryadd.invalid">Save Sub-Categories</button>
+                 <button  class="btn btn-success" type="button" [disabled]="SubCategoryadd.invalid" (click)="addSubCategories()" *ngIf="butonFalse">Save and add more</button> <br><br>
+                 <button class="btn btn-primary" type="submit" [disabled]="SubCategoryadd.invalid">Save Sub-Categories</button>
                </div>
             </div>
           </form>

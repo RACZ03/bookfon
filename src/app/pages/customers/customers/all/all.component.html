@@ -2,7 +2,7 @@
 <!-- Edit profile -->
 <div class="modal fade" id="modalEditCustomer" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <!-- <app-add [dataUpdate]="module" (onClose)="closeModal($event)"></app-add> -->
-    <app-edit-customer></app-edit-customer>
+    <app-edit-customer [customer]="itemSelected"></app-edit-customer>
 </div>
 <!-- End Edit Profile -->
 
@@ -14,7 +14,7 @@
 
 <!-- Send Message -->
 <div class="modal fade" id="modalSendMessage" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <app-send-message></app-send-message>
+    <app-send-message [setNumber]="phoneNumberSelected"></app-send-message>
 </div>
 <!-- End Message -->
 
@@ -77,26 +77,26 @@
                         <!-- <button class="btn btn-table">
                             <i class="bi bi-envelope-at-fill"></i>
                         </button> -->
-                        <button class="btn btn-table" (click)="openSendSMS()">
+                        <button class="btn btn-table" (click)="openSendSMS(item)">
                             <i class="bi bi-envelope"></i>
                         </button>
                         <button class="btn btn-table" (click)="openModalChangePass(item?.id)">
                             <i class="bi bi-key-fill"></i>
                         </button>
-                        <button class="btn btn-table" (click)="openSubCustomers()">
+                        <button class="btn btn-table" (click)="openSubCustomers(item?.id)">
                             <i class="bi bi-people-fill"></i>
                         </button>
-                        <button class="btn btn-table" (click)="openSchedule()">
+                        <button class="btn btn-table">
                             <i class="bi bi-calendar2-week-fill"></i>
                         </button>
-                        <button class="btn btn-table" (click)="openWallet()">
+                        <button class="btn btn-table" (click)="openWallet(item?.id)">
                             <i class="bi bi-wallet2"></i>
                         </button>
                         <!-- <button class="btn btn-table">
                             <i class="bi bi-toggle-on"></i>
                             <i class="bi bi-toggle-off"></i>
                         </button> -->
-                        <button class="btn btn-table" (click)="openEdit()">
+                        <button class="btn btn-table" (click)="openEdit(item)">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                     </td>
@@ -122,6 +122,6 @@
 
 <!-- Content Sub-customers -->
 <div *ngIf="divSubCustomers">
-    <h1>Sub customers</h1>
+    <app-sub-customer></app-sub-customer>
 </div>
 <!-- End Content Sub-customers -->
