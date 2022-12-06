@@ -18,6 +18,14 @@ export class ServicesService {
     private connectionSvc: ConnectionService
   ) { 
   }
+//------------------------cupons---------------------------------
+///v1/coupon/business/{businessCode}
+getCuponsByBusiness(): Promise<any> {
+
+  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+  return this.connectionSvc.send('get', `v1/coupon/business/${identity.code}`);
+}
+
 ///////////////-------------------services---------------------------------///////////////
 postService(service: any, categoriesnew : any, subcategoriesnew : any, recurrentPayment : any): Promise<any> {
   let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
@@ -41,6 +49,7 @@ postService(service: any, categoriesnew : any, subcategoriesnew : any, recurrent
      console.log(params);
      if(service.id !== 0 && service.id !== null && service.id !== undefined && service.id !== ''){
        //catalogs/update/{{id}}
+       //console.log("entro al update");
        return this.connectionSvc.send('put', `services/update/${service.id}`, params);
 
      }else{
@@ -54,6 +63,12 @@ getServicesByBusinesset(): Promise<any> {
   return this.connectionSvc.send('get', `public/v1/${identity.code}/allServicesByBusiness`);
   
 }
+
+getByIdServiceBusinness(id: number): Promise<any> {
+
+  return this.connectionSvc.send('get', `getServicesById/${id}`);
+}
+
 
 ///////-------------------CATEGORIES---------------------------------///////
   getDataCategory(): Promise<any> {
