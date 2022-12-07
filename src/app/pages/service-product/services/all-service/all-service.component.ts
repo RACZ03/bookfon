@@ -42,6 +42,13 @@ export class AllServiceComponent implements OnInit {
     this.loadData();
   }
 
+  searchData(e: any) {
+    let value = e.target.value;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.search(value).draw();
+    });
+  }
+
   async loadData() {
     this.data = [];
     let resp = await this.serviceSvr.getServicesByBusinesset();

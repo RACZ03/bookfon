@@ -6,22 +6,19 @@
     <!--List Categories-->
     <div class="container">
     
-      <div class="mt-5" style="display: flex; gap: 20px;">
-            <button class="btn btn-add" (click)="showModalSubCategoriesAdd(true)">
-                <i class="bi bi-plus"></i>
-                Add new Sub-Categories
-            </button>
+      <div class="mt-2" style="display: flex; gap: 20px;">
         <div class="container-seach">
-            <span class="input-group-text icon-search" id="basic-addon1" style="background: #fff;">
-                <i class="bi bi-search"></i>
-                <input class="form-control input-search ms-3" 
-                type="text" placeholder="Buscar..." aria-label="Search" style="border: none;"
-                (keyup)="searchData($event)">
-            </span>
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
+            </form>
         </div>
+        <button class="btn btn-add" (click)="showModalSubCategoriesAdd(true)">
+            <i class="bi bi-plus"></i>
+            Add new Sub-Categories
+        </button>
     </div>
-    
-      <div class="table-responsive">
+    <br>
+    <div class="table-responsive">
         <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"> 
             <thead>
                 <tr>
@@ -38,11 +35,11 @@
                         </div>
                     </td>
                     <td class="align-middle">
-                      <div class="ms-3">
-                          <label for="" class="td-name">{{item.description}}</label>
-                      </div>
-                  </td>
-                  <td class="align-middle text-center">
+                        <div class="ms-3">
+                            <label for="" class="td-name">{{item.description}}</label>
+                        </div>
+                    </td>
+                    <td class="align-middle text-center">
                     <button class="btn btn-sm btn-ng-primary" (click)="onEditSubCategories(item)" >
                         <i class="bi bi-pencil-square"></i>
                     </button>
@@ -54,5 +51,5 @@
             </tbody>
         </table>
     </div>
-    </div>
+</div>
     

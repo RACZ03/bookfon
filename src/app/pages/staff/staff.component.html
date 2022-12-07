@@ -3,13 +3,13 @@
 
   <!-- Tabs -->
   <ul class="nav nav-tabs auto mb-3" id="myTab" role="tablist">
-    <li class="nav-item col-md-1" role="setting">
+    <!-- <li class="nav-item col-md-1" role="setting">
       <button (click)="editStaff = false;activeTab=0;newStaff=false" class="nav-link active links" id="home-tab" data-bs-toggle="tab"
         data-bs-target="#setting" type="button" role="tab" aria-controls="setting" aria-selected="true">Settings
       </button>
-    </li>
+    </li> -->
     <li class="nav-item col-md-2" role="all">
-      <button (click)="editStaff = false;activeTab=1 ;newStaff=false" class="nav-link" id="profile-tab" data-bs-toggle="tab"
+      <button (click)="editStaff = false;activeTab=1 ;newStaff=false" class="nav-link active links" id="profile-tab" data-bs-toggle="tab"
         data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="false">All staff
         {{editStaff ? ' / edit' : (newStaff?'/ Add':'')}}</button>
     </li>
@@ -24,12 +24,13 @@
 
   </ul>
   <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="setting" role="tabpanel" aria-labelledby="home-tab">
+    <!-- <div class="tab-pane fade show active" id="setting" role="tabpanel" aria-labelledby="home-tab">
       <app-settings></app-settings>
-    </div>
-    <div class="tab-pane fade" id="all" role="tabpanel" aria-labelledby="home-tab">
+    </div> -->
+    <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
       <app-all *ngIf="!editStaff && !newStaff" (selectedStaff)='selectedStaff($event)'></app-all>
-      <app-profile *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile>
+      <app-profile [itemStaff]="itemStaff" *ngIf="editStaff"></app-profile>
+      <!-- <app-profile *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile> -->
       <app-add-staff *ngIf="newStaff"></app-add-staff>
     </div>
   </div>
