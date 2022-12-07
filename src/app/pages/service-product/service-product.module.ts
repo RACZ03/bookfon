@@ -27,6 +27,7 @@ import { AddTaxratesComponent } from './services/tax-rates/add-taxrates/add-taxr
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from 'src/app/@theme/theme.module';
 
 
 @NgModule({
@@ -61,7 +62,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule, 
     DataTablesModule, 
     NgSelectModule,
-  
+    ThemeModule
   ]
 })
 export class ServiceProductModule { }
