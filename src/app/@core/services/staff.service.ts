@@ -103,4 +103,10 @@ export class StaffService {
       params
     );
   }
+
+
+//guardar servicio a staff
+  saveServiceToStaff(params: object): Promise<any> {
+    return this.connectionSvc.send('post','/staffServices/save' , params);
+  }
 }
