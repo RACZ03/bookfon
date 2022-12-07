@@ -1,198 +1,137 @@
-<div class="card p-3 m-0 w-100">
-  <form disabled class="row" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="col-md-4">
-      <label for="first_name" class=""
-        ><sup class="lb-required">*</sup>First name</label
-      >
-      <input
-        formControlName="first_name"
-        [ngClass]="{
-          'is-invalid':
-            f['first_name'].invalid &&
-            (f['first_name'].touched || f['first_name'].dirty)
-        }"
-        type="text"
-        class="form-control"
-        id="first_name"
-        placeholder="first name"
-      />
-      <div *ngIf="f['first_name'].errors" class="invalid-feedback">
-        <div *ngIf="f['first_name'].errors['required']">
-          First name is required
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <label for="last_name" class=""
-        ><sup class="lb-required">*</sup>Last name</label
-      >
-      <input
-        formControlName="last_name"
-        [ngClass]="{
-          'is-invalid':
-            f['last_name'].invalid &&
-            (f['last_name'].touched || f['last_name'].dirty)
-        }"
-        required
-        type="text"
-        class="form-control"
-        id="last_name"
-        placeholder="last name"
-      />
-      <div *ngIf="f['last_name'].errors" class="invalid-feedback">
-        <div *ngIf="f['last_name'].errors['required']">
-          Last name is required
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <label for="phone_number" class=""
-        ><sup class="lb-required">*</sup>Phone number</label
-      >
-      <input
-        mask="(000) 000-0000"
-        formControlName="phone_number"
-        [ngClass]="{
-          'is-invalid':
-            f['phone_number'].invalid &&
-            (f['phone_number'].touched || f['phone_number'].dirty)
-        }"
-        required
-        type="text"
-        class="form-control"
-        id="phone_number"
-        placeholder="phone number"
-      />
-      <div *ngIf="f['phone_number'].errors" class="invalid-feedback">
-        <div *ngIf="f['phone_number'].errors['required']">
-          Phone number is required
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4 mt-3">
-      <label for="email" class=""><sup class="lb-required">*</sup>Email</label>
-      <input
-        type="text"
-        formControlName="email"
-        class="form-control"
-        [ngClass]="{
-          'is-invalid':
-            f['email'].invalid && (f['email'].touched || f['email'].dirty)
-        }"
-      />
-      <div *ngIf="f['email'].errors" class="invalid-feedback">
-        <div *ngIf="f['email'].errors['required']">Email is required</div>
-        <div *ngIf="f['email'].errors['email']">Email is invalid</div>
-      </div>
-    </div>
-    <div class="col-md-4 mt-3">
-      <label for="profile" class=""
-        ><sup class="lb-required">*</sup>Profile</label
-      >
-      <input
-        type="text"
-        formControlName="profile"
-        class="form-control"
-        [ngClass]="{
-          'is-invalid':
-            f['profile'].invalid && (f['profile'].touched || f['profile'].dirty)
-        }"
-      />
-      <div *ngIf="f['profile'].errors" class="invalid-feedback">
-        <div *ngIf="f['profile'].errors['required']">Profile is required</div>
-      </div>
-    </div>
-    <div class="col-md-4 mt-3">
-      <label for="sex" class=""><sup class="lb-required">*</sup>Sex</label>
-      <select
-        class="form-control"
-        [ngClass]="{
-          'is-invalid': f['sex'].invalid && (f['sex'].touched || f['sex'].dirty)
-        }"
-        formControlName="sex"
-      >
-        <option disabled value="" readonly>choose sex</option>
-        <option *ngFor="let item of sexs" [value]="item.id">
-          {{ item.name }}
-        </option>
-      </select>
-      <div class="invalid-feedback" *ngIf="f['sex'].errors">
-        Please provide sex name
-      </div>
-    </div>
-    <div class="col-md-12 mt-3">
-      <label for="phone_number" class="">Image</label>
-      <div class="file-drop-area">
-        <span class="file-msg"
-          ><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i
-          >{{ file?.name ? file?.name : "" }}</span
-        >
-        <input
-          accept=".png, .jpg, .jpeg"
-          formControlName="image"
-          (change)="onFileSelected($event.target)"
-          class="file-input"
-          type="file"
-        />
-      </div>
-      <div *ngIf="!fileValid" class="red">file is invalid</div>
-    </div>
-    <div class="col-md-6 mt-3">
-      <label for="password" class=""
-        ><sup class="lb-required">*</sup>Password</label
-      >
-      <input
-        type="password"
-        formControlName="password"
-        class="form-control"
-        [ngClass]="{
-          'is-invalid':
-            f['password'].invalid &&
-            (f['password'].touched || f['password'].dirty)
-        }"
-      />
-      <div *ngIf="f['password'].errors" class="invalid-feedback">
-        <div *ngIf="f['password'].errors['required']">Password is required</div>
-        <div *ngIf="f['password'].errors['minlength']">
-          Password must be at least 6 characters
-        </div>
-        <div *ngIf="f['password'].errors['maxlength']">
-          password must not exceed 12 characters
-        </div>
-      </div>
-    </div>
-    <div class="col-md-6 mt-3">
-      <label for="password"
-        ><sup class="lb-required">*</sup>Password confirm</label
-      >
-      <input
-        type="password"
-        formControlName="confirmPassword"
-        class="form-control"
-        [ngClass]="{
-          'is-invalid':
-            f['confirmPassword'].invalid &&
-            (f['confirmPassword'].touched || f['confirmPassword'].dirty)
-        }"
-      />
-      <div
-        *ngIf="this.f['password'].value != this.f['confirmPassword'].value"
-        class="invalid-feedback"
-      >
-        <div>Confirm Password does not match</div>
-      </div>
-    </div>
-    <div class="col-md-12 mt-3">
-      <button type="submit" class="btn btn-primary" [disabled]="loading">
-        <span
-          *ngIf="loading"
-          class="spinner-border spinner-border-sm"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        <span *ngIf="loading" class="visually-hidden">please wait </span>
-        Save
-      </button>
-    </div>
-  </form>
-</div>
+import { Component, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { CatalogsService } from 'src/app/@core/utils/catalogs.service';
+import { SexsI, SexsItem } from 'src/app/@core/Interfaces/Sexs';
+import { StaffService } from 'src/app/@core/services/staff.service';
+import { ImageFile } from 'src/app/@core/Interfaces/Image-file';
+import { ToastrService } from 'ngx-toastr';
+
+@Component({
+  selector: 'app-add-staff',
+  templateUrl: './add-staff.component.html',
+  styleUrls: ['./add-staff.component.scss'],
+})
+export class AddStaffComponent implements OnInit {
+  file: ImageFile | undefined;
+  sexs: SexsItem[] = [];
+  status: number = 0;
+  message: string = '';
+  comment: string = '';
+  fileValid: boolean = true;
+  loading: boolean = false;
+
+  form: FormGroup = new FormGroup({
+    first_name: new FormControl('', [Validators.required]),
+    last_name: new FormControl('', [Validators.required]),
+    phone_number: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    profile: new FormControl('', [Validators.required]),
+    sex: new FormControl('', [Validators.required]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(12),
+    ]),
+    confirmPassword: new FormControl('', [Validators.required]),
+    image: new FormControl(''),
+  });
+  submitted = false;
+  constructor(
+    private catalogService: CatalogsService,
+    private service: StaffService,
+    private toast: ToastrService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadSex();
+  }
+
+  onFileSelected(file: any) {
+    if (
+      file.files[0].type == 'image/jpeg' ||
+      file.files[0].type == 'image/png' ||
+      file.files[0].type == 'image/jpeg'
+    ) {
+      this.fileValid = true;
+      this.file = file?.files[0];
+    } else {
+      this.fileValid = false;
+      this.f['image'].patchValue('');
+    }
+  }
+
+  onSubmit(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+    if (this.f['password'].value != this.f['confirmPassword'].value) {
+      this.toast.error('Passwords do not match', 'Error');
+      this.f['confirmPassword'].setErrors({ incorrect: true });
+      return;
+    }
+    this.loading = true;
+    this.verifyFile();
+  }
+
+  verifyFile() {
+    if (this.file?.size) {
+      this.service.uploadImage(this.file).then((res: any) => {
+        this.createNewStaff(res);
+      });
+    } else {
+      this.createNewStaff();
+    }
+  }
+
+  createNewStaff(url?: string) {
+    this.service
+      .createStaff({
+        firstName: this.f['first_name'].value,
+        lastName: this.f['last_name'].value,
+        phone: this.f['phone_number'].value,
+        email: this.f['email'].value,
+        profile: this.f['profile'].value,
+        password: this.f['password'].value,
+        image: url ? url : '',
+        idSex: this.f['sex'].value,
+      })
+      .then(() => {
+        this.loading = false;
+        this.toast.success('Staff created successfully', 'Success');
+        this.form.reset();
+      })
+      .catch(() => {
+        this.toast.error('Error unexpected, creating staff', 'Error');
+        this.loading = false;
+      });
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
+  }
+
+  loadSex() {
+    this.catalogService
+      .getSexs()
+      .then((res: SexsI) => {
+        this.sexs = res?.data;
+        this.status = res?.status;
+        this.message = res?.message;
+        this.comment = res?.comment;
+      })
+      .catch((err) => {
+        console.log(err);
+        this.toast.error('Error unexpected, loading sex', 'Error');
+      });
+  }
+
+  resetForm() {
+    this.form.reset();
+  }
+}
