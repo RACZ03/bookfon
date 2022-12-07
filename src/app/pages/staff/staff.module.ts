@@ -16,6 +16,7 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { DataTablesModule } from 'angular-datatables';
             preventDuplicates: true,
           }
         ),
+        NgSelectModule,
     ],
     exports: [
       ScheduleComponent
