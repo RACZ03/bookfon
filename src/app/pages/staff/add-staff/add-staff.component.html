@@ -7,19 +7,14 @@
       <input
         formControlName="first_name"
         [ngClass]="{
-          'is-invalid':
-            f['first_name'].invalid &&
-            (f['first_name'].touched || f['first_name'].dirty)
-        }"
+          'is-invalid':f['first_name'].invalid && (f['first_name'].touched || f['first_name'].dirty)}"
         type="text"
         class="form-control"
         id="first_name"
         placeholder="first name"
       />
       <div *ngIf="f['first_name'].errors" class="invalid-feedback">
-        <div *ngIf="f['first_name'].errors['required']">
           First name is required
-        </div>
       </div>
     </div>
     <div class="col-md-4">
@@ -125,7 +120,7 @@
       <div class="file-drop-area">
         <span class="file-msg"
           ><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i
-          >{{ file.name }}</span
+          >{{ file?.name }}</span
         >
         <input
           accept=".png, .jpg, .jpeg"
@@ -193,7 +188,7 @@
         <span *ngIf="loading" class="visually-hidden">please wait </span>
         Save
       </button>
-      <button (click)="form.reset()">reset</button>
+      <button (click)="resetForm()">reset</button>
     </div>
   </form>
 </div>
