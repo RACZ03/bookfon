@@ -32,10 +32,6 @@ const routes: Routes = [
         path: 'staff', loadChildren: () => import('./staff/staff.module').then(m => m.StaffModule)
       },
       {
-        path: 'customers', loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
-        // , canLoad: [AdminGuard]
-      },
-      {
         path: 'services', loadChildren: () => import('./service-product/service-product-routing.module').then(m => m.ServiceProductRoutingModule)
         // , canLoad: [AdminGuard]
       },

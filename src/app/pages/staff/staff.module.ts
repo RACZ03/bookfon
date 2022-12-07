@@ -48,4 +48,4 @@ import { DataTablesModule } from 'angular-datatables';
       ScheduleComponent
     ],
 })
-export class StaffModule { }
+export class StaffModule { }

@@ -52,6 +52,6 @@ export class AllComponent implements OnInit {
       this.message = response?.message;
       this.comment = response?.comment;
       this.dtTrigger.next(this.dtOptions);
-    });
-  }
+    });
+  }
 }
