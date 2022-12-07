@@ -16,9 +16,9 @@ import { Component, OnInit } from '@angular/core';
       <div id="layoutSidenav_content">
         <main>
           <app-header></app-header>
-          <div  id="layout-main">
+          <!-- <div  id="layout-main"> -->
             <ng-content select="router-outlet"></ng-content>
-          </div>
+          <!-- </div> -->
           <!-- <app-footer></app-footer> -->
         </main>
       </div>

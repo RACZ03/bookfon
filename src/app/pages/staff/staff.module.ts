@@ -16,6 +16,7 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
+
 @NgModule({
     declarations: [
         StaffComponent,
