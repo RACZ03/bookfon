@@ -33,7 +33,7 @@ export class AllComponent implements OnInit {
       this.status = response?.status;
       this.message = response?.message;
       this.comment = response?.comment;
-      console.log(this.staff);
+      //console.log(this.staff);
     });
   }
 }

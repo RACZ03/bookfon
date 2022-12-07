@@ -69,7 +69,7 @@ export class AvailavilityComponent implements OnInit {
   /* Load Data */
   async loadData() {
     // this.spinnerSvc.show();
-    console.log(this.idStaff);
+    //console.log(this.idStaff);
   let resp = await this.avaivilitySvr.getListByIdStaff(this.idStaff);
      console.log(resp);
      if(resp.status == 404)
