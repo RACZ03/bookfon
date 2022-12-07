@@ -12,7 +12,7 @@
     <i class="bi bi-arrow-bar-left"></i>
    Return list Service
 </button>
-<div class="container">
+<div class="container mb-5">
    <form (ngSubmit)="onSubmit()" [formGroup]="Serviceadd">
     <h5>{{title}}</h5>
     <div class="border-bottom border-3">
@@ -68,9 +68,36 @@
         </div>
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
            <span>Image</span>
-           <div>
-            <span>carrucel va aqui</span>
-           </div>
+           <!-- Carusel -->
+           <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12"> -->
+            <div class="div-staff">
+              <div class="container-fluit">
+                <div class="slider-wrap">
+                  <!-- slider item -->
+                  <div class="slider-main">
+                    <div *ngFor="let item of imagesList; let i = index" (click)="clickedFile()"
+                          [ngClass]="'item element-' + i">
+                      <div class="img-wrapper">
+                        <img *ngIf="item?.url !== '' " [src]="item?.url" class="avatar" appBrokenImagen alt="profile.png">
+                      </div>
+                      <i class="bi bi-plus btn-plus"></i>
+                      <input type="file" name="file" id="file" style="display: none;" (change)="SelectedFile($event)">
+                    </div>
+                  </div>
+                  <!-- Buttons -->
+                  <div class="button-area">
+                    <button type="button" class="prev" appBtnPrev>
+                      <i class="bi bi-chevron-compact-left"></i>
+                    </button>
+                    <button type="button" class="next" appBtnNext>
+                      <i class="bi bi-chevron-compact-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- </div> -->
+          <!-- END CARUSEL -->
            <div class="row">
             <label class="small mb-1" for="inputibrachoffices">Category <span class="text-danger">*</span></label>
             <div class="mb-3" style="display: flex;">
@@ -112,8 +139,11 @@
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
             <div class="mb-3">
                 <label class="small" for="">Duration</label><br>
-                <input type="text" class="form-control" placeholder="60" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="duration"
+                <input type="text" class="form-control" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="duration"
                 onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                <span *ngIf="validInput('duration')" class="text-danger mt-2">
+                  Required field
+              </span>
             </div>
             <div class="mb-3 ms-2 ">
                 <label for="exampleInputEmail1" class="small">Price</label><br>

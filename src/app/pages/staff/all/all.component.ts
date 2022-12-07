@@ -24,6 +24,7 @@ export class AllComponent implements OnInit, OnDestroy {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   staff: staffItem[] = [];
+  id: number = 0;
   status: number = 0;
   message: string = '';
   comment: string = '';

@@ -24,15 +24,16 @@ export class HeaderComponent implements OnInit {
 
     if (sidebarToggle) {
       sidebarToggle.addEventListener('click', event => {
-          event.preventDefault();
-          document.body.classList.toggle('sidenav-toggled');
+        console.log('click');
+        document.body.classList.toggle('sidenav-toggled');
+        event.preventDefault();
           localStorage.setItem('sb|sidebar-toggle',new Boolean( document.body.classList.contains('sidenav-toggled')).toString());
       });
     }
-    const sidebarToggleTop = document.body.querySelector('#layoutSidenav_content');
+    const sidebarToggleTop = document.body.querySelector('#layout-main');
     if (sidebarToggleTop) {
       sidebarToggleTop.addEventListener('click', event => {
-          // event.preventDefault();
+          event.preventDefault();
           document.body.classList.remove('sidenav-toggled');
           localStorage.setItem('sb|sidebar-toggle',new Boolean( document.body.classList.contains('sidenav-toggled')).toString());
       });

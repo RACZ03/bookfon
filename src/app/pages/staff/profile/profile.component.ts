@@ -1,4 +1,5 @@
 import { Component, OnInit,EventEmitter,Input} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -7,6 +8,13 @@ import { Component, OnInit,EventEmitter,Input} from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   @Input() itemStaff: any;
+ public idStaff: number = 0;
+
+@Input() set setIdProfile(id: number){
+  this.idStaff = id;
+};
+
+
   public scrollOptions: any[] = [
     { title: 'Profile', active: true },
     { title: 'Schedule', active: false },

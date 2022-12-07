@@ -1,5 +1,6 @@
 <section class="card">
     <div class="card-body">
+      <form (ngSubmit)="onUpdate()" [formGroup]="ModalForm">
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
@@ -75,5 +76,7 @@
         <button class="btn btn-primary btn-save">
             Save
         </button>
+
+      </form>
     </div>
 </section>

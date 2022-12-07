@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
 import { SharedModule } from 'src/app/shared/shared.module';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
 @NgModule({
     declarations: [
         StaffComponent,
@@ -29,7 +30,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
         BranchesComponent,
         SettingsComponent,
         ProfileEditComponent,
-        AddStaffComponent
+        AddStaffComponent,
+        AddAvailabilityComponent
     ],
     imports: [
         CommonModule,
