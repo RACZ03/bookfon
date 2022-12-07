@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
     declarations: [
         StaffComponent,
@@ -45,6 +46,8 @@ import { AddAvailabilityComponent } from './profile/availavility/add-availabilit
           }
         ),
         SharedModule,
+        NgSelectModule,
+        
   
     ],
     exports: [
