@@ -5,52 +5,49 @@
 <!--List Categories-->
 <div class="container">
 
-  <div class="mt-5" style="display: flex; gap: 20px;">
+  <div class="mt-2" style="display: flex; gap: 20px;">
+        <div class="container-seach">
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
+            </form>
+        </div>
         <button class="btn btn-add " (click)="showModalCategoriesAdd(true)">
             <i class="bi bi-plus"></i>
             Add new Categories
         </button>
-    <div class="container-seach">
-        <span class="input-group-text icon-search" id="basic-addon1" style="background: #fff;">
-            <i class="bi bi-search"></i>
-            <input class="form-control input-search ms-3" 
-            type="text" placeholder="Buscar..." aria-label="Search" style="border: none;"
-            (keyup)="searchData($event)">
-        </span>
     </div>
-</div>
-
-  <div class="table-responsive">
-    <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"> 
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th class="align-middle text-center">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of data">
-                <td class="align-middle">
+    <br>
+    <div class="table-responsive">
+        <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"> 
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th class="align-middle text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td class="align-middle">
+                        <div class="ms-3">
+                            <label for="" class="td-name">{{item.name}}</label>
+                        </div>
+                    </td>
+                    <td class="align-middle">
                     <div class="ms-3">
-                        <label for="" class="td-name">{{item.name}}</label>
+                        <label for="" class="td-name">{{item.description}}</label>
                     </div>
                 </td>
-                <td class="align-middle">
-                  <div class="ms-3">
-                      <label for="" class="td-name">{{item.description}}</label>
-                  </div>
-              </td>
-              <td class="align-middle text-center">
-                <button class="btn btn-sm btn-ng-primary" (click)="onEditCategories(item)">
-                    <i class="bi bi-pencil-square"></i>
-                </button>
-                <button class="btn btn-sm ms-2 btn-ng-danger">
-                    <i class="bi bi-trash-fill"></i>
-                </button>
-            </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+                <td class="align-middle text-center">
+                    <button class="btn btn-sm btn-ng-primary" (click)="onEditCategories(item)">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class="btn btn-sm ms-2 btn-ng-danger">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

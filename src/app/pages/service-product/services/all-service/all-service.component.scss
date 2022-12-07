@@ -57,54 +57,50 @@ $text-dark: #9F9F9F;
 }
 
 
-.content-2 {
+p {
+    margin-left: 50px;
+    color: #53504E;
+    font-size: 11px;
+}
 
-    p {
-        margin-left: 50px;
+.form-switch {
+    label {
+        font-size: 12px;
+        letter-spacing: 0px;
         color: #53504E;
+        opacity: 1;
+        margin-left: 10px;
+    }
+}
+
+.btn-add {
+    border-style: dashed;
+    border-width: 1px;
+    border-color: #1F72EA;
+    color: #1F72EA;
+    padding: 6px 30px;
+}
+
+.btn-table {
+    float: right;
+}
+
+table {
+    color: #393939;
+    background: #fff;
+    
+    tbody {
         font-size: 11px;
-    }
 
-    .form-switch {
-        label {
-            font-size: 12px;
-            letter-spacing: 0px;
-            color: #53504E;
-            opacity: 1;
-            margin-left: 10px;
+        tr .td-name {
+            margin-left: 8px;
+        }
+        tr .td-email {
+            margin-left: 46px;
+            position: absolute;
+            margin-top: -12px;
         }
     }
-
-    .btn-add {
-        border-style: dashed;
-        border-width: 1px;
-        border-color: #1F72EA;
-        color: #1F72EA;
-        padding: 6px 30px;
-    }
-
-    .btn-table {
-        float: right;
-    }
-
-    table {
-        color: #393939;
-        background: #fff;
-        
-        tbody {
-            font-size: 11px;
-
-            tr .td-name {
-                margin-left: 8px;
-            }
-            tr .td-email {
-                margin-left: 46px;
-                position: absolute;
-                margin-top: -12px;
-            }
-        }
-    }
-
 }
 
 .td-Price{
@@ -118,8 +114,6 @@ $text-dark: #9F9F9F;
         border-width: 1px;
         border-color: #1F72EA;
         color: #1F72EA;
-        margin-bottom: 25px;
-        height: 51px;
     }
     .btn-ng-primary{
         color: #1F72EA;
