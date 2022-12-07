@@ -15,8 +15,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
     declarations: [
         StaffComponent,
@@ -28,8 +27,7 @@ import { AddAvailabilityComponent } from './profile/availavility/add-availabilit
         BranchesComponent,
         SettingsComponent,
         ProfileEditComponent,
-        AddStaffComponent,
-        AddAvailabilityComponent
+        AddStaffComponent
     ],
     imports: [
         CommonModule,
@@ -37,6 +35,7 @@ import { AddAvailabilityComponent } from './profile/availavility/add-availabilit
         NgxMaskModule.forRoot(),
         BootFonFullCalendarModule,
         ReactiveFormsModule,
+        DataTablesModule,
         ToastrModule.forRoot(
           {
             timeOut: 2500,
@@ -44,11 +43,9 @@ import { AddAvailabilityComponent } from './profile/availavility/add-availabilit
             preventDuplicates: true,
           }
         ),
-        SharedModule,
-  
     ],
     exports: [
       ScheduleComponent
     ],
 })
-export class StaffModule { }
+export class StaffModule { }
