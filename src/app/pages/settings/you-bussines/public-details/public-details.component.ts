@@ -49,18 +49,15 @@ export class PublicDetailsComponent implements OnInit {
     if (resp.status === '200')
     {
       this.ModalForm.reset({
+        id: this.identity.businessList[0].id,
         publicBusinessName: data.name,
         supportEmail: data.supportEmail,
-        // supporPhoneNumber: '',
-        // supporAddress: '',
         addressLine1: data.address,
-        // addressLine2: '',
         city: data.city,
         state: data.state,
         zipCode: data.zipCode,
         statementDescriptor: data.longDescription,
         shortenedDescriptor: data.shortDescription,
-        // bussinessWebSide: '',
         supporWebSide: data.supportWebsite,
         privacyPolicy: data.privacyPolicy,
         termsService: data.termsOfService
@@ -69,8 +66,28 @@ export class PublicDetailsComponent implements OnInit {
     console.log(resp);
   }
 
-  onUpdate(){
+  async onUpdate(){
+    console.log(this.ModalForm.value);
+    let data = {
+      id: this.ModalForm.value.id,
+      address: this.ModalForm.value.addressLine1,
+      city: this.ModalForm.value.city,
+      longDescription: this.ModalForm.value.statementDescriptor,
+      name: this.ModalForm.value.publicBusinessName,
+      privacyPolicy: this.ModalForm.value.privacyPolicy,
+      shortDescription: this.ModalForm.value.shortenedDescriptor,
+      state: this.ModalForm.value.state,
+      supportEmail: this.ModalForm.value.supportEmail,
+      supportWebsite: this.ModalForm.value.supporWebSide,
+      termsOfService: this.ModalForm.value.termsService,
+      zipCode: this.ModalForm.value.zipCode
+    }
 
+    let resp = await this.businessSvc.update(data);
+
+    if (resp.status === '200'){
+      window.location.reload();
+    }
   }
 
 }

@@ -14,8 +14,8 @@ constructor(
     return this.connectionSvc.send('get', `business/${ id }`);
   }
 
-  update(id: string, params: any): Promise<any>{
-    return this.connectionSvc.send('put', `business/update/${id}`, params);
+  update(params: any): Promise<any>{
+    return this.connectionSvc.send('put', `business/update/${params.id}`, params);
   }
 
 }
