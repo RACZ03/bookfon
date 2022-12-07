@@ -9,12 +9,14 @@ export class StaffComponent implements OnInit {
   editStaff: boolean = false;
   newStaff: boolean = false;
   activeTab: number = 0;
+  public idStaff: number = 0;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   selectedStaff(event: any) {
+    this.idStaff= event;
     this.editStaff = true;
   }
 

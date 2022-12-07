@@ -11,6 +11,7 @@ import { staffItem } from 'src/app/@core/Interfaces/Staff';
 export class AllComponent implements OnInit {
   @Output() selectedStaff = new EventEmitter();
   staff: staffItem[] = [];
+  id: number = 0;
   status: number = 0;
   message: string = '';
   comment: string = '';
@@ -21,8 +22,9 @@ export class AllComponent implements OnInit {
     this.loadStaff();
   }
 
-  editStaff(staff: Staff) {
-    this.selectedStaff.emit(staff);
+  editStaff(id : number) {
+   //console.log(id);
+    this.selectedStaff.emit(id);
   }
 
   loadStaff() {

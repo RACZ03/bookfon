@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+ public idStaff: number = 0;
+
+@Input() set setIdProfile(id: number){
+  this.idStaff = id;
+};
+
+
   public scrollOptions: any[] = [
     { title: 'Profile', active: true },
     { title: 'Schedule', active: false },
