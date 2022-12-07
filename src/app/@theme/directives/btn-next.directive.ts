@@ -12,6 +12,7 @@ export class BtnNextDirective {
 
   @HostListener('click') 
   nextFunc() {
+    // console.log('CLICKED')
     let elem = this.el.nativeElement.parentElement.parentElement.children[0];
     let item = elem.getElementsByClassName('item');
     

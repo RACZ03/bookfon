@@ -15,6 +15,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
 @NgModule({
     declarations: [
         StaffComponent,
@@ -26,7 +28,8 @@ import { ToastrModule } from 'ngx-toastr';
         BranchesComponent,
         SettingsComponent,
         ProfileEditComponent,
-        AddStaffComponent
+        AddStaffComponent,
+        AddAvailabilityComponent
     ],
     imports: [
         CommonModule,
@@ -41,6 +44,8 @@ import { ToastrModule } from 'ngx-toastr';
             preventDuplicates: true,
           }
         ),
+        SharedModule,
+  
     ],
     exports: [
       ScheduleComponent

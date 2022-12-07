@@ -126,6 +126,7 @@
         <span class="file-msg"
           ><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i
           >{{ file.name }}</span
+          >{{ file.name ? file.name : "" }}</span
         >
         <input
           accept=".png, .jpg, .jpeg"
