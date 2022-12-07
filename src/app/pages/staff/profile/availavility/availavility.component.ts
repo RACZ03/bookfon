@@ -16,6 +16,7 @@ export class AvailavilityComponent implements OnInit {
 
   @Input() set setIdProfile(id: number){
     this.idStaff = id;
+    console.log(this.idStaff)
   }; 
 
   @ViewChild(DataTableDirective, {static: false})

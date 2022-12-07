@@ -16,6 +16,7 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
+import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +29,8 @@ import { DataTablesModule } from 'angular-datatables';
         BranchesComponent,
         SettingsComponent,
         ProfileEditComponent,
-        AddStaffComponent
+        AddStaffComponent,
+        AddAvailabilityComponent,
     ],
     imports: [
         CommonModule,
