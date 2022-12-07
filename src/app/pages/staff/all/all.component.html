@@ -1,7 +1,7 @@
 <div class="content w-100 bg-transparent">
   <div class="card p-2 rounded-3 border-0">
     <div class="table-responsive">
-      <table class="table">
+      <table class="table" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
         <thead>
           <tr>
             <th></th>
@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of staff">
+          <tr *ngFor="let item of data">
             <td class="align-middle">
               <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
             </td>
@@ -31,8 +31,8 @@
               <label for="">{{ item?.lastLogin? (item.lastLogin | date: 'd/M/yyyy'): 'unknown'}}</label>
             </td>
             <td class="d-flex justify-content-center">
-              <button (click)="editStaff({id:1,name:'jose cruz'})" class="btn btn-link m-1"><i
-                  class="bi bi-pencil-square"></i></button>
+              <button (click)="editStaff(item.id)" class="btn btn-link m-1">
+                <i class="bi bi-pencil-square"></i></button>
               <div class="form-check form-switch">
                 <input class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
               </div>

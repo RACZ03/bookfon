@@ -1,6 +1,6 @@
 <div class="row m-0">
   <div class="content-1 p-0">
-    <p class="title-step">Mario Harrison</p>
+    <p class="title-step">{{itemStaff?.fullName}}</p>
       <ul class="scroll-menu m-0 p-0">
           <li *ngFor="let item of scrollOptions; let i = index;" [ngClass]="{'active': item.active}"
               class="menu-item" (click)="changeOptions(item, i)">
@@ -12,13 +12,13 @@
   <div class="content-2">
       <div [ngSwitch]="optionSelected">
           <div *ngSwitchCase="0">
-           <app-profile-edit></app-profile-edit>
+           <app-profile-edit [itemStaff]="itemStaff"></app-profile-edit>
           </div>
           <div *ngSwitchCase="1">
               <app-schedule></app-schedule>
           </div>
           <div *ngSwitchCase="2">
-             3
+           <app-availavility [setIdProfile]="idStaff"></app-availavility>
           </div>
           <div *ngSwitchCase="3">
           4

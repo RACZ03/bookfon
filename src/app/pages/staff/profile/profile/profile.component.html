@@ -12,40 +12,40 @@
       <label for="phone_number" class="">Phone number</label>
       <input required type="text" class="form-control" id="phone_number sm" placeholder="phone number">
     </div>
-    <div class="col-md-4 mt-3">
+    <div class="col-md-8 mt-3">
       <label for="phone_number" class="">Image</label>
       <div class="file-drop-area">
-        <span class="file-msg"><i *ngIf="!file_name" class="bi bi-upload"> Upload</i>{{file_name}}</span>
+        <span class="file-msg"><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i>{{file?.name}}</span>
         <input (change)="onFileSelected($event.target)" class="file-input" type="file">
       </div>
     </div>
-    <div class="col-md-8 mt-3">
+    <!-- <div class="col-md-8 mt-3">
       <label for="review" class="">Review</label>
       <textarea required class="form-control" id="review" rows="2" placeholder="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestiae dolores">
       </textarea>
-    </div>
+    </div> -->
 
-    <div class="col-md-4 mt-3">
+    <!-- <div class="col-md-4 mt-3">
       <label for="id" class="">ID</label>
       <input required type="text" class="form-control" id="id" placeholder="id">
-    </div>
+    </div> -->
     <div class="col-md-4 mt-3">
       <label for="email" class="">Email</label>
       <input required type="text" class="form-control" id="email" placeholder="email">
     </div>
-    <div class="col-md-4 mt-3">
+    <!-- <div class="col-md-4 mt-3">
       <label for="email" class="">Social security</label>
       <input required type="text" class="form-control" id="social-security" placeholder="social security">
-    </div>
+    </div> -->
 
-    <div class="col-md-12 mt-3">
+    <!-- <div class="col-md-12 mt-3">
       <label for="address" class="">Address</label>
       <textarea required class="form-control" id="address" rows="2">
       Quia sint exercitationem tempore, ipsam minima dolor illum.
       </textarea>
-    </div>
+    </div> -->
 
-    <div class="col-md-4 mt-3">
+    <!-- <div class="col-md-4 mt-3">
       <label for="city" class="">City</label>
       <select required class="form-select" id="city">
         <option selected>Choose...</option>
@@ -53,8 +53,8 @@
         <option value="2">Los Angeles</option>
         <option value="3">Chicago</option>
       </select>
-    </div>
-    <div class="col-md-4 mt-3">
+    </div> -->
+    <!-- <div class="col-md-4 mt-3">
       <label for="state" class="">State</label>
       <select required class="form-select" id="state">
         <option selected>Choose...</option>
@@ -62,11 +62,11 @@
         <option value="2">Los Angeles</option>
         <option value="3">Chicago</option>
       </select>
-    </div>
-    <div class="col-md-4 mt-3">
+    </div> -->
+    <!-- <div class="col-md-4 mt-3">
       <label for="zip" class="">Zip code</label>
       <input required type="text" class="form-control" id="zip" placeholder="zip code">
-    </div>
+    </div> -->
     <div class="col-md-12 mt-3">
       <button type="submit" class="btn btn-primary">Save</button>
     </div>
