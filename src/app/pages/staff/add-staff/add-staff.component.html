@@ -1,76 +1,157 @@
 <div class="card p-3 m-0 w-100">
   <form disabled class="row" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="col-md-4">
-      <label for="first_name" class=""><sup class="lb-required">*</sup>First name</label>
-      <input formControlName="first_name" [ngClass]="{ 'is-invalid': submitted && f['first_name'].errors }" type="text"
-        class="form-control" id="first_name" placeholder="first name">
-      <div *ngIf="submitted && f['first_name'].errors" class="invalid-feedback">
-        <div *ngIf="f['first_name'].errors['required']">First name is required</div>
+      <label for="first_name" class=""
+        ><sup class="lb-required">*</sup>First name</label
+      >
+      <input
+        formControlName="first_name"
+        [ngClass]="{
+          'is-invalid':
+            f['first_name'].invalid &&
+            (f['first_name'].touched || f['first_name'].dirty)
+        }"
+        type="text"
+        class="form-control"
+        id="first_name"
+        placeholder="first name"
+      />
+      <div *ngIf="f['first_name'].errors" class="invalid-feedback">
+        <div *ngIf="f['first_name'].errors['required']">
+          First name is required
+        </div>
       </div>
     </div>
     <div class="col-md-4">
-      <label for="last_name" class=""><sup class="lb-required">*</sup>Last name</label>
-      <input formControlName="last_name" [ngClass]="{ 'is-invalid': submitted && f['last_name'].errors }" required
-        type="text" class="form-control" id="last_name" placeholder="last name">
-      <div *ngIf="submitted && f['last_name'].errors" class="invalid-feedback">
-        <div *ngIf="f['last_name'].errors['required']">Last name is required</div>
+      <label for="last_name" class=""
+        ><sup class="lb-required">*</sup>Last name</label
+      >
+      <input
+        formControlName="last_name"
+        [ngClass]="{
+          'is-invalid':
+            f['last_name'].invalid &&
+            (f['last_name'].touched || f['last_name'].dirty)
+        }"
+        required
+        type="text"
+        class="form-control"
+        id="last_name"
+        placeholder="last name"
+      />
+      <div *ngIf="f['last_name'].errors" class="invalid-feedback">
+        <div *ngIf="f['last_name'].errors['required']">
+          Last name is required
+        </div>
       </div>
     </div>
     <div class="col-md-4">
-      <label for="phone_number" class=""><sup class="lb-required">*</sup>Phone number</label>
-      <input mask="(000) 000-0000" formControlName="phone_number"
-        [ngClass]="{ 'is-invalid': submitted && f['phone_number'].errors }" required type="text" class="form-control"
-        id="phone_number" placeholder="phone number">
-      <div *ngIf="submitted && f['phone_number'].errors" class="invalid-feedback">
-        <div *ngIf="f['phone_number'].errors['required']">Phone number is required</div>
+      <label for="phone_number" class=""
+        ><sup class="lb-required">*</sup>Phone number</label
+      >
+      <input
+        mask="(000) 000-0000"
+        formControlName="phone_number"
+        [ngClass]="{
+          'is-invalid':
+            f['phone_number'].invalid &&
+            (f['phone_number'].touched || f['phone_number'].dirty)
+        }"
+        required
+        type="text"
+        class="form-control"
+        id="phone_number"
+        placeholder="phone number"
+      />
+      <div *ngIf="f['phone_number'].errors" class="invalid-feedback">
+        <div *ngIf="f['phone_number'].errors['required']">
+          Phone number is required
+        </div>
       </div>
     </div>
     <div class="col-md-4 mt-3">
       <label for="email" class=""><sup class="lb-required">*</sup>Email</label>
-      <input type="text" formControlName="email" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
-      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+      <input
+        type="text"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            f['email'].invalid && (f['email'].touched || f['email'].dirty)
+        }"
+      />
+      <div *ngIf="f['email'].errors" class="invalid-feedback">
         <div *ngIf="f['email'].errors['required']">Email is required</div>
         <div *ngIf="f['email'].errors['email']">Email is invalid</div>
       </div>
     </div>
     <div class="col-md-4 mt-3">
-      <label for="profile" class=""><sup class="lb-required">*</sup>Profile</label>
-      <input type="text" formControlName="profile" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['profile'].errors }" />
-      <div *ngIf="submitted && f['profile'].errors" class="invalid-feedback">
+      <label for="profile" class=""
+        ><sup class="lb-required">*</sup>Profile</label
+      >
+      <input
+        type="text"
+        formControlName="profile"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            f['profile'].invalid && (f['profile'].touched || f['profile'].dirty)
+        }"
+      />
+      <div *ngIf="f['profile'].errors" class="invalid-feedback">
         <div *ngIf="f['profile'].errors['required']">Profile is required</div>
       </div>
     </div>
     <div class="col-md-4 mt-3">
       <label for="sex" class=""><sup class="lb-required">*</sup>Sex</label>
-      <select class="form-control" [ngClass]="{ 'is-invalid': submitted && f['sex'].errors }"
-        (change)="changeSex($event)" formControlName="sex">
+      <select
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': f['sex'].invalid && (f['sex'].touched || f['sex'].dirty)
+        }"
+        formControlName="sex"
+      >
         <option disabled value="" readonly>choose sex</option>
         <option *ngFor="let item of sexs" [value]="item.id">
           {{ item.name }}
         </option>
       </select>
-      <div class="invalid-feedback" *ngIf="submitted && f['sex'].errors">
+      <div class="invalid-feedback" *ngIf="f['sex'].errors">
         Please provide sex name
       </div>
     </div>
     <div class="col-md-12 mt-3">
       <label for="phone_number" class="">Image</label>
       <div class="file-drop-area">
-        <span class="file-msg"><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i>{{file.name ? file.name: ""}}</span>
-        <input accept=".png, .jpg, .jpeg" formControlName="image" (change)="onFileSelected($event.target)"
-          class="file-input" type="file">
+        <span class="file-msg"
+          ><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i
+          >{{ file?.name ? file?.name : "" }}</span
+        >
+        <input
+          accept=".png, .jpg, .jpeg"
+          formControlName="image"
+          (change)="onFileSelected($event.target)"
+          class="file-input"
+          type="file"
+        />
       </div>
-      <div *ngIf="!fileValid" class="red">
-        file is invalid
-      </div>
+      <div *ngIf="!fileValid" class="red">file is invalid</div>
     </div>
     <div class="col-md-6 mt-3">
-      <label for="password" class=""><sup class="lb-required">*</sup>Password</label>
-      <input type="password" formControlName="password" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
-      <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+      <label for="password" class=""
+        ><sup class="lb-required">*</sup>Password</label
+      >
+      <input
+        type="password"
+        formControlName="password"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            f['password'].invalid &&
+            (f['password'].touched || f['password'].dirty)
+        }"
+      />
+      <div *ngIf="f['password'].errors" class="invalid-feedback">
         <div *ngIf="f['password'].errors['required']">Password is required</div>
         <div *ngIf="f['password'].errors['minlength']">
           Password must be at least 6 characters
@@ -81,18 +162,34 @@
       </div>
     </div>
     <div class="col-md-6 mt-3">
-      <label for="password" class=""><sup class="lb-required">*</sup>Password confirm</label>
-      <input type="password" formControlName="confirmPassword" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].value !== f['password'].value }" />
-      <div *ngIf="submitted && f['confirmPassword'].value !== f['password'].value" class="invalid-feedback">
-        <div>
-          Confirm Password does not match
-        </div>
+      <label for="password"
+        ><sup class="lb-required">*</sup>Password confirm</label
+      >
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            f['confirmPassword'].invalid &&
+            (f['confirmPassword'].touched || f['confirmPassword'].dirty)
+        }"
+      />
+      <div
+        *ngIf="this.f['password'].value != this.f['confirmPassword'].value"
+        class="invalid-feedback"
+      >
+        <div>Confirm Password does not match</div>
       </div>
     </div>
     <div class="col-md-12 mt-3">
       <button type="submit" class="btn btn-primary" [disabled]="loading">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
         <span *ngIf="loading" class="visually-hidden">please wait </span>
         Save
       </button>
