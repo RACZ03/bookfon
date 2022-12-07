@@ -17,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
 import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { AddAvailabilityComponent } from './profile/availavility/add-availabilit
             preventDuplicates: true,
           }
         ),
+        NgSelectModule,
     ],
     exports: [
       ScheduleComponent
