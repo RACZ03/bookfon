@@ -68,6 +68,7 @@ async addCategories(){
 
 
   async onSubmit() {
+    // console.log('Click')
     if ( this.Categoryadd.invalid ) 
       return
 
@@ -99,4 +100,5 @@ async addCategories(){
       description: ['', [Validators.required ]],
     })
   }
+  
 }
