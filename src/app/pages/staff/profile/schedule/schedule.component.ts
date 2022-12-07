@@ -45,6 +45,7 @@ export class ScheduleComponent implements OnInit {
       let date = e.event.start,
         dateFormated = moment(date).format('YYYY-MM-DD');
       this.itemSelected = { ...found, dateFormated };
+      console.log("item event", this.itemSelected);
       this.modalPopUp.show();
     }
   }

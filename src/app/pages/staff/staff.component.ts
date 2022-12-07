@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffComponent implements OnInit {
   editStaff: boolean = false;
+  itemStaff:any;
   newStaff: boolean = false;
+  activeTab: number = 1;
   activeTab: number = 0;
   public idStaff: number = 0;
 
@@ -15,6 +17,9 @@ export class StaffComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  selectedStaff(item: any) {
+    this.itemStaff = item;
+    console.log("item:::",item);
   selectedStaff(event: any) {
     this.idStaff= event;
     this.editStaff = true;

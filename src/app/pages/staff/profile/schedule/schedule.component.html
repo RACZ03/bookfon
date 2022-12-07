@@ -17,11 +17,30 @@
     <div class="modal-content">
       <div class="modal-header text-center">
         <h6 class="modal-title">
-          Detalle de evento
+          Event Details
         </h6>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group d-flex justify-content-center">
+              <img style="width:100px" src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" class="avatar">
+            </div>
+
+          </div>
+          <div class="col-md-12">
+            <span class="d-block text-black" style="text-align: center;">
+              <label class="form-label bm-1" style="font-weight: 700">{{itemSelected?.title}}</label>
+            </span>
+            <span class="d-block text-black mt-3" style="text-align: left;">
+              <label class="form-label"><span style="font-weight:700">Date:</span>{{itemSelected?.start}} - {{itemSelected?.end}}</label>
+            </span>
+            <span class="d-block text-black" style="text-align: left;">
+              <label class="form-label"><span style="font-weight:700">Time:</span>{{itemSelected?.time?.startTime}} - {{itemSelected?.time?.endTime}}</label>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
