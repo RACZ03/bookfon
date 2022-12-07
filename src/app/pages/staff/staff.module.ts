@@ -15,6 +15,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
     declarations: [
         StaffComponent,
@@ -34,6 +35,7 @@ import { ToastrModule } from 'ngx-toastr';
         NgxMaskModule.forRoot(),
         BootFonFullCalendarModule,
         ReactiveFormsModule,
+        DataTablesModule,
         ToastrModule.forRoot(
           {
             timeOut: 2500,
