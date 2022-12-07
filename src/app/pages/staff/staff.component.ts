@@ -7,8 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StaffComponent implements OnInit {
   editStaff: boolean = false;
+  itemStaff:any;
   newStaff: boolean = false;
-  activeTab: number = 0;
+  activeTab: number = 1;
+  // activeTab: number = 0;
   public idStaff: number = 0;
 
   constructor() {}

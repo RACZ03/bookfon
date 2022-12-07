@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Staff } from '../models/staff';
-import { StaffService } from '../../../@core/services/staff.service';
 import { staffItem } from 'src/app/@core/Interfaces/Staff';
+import { StaffService } from 'src/app/@core/services/staff.service';
+import { Staff } from '../models/staff';
 
 @Component({
   selector: 'app-all',
@@ -28,7 +28,7 @@ export class AllComponent implements OnInit {
   }
 
   loadStaff() {
-    this.staffService.getAllStaff().then((response) => {
+    this.staffService.getAllStaff().then((response: any) => {
       this.staff = response?.data;
       this.status = response?.status;
       this.message = response?.message;
