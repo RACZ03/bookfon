@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter,Input} from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -6,6 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  @Input() itemStaff: any;
+ public idStaff: number = 0;
+
+@Input() set setIdProfile(id: number){
+  this.idStaff = id;
+};
+
+
   public scrollOptions: any[] = [
     { title: 'Profile', active: true },
     { title: 'Schedule', active: false },
@@ -17,6 +25,7 @@ export class ProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("itemStaff:::",this.itemStaff);
   }
 
   changeOptions(e: any, index: number) {

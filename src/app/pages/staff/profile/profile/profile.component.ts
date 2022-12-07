@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input } from '@angular/core';
+import { ImageFile } from 'src/app/@core/Interfaces/Image-file';
 
 @Component({
   selector: 'app-profile-edit',
@@ -6,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileEditComponent implements OnInit {
-file_name: string="";
+  @Input() itemStaff: any;
+  file:ImageFile | undefined
   constructor() { }
 
   ngOnInit(): void {
   }
 
   onFileSelected(file: any) {
-    console.log(file?.files[0].name);
-    this.file_name = file?.files[0].name;
+    this.file = file?.files[0];
   }
 }

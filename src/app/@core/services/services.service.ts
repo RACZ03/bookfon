@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CategoryI } from '../Interfaces/Category';
 import { ConnectionService } from '../utils/connection.service';
@@ -7,160 +8,248 @@ import { ConnectionService } from '../utils/connection.service';
 const URL = environment.APIUrl;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ServicesService {
-
   public token: any = null;
-   
-  
+  public filePath!: string;
+
   constructor(
-    private connectionSvc: ConnectionService
+    private connectionSvc: ConnectionService,
+    private storage: AngularFireStorage
   ) { 
+    // console.log('SERVICES')
   }
-//------------------------cupons---------------------------------
-///v1/coupon/business/{businessCode}
-getCuponsByBusiness(): Promise<any> {
+  //------------------------cupons---------------------------------
+  ///v1/coupon/business/{businessCode}
+  getCuponsByBusiness(): Promise<any> {
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    return this.connectionSvc.send(
+      'get',
+      `v1/coupon/business/${identity.code}`
+    );
+  }
 
-  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-  return this.connectionSvc.send('get', `v1/coupon/business/${identity.code}`);
-}
+  ///////////////-------------------services---------------------------------///////////////
+  postService(
+    service: any,
+    categoriesnew: any,
+    subcategoriesnew: any,
+    recurrentPayment: any,
+    imagesList: any[]
+  ): Promise<any> {
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    let img: any = [];
+    let imagePrincipal: string = '';
 
-///////////////-------------------services---------------------------------///////////////
-postService(service: any, categoriesnew : any, subcategoriesnew : any, recurrentPayment : any): Promise<any> {
-  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-  let img : any [] = [];
- img = [{url: "https://firebasestorage.googleapis.com/v0/b/bpb-training.appspot.com/o/coach%2FIMG_1623.jpeg-1663303744736?alt=media&token=1df2dcf7-9eb6-41c0-99f2-e388e2993239",
-  type: 2}]
+    for (let i = 0; i < imagesList.length; i++) {
+      if ( i === 0 ) {
+        imagePrincipal = imagesList[i]?.url;
+      } else {
+        img.push({
+          url: imagesList[i]?.url,
+          type: 2
+        });
+      }
+    }
 
-     let obj: any = { 
-       name:service.name,
-       cost: service.price,
-       duration: service.duration,
-       recurrentPayment: recurrentPayment,
-       categories: categoriesnew,
-       subCategories: subcategoriesnew,
-       idCurrency : 8,
-       idBusiness: identity.id,
-       imagePrincipal:"https://firebasestorage.googleapis.com/v0/b/bpb-training.appspot.com/o/coach%2FIMG_0840.jpeg-1663302151339?alt=media&token=b56ac71d-f512-4b27-8f35-9da720183382",
-       images:img
-     }
-     const params = JSON.stringify(obj);
-     console.log(params);
-     if(service.id !== 0 && service.id !== null && service.id !== undefined && service.id !== ''){
-       //catalogs/update/{{id}}
-       //console.log("entro al update");
-       return this.connectionSvc.send('put', `services/update/${service.id}`, params);
+    let obj: any = {
+      name: service.name,
+      description: service.description,
+      cost: service.price,
+      duration: service.duration,
+      recurrentPayment: recurrentPayment,
+      categories: categoriesnew,
+      subCategories: subcategoriesnew,
+      idCurrency: 8,
+      idBusiness: identity.id,
+      imagePrincipal: imagePrincipal,
+      images: img,
+    };
+    const params = JSON.stringify(obj);
+    console.log(params);
+    if (
+      service.id !== 0 &&
+      service.id !== null &&
+      service.id !== undefined &&
+      service.id !== ''
+    ) {
+      //catalogs/update/{{id}}
+      //console.log("entro al update");
+      return this.connectionSvc.send(
+        'put',
+        `services/update/${service.id}`,
+        params
+      );
+    } else {
+      return this.connectionSvc.send('post', `services/save`, params);
+    }
+  }
 
-     }else{
-       return this.connectionSvc.send('post', `services/save`, params);
-     }
+  getServicesByBusinesset(): Promise<any> {
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    return this.connectionSvc.send(
+      'get',
+      `public/v1/${identity.code}/allServicesByBusiness`
+    );
+  }
 
-}
+  getByIdServiceBusinness(id: number): Promise<any> {
+    return this.connectionSvc.send('get', `getServicesById/${id}`);
+  }
 
-getServicesByBusinesset(): Promise<any> {
-  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-  return this.connectionSvc.send('get', `public/v1/${identity.code}/allServicesByBusiness`);
-  
-}
-
-getByIdServiceBusinness(id: number): Promise<any> {
-
-  return this.connectionSvc.send('get', `getServicesById/${id}`);
-}
-
-
-///////-------------------CATEGORIES---------------------------------///////
+  ///////-------------------CATEGORIES---------------------------------///////
   getDataCategory(): Promise<any> {
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-    return this.connectionSvc.send('get', `catalogs/byRefAndBusiness/${identity.code}?ref=CATEGORY`);
+    return this.connectionSvc.send(
+      'get',
+      `catalogs/byRefAndBusiness/${identity.code}?ref=CATEGORY`
+    );
   }
 
   findById(id: number): Promise<any> {
-    return this.connectionSvc.send('get', `users/${ id }`);
+    return this.connectionSvc.send('get', `users/${id}`);
   }
 
   postCategory(Category: any): Promise<any> {
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-    let obj: any = { 
-      name:Category.name,
+    let obj: any = {
+      name: Category.name,
       description: Category.description,
       catalogTypeRef: 'CATEGORY',
-    }
+    };
     const params = JSON.stringify(obj);
-    if(Category.id !== 0 && Category.id !== null && Category.id !== undefined && Category.id !== ''){
+    if (
+      Category.id !== 0 &&
+      Category.id !== null &&
+      Category.id !== undefined &&
+      Category.id !== ''
+    ) {
       //catalogs/update/{{id}}
-      return this.connectionSvc.send('put', `catalogs/update/${Category.id}`, params);
-
-    }else{
-      return this.connectionSvc.send('post', `catalogs/saveCatalogToBusiness/${identity.code}`, params);
+      return this.connectionSvc.send(
+        'put',
+        `catalogs/update/${Category.id}`,
+        params
+      );
+    } else {
+      return this.connectionSvc.send(
+        'post',
+        `catalogs/saveCatalogToBusiness/${identity.code}`,
+        params
+      );
     }
-
   }
 
   put(params: any): Promise<any> {
     let id = params.id;
     delete params.id;
-    return this.connectionSvc.send('put', `users/update/${ id }`, params);
+    return this.connectionSvc.send('put', `users/update/${id}`, params);
   }
 
   delete(id: number): Promise<any> {
-    return this.connectionSvc.send('delete', `users/${ id }`);
+    return this.connectionSvc.send('delete', `users/${id}`);
   }
-/////////////-------------------------Subcategories-------------------------////////////////////////
+  /////////////-------------------------Subcategories-------------------------////////////////////////
 
-getDataSubCategories(): Promise<any> {
-  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-  return this.connectionSvc.send('get', `catalogs/byRefAndBusiness/${identity.code}?ref=SUB_CATEGORY`);
-}
-
-
-postSubCategory(Category: any): Promise<any> {
-  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-
-  let obj: any = { 
-    name:Category.name,
-    description: Category.description,
-    catalogTypeRef: 'SUB_CATEGORY',
-  }
-  const params = JSON.stringify(obj);
-  if(Category.id !== 0 && Category.id !== null && Category.id !== undefined && Category.id !== ''){
-    //catalogs/update/{{id}}
-    return this.connectionSvc.send('put', `catalogs/update/${Category.id}`, params);
-
-  }else{
-    return this.connectionSvc.send('post', `catalogs/saveCatalogToBusiness/${identity.code}`, params);
+  getDataSubCategories(): Promise<any> {
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    return this.connectionSvc.send(
+      'get',
+      `catalogs/byRefAndBusiness/${identity.code}?ref=SUB_CATEGORY`
+    );
   }
 
-}
+  postSubCategory(Category: any): Promise<any> {
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
 
-/////////------------------------Classifications-----------------------------------////////////////////////
-
-getdataClasifications(): Promise<any> {
-  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-  return this.connectionSvc.send('get', `catalogs/byRefAndBusiness/${identity.code}?ref=CLASIFICATION`);
-}
-
-
-postClasifications(Category: any): Promise<any> {
-  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-
-  let obj: any = { 
-    name:Category.name,
-    description: Category.description,
-    catalogTypeRef: 'CLASIFICATION',
+    let obj: any = {
+      name: Category.name,
+      description: Category.description,
+      catalogTypeRef: 'SUB_CATEGORY',
+    };
+    const params = JSON.stringify(obj);
+    if (
+      Category.id !== 0 &&
+      Category.id !== null &&
+      Category.id !== undefined &&
+      Category.id !== ''
+    ) {
+      //catalogs/update/{{id}}
+      return this.connectionSvc.send(
+        'put',
+        `catalogs/update/${Category.id}`,
+        params
+      );
+    } else {
+      return this.connectionSvc.send(
+        'post',
+        `catalogs/saveCatalogToBusiness/${identity.code}`,
+        params
+      );
+    }
   }
-  const params = JSON.stringify(obj);
 
-  if(Category.id !== 0 && Category.id !== null && Category.id !== undefined && Category.id !== ''){
-    //catalogs/update/{{id}}
-    return this.connectionSvc.send('put', `catalogs/update/${Category.id}`, params);
+  /////////------------------------Classifications-----------------------------------////////////////////////
 
-  }else{
-    return this.connectionSvc.send('post', `catalogs/saveCatalogToBusiness/${identity.code}`, params);
+  getdataClasifications(): Promise<any> {
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    return this.connectionSvc.send(
+      'get',
+      `catalogs/byRefAndBusiness/${identity.code}?ref=CLASIFICATION`
+    );
   }
-}
 
-/////////////Coupon////////////////////////
+  postClasifications(Category: any): Promise<any> {
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
 
+    let obj: any = {
+      name: Category.name,
+      description: Category.description,
+      catalogTypeRef: 'CLASIFICATION',
+    };
+    const params = JSON.stringify(obj);
+
+    if (
+      Category.id !== 0 &&
+      Category.id !== null &&
+      Category.id !== undefined &&
+      Category.id !== ''
+    ) {
+      //catalogs/update/{{id}}
+      return this.connectionSvc.send(
+        'put',
+        `catalogs/update/${Category.id}`,
+        params
+      );
+    } else {
+      return this.connectionSvc.send(
+        'post',
+        `catalogs/saveCatalogToBusiness/${identity.code}`,
+        params
+      );
+    }
+  }
+
+  /////////////Coupon////////////////////////
+
+  uploadImage(file: any): Promise<any> {
+    // method update image profile
+    let current = new Date().getTime();
+    this.filePath = `services/${file.name}-${current}`;
+    const fileRef = this.storage.ref(this.filePath);
+    const task = this.storage.upload(this.filePath, file);
+    return new Promise((resolve, reject) => {
+      task
+        .snapshotChanges()
+        .pipe(
+          finalize(async () => {
+            fileRef.getDownloadURL().subscribe(async (urlImage) => {
+             
+              resolve(urlImage);
+            });
+          })
+        )
+        .subscribe();
+    });
+  }
 }

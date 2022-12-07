@@ -82,11 +82,10 @@ export class BootFonFullCalendar implements OnInit {
         let { extendedProps } = arg.event._def;
         let { time, service_name, service_description, ubication } =
           extendedProps;
-        let textUbication = ubication === 1 ? 'Clinica' : 'Zoom';
         return {
           html: `<div class="fc-event-content"
            style="min-height: 40px;
-           background-color: ${ct.hexToRgba(ui.backgroundColor, 0.26)};
+           background-color: ${ct.hexToRgba((ui.backgroundColor!=''? ui.backgroundColor: '#fff'), 0.26)};
            min-width: 100%;
            border-top-right-radius: 10px !important;
            border-bottom-right-radius: 10px !important;
@@ -100,16 +99,12 @@ export class BootFonFullCalendar implements OnInit {
                ui.borderColor
              }">
          <br>
-         <div class="fc-event-title" style="text-align: left;">
-         <label style="float: right; font-size: 10px; margin-right: 20px;">${textUbication}</label><br>
-           <label style="font-size: 11px; font-weight: 700; color: ${
-             ui.backgroundColor
-           };">${arg.event.title}</label><br>
-           <label style="font-size: 9px;">${time.startTime.slice(
-             0,
-             5
-           )} - ${time.endTime.slice(0, 5)}</label><br>
-           <label style="font-size: 9px;">${service_name} ${service_description}</label>
+         <div class="fc-event-title" style="text-align: center;">
+         <label style="font-size: 12px; font-weight: 700; color: black;">${arg.event.title}</label>
+           <br>
+           <label style="font-size: 9px;font-weight:700;text-alight:center">${time.startTime.slice(0,5)} - ${time.endTime.slice(0, 5)}</label>
+           <br>
+           <label style="font-size: 9px;color:black;text-alight:center">${service_name} ${service_description}</label>
          </div>
        </div>`,
         };
