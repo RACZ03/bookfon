@@ -25,7 +25,7 @@ export class PublicDetailsComponent implements OnInit {
   initForm(): FormGroup{
     return this.fb.group({
       id: [''],
-      publicBusinessName: ['', [Validators.required ]],
+      legalBusinessName: ['', [Validators.required ]],
       supportEmail: ['', Validators.required],
       // supporPhoneNumber: ['', Validators.required],
       // supporAddress: ['', Validators.required],
