@@ -1,7 +1,7 @@
 <div class="content w-100 bg-transparent">
   <div class="card p-2 rounded-3 border-0">
     <div class="table-responsive">
-      <table class="table">
+      <table class="table" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
         <thead>
           <tr>
             <th></th>
@@ -34,10 +34,10 @@
               <button (click)="editStaff(item)" class="btn btn-link m-1"><i
                   class="bi bi-pencil-square"></i></button>
               <div class="form-check form-switch">
-                <input class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
+                <input (change)="openModalChangeStatus(item.id)" class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
               </div>
-              <button class="btn btn-link m-1"><i class="bi bi-key-fill"></i></button>
-              <button class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button>
+              <button (click)="openModalChangePass(item.id)" class="btn btn-link m-1"><i class="bi bi-key-fill"></i></button>
+              <button (click)="openModalDeleteRecord(item.id)" class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button>
             </td>
           </tr>
         </tbody>
@@ -45,3 +45,19 @@
     </div>
   </div>
 </div>
+
+<!-- modal confirm change status staff -->
+<div class="modal fade" id="confirmChangeStatusModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-modal-delete [btnYes]="'Disable'" [message]="'Do you really want to disable this record? This process cannot be undone'" (delete)="confirmChangeStatusOnDelete($event)"></app-modal-delete> 
+</div>
+
+<!-- modal delete record -->
+<div class="modal fade" id="deleteRecordConfirmModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-modal-delete (delete)="confirmDeleteRecord($event)"></app-modal-delete> 
+</div>
+
+<!-- Change Password -->
+<div class="modal fade" id="modalChangePassCustomers" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-change-password [setId]="idSelected" (changePass)="closeModalChangePass($event)"></app-change-password>
+</div>
+<!-- End Change Password -->

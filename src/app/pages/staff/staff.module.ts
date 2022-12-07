@@ -15,6 +15,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { DataTablesModule } from 'angular-datatables';
+import { SharedModule } from 'src/app/shared/shared.module';
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 @NgModule({
     declarations: [
         StaffComponent,
@@ -34,6 +37,8 @@ import { ToastrModule } from 'ngx-toastr';
         NgxMaskModule.forRoot(),
         BootFonFullCalendarModule,
         ReactiveFormsModule,
+        DataTablesModule,
+        SharedModule,
         ToastrModule.forRoot(
           {
             timeOut: 2500,

@@ -31,6 +31,17 @@ export class StaffService {
     );
   }
 
+  enableDisableStaff(id_staff:number):Promise<any>{
+    return this.connectionSvc.send(
+      'post',
+      'users/disableByBusiness/'+this.dataIdentity?.businessList[0].code+'?idUser='+id_staff
+    );
+  }
+
+  deleteStaff(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `users/${ id }`);
+  }
+
   uploadImage(file: any): Promise<any> {
     let current = new Date().getTime();
     let filePath = '';
@@ -102,5 +113,9 @@ export class StaffService {
         '/users/saveStaff?roleName=ROLE_STAFF',
       params
     );
+  }
+
+  updateStaff(params: any){
+    return this.connectionSvc.send('put', `users/update/${ params.id }`, params);
   }
 }

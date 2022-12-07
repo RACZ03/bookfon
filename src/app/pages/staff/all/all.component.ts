@@ -1,37 +1,154 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Staff } from '../models/staff';
+import { Component, OnInit, EventEmitter, Output, ViewChild, OnDestroy } from '@angular/core';
 import { StaffService } from '../../../@core/services/staff.service';
 import { staffItem } from 'src/app/@core/Interfaces/Staff';
-
+import { DataTableDirective } from 'angular-datatables';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+declare var window: any;
 @Component({
   selector: 'app-all',
   templateUrl: './all.component.html',
   styleUrls: ['./all.component.scss'],
 })
-export class AllComponent implements OnInit {
+export class AllComponent implements OnInit, OnDestroy {
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement!: DataTableDirective;
+
   @Output() selectedStaff = new EventEmitter();
+
+  public formModalChangePass: any;
+  public confirmChangeStatusModal: any;
+  public deleteRecordConfirmModal: any;
+  public idSelected: number = 0;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
   staff: staffItem[] = [];
   status: number = 0;
   message: string = '';
   comment: string = '';
 
-  constructor(private staffService: StaffService) {}
+  constructor(private staffService: StaffService, private toast: ToastrService) { }
+
 
   ngOnInit(): void {
-    this.loadStaff();
+    this.formModalChangePass = new window.bootstrap.Modal(
+      document.getElementById('modalChangePassCustomers')
+    );
+    this.confirmChangeStatusModal = new window.bootstrap.Modal(
+      document.getElementById('confirmChangeStatusModal')
+    );
+
+    this.deleteRecordConfirmModal = new window.bootstrap.Modal(
+      document.getElementById('deleteRecordConfirmModal')
+    );
+
+    this.dtOptions = {
+      pagingType: "simple_numbers",
+      pageLength: 5,
+      scrollX: true,
+      autoWidth: false,
+      destroy: true,
+      responsive: true,
+      dom: 'Bfrtip',
+      searching: true,
+      search: false,
+      info: false,
+    }
+
+    this.loadData();
   }
 
-  editStaff(staff: object) {
-    this.selectedStaff.emit(staff);
+  async deleteRecordStaff() {
+    this.staffService.deleteStaff(this.idSelected).then(response => {
+      this.renderer();
+      this.loadData();
+      this.toast.success("success delete record", "Success");
+    }).catch(error => {
+      this.toast.error("It is not possible to delete record", "Error");
+    });
   }
 
-  loadStaff() {
+  async loadData() {
     this.staffService.getAllStaff().then((response) => {
       this.staff = response?.data;
       this.status = response?.status;
       this.message = response?.message;
       this.comment = response?.comment;
-      console.log(this.staff);
+      this.dtTrigger.next(this.dtOptions);
+    });
+  }
+
+
+
+  editStaff(staff: object) {
+    this.selectedStaff.emit(staff);
+  }
+
+  openModalChangePass(id: number): void {
+    this.idSelected = id;
+    this.formModalChangePass.show();
+  }
+
+  openModalDeleteRecord(id: number): void {
+    this.idSelected = id;
+    this.deleteRecordConfirmModal.show();
+  }
+
+  openModalChangeStatus(id: number): void {
+    this.idSelected = id;
+    this.confirmChangeStatusModal.show();
+  }
+
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  closeModalChangePass(band: boolean) {
+    if (band)
+      this.formModalChangePass.hide();
+
+    this.idSelected = 0;
+    this.renderer();
+    this.loadData();
+  }
+  confirmDeleteRecord(band: boolean) {
+    if (band == true && this.idSelected != 0) {
+      this.deleteRecordStaff();
+      this.deleteRecordConfirmModal.hide();
+    } else {
+      this.deleteRecordConfirmModal.hide();
+    }
+  }
+
+  confirmChangeStatusOnDelete(data: boolean) {
+    if (data == true && this.idSelected != 0) {
+      this.changeStatusStaff(this.idSelected);
+    } else {
+      this.closeModalChangStatus();
+    }
+
+  }
+
+  closeModalChangStatus() {
+    this.confirmChangeStatusModal.hide();
+  }
+
+  changeStatusStaff(id: number) {
+    this.staffService.enableDisableStaff(id).then(response => {
+      this.toast.success("Status has been changed", "Success");
+      this.renderer();
+      this.loadData();
+      this.closeModalChangStatus();
+    }).catch(error => {
+      this.renderer();
+      this.toast.error("It is not possible to change the status at this time", "Error");
+    });
+  }
+
+  renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
     });
   }
 }

@@ -1,22 +1,95 @@
 <div class="card p-3 m-0 w-100">
-  <form class="row" accept="file">
+  <form class="row" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="col-md-4">
-      <label for="name" class="">Name</label>
-      <input required type="text" class="form-control" id="name" placeholder="name">
+      <label for="first_name" class=""
+        ><sup class="lb-required">*</sup>First name</label
+      >
+      <input
+        formControlName="first_name"
+        [ngClass]="{
+          'is-invalid':
+            f['first_name'].invalid &&
+            (f['first_name'].touched || f['first_name'].dirty)
+        }"
+        type="text"
+        class="form-control"
+        id="first_name"
+        placeholder="first name"
+      />
+      <div *ngIf="f['first_name'].errors" class="invalid-feedback">
+        <div *ngIf="f['first_name'].errors['required']">
+          First name is required
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
-      <label for="last_name" class="">Last name</label>
-      <input required type="text" class="form-control" id="last_name" placeholder="last name">
+      <label for="last_name" class=""
+        ><sup class="lb-required">*</sup>Last name</label
+      >
+      <input
+        formControlName="last_name"
+        [ngClass]="{
+          'is-invalid':
+            f['last_name'].invalid &&
+            (f['last_name'].touched || f['last_name'].dirty)
+        }"
+        required
+        type="text"
+        class="form-control"
+        id="last_name"
+        placeholder="last name"
+      />
+      <div *ngIf="f['last_name'].errors" class="invalid-feedback">
+        <div *ngIf="f['last_name'].errors['required']">
+          Last name is required
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
-      <label for="phone_number" class="">Phone number</label>
-      <input required type="text" class="form-control" id="phone_number sm" placeholder="phone number">
+      <label for="phone_number" class=""
+        ><sup class="lb-required">*</sup>Phone number</label
+      >
+      <input
+        mask="(000) 000-0000"
+        formControlName="phone_number"
+        [ngClass]="{
+          'is-invalid':
+            f['phone_number'].invalid &&
+            (f['phone_number'].touched || f['phone_number'].dirty)
+        }"
+        required
+        type="text"
+        class="form-control"
+        id="phone_number"
+        placeholder="phone number"
+      />
+      <div *ngIf="f['phone_number'].errors" class="invalid-feedback">
+        <div *ngIf="f['phone_number'].errors['required']">
+          Phone number is required
+        </div>
+      </div>
     </div>
     <div class="col-md-8 mt-3">
       <label for="phone_number" class="">Image</label>
       <div class="file-drop-area">
         <span class="file-msg"><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i>{{file?.name}}</span>
         <input (change)="onFileSelected($event.target)" class="file-input" type="file">
+      </div>
+    </div>
+    <div class="col-md-4 mt-3">
+      <label for="email" class=""><sup class="lb-required">*</sup>Email</label>
+      <input
+        type="text"
+        formControlName="email"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            f['email'].invalid && (f['email'].touched || f['email'].dirty)
+        }"
+      />
+      <div *ngIf="f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['required']">Email is required</div>
+        <div *ngIf="f['email'].errors['email']">Email is invalid</div>
       </div>
     </div>
     <!-- <div class="col-md-8 mt-3">
@@ -29,10 +102,6 @@
       <label for="id" class="">ID</label>
       <input required type="text" class="form-control" id="id" placeholder="id">
     </div> -->
-    <div class="col-md-4 mt-3">
-      <label for="email" class="">Email</label>
-      <input required type="text" class="form-control" id="email" placeholder="email">
-    </div>
     <!-- <div class="col-md-4 mt-3">
       <label for="email" class="">Social security</label>
       <input required type="text" class="form-control" id="social-security" placeholder="social security">
@@ -68,7 +137,16 @@
       <input required type="text" class="form-control" id="zip" placeholder="zip code">
     </div> -->
     <div class="col-md-12 mt-3">
-      <button type="submit" class="btn btn-primary">Save</button>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span *ngIf="loading" class="visually-hidden">please wait </span>
+        Save
+      </button>
     </div>
   </form>
 </div>

@@ -1,5 +1,5 @@
 <div class="card p-3 m-0 w-100">
-  <form disabled class="row" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form class="row" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="col-md-4">
       <label for="first_name" class=""
         ><sup class="lb-required">*</sup>First name</label
@@ -125,7 +125,7 @@
       <div class="file-drop-area">
         <span class="file-msg"
           ><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i
-          >{{ file.name }}</span
+          >{{ file?.name }}</span
         >
         <input
           accept=".png, .jpg, .jpeg"
