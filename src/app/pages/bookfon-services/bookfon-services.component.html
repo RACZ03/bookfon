@@ -8,38 +8,24 @@
     <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-10 col-10 mt-3 offset-xl-0 offset-lg-0 offset-md-0 offset-sm-1 offset-1">
       <input class="form-control" type="month">
     </div> -->
-    <div class="col-md-5 col-xs-12 col-lg-5 col-sm-5">
-      <input type="text" class="form-control">
+    <div class="col-md-7 col-xs-12 col-lg-7 col-sm-12">
+      <ng-select placeholder="select a service" [addTag]="true" (change)="ServiceSelected()" [multiple]="true" [(ngModel)]="selectedService">
+        <ng-option *ngFor="let item of services" [value]="item.id">{{item.name}}</ng-option>
+    </ng-select>
     </div>
-    <div class="col-md-7 col-xs-12 col-lg-7 col-sm-7" style="text-align: right;">
+    <div class="col-md-5 col-xs-12 col-lg-5 col-sm-12" style="text-align: right;">
       <i style="color: red; font-size: 22px;" class="bi bi-calendar2-week-fill">Year</i>
-      <button class="icon-button"><i class="bi bi-arrow-repeat"></i></button>
+      <button (click)="refreshEvent()" class="icon-button"><i class="bi bi-arrow-repeat"></i></button>
       <button class="icon-button"><i class="bi bi-share-fill"></i></button>
     </div>
   </div>
   <div class="row mt-3 m-1">
     <mdb-carousel [controls]="true" [indicators]="false" [animation]="'slide'" [dark]="true" [interval]="60000">
-      <mdb-carousel-item>
+      <mdb-carousel-item class="mb-3 mt-3">
         <div class="row">
-          <div *ngFor="let item of [1,1,1,1,1]" class="col">
+          <div (click)="selectedStaff(item)" *ngFor="let item of staff" class="col">
             <img src="../../../assets/images/icons/staff.svg" alt="user">
-            <label>Nombre apellido apellido</label>
-          </div>
-        </div>
-      </mdb-carousel-item>
-      <mdb-carousel-item>
-        <div class="row">
-          <div *ngFor="let item of [1,1,1,1,1]" class="col">
-            <img src="../../../assets/images/icons/staff.svg" alt="user">
-            <label>Nombre apellido apellido</label>
-          </div>
-        </div>
-      </mdb-carousel-item>
-      <mdb-carousel-item>
-        <div class="row">
-          <div *ngFor="let item of [1,1,1,1,1]" class="col">
-            <img src="../../../assets/images/icons/staff.svg" alt="user">
-            <label>Nombre apellido apellido</label>
+            <label>{{item.fullName}}</label>
           </div>
         </div>
       </mdb-carousel-item>
@@ -47,10 +33,10 @@
   </div>
   <div class="row m-1">
     <div class="col">
-        <app-full-calendar [showCustomButton]="false" *ngIf="loadingEvents" [events]="events">
+        <app-full-calendar [showCustomButton]="false" *ngIf="!loadingEvents" [events]="events">
         </app-full-calendar>
         <div class="d-flex justify-content-center">
-          <div class="spinner-grow text-dark mt-3" role="status" *ngIf="!loadingEvents">
+          <div class="spinner-grow text-dark mt-3" role="status" *ngIf="loadingEvents">
             <span class="visually-hidden">Loading...</span>
           </div>
         </div>
