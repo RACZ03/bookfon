@@ -1,6 +1,7 @@
 <section class="card">
     <div class="card-body">
       <form (ngSubmit)="onUpdate()" [formGroup]="ModalForm">
+        <input type="text" hidden formControlName="id" id="id">
         <div class="row">
             <div class="col">
                 <div class="mb-3">
