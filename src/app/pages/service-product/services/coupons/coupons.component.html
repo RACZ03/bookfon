@@ -21,7 +21,7 @@
                     datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <!-- <th>#</th> -->
                             <th>Code</th>
                             <th class="text-center">Start date</th>
                             <th class="text-center">End date</th>
@@ -31,7 +31,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of data; let i = index">
-                            <td>{{ i+1 }}</td>
+                            <!-- <td>{{ i+1 }}</td> -->
                             <td>{{ item?.code }}</td>
                             <td class="text-center">{{ item?.startDate | date: 'dd/MM/yyyy' }}</td>
                             <td class="text-center">{{ item?.endDate | date: 'dd/MM/yyyy' }}</td>

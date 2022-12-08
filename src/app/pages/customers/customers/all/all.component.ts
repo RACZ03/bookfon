@@ -140,4 +140,8 @@ export class AllComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/pages/customers/wallet/${id}`);
   }
 
+  openSchedule( id: number ) {
+    this.router.navigateByUrl(`/pages/customers/schedule/${id}`);
+  }
+
 }

@@ -28,5 +28,9 @@ export class AvailavilityService {
   saveAvailability(data: any): Promise<any> {
     return this.connectionSvc.send('post', `scheduleStaff/save`, data);
   }
+
+  delete(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `scheduleManager/delete/${id}`);
+  }
   
 }

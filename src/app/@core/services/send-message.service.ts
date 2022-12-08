@@ -11,6 +11,6 @@ export class SendMessageService {
   ) { }
 
   sms(phone: string, message: string): Promise<any> {
-    return this.connectionSvc.send('pos','users/sendPersonalizedSMS', { phone, message });
+    return this.connectionSvc.send('post','users/sendPersonalizedSMS', { phone, message });
   }
 }
