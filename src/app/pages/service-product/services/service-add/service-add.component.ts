@@ -130,11 +130,13 @@ export class ServiceAddComponent implements OnInit {
     this.data = [];
     let resp = await this.serviceSvr.getByIdServiceBusinness(this.idSelected);
     if (resp != undefined || resp != null) {
-      this.loadDataForm(resp);
+      if ( resp?.status == 200 )
+        this.loadDataForm(resp);
     }
   }
 
   async loadDataForm(resp: any = null) {
+
     if (this.Serviceadd == undefined) return;
 
     this.title =

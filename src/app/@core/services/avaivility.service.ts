@@ -24,5 +24,9 @@ export class AvailavilityService {
 
     return this.connectionSvc.send('get', `scheduleStaff/getListByIdStaff/${id}`);
   }
+
+  saveAvailability(data: any): Promise<any> {
+    return this.connectionSvc.send('post', `scheduleStaff/save`, data);
+  }
   
 }
