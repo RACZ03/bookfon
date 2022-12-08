@@ -17,8 +17,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
 import { SharedModule } from 'src/app/shared/shared.module';
-export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+
 @NgModule({
     declarations: [
         StaffComponent,
@@ -31,7 +33,7 @@ import { AddAvailabilityComponent } from './profile/availavility/add-availabilit
         SettingsComponent,
         ProfileEditComponent,
         AddStaffComponent,
-        AddAvailabilityComponent
+        AddAvailabilityComponent,
     ],
     imports: [
         CommonModule,
@@ -48,9 +50,10 @@ import { AddAvailabilityComponent } from './profile/availavility/add-availabilit
             preventDuplicates: true,
           }
         ),
+        NgSelectModule,
     ],
     exports: [
       ScheduleComponent
     ],
 })
-export class StaffModule { }
+export class StaffModule { }

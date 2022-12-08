@@ -8,9 +8,7 @@
             (f['first_name'].touched || f['first_name'].dirty)
         }" type="text" class="form-control" id="first_name" placeholder="first name" />
       <div *ngIf="f['first_name'].errors" class="invalid-feedback">
-        <div *ngIf="f['first_name'].errors['required']">
           First name is required
-        </div>
       </div>
     </div>
     <div class="col-md-4">

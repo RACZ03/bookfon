@@ -29,7 +29,8 @@
     </div> -->
     <div class="tab-pane fade show active" id="all" role="tabpanel" aria-labelledby="home-tab">
       <app-all *ngIf="!editStaff && !newStaff" (selectedStaff)='selectedStaff($event)'></app-all>
-      <app-profile [itemStaff]="itemStaff" *ngIf="editStaff"></app-profile>
+      <app-profile [itemStaff]="itemStaff" *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile>
+      <!-- <app-profile *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile> -->
       <app-add-staff *ngIf="newStaff"></app-add-staff>
     </div>
   </div>

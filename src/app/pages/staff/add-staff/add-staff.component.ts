@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./add-staff.component.scss'],
 })
 export class AddStaffComponent implements OnInit {
-  file!: ImageFile;
+  file: ImageFile | undefined;
   sexs: SexsItem[] = [];
   status: number = 0;
   message: string = '';
@@ -128,5 +128,9 @@ export class AddStaffComponent implements OnInit {
         console.log(err);
         this.toast.error('Error unexpected, loading sex', 'Error');
       });
+  }
+
+  resetForm() {
+    this.form.reset();
   }
 }

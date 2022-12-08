@@ -28,6 +28,7 @@ export class AllComponent implements OnInit, OnDestroy {
   status: number = 0;
   message: string = '';
   comment: string = '';
+  data:any;
 
   constructor(private staffService: StaffService, private toast: ToastrService) { }
 
@@ -72,7 +73,7 @@ export class AllComponent implements OnInit, OnDestroy {
 
   async loadData() {
     this.staffService.getAllStaff().then((response) => {
-      this.staff = response?.data;
+      this.data = response?.data;
       this.status = response?.status;
       this.message = response?.message;
       this.comment = response?.comment;
