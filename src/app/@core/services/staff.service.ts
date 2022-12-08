@@ -70,11 +70,12 @@ export class StaffService {
       'get',
       'v1/purchasedService/business/' + this.dataIdentity?.businessList[0].code
     );
-    const scheduled = this.processDataSchedule(data.data);
+    const scheduled = this.processDataSchedule(data?.data);
     return scheduled;
   }
 
   processDataSchedule(data: any) {
+    if(data?.length<=0 || data ==undefined || data==null){return[]}
     let events = [];
     for (let index = 0; index < data.length; index++) {
       events.push({

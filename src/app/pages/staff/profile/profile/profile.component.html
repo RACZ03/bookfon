@@ -72,7 +72,7 @@
     <div class="col-md-8 mt-3">
       <label for="phone_number" class="">Image</label>
       <div class="file-drop-area">
-        <span class="file-msg"><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i>{{file.name}}</span>
+        <span class="file-msg"><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i>{{file?.name}}</span>
         <input (change)="onFileSelected($event.target)" class="file-input" type="file">
       </div>
     </div>
