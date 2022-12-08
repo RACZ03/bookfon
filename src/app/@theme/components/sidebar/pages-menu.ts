@@ -34,7 +34,7 @@ export const MENU_ITEMS: MenuItem[] = [
   {
     title: 'Your Business Bookings',
     icon: 'calendar2',
-    link: '/pages/calendar',
+    link: '/pages/bookfon-services',
     home: false
   },
   {
