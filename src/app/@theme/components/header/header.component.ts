@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private authSvc: AuthService,
     private _router: Router,
-  ) { 
+  ) {
     this.loadUser();
   }
 
@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
           document.body.classList.remove('sidenav-toggled');
           localStorage.setItem('sb|sidebar-toggle',new Boolean( document.body.classList.contains('sidenav-toggled')).toString());
       });
-    } 
+    }
   }
 
   ngDoCheck(){
@@ -59,8 +59,8 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  logout() {
-    this.authSvc.logout();
+  async logout() {
+    await this.authSvc.logout(this.identity.email);
   }
 
 }

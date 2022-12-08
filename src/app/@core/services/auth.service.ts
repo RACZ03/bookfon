@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ConnectionService } from '../utils/connection.service';
 
 const URL = environment.APIUrl;
 
@@ -14,11 +15,12 @@ export class AuthService {
   public token: any = null;
   public identity: any = '';
   public headers!: HttpHeaders;
-  
+
   constructor(
     private http: HttpClient,
-    private router: Router
-  ) { 
+    private router: Router,
+    private connectionSvc: ConnectionService
+  ) {
   }
 
   getAuthToken():string {
@@ -80,7 +82,7 @@ export class AuthService {
       this.identity = identity;
     else
       this.identity = null;
-      
+
     return this.identity;
   }
 
@@ -102,7 +104,7 @@ export class AuthService {
     this.getToken();
     if ( !this.token && this.token != '')
     {
-      this.router.navigate(['/auth/login']);      
+      this.router.navigate(['/auth/login']);
       return Promise.resolve(false);
     }
 
@@ -142,7 +144,7 @@ export class AuthService {
     });
   }
 
-  
+
   async changePassword(password: string, id: number): Promise<any> {
     // let headers = new HttpHeaders({
     //   'Content-Type': 'application/json',
@@ -183,8 +185,11 @@ export class AuthService {
     return new Promise( () => true );
   }
 
-  logout()
+  async logout(email: string)
   {
+    // Revisar este metodo
+    let resp = await this.connectionSvc.send('put', `users/updateLastLogin?email=${email}`);
+    console.log(resp);
     this.token = null;
     this.identity = null;
     localStorage.removeItem('token');
