@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
+import * as moment from 'moment';
 
 import { Subject } from 'rxjs';
 import { AvailavilityService } from 'src/app/@core/services/avaivility.service';
@@ -35,6 +36,7 @@ export class AvailavilityComponent implements OnInit {
   public coachSchedule: any = false;
   public id: number = 0;
   public idSettings: number = 0;
+  public currentDate = moment().format('YYYY-MM-DD');
   //spublic currentDate = moment().format('YYYY-MM-DD');
 
   constructor(
@@ -69,9 +71,9 @@ export class AvailavilityComponent implements OnInit {
   /* Load Data */
   async loadData() {
     // this.spinnerSvc.show();
-    console.log(this.idStaff);
+    // console.log(this.idStaff);
     let resp = await this.avaivilitySvr.getListByIdStaff(this.idStaff);
-     console.log(resp);
+    //  console.log(resp);
      if(resp.status == 404)
      this.buttonAdd = true;
 
@@ -82,6 +84,7 @@ export class AvailavilityComponent implements OnInit {
       this.data = [];
       this.notifySvc.showAlert(3, 'No results found', '');
     }
+    // console.log(this.data);
      this.dtTrigger.next(this.dtOptions);
   }
 
@@ -106,7 +109,7 @@ export class AvailavilityComponent implements OnInit {
   
   /* Section Update */
   onEdit() {
-  
+    this.coachSchedule = [];
     this.coachSchedule = this.data;
       
     this.formModal.show();
@@ -124,7 +127,7 @@ export class AvailavilityComponent implements OnInit {
       this.formModalDelete.hide();
       return
     }
-    let resp = await this.avaivilitySvr.getListByIdStaff(this.id);
+    let resp = await this.avaivilitySvr.delete(this.id);
     if ( resp != null || resp != undefined ) {
       let  { status } = resp;
 

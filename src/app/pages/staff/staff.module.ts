@@ -20,6 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalPositionComponent } from './modal-position/modal-position.component';
+import { ThemeModule } from 'src/app/@theme/theme.module';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
@@ -46,6 +47,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         ReactiveFormsModule,
         DataTablesModule,
         SharedModule,
+        ThemeModule,
         ToastrModule.forRoot(
           {
             timeOut: 2500,

@@ -5,53 +5,46 @@
 <!-- End Modal -->
 <!-- Modal Delete Category -->
 <div class="modal fade" id="modalDeleteSlotConfiguration" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-   <!-- <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>-->
+   <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
 </div>
 <!-- END-->
 
 <!-- Main page content-->
-<div class="container-fluid mt-4">
-    <div class="card">
-        <div class="card-body">
-            <button class="btn btn-sm btn-primary" (click)="showModal(true)" *ngIf="buttonAdd">
-                <i class="fa-solid fa-plus me-2"></i>
-                Add New
-            </button>
-            <button class="btn btn-sm btn-secondary" (click)="onEdit()" *ngIf="!buttonAdd">
-                <i class="fa-solid fa-pencil me-2"></i>
-                    Edit
-            </button>
-            <div class="table-responsive">
-                <table class="table" style="width:100% ;"
-               >
-                    <thead>
-                        <tr>
-                            <!-- <th>Coach</th> -->
-                            <th>Day</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
-                            <th class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of data; let i = index">
-                            <td>{{ i+1 }}</td>
-                            <!-- <td>{{ item?.coach?.nombre }} {{ item?.coach?.apellido }}</td> -->
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class="text-center">
-                                <!-- <button class="btn btn-sm btn-outline-primary" (click)="onEdit(item?.id)">
-                                    <i class="fa-solid fa-pencil"></i>
-                                </button> -->
-                                <button class="btn btn-sm btn-outline-danger ms-2" (click)="openModalDelete(item?.id)">
-                                    <i class="fa-solid fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="content mt-4">
+    <button class="btn btn-sm btn-primary" (click)="showModal(true)" *ngIf="buttonAdd">
+        <i class="fa-solid fa-plus me-2"></i>
+        Add New
+    </button>
+    <button class="btn btn-sm btn-secondary" (click)="onEdit()" *ngIf="!buttonAdd">
+        <i class="fa-solid fa-pencil me-2"></i>
+            Edit
+    </button>
+    <div class="table-responsive">
+        <table class="table" style="width:100%;" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+                <tr>
+                    <!-- <th>Coach</th> -->
+                    <th>Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data; let i = index">
+                    <td>{{ item?.idDay | day }}</td>
+                    <td>{{ currentDate + ' ' + item?.startTime | date :'shortTime' }}</td>
+                    <td>{{ currentDate + ' ' + item?.endTime | date :'shortTime' }}</td>
+                    <td class="text-center">
+                        <!-- <button class="btn btn-sm btn-outline-primary" (click)="onEdit(item?.id)">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button> -->
+                        <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>

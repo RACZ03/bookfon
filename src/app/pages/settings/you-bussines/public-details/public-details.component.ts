@@ -25,7 +25,8 @@ export class PublicDetailsComponent implements OnInit {
   initForm(): FormGroup{
     return this.fb.group({
       id: [''],
-      legalBusinessName: ['', [Validators.required ]],
+      publicBusinessName: ['', [Validators.required ]],
+      // legalBusinessName: ['', [Validators.required ]],
       supportEmail: ['', Validators.required],
       // supporPhoneNumber: ['', Validators.required],
       // supporAddress: ['', Validators.required],
@@ -45,6 +46,7 @@ export class PublicDetailsComponent implements OnInit {
 
   async getBusinessData(){
     let resp = await this.businessSvc.findById(this.identity.businessList[0].id);
+    console.log(resp);
     let { data } = resp;
     if (resp.status === '200')
     {
@@ -67,7 +69,7 @@ export class PublicDetailsComponent implements OnInit {
   }
 
   async onUpdate(){
-    console.log(this.ModalForm.value);
+    // console.log(this.ModalForm.value);
     let data = {
       id: this.ModalForm.value.id,
       address: this.ModalForm.value.addressLine1,

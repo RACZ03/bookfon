@@ -1,0 +1,38 @@
+.content {
+    color: rgb(36, 34, 34);
+    font-size: 12px;
+    input{
+      font-size: 12px;
+    }
+  
+    table {
+      color: #393939;
+      background: #fff;
+  
+      tbody {
+          font-size: 11px;
+  
+          tr .td-name {
+              margin-left: 8px;
+          }
+          tr .td-email {
+              margin-left: 46px;
+              position: absolute;
+              margin-top: -12px;
+          }
+      }
+  }
+  .bg-icon-success {
+      color: #28a745 !important;
+  }
+  .bg-icon-danger {
+      color: #dc3545 !important;
+  }
+  }
+  i{
+    color:#000;
+  }
+  .modal-body{
+    color: #000;
+  }
+  

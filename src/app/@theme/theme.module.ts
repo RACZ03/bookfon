@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { BrokenImagenDirective } from './directives/broken-imagen.directive';
 import { BtnNextDirective } from './directives/btn-next.directive';
 import { BtnPrevDirective } from './directives/btn-prev.directive';
+import { DayPipe } from './pipes/day.pipe';
 
 const COMPONENTS = [
   LayoutComponent,
@@ -25,6 +26,10 @@ const DIRECTIVES = [
   BtnPrevDirective 
 ];
 
+const PIPES = [
+  DayPipe,
+]
+
 @NgModule({
   imports: [
     CommonModule,
@@ -33,11 +38,13 @@ const DIRECTIVES = [
   declarations: [
     ...COMPONENTS,
     ...DIRECTIVES,
+    ...PIPES,
     LayoutComponent
   ],
   exports: [
     ...COMPONENTS,
     ...DIRECTIVES,
+    ...PIPES,
     LayoutComponent
   ]
 })
