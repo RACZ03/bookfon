@@ -2,51 +2,51 @@
     <div class="card-body">
       <form (ngSubmit)="onUpdate()" [formGroup]="ModalForm">
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Legal business name</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Orange Theory Fitness">
+                    <input formControlName="legalBusinessName" type="text" class="form-control" id="legalBusinessName" placeholder="Orange Theory Fitness">
                 </div>
             </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Employer identification Number (EN)</label>
                     <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="123 - 456789">
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Doing business as <span class="badge bg-secondary">Optional</span></label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Orange Theory Fitness">
+                    <input formControlName="doingBusinessAs" type="text" class="form-control" id="doingBusinessAs" placeholder="Orange Theory Fitness">
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Registered business address</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="United Stated">
+                    <input formControlName="registerBusinessAddress" type="text" class="form-control" id="registerBusinessAddress" placeholder="United Stated">
                 </div>
             </div>
         </div>
         <div class="mb-3">
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="323 Northeast 163rd Street">
+            <input formControlName="address" type="text" class="form-control" id="address" placeholder="Address">
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
             <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Address line 2">
         </div>
         <div class="mb-3">
             <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Suny isles beach">
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Florida">
+                    <input formControlName="state" type="text" class="form-control" id="exampleFormControlInput1" placeholder="State">
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="33160">
+                    <input formControlName="zipcode" type="text" class="form-control" id="zipcode" placeholder="zipcode">
                 </div>
             </div>
         </div>
@@ -54,23 +54,23 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Business phone number</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="(305) 204 - 2754">
+                    <input formControlName="phone" type="text" class="form-control" id="phone" placeholder="(305) 204 - 2754">
                 </div>
             </div>
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Business website</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="orangetheoryfitness.com">
+                    <input formControlName="website" type="text" class="form-control" id="exampleFormControlInput1" placeholder="orangetheoryfitness.com">
                 </div>
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Industry</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Health & Fitness">
+            <input formControlName="industry" type="text" class="form-control" id="industry" placeholder="Health & Fitness">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Product description</label>
-            <textarea type="text" class="form-control" id="exampleFormControlInput1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
+            <textarea formControlName="longDescription" type="text" class="form-control" id="longDescription">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est
             </textarea>
         </div>
         <button class="btn btn-primary btn-save">

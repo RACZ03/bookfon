@@ -69,7 +69,7 @@ export class PublicDetailsComponent implements OnInit {
   }
 
   async onUpdate(){
-    console.log(this.ModalForm.value);
+    // console.log(this.ModalForm.value);
     let data = {
       id: this.ModalForm.value.id,
       address: this.ModalForm.value.addressLine1,

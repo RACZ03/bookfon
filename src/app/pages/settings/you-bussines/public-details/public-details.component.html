@@ -95,7 +95,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" [disabled]="ModalForm.invalid" class="btn btn-primary btn-save">
+        <button type="button" (click)="onUpdate()" [disabled]="ModalForm.invalid" class="btn btn-primary btn-save">
             Save
         </button>
       </form>
