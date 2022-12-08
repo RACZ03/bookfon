@@ -1,1 +1,20 @@
-<p>schedule works!</p>
+<div class="row m-2">
+
+    <div class="col-xl-1 col-lg-1 col-12"></div>
+    <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12 col-xs-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a [routerLink]="'/pages/home'" style="color: rgb(114, 113, 113);">Home</a></li>
+                <li class="breadcrumb-item"><a [routerLink]="'/pages/customers'" style="color: rgb(114, 113, 113);">Customers</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sub Customer</li>
+            </ol>
+        </nav>
+        <app-full-calendar [showCustomButton]="false" *ngIf="loadingEvents" [events]="events">
+        </app-full-calendar>
+        <div class="d-flex justify-content-center">
+          <div class="spinner-grow text-dark mt-3" role="status" *ngIf="!loadingEvents">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+    </div>
+  </div>

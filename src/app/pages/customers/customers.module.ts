@@ -21,8 +21,11 @@ import { EditCustomerComponent } from './customers/all/edit-customer/edit-custom
 import { WalletComponent } from './customers/all/wallet/wallet.component';
 import { ScheduleComponent } from './customers/all/schedule/schedule.component';
 import { SubCustomerComponent } from './customers/all/sub-customer/sub-customer.component';
+import { BootFonFullCalendarModule } from 'src/app/shared/components/full-calendar/full-calendar.module';
 import { DataTablesModule } from 'angular-datatables';
+
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+
 
 @NgModule({
   imports: [
@@ -32,6 +35,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     NgxMaskModule.forRoot(),
     SharedModule,
     DataTablesModule,
+    BootFonFullCalendarModule
   ],
   declarations: [
     CustomersComponent,
@@ -48,7 +52,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     EditCustomerComponent,
     WalletComponent,
     ScheduleComponent,
-    SubCustomerComponent
+    SubCustomerComponent,
   ]
 })
 export class CustomersModule { }
