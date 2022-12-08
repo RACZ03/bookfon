@@ -128,14 +128,14 @@ export class LoginComponent implements OnInit {
 
   initForms(): FormGroup {
     return this.fb.group({
-      email: ['rcalero@gmail.com', {
+      email: ['', {
         validators: [
           Validators.required,
           Validators.pattern(this.emailRegex),
         ],
         updateOn: 'blur'
       }],
-      password: ['1234', [Validators.required, Validators.minLength(4) ]],
+      password: ['', [Validators.required, Validators.minLength(4) ]],
       codeMail: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5) ]],
       codePhone: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5) ]],
     })

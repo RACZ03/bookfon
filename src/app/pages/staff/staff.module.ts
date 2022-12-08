@@ -19,6 +19,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ThemeModule } from 'src/app/@theme/theme.module';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
@@ -43,6 +44,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
         ReactiveFormsModule,
         DataTablesModule,
         SharedModule,
+        ThemeModule,
         ToastrModule.forRoot(
           {
             timeOut: 2500,

@@ -2,7 +2,14 @@
 <!--add  Sub categories categories-->
 <div class="modal fade" id="modalNewSubCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <app-add-subcategories  [dataupdateSubCategories]="module" (onClose)="closeModalSubCategories($event)"></app-add-subcategories>
-    </div>
+</div>
+
+<!-- Modal Delete Category -->
+<div class="modal fade" id="modalDeleteSubCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
+ </div>
+ <!-- END-->
+
     <!--List Categories-->
     <div class="container">
     
@@ -40,10 +47,10 @@
                         </div>
                     </td>
                     <td class="align-middle text-center">
-                    <button class="btn btn-sm btn-ng-primary" (click)="onEditSubCategories(item)" >
+                    <button class="btn btn-sm" (click)="onEditSubCategories(item)" >
                         <i class="bi bi-pencil-square"></i>
                     </button>
-                    <button class="btn btn-sm ms-2 btn-ng-danger">
+                    <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
                         <i class="bi bi-trash-fill"></i>
                     </button>
                 </td>
