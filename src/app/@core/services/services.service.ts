@@ -141,6 +141,10 @@ export class ServicesService {
     return this.connectionSvc.send('get', `getServicesById/${id}`);
   }
 
+  deleteService(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `services/delete/${id}`);
+  }
+
   ///////-------------------CATEGORIES---------------------------------///////
   getDataCategory(): Promise<any> {
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
@@ -187,6 +191,10 @@ export class ServicesService {
     let id = params.id;
     delete params.id;
     return this.connectionSvc.send('put', `users/update/${id}`, params);
+  }
+
+  deleteCatalogs(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `catalogs/delete/${id}`);
   }
 
   delete(id: number): Promise<any> {

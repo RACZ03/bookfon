@@ -28,7 +28,7 @@ export class SubCategoriesComponent implements OnInit {
   public formModal: any;
   public formModalDelete: any;
   public permissions: any[]=[];
-
+  public id: number = 0;
 
 
   constructor(
@@ -54,6 +54,10 @@ export class SubCategoriesComponent implements OnInit {
     this.loadData();
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('modalNewSubCategories')
+    );
+
+    this.formModalDelete = new window.bootstrap.Modal(
+      document.getElementById('modalDeleteSubCategories')
     );
   }
 
@@ -110,5 +114,40 @@ export class SubCategoriesComponent implements OnInit {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.search(value).draw();
     });
+  }
+
+  /* Section Delete */
+  openModalDelete(id: number) {
+    this.id = id;
+    this.formModalDelete.show();
+  }
+
+  async onDelete(band: boolean) {
+    if ( !band ) {
+      this.formModalDelete.hide();
+      return
+    }
+    let resp = await this.ServiceSvr.deleteCatalogs(this.id);
+    if ( resp != null || resp != undefined ) {
+      let  { status } = resp;
+
+      if ( status !== undefined && status == 200 ) {
+        this.id = 0
+        this.alertSvc.showAlert(1, 'Success', resp?.comment)
+        this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+      } else {
+        this.alertSvc.showAlert(4, 'Error', resp?.comment);
+        this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+      }   
+    } else {
+      this.alertSvc.showAlert(4, 'Error', 'Error');
+      this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+    }
   }
 }
