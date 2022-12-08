@@ -1,6 +1,6 @@
 <!-- Modal New Setting -->
 <div class="modal fade" id="formNewSchedule" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <!-- <app-add-availability  [dataUpdate]="coachSchedule"  [isCoach]="true" (onClose)="closeModal($event)"></app-add-availability> -->
+    <app-add-availability  [dataUpdate]="data" [loadIdProfile]="idStaff" (onClose)="closeModal($event)"></app-add-availability>
 </div>
 <!-- End Modal -->
 <!-- Modal Delete Category -->
@@ -17,7 +17,7 @@
                 <i class="fa-solid fa-plus me-2"></i>
                 Add New
             </button>
-            <button class="btn btn-sm btn-secondary" (click)="onEdit()" >
+            <button class="btn btn-sm btn-secondary" (click)="onEdit()" *ngIf="!buttonAdd">
                 <i class="fa-solid fa-pencil me-2"></i>
                     Edit
             </button>
