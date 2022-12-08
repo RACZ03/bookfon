@@ -1,0 +1,33 @@
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel" style="color: #848383;">Change display positions</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+            <div cdkDropList 
+            #ln1="cdkDropList"
+            [cdkDropListData]="data"
+            (cdkDropListDropped)="drop($event)"
+            class="example-list">
+            <div cdkDrag class="example-box" *ngFor="let item of data; let i = index">
+              <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                <strong>{{i+1}}</strong>
+                <img appBrokenImagen class="avatar avatar-xl" style="margin-left: 20px;" [src]="item?.images" alt="profile">
+                <label for="" class="me-2" style="margin-left: 20px;" >{{ item?.firstName }} {{ item?.lastName }}</label>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-2 text-center">
+            <button class="btn btn-sm btn-outline-secondary" (click)="onSave()">Save</button>
+        </div>
+          
+        </div>
+      </div>
+  </div>
+  
+        
+  
+  
