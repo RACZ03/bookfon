@@ -15,7 +15,7 @@ export class AddAvailabilityComponent implements OnInit {
 
   @Output() onClose = new EventEmitter<boolean>();
   @Input() set dataUpdate(value: any) {
-
+    // console.log(value);
     if (value!= undefined && value != null && value != false) {
     }
     this.loadDataForm(value);
@@ -59,8 +59,6 @@ export class AddAvailabilityComponent implements OnInit {
 
   ngOnInit(): void {
     this.coachScheduleForm = this.initForms();
-    // console.log('j')
-    console.log(this.businessSelected)
   }
 
 
@@ -103,7 +101,7 @@ export class AddAvailabilityComponent implements OnInit {
         });
       }
     }
-    console.log(obj)
+    
     // Send Data
     // this.spinnerSvc.show();
     let resp = await this.availabilitySvc.saveAvailability(obj);
@@ -169,14 +167,14 @@ export class AddAvailabilityComponent implements OnInit {
     if ( data == undefined || data == null || data?.length == 0 ) 
       return [];
 
-    let found: any = data?.filter( (x: any) => x.dia == day );
+    let found: any = data?.filter( (x: any) => x.idDay == day );
     let temp: any[] = [];
     if ( found && found.length > 0 ) {
       if ( found.length == 1 ) {
-        temp.push({ id: found[0].id, day, dayLetter, active: true, disabled: false, position: 1, startTime: found[0].horaInicio, endTime: found[0].horaFin, bc_start: '', bc_end: ''} );
+        temp.push({ id: found[0].id, day, dayLetter, active: true, disabled: false, position: 1, startTime: found[0].startTime, endTime: found[0].endTime, bc_start: '', bc_end: ''} );
       } else {
         for (let i = 0; i < found.length; i++) {
-          temp.push({ id: found[i]?.id, day, dayLetter, active: true, disabled: false, position: (i+1), startTime: found[i]?.horaInicio, endTime: found[i]?.horaFin, bc_start: '', bc_end: ''} );
+          temp.push({ id: found[i]?.id, day, dayLetter, active: true, disabled: false, position: (i+1), startTime: found[i]?.startTime, endTime: found[i]?.endTime, bc_start: '', bc_end: ''} );
         }
       }
     }
