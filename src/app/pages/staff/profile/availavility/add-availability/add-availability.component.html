@@ -1,0 +1,73 @@
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">{{ title }}</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form (ngSubmit)="onSubmit()" [formGroup]="coachScheduleForm">
+
+                <input type="hidden" name="id" formControlName="id">
+
+                <div class="row mt-2 table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of days; let i = index">
+                                <td class="align-middle">
+                                    <div *ngIf="item?.position == 1">
+                                        <label class="switch">
+                                            <input type="checkbox" (change)="activeDay(item)" [checked]="item.active">
+                                            <span class="slider round"></span>
+                                        </label><br>
+                                        <label for=""><span style="padding-top: 40px;">{{ item?.dayLetter }}</span></label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input class="form-control" [ngClass]="item?.bc_start" type="time" name="startTime" 
+                                            [id]="'startTime'+i" [disabled]="item?.disabled"
+                                            [value]="(item?.startTime == '') ? '' : item.startTime"
+                                            (change)="validStartHour($event, item?.position, item)">
+                                </td>
+                                <td>
+                                    <input class="form-control" [ngClass]="item?.bc_end" type="time" name="endTime" 
+                                            [id]="'endTime'+i" [disabled]="item?.disabled"
+                                            [value]="(item?.endTime == '') ? '' : item.endTime"
+                                            (change)="validEndHour($event, item)">
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-sm btn-secondary mt-1" *ngIf="item?.position == 1"
+                                            [disabled]="item?.disabled" (click)="addBlock(item)">
+                                        <i class="bi bi-plus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-danger mt-1" *ngIf="item?.position > 1"
+                                            [disabled]="item?.disabled" (click)="removeRow(i, item)">
+                                        -
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Buttons -->
+                <div class="text-center mt-4">
+                    <button class="btn btn-primary" type="submit"
+                        [disabled]="coachScheduleForm.invalid && !isCoach">
+                        Save
+                    </button>
+                </div>
+                <pre style="color: #000;">
+                    {{ coachScheduleForm.value | json }}
+                </pre>
+            </form>
+        </div>
+    </div>
+</div>
