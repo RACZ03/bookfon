@@ -1,33 +1,38 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-//import * as moment from 'moment';
+import * as moment from 'moment';
+import { AvailavilityService } from 'src/app/@core/services/avaivility.service';
+import { UsersService } from 'src/app/@core/services/users.service';
+
+import { AlertService } from 'src/app/@core/utils/alert.service';
+
 @Component({
   selector: 'app-add-availability',
   templateUrl: './add-availability.component.html',
-  styleUrls: ['./add-availability.component.scss']
+  styleUrls: ['./add-availability.component.css']
 })
 export class AddAvailabilityComponent implements OnInit {
+
   @Output() onClose = new EventEmitter<boolean>();
-  notifySvc: any;
   @Input() set dataUpdate(value: any) {
 
     if (value!= undefined && value != null && value != false) {
-      
     }
     this.loadDataForm(value);
   }
 
   @Input() isCoach = false;
   public idCoach: number = 0;
- //@Input() set loadIdProfile(value) {
- //  if ( value)
- //    this.idCoach = parseInt(value);
- //}
+  @Input() set loadIdProfile(value: any) {
+    if ( value)
+      this.idCoach = parseInt(value);
+  }
   
   coachScheduleForm!: FormGroup;
   public listCoachs: any[] = [];
   public scheduleRanger: any[] = [];
   public dataDelete: any[] = [];
+  public businessSelected: any = {};
 
   public days: any[] = [
     { id: 0, day: 0, dayLetter: 'Monday', active: false, disabled: true, position: 1, startTime: '', endTime: '', bc_start: '', bc_end: '' }, 
@@ -41,26 +46,23 @@ export class AddAvailabilityComponent implements OnInit {
 
   public title: string = 'New Coach Availability';
 
-
   constructor(
-  private readonly fb: FormBuilder
-  ) { }
+    private readonly fb: FormBuilder,
+    private availabilitySvc: AvailavilityService,
+    private userSvc: UsersService,
+    // private coachSvc: CoachService,
+    private alertSvc: AlertService,
+    // private spinnerSvc: SpinnerService
+  ) { 
+    this.businessSelected = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+  }
 
   ngOnInit(): void {
-  this.getCoachs();
     this.coachScheduleForm = this.initForms();
+    // console.log('j')
+    console.log(this.businessSelected)
   }
 
-  async getCoachs() {
- //  let resp = await this.coachSvc.getCoach();
- //  
- //  if ( resp ) {
- //    let { data } = resp;
- //    this.listCoachs = data || [];
- //  } else {
- //    this.listCoachs = [];
- //  }
-  }
 
   /* Section Save */
   async onSubmit() {
@@ -69,21 +71,22 @@ export class AddAvailabilityComponent implements OnInit {
       if ( this.days[i].active && this.days[i].startTime != '' && this.days[i].startTime != undefined 
         && this.days[i].endTime != '' && this.days[i].endTime != undefined ) { 
 
-      //  let start = moment(this.days[i].startTime, 'HH:mm:ss');
-      //  let end = moment(this.days[i].endTime, 'HH:mm:ss');
+        let start = moment(this.days[i].startTime, 'HH:mm:ss');
+        let end = moment(this.days[i].endTime, 'HH:mm:ss');
 
         obj.push({
           id: (this.days[i].id == 0) ? null : parseInt(this.days[i].id),
-          dia: this.days[i].day,
-      //    horaInicio: start.format('HH:mm:ss'),
-      //    horaFin: end.format('HH:mm:ss'),
-          idCoach: this.idCoach
+          idDay: this.days[i].day,
+          startTime: start.format('HH:mm:ss'),
+          endTime: end.format('HH:mm:ss'),
+          idStaff: this.idCoach,
+          idBusiness: this.businessSelected?.id
         });
       }
     }
 
     if ( obj.length == 0 ) {
-      this.notifySvc.showAlert(2, 'Please select at least one day and time range', 'Warning');
+      this.alertSvc.showAlert(2, 'Please select at least one day and time range', 'Warning');
       return;
     }
 
@@ -91,31 +94,34 @@ export class AddAvailabilityComponent implements OnInit {
       if ( this.dataDelete[i].id != 0 ) {
         obj.push({
           id: parseInt(this.dataDelete[i].id),
-          dia: this.dataDelete[i].day,
-          horaInicio: this.dataDelete[i].startTime,
-          horaFin: this.dataDelete[i].endTime,
-          idCoach: this.idCoach,
+          idDay: this.dataDelete[i].day,
+          startTime: this.dataDelete[i].startTime,
+          endTime: this.dataDelete[i].endTime,
+          idStaff: this.idCoach,
+          idBusiness: this.businessSelected?.id,
           pasivo: true
         });
       }
     }
-
+    console.log(obj)
     // Send Data
-   
-   // let resp = await this.coachScheduleSvc.save(obj);
+    // this.spinnerSvc.show();
+    let resp = await this.availabilitySvc.saveAvailability(obj);
 
-  //  if ( resp != null || resp != undefined ) {
-  //    let { status } = resp;
-  //    if ( status == 200 ) {
-  //      this.notifySvc.showAlert(1, resp?.comment, 'Success');
-  //      this.loadDataForm();
-  //      this.onClose.emit(true);
-  //    } else {
-  //      this.notifySvc.showAlert(4, resp?.comment, 'Error')
-  //    } 
-  //  } else {
-  //    this.notifySvc.showAlert(4, 'Error', 'Error')
-  //  }
+    
+    // this.spinnerSvc.hide();
+    if ( resp != null || resp != undefined ) {
+      let { status } = resp;
+      if ( status == 201 ) {
+        this.alertSvc.showAlert(1, resp?.comment, 'Success');
+        this.loadDataForm();
+        this.onClose.emit(true);
+      } else {
+        this.alertSvc.showAlert(4, resp?.comment, 'Error')
+      } 
+    } else {
+      this.alertSvc.showAlert(4, 'Error', 'Error')
+    }
   }
 
   /* Load Data Form */
@@ -141,6 +147,7 @@ export class AddAvailabilityComponent implements OnInit {
     ];
 
     if ( data != undefined || data != null || data != false ) {
+      // this.spinnerSvc.hide();
       
       // Verify data for day Monday
       let monday = this.loadDay(data, 'Monday', 0);
@@ -151,7 +158,7 @@ export class AddAvailabilityComponent implements OnInit {
       let saturday = this.loadDay(data, 'Saturday', 5);
       let sunday = this.loadDay(data, 'Sunday', 6);
 
-     // temp.push(...monday, ...tuesday, ...wednesday, ...thursday, ...friday, ...saturday, ...sunday);
+      temp.push(...monday, ...tuesday, ...wednesday, ...thursday, ...friday, ...saturday, ...sunday);
 
       this.orderData(temp, true);
       
@@ -162,18 +169,18 @@ export class AddAvailabilityComponent implements OnInit {
     if ( data == undefined || data == null || data?.length == 0 ) 
       return [];
 
-    // let found: any = data?.filter( x => x.dia == day );
-    // let temp: any[] = [];
-    // if ( found && found.length > 0 ) {
-    //   if ( found.length == 1 ) {
-    //     temp.push({ id: found[0].id, day, dayLetter, active: true, disabled: false, position: 1, startTime: found[0].horaInicio, endTime: found[0].horaFin, bc_start: '', bc_end: ''} );
-    //   } else {
-    //     for (let i = 0; i < found.length; i++) {
-    //       temp.push({ id: found[i]?.id, day, dayLetter, active: true, disabled: false, position: (i+1), startTime: found[i]?.horaInicio, endTime: found[i]?.horaFin, bc_start: '', bc_end: ''} );
-    //     }
-    //   }
-    // }
-    return //temp;
+    let found: any = data?.filter( (x: any) => x.dia == day );
+    let temp: any[] = [];
+    if ( found && found.length > 0 ) {
+      if ( found.length == 1 ) {
+        temp.push({ id: found[0].id, day, dayLetter, active: true, disabled: false, position: 1, startTime: found[0].horaInicio, endTime: found[0].horaFin, bc_start: '', bc_end: ''} );
+      } else {
+        for (let i = 0; i < found.length; i++) {
+          temp.push({ id: found[i]?.id, day, dayLetter, active: true, disabled: false, position: (i+1), startTime: found[i]?.horaInicio, endTime: found[i]?.horaFin, bc_start: '', bc_end: ''} );
+        }
+      }
+    }
+    return temp;
   }
 
   activeDay(item: any) { 
@@ -216,38 +223,38 @@ export class AddAvailabilityComponent implements OnInit {
   }
 
   orderData(temp: any, isEdit: boolean = false) {
-    // let dayMonday = temp.filter( x => x.day == 0 ).sort( (a, b) => a.position - b.position );
-    // let dayTuesday = temp.filter( x => x.day == 1 ).sort( (a, b) => a.position - b.position );
-    // let dayWednesday = temp.filter( x => x.day == 2 ).sort( (a, b) => a.position - b.position );
-    // let dayThursday = temp.filter( x => x.day == 3 ).sort( (a, b) => a.position - b.position );
-    // let dayFriday = temp.filter( x => x.day == 4 ).sort( (a, b) => a.position - b.position );
-    // let daySaturday = temp.filter( x => x.day == 5 ).sort( (a, b) => a.position - b.position );
-    // let daySunday = temp.filter( x => x.day == 6 ).sort( (a, b) => a.position - b.position );
+    let dayMonday = temp.filter( (x: any) => x.day == 0 ).sort( (a: any, b: any) => a.position - b.position );
+    let dayTuesday = temp.filter( (x: any) => x.day == 1 ).sort( (a: any, b: any) => a.position - b.position );
+    let dayWednesday = temp.filter( (x: any) => x.day == 2 ).sort( (a: any, b: any) => a.position - b.position );
+    let dayThursday = temp.filter( (x: any) => x.day == 3 ).sort( (a: any, b: any) => a.position - b.position );
+    let dayFriday = temp.filter( (x: any) => x.day == 4 ).sort( (a: any, b: any) => a.position - b.position );
+    let daySaturday = temp.filter( (x: any) => x.day == 5 ).sort( (a: any, b: any) => a.position - b.position );
+    let daySunday = temp.filter( (x: any) => x.day == 6 ).sort( (a: any, b: any) => a.position - b.position );
 
-    // if ( isEdit ) {
-    //   //Delete duplicate records
-    //   if ( dayMonday?.length > 1 )
-    //     dayMonday = this.cleanDuplicate(dayMonday);
-    //   if ( dayTuesday?.length > 1 )
-    //     dayTuesday = this.cleanDuplicate(dayTuesday);
-    //   if ( dayWednesday?.length > 1 )
-    //     dayWednesday = this.cleanDuplicate(dayWednesday);
-    //   if ( dayThursday?.length > 1 )
-    //     dayThursday = this.cleanDuplicate(dayThursday);
-    //   if ( dayFriday?.length > 1 )
-    //     dayFriday = this.cleanDuplicate(dayFriday);
-    //   if ( daySaturday?.length > 1 )
-    //     daySaturday = this.cleanDuplicate(daySaturday);
-    //   if ( daySunday?.length > 1 )
-    //     daySunday = this.cleanDuplicate(daySunday);
-    // }
+    if ( isEdit ) {
+      //Delete duplicate records
+      if ( dayMonday?.length > 1 )
+        dayMonday = this.cleanDuplicate(dayMonday);
+      if ( dayTuesday?.length > 1 )
+        dayTuesday = this.cleanDuplicate(dayTuesday);
+      if ( dayWednesday?.length > 1 )
+        dayWednesday = this.cleanDuplicate(dayWednesday);
+      if ( dayThursday?.length > 1 )
+        dayThursday = this.cleanDuplicate(dayThursday);
+      if ( dayFriday?.length > 1 )
+        dayFriday = this.cleanDuplicate(dayFriday);
+      if ( daySaturday?.length > 1 )
+        daySaturday = this.cleanDuplicate(daySaturday);
+      if ( daySunday?.length > 1 )
+        daySunday = this.cleanDuplicate(daySunday);
+    }
 
-    //this.days = [...dayMonday, ...dayTuesday, ...dayWednesday, ...dayThursday, ...dayFriday, ...daySaturday, ...daySunday];
+    this.days = [...dayMonday, ...dayTuesday, ...dayWednesday, ...dayThursday, ...dayFriday, ...daySaturday, ...daySunday];
   }
 
-  // cleanDuplicate(data) {
-  //   return data.filter( x => x.startTime != '' && x.endTime != '');
-  // }
+  cleanDuplicate(data: any) {
+    return data.filter( (x: any) => x.startTime != '' && x.endTime != '');
+  }
 
   removeRow(index: number, item: any) {
     if ( item.id != undefined && item.id > 0 ) {
@@ -264,7 +271,7 @@ export class AddAvailabilityComponent implements OnInit {
 
     let found = this.days.find( x => x.day == item.day && x.position == (position-1) );
     if ( found?.endTime >= item.startTime ) {
-      this.notifySvc.showAlert(2, 'Start hour must be greater than the previous one', 'Warning');
+      this.alertSvc.showAlert(2, 'Start hour must be greater than the previous one', 'Warning');
       item.bc_start = 'is-invalid';
       e.target.value = '';
     } else {
@@ -272,18 +279,18 @@ export class AddAvailabilityComponent implements OnInit {
     }
   }
 
-  // validEndHour(e, item: any) {
+  validEndHour(e: any, item: any) {
 
-  //   item.endTime = e.target.value;
+    item.endTime = e.target.value;
 
-  //   if ( e.target.value <= item.startTime ) {
-  //     this.notifySvc.showAlert(2, 'End hour must be greater than the start hour', 'Warning');
-  //     item.bc_end = 'is-invalid'
-  //     e.target.value = '';
-  //   } else {
-  //     item.bc_end = '';
-  //   }
-  // }
+    if ( e.target.value <= item.startTime ) {
+      this.alertSvc.showAlert(2, 'End hour must be greater than the start hour', 'Warning');
+      item.bc_end = 'is-invalid'
+      e.target.value = '';
+    } else {
+      item.bc_end = '';
+    }
+  }
 
   /* Validations */
   validInput(name: string) {
@@ -294,9 +301,9 @@ export class AddAvailabilityComponent implements OnInit {
     return this.fb.group({
       id: [0],
       coachId: [0, [Validators.required] ],
-      day: ['', [Validators.required] ],
-      startTime: ['', [Validators.required] ],
-      endTime: ['', [Validators.required] ],
+      day: [''],
+      startTime: [''],
+      endTime: [''],
     })
   }
 
