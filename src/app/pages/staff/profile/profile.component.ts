@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
     { title: 'Schedule', active: false },
     { title: 'Availability', active: false },
     { title: 'Services', active: false },
-    { title: 'Branches', active: false },
+    // { title: 'Branches', active: false },
   ];
   public optionSelected: number = 0;
   constructor() { }
