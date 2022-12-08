@@ -15,6 +15,11 @@ export class CustomersService {
     private connectionSvc: ConnectionService,
   ) { }
 
+  getCode(): string {
+    let business = localStorage.getItem('businessSelected') || '';
+    return JSON.parse(business).code;
+  }
+
   async getAllUsers() {
     return this.connectionSvc.send('get', 'users/getByBusiness/oYvsH8VK/role/ROLE_CUSTOMER');
   }
@@ -25,5 +30,10 @@ export class CustomersService {
 
   async UpdateUser(id: string, data: any) {
     return this.connectionSvc.send('put', `users/${id}`, data);
+  }
+
+  async getSchedule(id: number) {
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `v1/purchasedService/${code}/customer/${ id }`);
   }
 }
