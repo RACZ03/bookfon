@@ -1,4 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
+import { StaffService } from 'src/app/@core/services/staff.service';
+declare var window: any;
 
 @Component({
   selector: 'app-staff',
@@ -6,25 +10,54 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./staff.component.scss'],
 })
 export class StaffComponent implements OnInit {
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+
   @Input() set setIdProfile(id: number){
     this.idStaff = id;
-    console.log(this.idStaff , "serstaffvice");
+    //console.log(this.idStaff , "serstaffvice");
   }; 
 
   editStaff: boolean = false;
   itemStaff:any;
   newStaff: boolean = false;
   activeTab: number = 1;
-  // activeTab: number = 0;
   public idStaff: number = 0;
+  public formModalPositionCoach: any;
+  public module: any = false;
+  data: any [] = [];
 
-  constructor() {}
+  constructor(
+    private staffService : StaffService,
 
-  ngOnInit(): void {}
+  ) {}
 
-  selectedStaff(event: any) {
-    this.idStaff= event;
-    this.editStaff = true;
+  ngOnInit(): void {
+    this.formModalPositionCoach = new window.bootstrap.Modal(
+      document.getElementById('modalPositionCoach')
+    );
+    this.loadData();
+  }
+
+  async loadData() {
+   let resp = await this.staffService.getAllStaff();
+   console.log(resp, "resp");
+    if ( resp !== undefined ) {
+      this.data = resp?.data;
+      this.data = this.data || [];
+    } else {
+     // this.notifySvc.showAlert(3, 'No results found', '');
+      this.data = [];
+    }
+  }
+
+  selectedStaff(item: any) {
+    this.idStaff= item.id;
+    this.itemStaff = item;    
+    this.editStaff=true;
   }
 
   showScreenNewStaff() {
@@ -32,5 +65,31 @@ export class StaffComponent implements OnInit {
     this.newStaff = true;
   }
 
+  showModalPositionsCoach(e: boolean) {
+    if ( !e ) {
+      return
+    }
+    this.formModalPositionCoach.show();
+  }
+
+  closeModalpositions(band: boolean) {
+    if ( band )
+      this.formModalPositionCoach.hide();
+
+   this.renderer();
+  }
+
+  renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+  });
+  }
+
+  ngOnDestroy(): void {
+    this.renderer
+    this.dtTrigger.unsubscribe();
+  }
+  
 
 }

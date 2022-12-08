@@ -31,6 +31,17 @@ export class StaffService {
     );
   }
 
+  enableDisableStaff(id_staff:number):Promise<any>{
+    return this.connectionSvc.send(
+      'post',
+      'users/disableByBusiness/'+this.dataIdentity?.businessList[0].code+'?idUser='+id_staff
+    );
+  }
+
+  deleteStaff(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `users/${ id }`);
+  }
+
   uploadImage(file: any): Promise<any> {
     let current = new Date().getTime();
     let filePath = '';
@@ -59,11 +70,12 @@ export class StaffService {
       'get',
       'v1/purchasedService/business/' + this.dataIdentity?.businessList[0].code
     );
-    const scheduled = this.processDataSchedule(data.data);
+    const scheduled = this.processDataSchedule(data?.data);
     return scheduled;
   }
 
   processDataSchedule(data: any) {
+    if(data?.length<=0 || data ==undefined || data==null){return[]}
     let events = [];
     for (let index = 0; index < data.length; index++) {
       events.push({
@@ -104,12 +116,12 @@ export class StaffService {
     );
   }
 
+  updateStaff(params: any){
+    return this.connectionSvc.send('put', `users/update/${ params.id }`, params);
+  }  
 
 //guardar servicio a staff
   saveServiceToStaff(staffService: any): Promise<any> {
-
-    console.log(staffService);
-       
     const params = JSON.stringify(staffService);
     return this.connectionSvc.send('post','staffServices/save' , params);
   }
@@ -120,5 +132,11 @@ export class StaffService {
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
     return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaff/' + id
     );
+  }
+
+  // api/user/changeOrderStaff
+
+  changeOrderStaff(params: any[]=[]): Promise<any> {
+    return this.connectionSvc.send('put','user/changeOrderStaff', params);
   }
 }

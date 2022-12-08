@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import * as moment from 'moment';
 import { finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CategoryI } from '../Interfaces/Category';
@@ -20,6 +21,51 @@ export class ServicesService {
   ) { 
     // console.log('SERVICES')
   }
+
+  async getScheduleBussines():Promise<any>{
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    
+    const data = await this.connectionSvc.send(
+      'get',
+      `v1/purchasedService/business/${identity.code}`
+    );
+    const scheduled = this.processDataSchedule(data?.data);
+    return scheduled;
+  }
+
+  processDataSchedule(data:any) {
+    if(data?.length<=0 || data ==undefined || data==null){return[]}
+
+    let events = [];
+    for (let index = 0; index < data.length; index++) {
+      events.push({
+        id: data[index].id,
+        title: data[index]['service'].name,
+        start: this.convertDate(data[index].date),
+        end: this.convertDate(data[index].date),
+        time: {
+          startTime: data[index].startTime,
+          endTime: data[index].endTime,
+        },
+        service: data[index]['service'],
+        service_name: data[index]['service'].name,
+        service_description: data[index]['service'].description,
+        allDay: false,
+        staff: data[index]['staff'],
+        url: data[index]['staff'].image? data[index]['staff'].image : '',
+        backgroundColor: '#FF946F',
+        borderColor: '#FF946F',
+        textColor: '#000',
+        description: data[index]['service'].description,
+      });
+    }
+    return events;
+  }
+
+  convertDate(date: any) {
+    return moment(date).format('YYYY-MM-DD');
+  }
+
   //------------------------cupons---------------------------------
   ///v1/coupon/business/{businessCode}
   getCuponsByBusiness(): Promise<any> {
@@ -67,7 +113,7 @@ export class ServicesService {
       images: img,
     };
     const params = JSON.stringify(obj);
-    console.log(params);
+    // console.log(params);
     if (
       service.id !== 0 &&
       service.id !== null &&
@@ -95,6 +141,10 @@ export class ServicesService {
 
   getByIdServiceBusinness(id: number): Promise<any> {
     return this.connectionSvc.send('get', `getServicesById/${id}`);
+  }
+
+  deleteService(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `services/delete/${id}`);
   }
 
   ///////-------------------CATEGORIES---------------------------------///////
@@ -143,6 +193,10 @@ export class ServicesService {
     let id = params.id;
     delete params.id;
     return this.connectionSvc.send('put', `users/update/${id}`, params);
+  }
+
+  deleteCatalogs(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `catalogs/delete/${id}`);
   }
 
   delete(id: number): Promise<any> {

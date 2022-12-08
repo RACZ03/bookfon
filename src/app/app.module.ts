@@ -18,10 +18,11 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +42,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AngularFireStorageModule, // storage
     DataTablesModule,
     NgSelectModule,
+    DragDropModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

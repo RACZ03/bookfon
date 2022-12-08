@@ -28,8 +28,7 @@ export class CategoriesComponent implements OnInit {
   public formModal: any;
   public formModalDelete: any;
   public permissions: any[]=[];
-
-
+  public id: number = 0;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -55,6 +54,10 @@ export class CategoriesComponent implements OnInit {
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('modalNewCategories')
     );
+    this.formModalDelete = new window.bootstrap.Modal(
+      document.getElementById('modalDeleteCategories')
+    );  
+
   }
 
   closeModalCategories(band: boolean) {
@@ -112,4 +115,40 @@ export class CategoriesComponent implements OnInit {
       dtInstance.search(value).draw();
     });
   }
+
+  /* Section Delete */
+  openModalDelete(id: number) {
+    this.id = id;
+    this.formModalDelete.show();
+  }
+
+  async onDelete(band: boolean) {
+    if ( !band ) {
+      this.formModalDelete.hide();
+      return
+    }
+    let resp = await this.ServiceSvr.deleteCatalogs(this.id);
+    if ( resp != null || resp != undefined ) {
+      let  { status } = resp;
+
+      if ( status !== undefined && status == 200 ) {
+        this.id = 0
+        this.alertSvc.showAlert(1, 'Success', resp?.comment)
+        this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+      } else {
+        this.alertSvc.showAlert(4, 'Error', resp?.comment);
+        this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+      }   
+    } else {
+      this.alertSvc.showAlert(4, 'Error', 'Error');
+      this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+    }
+  }
+
 }

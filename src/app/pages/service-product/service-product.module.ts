@@ -28,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/@theme/theme.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { ThemeModule } from 'src/app/@theme/theme.module';
     FormsModule, 
     DataTablesModule, 
     NgSelectModule,
-    ThemeModule
+    ThemeModule,
+    SharedModule
   ]
 })
 export class ServiceProductModule { }

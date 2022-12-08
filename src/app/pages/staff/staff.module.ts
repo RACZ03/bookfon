@@ -16,8 +16,13 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ModalPositionComponent } from './modal-position/modal-position.component';
+import { ThemeModule } from 'src/app/@theme/theme.module';
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
     declarations: [
@@ -32,6 +37,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
         ProfileEditComponent,
         AddStaffComponent,
         AddAvailabilityComponent,
+        ModalPositionComponent,
     ],
     imports: [
         CommonModule,
@@ -40,6 +46,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         BootFonFullCalendarModule,
         ReactiveFormsModule,
         DataTablesModule,
+        SharedModule,
+        ThemeModule,
         ToastrModule.forRoot(
           {
             timeOut: 2500,
@@ -48,6 +56,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
           }
         ),
         NgSelectModule,
+        DragDropModule, 
     ],
     exports: [
       ScheduleComponent

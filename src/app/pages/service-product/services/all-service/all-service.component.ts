@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ServicesService } from 'src/app/@core/services/services.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
+
+declare var window: any;
 
 @Component({
   selector: 'app-all-service',
@@ -16,12 +19,13 @@ export class AllServiceComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   public data: any[] = [];
-
+  public id: number = 0;
+  public formModalDelete: any;
 
   constructor(
     private serviceSvr : ServicesService,
     public router: Router,
-
+    private alertSvc: AlertService
   ) { 
    // this.permissions = this.permissionsSvc.getPermissions('services');
     this.dtOptions = {
@@ -40,6 +44,9 @@ export class AllServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.formModalDelete = new window.bootstrap.Modal(
+      document.getElementById('modalDeleteServices')
+    );
   }
 
   searchData(e: any) {
@@ -53,13 +60,61 @@ export class AllServiceComponent implements OnInit {
     this.data = [];
     let resp = await this.serviceSvr.getServicesByBusinesset();
       this.data = resp.data;
-      console.log(this.data);
+      // console.log(this.data);
     this.dtTrigger.next(this.dtOptions);
 
   }
 
   editService(id: any){
     this.router.navigate([`/pages/services/updateServices/${id}`]);
+  }
+
+  /* Section Delete */
+  openModalDelete(id: number) {
+    this.id = id;
+    this.formModalDelete.show();
+  }
+
+  async onDelete(band: boolean) {
+    if ( !band ) {
+      this.formModalDelete.hide();
+      return
+    }
+    let resp = await this.serviceSvr.deleteService(this.id);
+    if ( resp != null || resp != undefined ) {
+      let  { status } = resp;
+
+      if ( status !== undefined && status == 200 ) {
+        this.id = 0
+        this.alertSvc.showAlert(1, 'Success', resp?.comment)
+        this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+      } else {
+        this.alertSvc.showAlert(4, 'Error', resp?.comment);
+        this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+      }   
+    } else {
+      this.alertSvc.showAlert(4, 'Error', 'Error');
+      this.formModalDelete.hide();
+        this.renderer();
+        this.loadData();
+    }
+  }
+
+  /* Section Render & Destoy */
+  renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+    });
+  }
+
+  ngOnDestroy(): void {
+    // this.renderer
+    this.dtTrigger.unsubscribe();
   }
 
 }

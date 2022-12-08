@@ -73,10 +73,12 @@ export class SendMessageComponent implements OnInit {
     let message = this.messageForm.get('message')?.value;
     let resp = await this.smsSvc.sms(number, message);
     if ( resp ) {
-      this.alertSvc.showAlert(1, 'Success', 'Updated password');
+      this.alertSvc.showAlert(1, 'Success', 'Message sent');
       this.changePass.emit(true);
     } else {
-      this.alertSvc.showAlert(4, 'Error', 'Could not update password');
+      this.alertSvc.showAlert(4, 'Error', 'Message not sent');
+      this.changePass.emit(true);
+
     }
   }
 

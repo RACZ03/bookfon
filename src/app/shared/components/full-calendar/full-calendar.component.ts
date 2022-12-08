@@ -13,7 +13,7 @@ export class BootFonFullCalendar implements OnInit {
   @Output() clickEventEmitter = new EventEmitter();
 
   public calendarOptions: any;
-
+  @Input() showCustomButton:boolean=true; 
   @Input() events: Array<any> = [];
 
   constructor() {}
@@ -59,7 +59,7 @@ export class BootFonFullCalendar implements OnInit {
       headerToolbar: {
         left: 'prev,next',
         center: 'title',
-        right: 'newEvent,dayGridMonth,timeGridWeek,timeGridDay,listWeek',
+        right: ct.showCustomButton ? 'newEvent,dayGridMonth,timeGridWeek,timeGridDay,listWeek':'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
       },
       initialView: 'dayGridMonth',
       themeSystem: 'bootstrap5',
@@ -102,7 +102,7 @@ export class BootFonFullCalendar implements OnInit {
          <div class="fc-event-title" style="text-align: center;">
          <label style="font-size: 12px; font-weight: 700; color: black;">${arg.event.title}</label>
            <br>
-           <label style="font-size: 9px;font-weight:700;text-alight:center">${time.startTime.slice(0,5)} - ${time.endTime.slice(0, 5)}</label>
+           <label style="font-size: 9px;font-weight:700;text-alight:center;color:black">${time.startTime.slice(0,5)} - ${time.endTime.slice(0, 5)}</label>
            <br>
            <label style="font-size: 9px;color:black;text-alight:center">${service_name} ${service_description}</label>
          </div>
