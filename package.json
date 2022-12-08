@@ -36,6 +36,7 @@
     "datatables.net": "^1.12.1",
     "datatables.net-bs5": "^1.11.3",
     "datatables.net-dt": "^1.12.1",
+    "express": "^4.18.2",
     "firebase": "^9.9.4",
     "jquery": "^3.6.1",
     "mdb-angular-ui-kit": "^3.0.0",
