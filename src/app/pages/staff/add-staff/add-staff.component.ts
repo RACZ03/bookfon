@@ -40,7 +40,6 @@ export class AddStaffComponent implements OnInit {
     confirmPassword: new FormControl('', [Validators.required]),
     image: new FormControl(''),
   });
-  submitted = false;
   constructor(
     private catalogService: CatalogsService,
     private service: StaffService,
@@ -65,8 +64,8 @@ export class AddStaffComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    if (this.form.invalid) {
+  onSubmit() {
+    if (!this.form.valid) {
       this.form.markAllAsTouched();
       return;
     }
