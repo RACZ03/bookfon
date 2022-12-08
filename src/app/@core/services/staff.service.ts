@@ -132,4 +132,10 @@ export class StaffService {
     return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaff/' + id
     );
   }
+
+  // api/user/changeOrderStaff
+
+  changeOrderStaff(params: any[]=[]): Promise<any> {
+    return this.connectionSvc.send('put','user/changeOrderStaff', params);
+  }
 }
