@@ -86,9 +86,10 @@ export class ServicesComponent implements OnInit {
         this.alertSvc.showAlert(1, resp?.comment, 'Success');
         
       }
+      else {
+        this.alertSvc.showAlert(4, resp?.comment, 'Error');
+      }
 
-      this.router.navigate(['']);
-   
   }
 
 }
