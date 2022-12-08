@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ServicesService } from 'src/app/@core/services/services.service';
 import { StaffService } from 'src/app/@core/services/staff.service';
 
 @Component({
@@ -19,41 +20,62 @@ export class ServicesComponent implements OnInit {
   }; 
 
   constructor(
-     public staffService : StaffService,
+     public serviceSvr : ServicesService,
+     private staffSvr: StaffService,
       private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
     this.ServiceaddStaffFomr = this.initForms();
+    this.loadDataService();
   }
 
-  loadData(id: number){
+   async loadData(id: number){
     this.idStaff = id;
-    
+    let resp = await this.staffSvr.getServicesByStaff(id);
+     let data = resp.data;
+    let arrayServicestaff: any[] = [];
+     if (data.content !== undefined) {
+       for (let i = 0; i < data.content.length; i++) {
+         arrayServicestaff.push(data.content[i].id);
+       }
+     }
+    console.log(arrayServicestaff);
+
+    this.ServiceaddStaffFomr.reset({
+      services : arrayServicestaff == null ? [] : arrayServicestaff,
+    });
+
   }
 
+  async loadDataService(){
+    let resp = await this.serviceSvr.getServicesByBusinesset();
+    this.ServiceData = resp.data;
+   // console.log(this.ServiceData);
+  }
 
   initForms(): FormGroup {
     return this.fb.group({
       id: [''],
-      name: [''],
+      services: [''],
     });
   }
 
 
-  onSubmit() {
+ async onSubmit() {
     if ( this.ServiceaddStaffFomr.invalid ) 
     return;
     
-    this.data = this.ServiceaddStaffFomr.value.id;
+    let data = this.ServiceaddStaffFomr.value.id;
+    console.log(this.data);
     let arrayServiceStaff: any[] = [];
-    for (let i = 0; i < this.data?.length; i++) {
+    for (let i = 0; i <data?.length; i++) {
       arrayServiceStaff.push({
-         idService: this.data[i],
+         idService: data[i],
          idstaff : this.idStaff });
     }
-   
-    
+     let resp = await this.staffSvr.saveServiceToStaff(arrayServiceStaff);
+    console.log(resp);
   }
 
 }

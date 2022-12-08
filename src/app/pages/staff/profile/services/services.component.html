@@ -5,7 +5,7 @@
            <label class="small mb-1" for="inputibrachoffices" style="color: rgb(144, 144, 144) ;">Category <span class="text-danger">*</span></label>
            <div class="mb-3">
              <ng-select #BusinessSelect [items]="ServiceData" [selectOnTab]="true" [multiple]="true"
-                 bindValue="id" bindLabel="name" placeholder="select a service" formControlName="id" style="width: 80%;">
+                 bindValue="id" bindLabel="name" placeholder="select a service" formControlName="services" style="width: 80%;">
              </ng-select>
              <!--
              <button type="button" class="ms-2 text-primary" style="width: 70%; background-color: rgba(255, 248, 220, 0); border: 0;

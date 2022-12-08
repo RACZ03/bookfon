@@ -53,8 +53,8 @@ export class AllServiceComponent implements OnInit {
     this.data = [];
     let resp = await this.serviceSvr.getServicesByBusinesset();
       this.data = resp.data;
-    //  console.log(this.data);
-      // this.dtTrigger.next(this.dtOptions);
+      console.log(this.data);
+    this.dtTrigger.next(this.dtOptions);
 
   }
 
