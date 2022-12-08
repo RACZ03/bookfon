@@ -16,6 +16,9 @@ import { AddStaffComponent } from './add-staff/add-staff.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { DataTablesModule } from 'angular-datatables';
+import { AddAvailabilityComponent } from './profile/availavility/add-availability/add-availability.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @NgModule({
     declarations: [
         StaffComponent,
@@ -27,7 +30,8 @@ import { DataTablesModule } from 'angular-datatables';
         BranchesComponent,
         SettingsComponent,
         ProfileEditComponent,
-        AddStaffComponent
+        AddStaffComponent,
+        AddAvailabilityComponent,
     ],
     imports: [
         CommonModule,
@@ -43,6 +47,7 @@ import { DataTablesModule } from 'angular-datatables';
             preventDuplicates: true,
           }
         ),
+        NgSelectModule,
     ],
     exports: [
       ScheduleComponent
