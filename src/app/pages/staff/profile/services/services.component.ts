@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Route, Router } from '@angular/router';
 import { ServicesService } from 'src/app/@core/services/services.service';
 import { StaffService } from 'src/app/@core/services/staff.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
 
 @Component({
   selector: 'app-services',
@@ -22,6 +24,8 @@ export class ServicesComponent implements OnInit {
   constructor(
      public serviceSvr : ServicesService,
      private staffSvr: StaffService,
+     private alertSvc: AlertService,
+     private router: Router,
       private fb: FormBuilder,
   ) { }
 
@@ -33,6 +37,7 @@ export class ServicesComponent implements OnInit {
    async loadData(id: number){
     this.idStaff = id;
     let resp = await this.staffSvr.getServicesByStaff(id);
+    console.log(resp);
      let data = resp.data;
     let arrayServicestaff: any[] = [];
      if (data.content !== undefined) {
@@ -40,7 +45,7 @@ export class ServicesComponent implements OnInit {
          arrayServicestaff.push(data.content[i].id);
        }
      }
-    console.log(arrayServicestaff);
+   // console.log(arrayServicestaff);
 
     this.ServiceaddStaffFomr.reset({
       services : arrayServicestaff == null ? [] : arrayServicestaff,
@@ -51,7 +56,7 @@ export class ServicesComponent implements OnInit {
   async loadDataService(){
     let resp = await this.serviceSvr.getServicesByBusinesset();
     this.ServiceData = resp.data;
-   // console.log(this.ServiceData);
+  // console.log(this.ServiceData);
   }
 
   initForms(): FormGroup {
@@ -66,16 +71,24 @@ export class ServicesComponent implements OnInit {
     if ( this.ServiceaddStaffFomr.invalid ) 
     return;
     
-    let data = this.ServiceaddStaffFomr.value.id;
-    console.log(this.data);
-    let arrayServiceStaff: any[] = [];
+    let data = this.ServiceaddStaffFomr.value.services;
+    //console.log(this.ServiceaddStaffFomr.value.services);
+    let arrayServiceStaffU: any[] = [];
     for (let i = 0; i <data?.length; i++) {
-      arrayServiceStaff.push({
+      arrayServiceStaffU.push({
          idService: data[i],
-         idstaff : this.idStaff });
+         idStaff : this.idStaff });
     }
-     let resp = await this.staffSvr.saveServiceToStaff(arrayServiceStaff);
-    console.log(resp);
+    //console.log(arrayServiceStaff);
+     let resp = await this.staffSvr.saveServiceToStaff(arrayServiceStaffU);
+     
+      if (resp.status == 200) {
+        this.alertSvc.showAlert(1, resp?.comment, 'Success');
+        
+      }
+
+      this.router.navigate(['']);
+   
   }
 
 }
