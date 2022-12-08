@@ -137,7 +137,7 @@
       <input required type="text" class="form-control" id="zip" placeholder="zip code">
     </div> -->
     <div class="col-md-12 mt-3">
-      <button type="submit" class="btn btn-primary" [disabled]="loading">
+      <button (click)="onSubmit()" type="submit" class="btn btn-primary" [disabled]="loading">
         <span
           *ngIf="loading"
           class="spinner-border spinner-border-sm"

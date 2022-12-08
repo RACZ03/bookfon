@@ -34,10 +34,10 @@
               <button (click)="editStaff(item)" class="btn btn-link m-1"><i
                   class="bi bi-pencil-square"></i></button>
               <div class="form-check form-switch">
-                <input (change)="openModalChangeStatus(item.id)" class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
+                <input (click)="openModalChangeStatus(item.id)" class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
               </div>
               <button (click)="openModalChangePass(item.id)" class="btn btn-link m-1"><i class="bi bi-key-fill"></i></button>
-              <button (click)="openModalDeleteRecord(item.id)" class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button>
+              <!-- <button (click)="openModalDeleteRecord(item.id)" class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button> -->
             </td>
           </tr>
         </tbody>

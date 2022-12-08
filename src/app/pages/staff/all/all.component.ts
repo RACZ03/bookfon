@@ -96,7 +96,7 @@ export class AllComponent implements OnInit, OnDestroy {
     this.deleteRecordConfirmModal.show();
   }
 
-  openModalChangeStatus(id: number): void {
+  async openModalChangeStatus(id: number) {
     this.idSelected = id;
     this.confirmChangeStatusModal.show();
   }

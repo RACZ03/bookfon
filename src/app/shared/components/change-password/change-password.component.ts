@@ -96,6 +96,7 @@ export class ChangePasswordComponent implements OnInit {
 
 
   async onSubmit() {
+    console.log( this.passForm.invalid);
     if ( this.passForm.invalid ){ 
       return
     }
