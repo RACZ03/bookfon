@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
+import { AvailavilityService } from 'src/app/@core/services/avaivility.service';
+import { UsersService } from 'src/app/@core/services/users.service';
 
 import { AlertService } from 'src/app/@core/utils/alert.service';
 
@@ -21,15 +23,16 @@ export class AddAvailabilityComponent implements OnInit {
 
   @Input() isCoach = false;
   public idCoach: number = 0;
-  // @Input() set loadIdProfile(value) {
-  //   if ( value)
-  //     this.idCoach = parseInt(value);
-  // }
+  @Input() set loadIdProfile(value: any) {
+    if ( value)
+      this.idCoach = parseInt(value);
+  }
   
   coachScheduleForm!: FormGroup;
   public listCoachs: any[] = [];
   public scheduleRanger: any[] = [];
   public dataDelete: any[] = [];
+  public businessSelected: any = {};
 
   public days: any[] = [
     { id: 0, day: 0, dayLetter: 'Monday', active: false, disabled: true, position: 1, startTime: '', endTime: '', bc_start: '', bc_end: '' }, 
@@ -45,16 +48,19 @@ export class AddAvailabilityComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    // private coachScheduleSvc: CoachScheduleService,
+    private availabilitySvc: AvailavilityService,
+    private userSvc: UsersService,
     // private coachSvc: CoachService,
     private alertSvc: AlertService,
     // private spinnerSvc: SpinnerService
   ) { 
+    this.businessSelected = JSON.parse(localStorage.getItem('businessSelected') || '{}');
   }
 
   ngOnInit(): void {
     this.coachScheduleForm = this.initForms();
     // console.log('j')
+    console.log(this.businessSelected)
   }
 
 
@@ -70,10 +76,11 @@ export class AddAvailabilityComponent implements OnInit {
 
         obj.push({
           id: (this.days[i].id == 0) ? null : parseInt(this.days[i].id),
-          dia: this.days[i].day,
-          horaInicio: start.format('HH:mm:ss'),
-          horaFin: end.format('HH:mm:ss'),
-          idCoach: this.idCoach
+          idDay: this.days[i].day,
+          startTime: start.format('HH:mm:ss'),
+          endTime: end.format('HH:mm:ss'),
+          idStaff: this.idCoach,
+          idBusiness: this.businessSelected?.id
         });
       }
     }
@@ -87,33 +94,34 @@ export class AddAvailabilityComponent implements OnInit {
       if ( this.dataDelete[i].id != 0 ) {
         obj.push({
           id: parseInt(this.dataDelete[i].id),
-          dia: this.dataDelete[i].day,
-          horaInicio: this.dataDelete[i].startTime,
-          horaFin: this.dataDelete[i].endTime,
-          idCoach: this.idCoach,
+          idDay: this.dataDelete[i].day,
+          startTime: this.dataDelete[i].startTime,
+          endTime: this.dataDelete[i].endTime,
+          idStaff: this.idCoach,
+          idBusiness: this.businessSelected?.id,
           pasivo: true
         });
       }
     }
-
+    console.log(obj)
     // Send Data
     // this.spinnerSvc.show();
-    // let resp = await this.coachScheduleSvc.save(obj);
+    let resp = await this.availabilitySvc.saveAvailability(obj);
 
     
     // this.spinnerSvc.hide();
-    // if ( resp != null || resp != undefined ) {
-    //   let { status } = resp;
-    //   if ( status == 200 ) {
-    //     this.notifySvc.showAlert(1, resp?.comment, 'Success');
-    //     this.loadDataForm();
-    //     this.onClose.emit(true);
-    //   } else {
-    //     this.notifySvc.showAlert(4, resp?.comment, 'Error')
-    //   } 
-    // } else {
-    //   this.notifySvc.showAlert(4, 'Error', 'Error')
-    // }
+    if ( resp != null || resp != undefined ) {
+      let { status } = resp;
+      if ( status == 201 ) {
+        this.alertSvc.showAlert(1, resp?.comment, 'Success');
+        this.loadDataForm();
+        this.onClose.emit(true);
+      } else {
+        this.alertSvc.showAlert(4, resp?.comment, 'Error')
+      } 
+    } else {
+      this.alertSvc.showAlert(4, 'Error', 'Error')
+    }
   }
 
   /* Load Data Form */
@@ -293,9 +301,9 @@ export class AddAvailabilityComponent implements OnInit {
     return this.fb.group({
       id: [0],
       coachId: [0, [Validators.required] ],
-      day: ['', [Validators.required] ],
-      startTime: ['', [Validators.required] ],
-      endTime: ['', [Validators.required] ],
+      day: [''],
+      startTime: [''],
+      endTime: [''],
     })
   }
 

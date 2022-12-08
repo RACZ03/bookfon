@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("itemStaff:::",this.itemStaff);
+    // console.log("itemStaff:::",this.itemStaff);
   }
 
   changeOptions(e: any, index: number) {

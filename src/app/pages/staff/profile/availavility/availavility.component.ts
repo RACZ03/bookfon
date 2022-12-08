@@ -16,7 +16,6 @@ export class AvailavilityComponent implements OnInit {
 
   @Input() set setIdProfile(id: number){
     this.idStaff = id;
-    console.log(this.idStaff)
   }; 
 
   @ViewChild(DataTableDirective, {static: false})
@@ -71,7 +70,7 @@ export class AvailavilityComponent implements OnInit {
   async loadData() {
     // this.spinnerSvc.show();
     console.log(this.idStaff);
-  let resp = await this.avaivilitySvr.getListByIdStaff(this.idStaff);
+    let resp = await this.avaivilitySvr.getListByIdStaff(this.idStaff);
      console.log(resp);
      if(resp.status == 404)
      this.buttonAdd = true;
