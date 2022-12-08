@@ -29,11 +29,13 @@ export class ServicesService {
       'get',
       `v1/purchasedService/business/${identity.code}`
     );
-    const scheduled = this.processDataSchedule(data.data);
+    const scheduled = this.processDataSchedule(data?.data);
     return scheduled;
   }
 
-  processDataSchedule(data: any) {
+  processDataSchedule(data:any) {
+    if(data?.length<=0 || data ==undefined || data==null){return[]}
+
     let events = [];
     for (let index = 0; index < data.length; index++) {
       events.push({
