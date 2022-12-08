@@ -19,13 +19,13 @@ export class ProfileComponent implements OnInit {
     { title: 'Schedule', active: false },
     { title: 'Availability', active: false },
     { title: 'Services', active: false },
-    { title: 'Branches', active: false },
+    // { title: 'Branches', active: false },
   ];
   public optionSelected: number = 0;
   constructor() { }
 
   ngOnInit(): void {
-    console.log("itemStaff:::",this.itemStaff);
+    // console.log("itemStaff:::",this.itemStaff);
   }
 
   changeOptions(e: any, index: number) {

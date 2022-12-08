@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./add-staff.component.scss'],
 })
 export class AddStaffComponent implements OnInit {
-  file!: ImageFile;
+  file: ImageFile | undefined;
   sexs: SexsItem[] = [];
   status: number = 0;
   message: string = '';
@@ -40,7 +40,6 @@ export class AddStaffComponent implements OnInit {
     confirmPassword: new FormControl('', [Validators.required]),
     image: new FormControl(''),
   });
-  submitted = false;
   constructor(
     private catalogService: CatalogsService,
     private service: StaffService,
@@ -65,8 +64,8 @@ export class AddStaffComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
-    if (this.form.invalid) {
+  onSubmit() {
+    if (!this.form.valid) {
       this.form.markAllAsTouched();
       return;
     }
@@ -129,5 +128,9 @@ export class AddStaffComponent implements OnInit {
         console.log(err);
         this.toast.error('Error unexpected, loading sex', 'Error');
       });
+  }
+
+  resetForm() {
+    this.form.reset();
   }
 }

@@ -31,6 +31,17 @@ export class StaffService {
     );
   }
 
+  enableDisableStaff(id_staff:number):Promise<any>{
+    return this.connectionSvc.send(
+      'post',
+      'users/disableByBusiness/'+this.dataIdentity?.businessList[0].code+'?idUser='+id_staff
+    );
+  }
+
+  deleteStaff(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `users/${ id }`);
+  }
+
   uploadImage(file: any): Promise<any> {
     let current = new Date().getTime();
     let filePath = '';
@@ -101,6 +112,24 @@ export class StaffService {
         this.dataIdentity?.businessList[0].code +
         '/users/saveStaff?roleName=ROLE_STAFF',
       params
+    );
+  }
+
+  updateStaff(params: any){
+    return this.connectionSvc.send('put', `users/update/${ params.id }`, params);
+  }  
+
+//guardar servicio a staff
+  saveServiceToStaff(staffService: any): Promise<any> {
+    const params = JSON.stringify(staffService);
+    return this.connectionSvc.send('post','staffServices/save' , params);
+  }
+
+  // listar servicios del staff /staffServices/{{business}}/byStaff/7
+  getServicesByStaff(id: number): Promise<any> {
+    console.log(id);
+    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+    return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaff/' + id
     );
   }
 }

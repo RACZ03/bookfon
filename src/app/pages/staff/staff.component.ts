@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-staff',
@@ -6,20 +6,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./staff.component.scss'],
 })
 export class StaffComponent implements OnInit {
+  @Input() set setIdProfile(id: number){
+    this.idStaff = id;
+    console.log(this.idStaff , "serstaffvice");
+  }; 
+
   editStaff: boolean = false;
   itemStaff:any;
   newStaff: boolean = false;
   activeTab: number = 1;
-  // activeTab: number = 0;
   public idStaff: number = 0;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  selectedStaff(event: any) {
-    this.idStaff= event;
-    this.editStaff = true;
+  selectedStaff(item: any) {
+    this.idStaff= item.id;
+    this.itemStaff = item;    
+    this.editStaff=true;
   }
 
   showScreenNewStaff() {
