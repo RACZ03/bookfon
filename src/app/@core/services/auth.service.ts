@@ -187,15 +187,16 @@ export class AuthService {
 
   async logout(email: string)
   {
-    let resp = await this.connectionSvc.send('get', `users/updateLastLogin?email=${email}`);
+    // Revisar este metodo
+    let resp = await this.connectionSvc.send('put', `users/updateLastLogin?email=${email}`);
     console.log(resp);
-    // this.token = null;
-    // this.identity = null;
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('refresh_token');
-    // localStorage.removeItem('identity');
-    // localStorage.removeItem('businessSelected');
-    // this.router.navigateByUrl('/auth/login');
+    this.token = null;
+    this.identity = null;
+    localStorage.removeItem('token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('identity');
+    localStorage.removeItem('businessSelected');
+    this.router.navigateByUrl('/auth/login');
   }
 
 }
