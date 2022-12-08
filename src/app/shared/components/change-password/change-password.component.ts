@@ -96,8 +96,10 @@ export class ChangePasswordComponent implements OnInit {
 
 
   async onSubmit() {
-    if ( this.passForm.invalid ) 
+    console.log( this.passForm.invalid);
+    if ( this.passForm.invalid ){ 
       return
+    }
     let pass = this.passForm.get('password')?.value;
     let resp = await this.userSvc.changePassword(this.id, pass );
     if ( resp ) {

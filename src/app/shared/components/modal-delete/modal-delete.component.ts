@@ -9,10 +9,18 @@ export class ModalDeleteComponent implements OnInit {
 
 
   @Output() delete: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input() message:string="";
+  @Input() btnYes:string="";
 
   constructor() { }
 
   ngOnInit(): void {
+    if(this.message==""){
+      this.message="Do you really want to delete this record? This process cannot be undone."
+    };
+    if(this.btnYes==""){
+      this.btnYes="Delete";
+    }
   }
 
   onDelete() {
