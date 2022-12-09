@@ -17,7 +17,7 @@ export class PublicDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.identity);
+    // console.log(this.identity);
     this.getBusinessData();
     this.ModalForm = this.initForm();
   }
@@ -46,7 +46,7 @@ export class PublicDetailsComponent implements OnInit {
 
   async getBusinessData(){
     let resp = await this.businessSvc.findById(this.identity.businessList[0].id);
-    console.log(resp);
+    // console.log(resp);
     let { data } = resp;
     if (resp.status === '200')
     {
@@ -65,7 +65,7 @@ export class PublicDetailsComponent implements OnInit {
         termsService: data.termsOfService
       });
     }
-    console.log(resp);
+    // console.log(resp);
   }
 
   async onUpdate(){

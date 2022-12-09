@@ -23,7 +23,7 @@ export class BootFonFullCalendar implements OnInit {
   }
 
   handleDateClick(selectInfo: any) {
-    console.log(selectInfo);
+    // console.log(selectInfo);
     this.dateClickEventEmitter.emit(selectInfo);
   }
 
@@ -32,17 +32,17 @@ export class BootFonFullCalendar implements OnInit {
   }
 
   handleEventDrop(eventDropInfo: any) {
-    console.log(eventDropInfo);
+    // console.log(eventDropInfo);
     this.dropEventEmitter.emit(eventDropInfo);
   }
 
   handleEventResize(eventResizeInfo: any) {
-    console.log(eventResizeInfo);
+    // console.log(eventResizeInfo);
     this.resizeEventEmitter.emit(eventResizeInfo);
   }
 
   loadCalendar() {
-    console.log('events1:::', this.events);
+    // console.log('events1:::', this.events);
     let ct = this;
     this.calendarOptions = {
       customButtons: {
