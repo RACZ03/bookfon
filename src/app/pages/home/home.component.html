@@ -1,1 +1,8 @@
-<p>home works!</p>
+<div class="banner shadow">
+    <!-- <img src="assets/images/bookfons/banner.jpg" alt=""> -->
+    <h3>Hi, {{ identity?.firstName + ' ' + identity?.lastName }}!</h3>
+    <div style="display: flex;">
+        <img class="img-fluid" appBrokenImagen [src]="identity != undefined ? identity?.image : 'assets/images/bookfons/user-found-3.png'"/>
+        <h4>Welcome, it's nice to have you back.</h4>
+    </div>
+</div>

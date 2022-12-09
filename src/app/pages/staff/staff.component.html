@@ -1,3 +1,4 @@
+
 <section class="module-container">
   <h3 class="title-module">Staff</h3>
 
@@ -14,7 +15,7 @@
         {{editStaff ? ' / edit' : (newStaff?'/ Add':'')}}</button>
     </li>
     <div *ngIf="activeTab==1" class="justify-content-end col-md-10">
-      <button type="button" class="btn btn-primary float-end m-1"><i class="bi bi-list-ol"></i> Change display
+      <button type="button" class="btn btn-primary float-end m-1" id="showModalOrderStaff"><i class="bi bi-list-ol" style="color: #f9f9f9 ;"></i> Change display
         position</button>
       <button (click)="showScreenNewStaff()"  class="btn btn-add border-dashed-primary float-end m-1" data-bs-toggle="modal" data-bs-target="#newStaffModal">
         <i class="bi bi-plus"></i>

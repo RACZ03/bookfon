@@ -37,30 +37,30 @@ export const MENU_ITEMS: MenuItem[] = [
     link: '/pages/bookfon-services',
     home: false
   },
-  {
-    title: 'Payments',
-    icon: 'payments',
-    link: '/pages/payments',
-    home: false
-  },
-  {
-    title: 'Banking',
-    icon: 'bank',
-    link: '/pages/banking',
-    home: false
-  },
-  {
-    title: 'Sales Channels',
-    icon: 'sales',
-    link: '/pages/sales-channels',
-    home: false
-  },
-  {
-    title: 'Bookfon Add-on Services',
-    icon: 'bookfon-services',
-    link: '/pages/bookfon-services',
-    home: false
-  },
+  // {
+  //   title: 'Payments',
+  //   icon: 'payments',
+  //   link: '/pages/payments',
+  //   home: false
+  // },
+  // {
+  //   title: 'Banking',
+  //   icon: 'bank',
+  //   link: '/pages/banking',
+  //   home: false
+  // },
+  // {
+  //   title: 'Sales Channels',
+  //   icon: 'sales',
+  //   link: '/pages/sales-channels',
+  //   home: false
+  // },
+  // {
+  //   title: 'Bookfon Add-on Services',
+  //   icon: 'bookfon-services',
+  //   link: '/pages/bookfon-services',
+  //   home: false
+  // },
 ];
 
 export const MENU_ITEMS_SETTINGS: MenuItem[] = [
@@ -70,12 +70,12 @@ export const MENU_ITEMS_SETTINGS: MenuItem[] = [
     link: '/pages/settings',
     home: false,
   },
-  {
-    title: 'Help',
-    icon: 'help',
-    link: '/pages/help',
-    home: false
-  },
+  // {
+  //   title: 'Help',
+  //   icon: 'help',
+  //   link: '/pages/help',
+  //   home: false
+  // },
   {
     title: 'Log Out',
     icon: 'logout',

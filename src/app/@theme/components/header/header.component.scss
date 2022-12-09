@@ -38,6 +38,19 @@
 #sidebarToggle {
     margin-top: 12px;
 }
+
+.img-fluid {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    align-content:stretch;
+    overflow:hidden;
+    object-fit: cover;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+}
 @media (min-width: 1300px) {
     .input-group {
         /* Layout Properties */

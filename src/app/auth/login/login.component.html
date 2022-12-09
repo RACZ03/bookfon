@@ -26,10 +26,10 @@
                         <input type="email" class="input-email" placeholder="mail@mail.com" value=""
                                 formControlName="email"><br>
                         <span *ngIf="validInput('email')" class="text-danger mt-2">
-                            Campo requerido.
+                            Invalid email
                         </span>
                         <span *ngIf="validEmail('email')" class="text-danger mt-2">
-                            Email no valido.
+                            Invalid email
                         </span>
                     </div>
 
@@ -44,11 +44,11 @@
                     </p>
                 </div>
 
-                <div class="otherBx">
+                <!-- <div class="otherBx">
                     <img src="assets/images/bookfons/user-found-2.png" alt="">
                     <label for="">Use a different user ID</label>
                     <i class="bi bi-chevron-right"></i>
-                </div>
+                </div> -->
 
                 <div class="footerBx">
                     <p>
@@ -76,7 +76,7 @@
                         <img src="assets/images/icons/padlock.svg" class="icons" alt="">
                         <label for="">Enter password</label>
                     </div>
-                    <div class="itemBx2" style="cursor: pointer;" (click)="nextStep3(2)">
+                    <!-- <div class="itemBx2" style="cursor: pointer;" (click)="nextStep3(2)">
                         <img src="assets/images/icons/email.svg" class="icons" alt="">
                         <label for="">Text a code</label><br>
                         <label for="" class="text-item">***********79</label>
@@ -87,7 +87,7 @@
                         <label for="" class="text-item">
                             {{ (loginForm.get('email')?.value !== '') ? loginForm.get('email')?.value : '******@***' }}
                         </label>
-                    </div>
+                    </div> -->
                     <div class="itemBx2" (click)="nextStep3(1)">
                         <a href="#">Contact Customer support</a>
                     </div>
@@ -255,10 +255,10 @@
                     </div>
                     <div class="itemBx3">
                         <br>
-                        <button class="btn btn-primary" style="margin-bottom: 40px;" type="button" (click)="createBusiness()">
+                        <!-- <button class="btn btn-primary" style="margin-bottom: 40px;" type="button" (click)="createBusiness()">
                             <i class="bi bi-plus-lg"></i>
                             CREATE A NEW BUSINESS
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
