@@ -50,7 +50,7 @@
     </div>
     <div class="col-md-4 mt-3">
       <label for="profile" class=""><sup class="lb-required">*</sup>Profile</label>
-      <input type="text" formControlName="profile" class="form-control" [ngClass]="{
+      <input type="text" formControlName="profile" class="form-control" autocomplete="new-profile" [ngClass]="{
           'is-invalid':
             f['profile'].invalid && (f['profile'].touched || f['profile'].dirty)
         }" />
@@ -60,7 +60,7 @@
     </div>
     <div class="col-md-4 mt-3">
       <label for="sex" class=""><sup class="lb-required">*</sup>Sex</label>
-      <select class="form-control" [ngClass]="{
+      <select class="form-select" [ngClass]="{
           'is-invalid': f['sex'].invalid && (f['sex'].touched || f['sex'].dirty)
         }" formControlName="sex">
         <option disabled value="" readonly>choose sex</option>
@@ -83,7 +83,7 @@
     </div>
     <div class="col-md-6 mt-3">
       <label for="password" class=""><sup class="lb-required">*</sup>Password</label>
-      <input type="password" formControlName="password" class="form-control" [ngClass]="{
+      <input type="password" autocomplete="new-password"formControlName="password" class="form-control" [ngClass]="{
           'is-invalid':
             f['password'].invalid &&
             (f['password'].touched || f['password'].dirty)

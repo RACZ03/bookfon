@@ -29,11 +29,13 @@ export class ServicesService {
       'get',
       `v1/purchasedService/business/${identity.code}`
     );
-    const scheduled = this.processDataSchedule(data.data);
+    const scheduled = this.processDataSchedule(data?.data);
     return scheduled;
   }
 
-  processDataSchedule(data: any) {
+  processDataSchedule(data:any) {
+    if(data?.length<=0 || data ==undefined || data==null){return[]}
+
     let events = [];
     for (let index = 0; index < data.length; index++) {
       events.push({
@@ -49,6 +51,7 @@ export class ServicesService {
         service_name: data[index]['service'].name,
         service_description: data[index]['service'].description,
         allDay: false,
+        idStaff:data[index].idStaff,
         staff: data[index]['staff'],
         url: data[index]['staff'].image? data[index]['staff'].image : '',
         backgroundColor: '#FF946F',
@@ -131,6 +134,7 @@ export class ServicesService {
   }
 
   getServicesByBusinesset(): Promise<any> {
+    console.log("este es::::");
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
     return this.connectionSvc.send(
       'get', `public/v1/${identity.code}/allServicesByBusiness`

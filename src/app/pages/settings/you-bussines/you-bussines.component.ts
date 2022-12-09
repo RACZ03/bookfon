@@ -13,14 +13,14 @@ export class YouBussinesComponent implements OnInit {
     { title: 'Account name', active: true },
     { title: 'Public details', active: false },
     { title: 'Business details', active: false },
-    { title: 'Linked external accounts', active: false },
-    { title: 'Bank accounts and scheduling', active: false },
-    { title: 'Tax details', active: false },
-    { title: 'Branding', active: false },
-    { title: 'Customers emails settings', active: false },
-    { title: 'Staff SMS settings', active: false },
-    { title: 'Amind team SMS settings', active: false },
-    { title: 'Branches', active: false },
+    // { title: 'Linked external accounts', active: false },
+    // { title: 'Bank accounts and scheduling', active: false },
+    // { title: 'Tax details', active: false },
+    // { title: 'Branding', active: false },
+    // { title: 'Customers emails settings', active: false },
+    // { title: 'Staff SMS settings', active: false },
+    // { title: 'Amind team SMS settings', active: false },
+    // { title: 'Branches', active: false },
   ];
   public optionSelected: number = 0;
 
