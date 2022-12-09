@@ -43,7 +43,7 @@ export class BookfonServicesComponent implements OnInit {
     this.staffService.getAllStaff().then(response => {
       this.staff = response.data;
     }).catch(error => {
-      console.log(error);
+      // console.log(error);
       this.toast.error('Error while loading staff', 'Error');
     })
   }
@@ -65,7 +65,7 @@ export class BookfonServicesComponent implements OnInit {
       })
       .catch((err) => {
         this.loadingEvents = false;
-        console.log(err);
+        // console.log(err);
         this.toast.error('Error while loading events', 'Error');
       });
   }

@@ -37,12 +37,14 @@ export class ServicesComponent implements OnInit {
    async loadData(id: number){
     this.idStaff = id;
     let resp = await this.staffSvr.getServicesByStaff(id);
-    console.log(resp);
+    // console.log(resp);
      let data = resp.data;
     let arrayServicestaff: any[] = [];
-     if (data.content !== undefined) {
-       for (let i = 0; i < data.content.length; i++) {
-         arrayServicestaff.push(data.content[i].id);
+     if (data?.content !== undefined) {
+      let { content } = data || [];
+       for (let i = 0; i < content.length; i++) {
+        
+         arrayServicestaff.push(content[i].id);
        }
      }
    // console.log(arrayServicestaff);

@@ -93,11 +93,12 @@ table {
         font-size: 11px;
 
         tr .td-name {
+            margin-top: 15px;
             margin-left: 8px;
         }
-        tr .td-email {
-            margin-left: 46px;
-            position: absolute;
+        tr .td-price {
+            margin-left: 10px;
+            // position: absolute;
             margin-top: -12px;
         }
     }

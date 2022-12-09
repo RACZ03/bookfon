@@ -60,7 +60,7 @@ export class SubCustomerComponent implements OnInit {
 
   async loadData() {
     let resp = await this.customerSvc.getAllSubCustomers(this.idSelected);
-    console.log(resp);
+    // console.log(resp);
     if ( resp?. status == 200 ) {
       let { data } = resp;
       if ( data !== undefined ) {

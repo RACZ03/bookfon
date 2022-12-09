@@ -22,6 +22,7 @@ export class YouBussinesComponent implements OnInit {
     // { title: 'Amind team SMS settings', active: false },
     // { title: 'Branches', active: false },
   ];
+
   public optionSelected: number = 0;
 
   constructor() { }

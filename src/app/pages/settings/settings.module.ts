@@ -22,6 +22,7 @@ import { InvoicePdfComponent } from './you-bussines/branding/invoice-pdf/invoice
 import { IdentityComponent } from './you-bussines/branding/identity/identity.component';
 import { ChekoutComponent } from './you-bussines/branding/chekout/chekout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataTablesModule } from 'angular-datatables';
 
 
 
@@ -57,7 +58,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     SettingsRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule, 
   ]
 })
 export class SettingsModule { }

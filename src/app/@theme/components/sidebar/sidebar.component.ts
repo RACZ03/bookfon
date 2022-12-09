@@ -14,6 +14,7 @@ export class SidebarComponent implements OnInit {
   public menuFooter: MenuItem[] = [];
 
   public identity: any = {};
+  public businessSelected: any = {};
   public isAdmin: boolean = false;
   public isExist: boolean = false;
   
@@ -46,8 +47,10 @@ export class SidebarComponent implements OnInit {
   
   loadData() {
     let data = localStorage.getItem('identity');
+    this.businessSelected = JSON.parse(localStorage.getItem('businessSelected') || '{}');
     if (data) {
       this.identity = JSON.parse(data);
+      // console.log(this.businessSelected)
       let roles: any[] = this.identity.roles;
   
       if ( roles != undefined && roles.length > 0) {

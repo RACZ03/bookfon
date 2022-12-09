@@ -134,7 +134,7 @@ export class ServicesService {
   }
 
   getServicesByBusinesset(): Promise<any> {
-    console.log("este es::::");
+    // console.log("este es::::");
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
     return this.connectionSvc.send(
       'get', `public/v1/${identity.code}/allServicesByBusiness`
