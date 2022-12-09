@@ -100,6 +100,7 @@ export class StaffService {
         service: data[index]['service'],
         service_name: data[index]['service'].name,
         service_description: data[index]['service'].description,
+        idStaff:data[index].idStaff,
         allDay: true,
         staff: data[index]['staff'],
         url: data[index]['staff'].image? data[index]['staff'].image : '',
