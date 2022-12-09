@@ -10,14 +10,14 @@
       </button>
     </li> -->
     <li class="nav-item col-md-2" role="all">
-      <button (click)="editStaff = false;activeTab=1 ;newStaff=false" class="nav-link active links" id="profile-tab" data-bs-toggle="tab"
+      <button (click)="editStaff = false; activeTab = 1 ; newStaff = false; showBtn = !showBtn" class="nav-link active links" id="profile-tab" data-bs-toggle="tab"
         data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="false">All staff
-        {{editStaff ? ' / edit' : (newStaff?'/ Add':'')}}</button>
+        {{editStaff ? ' / edit' : ( newStaff ? '/ Add' : '' ) }}</button>
     </li>
     <div *ngIf="activeTab==1" class="justify-content-end col-md-10">
-      <button type="button" class="btn btn-primary float-end m-1" id="showModalOrderStaff"><i class="bi bi-list-ol" style="color: #f9f9f9 ;"></i> Change display
+      <button type="button" *ngIf="showBtn"  class="btn btn-primary float-end m-1" id="showModalOrderStaff"><i class="bi bi-list-ol" style="color: #f9f9f9 ;"></i> Change display
         position</button>
-      <button (click)="showScreenNewStaff()"  class="btn btn-add border-dashed-primary float-end m-1" data-bs-toggle="modal" data-bs-target="#newStaffModal">
+      <button (click)="showScreenNewStaff()" class="btn btn-add border-dashed-primary float-end m-1" data-bs-toggle="modal" data-bs-target="#newStaffModal">
         <i class="bi bi-plus"></i>
         Add new staff
       </button>

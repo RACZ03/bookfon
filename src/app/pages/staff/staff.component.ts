@@ -27,6 +27,7 @@ export class StaffComponent implements OnInit {
   activeTab: number = 1;
   public idStaff: number = 0;
   public showModalOrder: boolean = false;
+  public showBtn: boolean = true;
   
   public module: any = false;
   data: any [] = [];
@@ -53,6 +54,7 @@ export class StaffComponent implements OnInit {
   }
 
   selectedStaff(item: any) {
+    this.showBtn = false;
     this.idStaff= item.id;
     this.itemStaff = item;    
     this.editStaff=true;

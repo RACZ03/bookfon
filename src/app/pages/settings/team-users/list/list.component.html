@@ -100,7 +100,7 @@
                 <div class="row">
                     <div class="col-xl-5 col-lg-5 col-md-7 col-sm-6 col-xs-12">
                         <form class="d-flex">
-                            <input class="form-control me-2" type="search" placeholder="Filter by name or email..." aria-label="Search">
+                          <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
                         </form>
                     </div>
                     <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
@@ -109,7 +109,7 @@
                             Add new staff
                         </button>
 
-                        <button class="btn btn-table">
+                        <!-- <button class="btn btn-table">
                             <img src="assets/images/icons/settings2.svg" alt="">
                         </button>
                         <button class="btn btn-table">
@@ -117,13 +117,13 @@
                         </button>
                         <button class="btn btn-table">
                             <img src="assets/images/icons/download.svg" alt="">
-                        </button>
+                        </button> -->
 
                     </div>
                 </div>
                 <br>
                 <div class="table-responsive">
-                    <table class="table">
+                    <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
                         <thead>
                             <tr>
                                 <th>

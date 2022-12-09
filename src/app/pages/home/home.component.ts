@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
   public identity: any;
   constructor() {
     this.identity = JSON.parse(localStorage.getItem('identity') || '{}');
-    console.log(this.identity)
+    // console.log(this.identity)
   }
 
   ngOnInit(): void {

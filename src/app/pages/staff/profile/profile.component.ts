@@ -1,4 +1,4 @@
-import { Component, OnInit,EventEmitter,Input} from '@angular/core';
+import { Component, OnInit,EventEmitter,Input, HostListener} from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -7,11 +7,12 @@ import { Component, OnInit,EventEmitter,Input} from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
   @Input() itemStaff: any;
- public idStaff: number = 0;
+  public idStaff: number = 0;
 
-@Input() set setIdProfile(id: number){
-  this.idStaff = id;
-};
+  @Input() set setIdProfile(id: number){
+    this.idStaff = id;
+  };
+  public formModalPositionCoach: any;
 
 
   public scrollOptions: any[] = [
@@ -36,5 +37,13 @@ export class ProfileComponent implements OnInit {
         this.scrollOptions[i].active = true;
     }
     this.optionSelected = index;
+  }
+
+  // listen to event click in button by id
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (event.target.id == "showModalOrderStaff") {
+      this.formModalPositionCoach.show();
+    }
   }
 }
