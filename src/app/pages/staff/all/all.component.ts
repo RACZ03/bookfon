@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, OnDestroy, Input, HostListener } from '@angular/core';
 import { StaffService } from '../../../@core/services/staff.service';
 import { staffItem } from 'src/app/@core/Interfaces/Staff';
 import { DataTableDirective } from 'angular-datatables';
@@ -166,6 +166,14 @@ export class AllComponent implements OnInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
+  }
+
+  // listen to event click in button by id
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (event.target.id == "showModalOrderStaff") {
+      this.formModalPositionCoach.show();
+    }
   }
   
 }
