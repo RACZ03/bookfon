@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/@core/services/auth.service';
 import { MenuItem, MENU_ITEMS, MENU_ITEMS_SETTINGS } from './pages-menu';
 
 @Component({
@@ -20,7 +21,8 @@ export class SidebarComponent implements OnInit {
   public getScreenHeight: any;
 
   constructor(
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private document: Document,
+    private authSvc: AuthService
   ) { 
     this.loadData();
   }
@@ -59,8 +61,16 @@ export class SidebarComponent implements OnInit {
   }
 
   onSelectOption(item: any) {
+    if ( item === '/pages/logout') {
+      this.logout();
+      return;
+    }
     if ( item != undefined)
       this.triggerMenu();
+  }
+
+  async logout() {
+    await this.authSvc.logout(this.identity.email);
   }
   
   @HostListener('window:resize', ['$event'])

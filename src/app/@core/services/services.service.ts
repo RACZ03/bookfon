@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import * as moment from 'moment';
 import { finalize } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CategoryI } from '../Interfaces/Category';
 import { ConnectionService } from '../utils/connection.service';
-import * as moment from 'moment';
 
 const URL = environment.APIUrl;
 
@@ -65,7 +65,7 @@ export class ServicesService {
 
   convertDate(date: any) {
     return moment(date).format('YYYY-MM-DD');
-  }
+  }
 
   //------------------------cupons---------------------------------
   ///v1/coupon/business/{businessCode}
@@ -114,7 +114,7 @@ export class ServicesService {
       images: img,
     };
     const params = JSON.stringify(obj);
-    console.log(params);
+    // console.log(params);
     if (
       service.id !== 0 &&
       service.id !== null &&

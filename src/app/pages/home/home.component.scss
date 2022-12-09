@@ -1,0 +1,57 @@
+.banner {
+    margin: 20px;
+    width: 70%;
+    height: 200px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    background: url(../../../assets/images/bookfons/banner.jpg) no-repeat;
+    background-size: cover;
+    opacity: 90%;
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        -webkit-border-radius: 15px;
+        -moz-border-radius: 15px;
+        -ms-border-radius: 15px;
+        -o-border-radius: 15px;
+    }
+
+    h3 {
+        color: white;
+        font-weight: 700;
+        padding-top: 20px;
+        margin-left: 20px;
+    }
+
+    h4 {
+        margin-left: 20px;
+        margin-top: 75px;
+    }
+
+    .img-fluid {
+        margin-left: 20px;
+        align-content:stretch;
+        overflow:hidden;
+        object-fit: cover;
+        width: 10%;
+        height: 20%;
+        max-height: 20%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .banner {
+        width: 92%;
+    }
+    h3 {
+        color: white;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+}

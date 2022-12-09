@@ -91,6 +91,11 @@ export class LoginComponent implements OnInit {
     // login by password
     if ( this.step3 ) {
       let resp = await this.authSvc.login(this.loginForm.value);
+      if ( resp?.status == 401 || resp?.status == 400  || resp?.status == 404 ) {
+        console.log(resp)
+        this.alertSvc.showAlert(4, 'Error', 'Email or password incorrect');
+        return;
+      }
       if ( resp ) {
         // set identity in localstorage
         localStorage.setItem('identity', JSON.stringify(resp));
