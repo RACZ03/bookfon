@@ -31,6 +31,16 @@ export class StaffService {
     );
   }
 
+  getCode(): string {
+    let business = localStorage.getItem('businessSelected') || '';
+    return JSON.parse(business).code;
+  }
+
+  getStaffOrder(): Promise<StaffI> {
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `public/v1/${code}/allStaffByBusiness`);
+  }
+
   enableDisableStaff(id_staff:number):Promise<any>{
     return this.connectionSvc.send(
       'post',
@@ -70,11 +80,12 @@ export class StaffService {
       'get',
       'v1/purchasedService/business/' + this.dataIdentity?.businessList[0].code
     );
-    const scheduled = this.processDataSchedule(data.data);
+    const scheduled = this.processDataSchedule(data?.data);
     return scheduled;
   }
 
   processDataSchedule(data: any) {
+    if(data?.length<=0 || data ==undefined || data==null){return[]}
     let events = [];
     for (let index = 0; index < data.length; index++) {
       events.push({
@@ -89,6 +100,7 @@ export class StaffService {
         service: data[index]['service'],
         service_name: data[index]['service'].name,
         service_description: data[index]['service'].description,
+        idStaff:data[index].idStaff,
         allDay: true,
         staff: data[index]['staff'],
         url: data[index]['staff'].image? data[index]['staff'].image : '',
@@ -136,6 +148,6 @@ export class StaffService {
   // api/user/changeOrderStaff
 
   changeOrderStaff(params: any[]=[]): Promise<any> {
-    return this.connectionSvc.send('put','user/changeOrderStaff', params);
+    return this.connectionSvc.send('put','users/changeOrderStaff', params);
   }
 }

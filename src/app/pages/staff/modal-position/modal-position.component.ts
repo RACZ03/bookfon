@@ -37,13 +37,16 @@ export class ModalPositionComponent implements OnInit {
     for (let i = 0; i < this.data.length; i++) {
       let obj = {
         id: this.data[i].id,
-        Order: i+1,
+        order: i+1,
         idBusiness : identity.id
       }
       this.newData.push(obj);
     }
     let resp = await this.serviceStaff.changeOrderStaff(this.newData);
-    console.log(resp, "resp");
+    // console.log(resp)
+    if ( resp?.status == 200 ) {
+      this.onClose.emit(true);
+    }
  
   }
 

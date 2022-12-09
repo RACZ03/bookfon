@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ViewChild, OnDestroy, Input, HostListener } from '@angular/core';
 import { StaffService } from '../../../@core/services/staff.service';
 import { staffItem } from 'src/app/@core/Interfaces/Staff';
 import { DataTableDirective } from 'angular-datatables';
@@ -15,11 +15,13 @@ export class AllComponent implements OnInit, OnDestroy {
   dtElement!: DataTableDirective;
 
   @Output() selectedStaff = new EventEmitter();
+  
 
   public formModalChangePass: any;
   public confirmChangeStatusModal: any;
   public deleteRecordConfirmModal: any;
   public idSelected: number = 0;
+  public formModalPositionCoach: any;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -43,6 +45,10 @@ export class AllComponent implements OnInit, OnDestroy {
 
     this.deleteRecordConfirmModal = new window.bootstrap.Modal(
       document.getElementById('deleteRecordConfirmModal')
+    );
+
+    this.formModalPositionCoach = new window.bootstrap.Modal(
+      document.getElementById('modalPositionCoach')
     );
 
     this.dtOptions = {
@@ -72,7 +78,7 @@ export class AllComponent implements OnInit, OnDestroy {
   }
 
   async loadData() {
-    this.staffService.getAllStaff().then((response) => {
+    this.staffService.getStaffOrder().then((response) => {
       this.data = response?.data;
       this.status = response?.status;
       this.message = response?.message;
@@ -148,9 +154,26 @@ export class AllComponent implements OnInit, OnDestroy {
     });
   }
 
+  closeModalpositions(band: boolean) {
+    if ( band )
+      this.formModalPositionCoach.hide();
+
+   this.renderer();
+   this.loadData();
+  }  
+
   renderer() {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
   }
+
+  // listen to event click in button by id
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (event.target.id == "showModalOrderStaff") {
+      this.formModalPositionCoach.show();
+    }
+  }
+
 }

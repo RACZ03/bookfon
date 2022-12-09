@@ -26,7 +26,8 @@ export class StaffComponent implements OnInit {
   newStaff: boolean = false;
   activeTab: number = 1;
   public idStaff: number = 0;
-  public formModalPositionCoach: any;
+  public showModalOrder: boolean = false;
+  
   public module: any = false;
   data: any [] = [];
 
@@ -36,15 +37,12 @@ export class StaffComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.formModalPositionCoach = new window.bootstrap.Modal(
-      document.getElementById('modalPositionCoach')
-    );
     this.loadData();
   }
 
   async loadData() {
-   let resp = await this.staffService.getAllStaff();
-   console.log(resp, "resp");
+   let resp = await this.staffService.getStaffOrder();
+  //  console.log(resp, "resp");
     if ( resp !== undefined ) {
       this.data = resp?.data;
       this.data = this.data || [];
@@ -69,14 +67,8 @@ export class StaffComponent implements OnInit {
     if ( !e ) {
       return
     }
-    this.formModalPositionCoach.show();
-  }
-
-  closeModalpositions(band: boolean) {
-    if ( band )
-      this.formModalPositionCoach.hide();
-
-   this.renderer();
+    
+    this.showModalOrder = true;
   }
 
   renderer() {
