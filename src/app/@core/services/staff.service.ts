@@ -31,6 +31,16 @@ export class StaffService {
     );
   }
 
+  getCode(): string {
+    let business = localStorage.getItem('businessSelected') || '';
+    return JSON.parse(business).code;
+  }
+
+  getStaffOrder(): Promise<StaffI> {
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `public/v1/${code}/allStaffByBusiness`);
+  }
+
   enableDisableStaff(id_staff:number):Promise<any>{
     return this.connectionSvc.send(
       'post',
@@ -137,6 +147,6 @@ export class StaffService {
   // api/user/changeOrderStaff
 
   changeOrderStaff(params: any[]=[]): Promise<any> {
-    return this.connectionSvc.send('put','user/changeOrderStaff', params);
+    return this.connectionSvc.send('put','users/changeOrderStaff', params);
   }
 }
