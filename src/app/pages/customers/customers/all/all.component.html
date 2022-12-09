@@ -64,7 +64,7 @@
                         <input type="checkbox" name="" id="">
                     </td>
                     <td class="align-middle">
-                        <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                        <img [src]="(item.image !== undefined) ? item?.image : 'assets/images/bookfons/user-found-1.png' " appBrokenImagen class="avatar" alt="">
                         <label for="" class="td-name">{{ item?.fullName }}</label><br>
                     </td>
                     <td class="align-middle">

@@ -148,14 +148,16 @@
             <div class="mb-3 ms-2 ">
                 <label for="exampleInputEmail1" class="small">Price</label><br>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="price"
+                    <input type="text" class="form-control" placeholder="0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="price"
                     onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     <div class="input-group-append">
-                      <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">USD</span>
+                      <select class="input-group-text" id="basic-addon2" formControlName="idCurrency" style="background-color: #F9F9F9; height: 40px;">
+                        <option *ngFor="let item of currencies" [value]="item?.id"> {{ item?.name }}</option>
+                      </select>
                     </div>
                   </div>
             </div>
-            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 112px;">
+            <div class="btn-group mt-4 me-3 ms-3" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px;">
               <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
               <label class="btn btn-outline-primary" for="btnradio1">One time</label>
                <div class="ms-4"></div>

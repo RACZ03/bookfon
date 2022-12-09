@@ -21,6 +21,16 @@
             position: absolute;
             margin-top: -12px;
         }
+
+        tr .avatar {
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          -o-border-radius: 50%;
+      }
     }
 }
 .bg-icon-success {

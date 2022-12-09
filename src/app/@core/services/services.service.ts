@@ -108,7 +108,7 @@ export class ServicesService {
       recurrentPayment: recurrentPayment,
       categories: categoriesnew,
       subCategories: subcategoriesnew,
-      idCurrency: 8,
+      idCurrency: service.idCurrency,
       idBusiness: identity.id,
       imagePrincipal: imagePrincipal,
       images: img,

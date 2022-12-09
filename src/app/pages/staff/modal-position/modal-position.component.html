@@ -15,7 +15,7 @@
             <div cdkDrag class="example-box" *ngFor="let item of data; let i = index">
               <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
                 <strong>{{i+1}}</strong>
-                <img appBrokenImagen class="avatar avatar-xl" style="margin-left: 20px;" [src]="item?.images" alt="profile">
+                <img appBrokenImagen class="avatar avatar-xl" style="margin-left: 20px;" [src]="item?.image" alt="profile">
                 <label for="" class="me-2" style="margin-left: 20px;" >{{ item?.firstName }} {{ item?.lastName }}</label>
             </div>
         </div>
