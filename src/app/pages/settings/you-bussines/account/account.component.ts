@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 import { UsersService } from 'src/app/@core/services/users.service';
 declare var window: any;
 
@@ -10,6 +12,12 @@ declare var window: any;
 })
 export class AccountComponent implements OnInit {
 
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  
   public newUser: any = {};
   public formModalNew: any;
   public ModalStaffForm!: FormGroup;
@@ -25,7 +33,20 @@ export class AccountComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private readonly fb: FormBuilder,
-  ) { }
+  ) { 
+    this.dtOptions = {
+      // pagingType: 'full_numbers',
+      pagingType: "simple_numbers",
+      pageLength: 5,
+      scrollX: true,
+      autoWidth: false,
+      destroy: true,
+      responsive: true,
+      dom: 'Bfrtip',
+      searching: true,
+      info: false,
+    }
+  }
 
   ngOnInit(): void {
     this.formModalNew = new window.bootstrap.Modal(
@@ -41,11 +62,19 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  searchData(e: any) {
+    let value = e.target.value;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.search(value).draw();
+    });
+  }
+
   async getUsers(){
     let resp = await this.usersService.getAllStaffByBusiness(this.identity.businessList[0].code);
     if (resp.status === '200' && resp.data){
       this.users = resp.data;
     }
+    this.dtTrigger.next(this.dtOptions);
   }
 
   initForms(): FormGroup {
@@ -107,6 +136,21 @@ export class AccountComponent implements OnInit {
     if (resp)
     {
       this.closeModal(true);
+      this.renderer();
+      this.getUsers();
     }
+  }
+
+  /* Section Render & Destoy */
+  renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+    });
+  }
+
+  ngOnDestroy(): void {
+    // this.renderer
+    this.dtTrigger.unsubscribe();
   }
 }

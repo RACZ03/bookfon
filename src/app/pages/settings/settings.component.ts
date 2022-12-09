@@ -11,6 +11,7 @@ export class SettingsComponent implements OnInit {
   public identity: any;
   public token: string = '';
   public users: any[] = [];
+  public showYourBusiness: boolean = false;
   constructor(
     private userService: UsersService
   ) { }

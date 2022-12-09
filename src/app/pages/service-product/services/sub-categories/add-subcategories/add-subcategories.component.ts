@@ -41,7 +41,7 @@ export class AddSubcategoriesComponent implements OnInit {
         this.butonFalse= false;
        }
       //console.log(data);
-   this.title = ( data == null || data == undefined ) ? 'New Sub-Category' : 'Update  Sub-Category';
+      this.title = ( data == null || data == undefined ) ? 'New Sub-Category' : 'Update  Sub-Category';
 
       this.SubCategoryadd.reset({
        id: (data == null) ? 0 : data?.id,
@@ -96,7 +96,7 @@ export class AddSubcategoriesComponent implements OnInit {
     return this.fb.group({
       id: [''],
       name: ['', [Validators.required ]],
-      description: ['', [Validators.required ]],
+      description: [''],
     })
   }
 }

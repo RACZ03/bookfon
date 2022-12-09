@@ -30,10 +30,10 @@
             <tbody>
                 <tr *ngFor="let item of data; let i = index">
                     <td class="align-middle" style="display: flex;">
-                        <img src="{{item?.imagePrincipal}}" class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;">
+                        <img src="{{item?.imagePrincipal}}" appBrokenImagen class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;">
                         <div class="ms-3">
                             <label for="" class="td-name">{{item?.name}}</label><br>
-                        <label for="" class="td-Price">{{item?.cost}}</label>
+                            <label for="" class="td-price">{{item?.cost}}</label>
                         </div>
                     </td>
                     <td class="align-middle">

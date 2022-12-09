@@ -139,7 +139,7 @@ export class StaffService {
 
   // listar servicios del staff /staffServices/{{business}}/byStaff/7
   getServicesByStaff(id: number): Promise<any> {
-    console.log(id);
+    // console.log(id);
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
     return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaff/' + id
     );

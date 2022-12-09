@@ -97,7 +97,7 @@ async addCategories(){
     return this.fb.group({
       id: [''],
       name: ['', [Validators.required ]],
-      description: ['', [Validators.required ]],
+      description: [''],
     })
   }
   

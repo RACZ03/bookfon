@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 import { UsersService } from 'src/app/@core/services/users.service';
 declare var window: any;
 
@@ -10,6 +12,12 @@ declare var window: any;
 })
 export class ListComponent implements OnInit {
 
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
+  
   @Input() userList: any[] = [];
   @Input() businessCode: string = '';
   @Output() onCloseModal = new EventEmitter<boolean>();
@@ -25,13 +33,39 @@ export class ListComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private readonly fb: FormBuilder,
-  ) { }
+  ) { 
+    this.dtOptions = {
+      // pagingType: 'full_numbers',
+      pagingType: "simple_numbers",
+      pageLength: 5,
+      scrollX: true,
+      autoWidth: false,
+      destroy: true,
+      responsive: true,
+      dom: 'Bfrtip',
+      searching: true,
+      info: false,
+    }
+  }
 
   ngOnInit(): void {
     this.formModalNew = new window.bootstrap.Modal(
       document.getElementById('modalNewStaff')
     );
     this.ModalStaffForm = this.initForms();
+
+    setTimeout(() => {
+      if (this.userList.length > 0) {
+        this.dtTrigger.next(this.dtOptions);
+      }
+    }, 1000);
+  }
+
+  searchData(e: any) {
+    let value = e.target.value;
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.search(value).draw();
+    });
   }
 
   initForms(): FormGroup {

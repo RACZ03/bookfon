@@ -11,7 +11,7 @@
         </div>
         <div class="info-business">
             <img src="assets/images/bookfons/user-found-1.png" alt="" class="avatar">
-            <label for="">Company name</label><br>
+            <label for="">{{ (businessSelected?.name !== undefined ) ? businessSelected?.name : 'Company name' }}</label><br>
             <span class="info-active">
                 <div class="circulo"></div>
                 Active now

@@ -29,18 +29,18 @@ export class AllServiceComponent implements OnInit {
   ) { 
    // this.permissions = this.permissionsSvc.getPermissions('services');
     this.dtOptions = {
-      // pagingType: 'full_numbers',
-      pagingType: "simple_numbers",
-      pageLength: 5,
-      scrollX: true,
-      autoWidth: false,
-      destroy: true,
-      responsive: true,
-      dom: 'Bfrtip',
-      searching: true,
-      info: false,
+        // pagingType: 'full_numbers',
+        pagingType: "simple_numbers",
+        pageLength: 5,
+        scrollX: true,
+        autoWidth: false,
+        destroy: true,
+        responsive: true,
+        dom: 'Bfrtip',
+        searching: true,
+        info: false,
+    }
   }
-}
 
   ngOnInit(): void {
     this.loadData();
