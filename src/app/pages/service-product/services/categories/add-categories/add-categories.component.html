@@ -20,12 +20,12 @@
                   </span>
               </div>
               <div class="mb-3">
-                <label class="small mb-1" for="inputdescription">Descripcion: <span class="text-danger">*</span></label>
+                <label class="small mb-1" for="inputdescription">Descripcion:</label>
                 <textarea class="form-control mb-2" id="inputdescription" type="text" placeholder="Description"s
-                    formControlName="description" [class.is-invalid]="validInput('description')"> </textarea>
-                <span *ngIf="validInput('description')" class="text-danger mt-2">
+                    formControlName="description"> </textarea>
+                <!-- <span *ngIf="validInput('description')" class="text-danger mt-2">
                     Campo requerido.
-                </span>
+                </span> -->
             </div>
                </div>
                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12" style="text-align: center;

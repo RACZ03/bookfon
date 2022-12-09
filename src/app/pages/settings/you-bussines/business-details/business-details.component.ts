@@ -18,7 +18,7 @@ export class BusinessDetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.identity);
+    // console.log(this.identity);
     this.getBusinessData();
     this.ModalForm = this.initForm();
   }
@@ -58,7 +58,7 @@ export class BusinessDetailsComponent implements OnInit {
         longDescription: data.longDescription,
       });
     }
-    console.log(resp);
+    // console.log(resp);
   }
 
   async onUpdate(){
