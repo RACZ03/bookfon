@@ -15,7 +15,7 @@
            <app-profile-edit [itemStaff]="itemStaff"></app-profile-edit>
           </div>
           <div *ngSwitchCase="1">
-              <app-schedule></app-schedule>
+              <app-schedule [setIdProfile]="idStaff"></app-schedule>
           </div>
           <div *ngSwitchCase="2">
            <app-availavility [setIdProfile]="idStaff"></app-availavility>

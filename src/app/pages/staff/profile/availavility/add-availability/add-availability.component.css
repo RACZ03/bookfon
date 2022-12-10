@@ -1,3 +1,8 @@
+.modal-dialog {
+    background: white;
+    padding: 20px;
+}
+
 .modal-title {
     color:#6a6a6a ;
 }

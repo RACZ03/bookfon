@@ -15,10 +15,10 @@ export class AddAvailabilityComponent implements OnInit {
 
   @Output() onClose = new EventEmitter<boolean>();
   @Input() set dataUpdate(value: any) {
-    // console.log(value);
+    console.log(value);
     if (value!= undefined && value != null && value != false) {
+      this.loadDataForm(value);
     }
-    this.loadDataForm(value);
   }
 
   @Input() isCoach = false;
@@ -112,7 +112,7 @@ export class AddAvailabilityComponent implements OnInit {
       let { status } = resp;
       if ( status == 201 ) {
         this.alertSvc.showAlert(1, resp?.comment, 'Success');
-        this.loadDataForm();
+        // this.loadDataForm();
         this.onClose.emit(true);
       } else {
         this.alertSvc.showAlert(4, resp?.comment, 'Error')
@@ -125,8 +125,8 @@ export class AddAvailabilityComponent implements OnInit {
   /* Load Data Form */
   loadDataForm(data: any = null) {
 
-    if ( this.coachScheduleForm == undefined )
-      return;
+    // if ( this.coachScheduleForm == undefined )
+    //   return;
 
     if ( data != null && data != undefined ) { 
       this.title = 'Update Coach Availability';
@@ -303,6 +303,10 @@ export class AddAvailabilityComponent implements OnInit {
       startTime: [''],
       endTime: [''],
     })
+  }
+
+  back() {
+    this.onClose.emit(true);
   }
 
 }

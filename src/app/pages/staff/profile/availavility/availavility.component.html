@@ -1,16 +1,18 @@
-<!-- Modal New Setting -->
-<div class="modal fade" id="formNewSchedule" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <app-add-availability  [dataUpdate]="data" [loadIdProfile]="idStaff" (onClose)="closeModal($event)"></app-add-availability>
-</div>
-<!-- End Modal -->
+
 <!-- Modal Delete Category -->
 <div class="modal fade" id="modalDeleteSlotConfiguration" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
    <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
 </div>
 <!-- END-->
 
+<!-- New Setting -->
+<div *ngIf="activeAdd">
+    <app-add-availability  [dataUpdate]="data" [loadIdProfile]="idStaff" (onClose)="closeModal($event)"></app-add-availability>
+</div>
+<!-- End-->
+
 <!-- Main page content-->
-<div class="content mt-4">
+<div class="content mt-4" *ngIf="!activeAdd">
     <button class="btn btn-sm btn-primary" (click)="showModal(true)" *ngIf="buttonAdd">
         <i class="fa-solid fa-plus me-2"></i>
         Add New
@@ -19,7 +21,7 @@
         <i class="fa-solid fa-pencil me-2"></i>
             Edit
     </button>
-    <div class="table-responsive">
+    <div class="table-responsive nt-2">
         <table class="table" style="width:100%;" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
             <thead>
                 <tr>

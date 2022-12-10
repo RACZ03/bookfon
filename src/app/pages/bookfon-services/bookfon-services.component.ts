@@ -41,6 +41,7 @@ export class BookfonServicesComponent implements OnInit {
 
   async loadStaff() {
     this.staffService.getAllStaff().then(response => {
+      // console.log(response.data)
       this.staff = response.data;
     }).catch(error => {
       // console.log(error);

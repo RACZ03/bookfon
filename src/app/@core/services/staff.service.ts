@@ -74,10 +74,12 @@ export class StaffService {
     });
   }
 
-  async getScheduleStaff(): Promise<any> {
+  async getScheduleStaff(id: number): Promise<any> {
+    let code = this.getCode();
     const data = await this.connectionSvc.send(
       'get',
-      'v1/purchasedService/business/' + this.dataIdentity?.businessList[0].code
+      'v1/purchasedService/business/' + this.dataIdentity?.businessList[0].code,
+      // `scheduleStaff/getListByCodeBusinessAndIdStaff/${ code }?idStaff=${ id }``
     );
     const scheduled = this.processDataSchedule(data?.data);
     return scheduled;
