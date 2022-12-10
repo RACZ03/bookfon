@@ -23,6 +23,7 @@ import { ScheduleComponent } from './customers/all/schedule/schedule.component';
 import { SubCustomerComponent } from './customers/all/sub-customer/sub-customer.component';
 import { BootFonFullCalendarModule } from 'src/app/shared/components/full-calendar/full-calendar.module';
 import { DataTablesModule } from 'angular-datatables';
+import { FormsModule } from '@angular/forms';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -34,6 +35,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
     SharedModule,
+    FormsModule,
     DataTablesModule,
     BootFonFullCalendarModule
   ],

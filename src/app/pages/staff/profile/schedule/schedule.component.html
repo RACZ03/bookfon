@@ -1,5 +1,5 @@
 <div class="w-100 mb-3">
-  <app-full-calendar *ngIf="loadingEvents" [events]="events" (refreshEventEmitter)="refreshEventEmitter($event)"
+  <app-full-calendar  [showCustomButton]="false" *ngIf="loadingEvents" [events]="events" (refreshEventEmitter)="refreshEventEmitter($event)"
     (dateClickEventEmitter)="dateClickEventEmitter($event)" (dropEventEmitter)="dropEventEmitter($event)"
     (resizeEventEmitter)="resizeEventEmitter($event)" (clickEventEmitter)="clickEventEmitter($event)">
   </app-full-calendar>

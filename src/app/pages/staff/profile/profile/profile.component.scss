@@ -65,8 +65,8 @@ label {
   position: relative;
   display: flex;
   align-items: center;
-  width: auto;
-  max-width: 100%;
+  width: 125px;
+  height: 125px;
   padding: 25px;
   border: 1px dashed rgba(255, 255, 255, 0.4);
   border-radius: 3px;
@@ -74,9 +74,16 @@ label {
   border-color: #939393;
   color: #1F72EA;
   justify-content: center;
+  align-items: center;
 
   &.is-active {
     background-color: rgba(255, 255, 255, 0.05);
+  }
+  img{
+    width: inherit;
+    position: absolute;
+    padding: 6px;
+    border-radius: 10px;
   }
 }
 

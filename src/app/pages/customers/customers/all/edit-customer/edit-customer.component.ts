@@ -1,6 +1,8 @@
+import { UsersService } from './../../../../../@core/services/users.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogsService } from 'src/app/@core/utils/catalogs.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-customer',
@@ -12,6 +14,8 @@ export class EditCustomerComponent implements OnInit {
   public title: string = 'Edit Customer';
   formEdit!: FormGroup;
   public sexList: any[] = [];
+  loading: boolean = false;
+  item: any;
   @Input() set customer(obj: any) {
     this.loadForm(obj);
   }
@@ -19,7 +23,9 @@ export class EditCustomerComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private catalogSvc: CatalogsService,
-  ) { 
+    private userService: UsersService,
+    private toast: ToastrService
+  ) {
   }
 
   ngOnInit(): void {
@@ -28,24 +34,43 @@ export class EditCustomerComponent implements OnInit {
   }
 
   onSubmit() {
-    
+    if (this.formEdit.valid) {
+      this.loading = true;
+      this.userService.put({
+        id: this.item.id,
+        firstName: this.formEdit.get('firstName')?.value,
+        lastName: this.formEdit.get('lastName')?.value,
+        phone: this.formEdit.get('phone')?.value,
+        idSex: this.formEdit.get('sex')?.value
+      }).then(() => {
+        this.loading = false;
+        this.toast.success('Customer updated successfully', 'Success');
+      }).catch(error => {
+        this.loading = false;
+        console.log(error);
+        this.toast.error('Error unexpected, update customer', 'Error');
+      });
+    }
   }
 
   async loadSex() {
     this.sexList = [];
     let resp = await this.catalogSvc.getSexs();
-    // console.log(resp)
-    if ( resp?.status == '200' ) {
+    if (resp?.status == '200') {
       let { data } = resp;
       this.sexList = data;
     }
   }
 
+  selectedSex(item: any) {
+    this.formEdit.get('sex')?.patchValue(item.id);
+  }
+
   loadForm(obj: any = null) {
-    if ( obj === null || obj === undefined ) {
+    if (obj === null || obj === undefined) {
       return
     }
-
+    this.item = obj;
     this.formEdit.reset({
       id: obj.id,
       firstName: obj.firstName,
@@ -54,9 +79,8 @@ export class EditCustomerComponent implements OnInit {
     });
     let { idSex } = obj;
     for (let i = 0; i < this.sexList.length; i++) {
-      if ( this.sexList[i].id == idSex ) {
-        // check the radio button
-        let radio = document.getElementById('radioSex'+i) as HTMLInputElement;
+      if (this.sexList[i].id == idSex) {
+        let radio = document.getElementById('radioSex' + i) as HTMLInputElement;
         radio.checked = true;
       }
     }
@@ -78,8 +102,8 @@ export class EditCustomerComponent implements OnInit {
     return this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      // email: ['', [Validators.required]],
-      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)] ],
+      sex: ['', []],
+      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
     })
   }
 

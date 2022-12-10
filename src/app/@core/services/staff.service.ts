@@ -66,7 +66,6 @@ export class StaffService {
         .pipe(
           finalize(async () => {
             fileRef.getDownloadURL().subscribe(async (urlImage) => {
-              console.log(urlImage);
               resolve(urlImage);
             });
           })
