@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ImageFile } from 'src/app/@core/Interfaces/Image-file';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   AbstractControl,
   FormControl,
@@ -27,7 +28,8 @@ export class ProfileEditComponent implements OnInit {
   });
   constructor(
     private service: StaffService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class ProfileEditComponent implements OnInit {
     this.f['last_name'].patchValue(this.itemStaff.lastName);
     this.f['phone_number'].patchValue(this.itemStaff.phone);
     this.f['email'].patchValue(this.itemStaff.email);
+    this.f['image'].patchValue(this.itemStaff.image);
   }
 
   onSubmit(): void {
@@ -89,6 +92,7 @@ export class ProfileEditComponent implements OnInit {
     ) {
       this.fileValid = true;
       this.file = file?.files[0];
+      this.f['image'].patchValue(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file.files[0])));
     } else {
       this.fileValid = false;
       this.f['image'].patchValue('');

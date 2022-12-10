@@ -18,7 +18,6 @@ export class StaffComponent implements OnInit {
 
   @Input() set setIdProfile(id: number){
     this.idStaff = id;
-    //console.log(this.idStaff , "serstaffvice");
   }; 
 
   editStaff: boolean = false;
@@ -54,6 +53,7 @@ export class StaffComponent implements OnInit {
   }
 
   selectedStaff(item: any) {
+    console.log(item,":::::::");
     this.showBtn = false;
     this.idStaff= item.id;
     this.itemStaff = item;    

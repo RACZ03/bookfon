@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   AbstractControl,
   FormControl,
@@ -38,12 +39,13 @@ export class AddStaffComponent implements OnInit {
       Validators.maxLength(12),
     ]),
     confirmPassword: new FormControl('', [Validators.required]),
-    image: new FormControl(''),
+    image: new FormControl('',[]),
   });
   constructor(
     private catalogService: CatalogsService,
     private service: StaffService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private sanitizer:DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -58,6 +60,7 @@ export class AddStaffComponent implements OnInit {
     ) {
       this.fileValid = true;
       this.file = file?.files[0];
+      this.f['image'].patchValue(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file.files[0])));
     } else {
       this.fileValid = false;
       this.f['image'].patchValue('');
@@ -104,6 +107,7 @@ export class AddStaffComponent implements OnInit {
         this.loading = false;
         this.toast.success('Staff created successfully', 'Success');
         this.form.reset();
+        this.file=undefined;
       })
       .catch(() => {
         this.toast.error('Error unexpected, creating staff', 'Error');

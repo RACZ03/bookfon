@@ -7,6 +7,9 @@
         table {
             color: #393939;
             background: #fff;
+            i{
+                color: black;
+            }
             
             tbody {
                 font-size: 12px;
@@ -32,4 +35,18 @@
             width: 90%;
         }
     }
+}
+
+.modal-title {
+    color: #53504E;
+}
+
+label {
+    font-size: 12px;
+    letter-spacing: 0px;
+    color: #53504E;
+    opacity: 1;
+}
+input{
+    font-size: 12px;
 }

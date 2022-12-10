@@ -940,3 +940,16 @@ span{
   color: #7A7A7A;
   opacity: 1 !important;
 }
+.sms-icon{
+  background: url("assets/images/icons/sms.svg");
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  background-position: center;
+  background-size: cover;
+  height: 17px;
+  width: 19px;
+  vertical-align: -0.125em;
+}

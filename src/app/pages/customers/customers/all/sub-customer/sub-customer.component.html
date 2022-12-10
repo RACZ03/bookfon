@@ -1,11 +1,13 @@
 <!-- Change Password -->
-<div class="modal fade" id="modalChangePassSubCustomers" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalChangePassSubCustomers" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <app-change-password [setId]="idSelected" (changePass)="closeModalChangePass($event)"></app-change-password>
 </div>
 <!-- End Change Password -->
 
 <!-- Send Message -->
-<div class="modal fade" id="modalSendMessageSub" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalSendMessageSub" data-bs-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <app-send-message></app-send-message>
 </div>
 <!-- End Message -->
@@ -14,15 +16,18 @@
     <div class="container-sub mt-2">
         <nav aria-label="breadcrumb" style="position: absolute; right: 30px; margin-top: -30px;">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a [routerLink]="'/pages/home'" style="color: rgb(114, 113, 113);">Home</a></li>
-              <li class="breadcrumb-item"><a [routerLink]="'/pages/customers'" style="color: rgb(114, 113, 113);">Customers</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Sub Customer</li>
+                <li class="breadcrumb-item"><a [routerLink]="'/pages/home'" style="color: rgb(114, 113, 113);">Home</a>
+                </li>
+                <li class="breadcrumb-item"><a [routerLink]="'/pages/customers'"
+                        style="color: rgb(114, 113, 113);">Customers</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Sub Customer</li>
             </ol>
-          </nav>
+        </nav>
         <div class="row">
             <div class="col-xl-5 col-lg-5 col-md-7 col-sm-6 col-xs-12">
                 <form class="d-flex">
-                    <input class="form-control me-2" type="text" placeholder="Filter by name" aria-label="Search" (keyup)="searchData($event)">
+                    <input class="form-control me-2" type="text" placeholder="Filter by name" aria-label="Search"
+                        (keyup)="searchData($event)">
                 </form>
             </div>
             <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
@@ -30,7 +35,7 @@
                     <i class="bi bi-plus"></i>
                     Add new staff
                 </button> -->
-        
+
                 <!-- <button class="btn btn-table">
                     <img src="assets/images/icons/settings2.svg" alt="">
                 </button>
@@ -46,7 +51,7 @@
         <br>
         <div class="table-responsive">
             <table class="table" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-            <!-- <table class="table" style="width:100%" > -->
+                <!-- <table class="table" style="width:100%" > -->
                 <thead>
                     <tr>
                         <!-- <th>
@@ -56,6 +61,7 @@
                         <th>Parent</th>
                         <th>Parent Phone</th>
                         <th>Emergency Phone</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,9 +79,63 @@
                         <td class="align-middle">
                             <label for="">{{ item?.emergencyPhone | mask:'(000) 000-0000' }}</label>
                         </td>
+                        <td class="d-flex justify-content-center">
+                            <button data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                (click)="editSubCustomer(item)" class="btn btn-link m-1"><i
+                                    class="bi bi-pencil-square"></i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Edit sub customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="align-items-center">
+                        <div class="col-md-12 container-flex">
+                            <label for="firstName" class="">First name</label>
+                            <input [(ngModel)]="itemSubCustomer.firstName" type="text" id="firstName" class="form-control " aria-describedby="firstName">
+                        </div>
+                        <div class="col-md-12 m-0">
+                            <label for="lastName" class="col-form-label">Last name</label>
+                            <input [(ngModel)]="itemSubCustomer.lastName" type="text" id="lastName" class="form-control " aria-describedby="lastName">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="emergencyPhone" class="col-form-label">Emergency phone</label>
+                            <input mask="(000) 000-0000" [(ngModel)]="itemSubCustomer.emergencyPhone" type="text" id="emergencyPhone" class="form-control " aria-describedby="emergencyPhone">
+                        </div>
+
+                        <div class="col-md-12">
+                            <label for="parentFirstName" class="col-form-label">Parent first name</label>
+                            <input [(ngModel)]="itemSubCustomer.parentFirstName" type="text" id="parentFirstName" class="form-control " aria-describedby="parentFirstName">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="parentLastName" class="col-form-label">Parent last name</label>
+                            <input [(ngModel)]="itemSubCustomer.parentLastName" type="text" id="parentLastName" class="form-control " aria-describedby="parentLastName">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="parentPhone" class="col-form-label">Parent phone number</label>
+                            <input  mask="(000) 000-0000" [(ngModel)]="itemSubCustomer.parentPhone" type="text" id="parentPhone" class="form-control  me-2" aria-describedby="parentPhone">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 mb-3 text-center">
+                <button (click)="saveSubCustomer()" type="button" class="btn btn-primary float-center">Save</button>
+            </div>
         </div>
     </div>
 </div>

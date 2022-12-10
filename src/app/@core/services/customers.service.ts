@@ -21,6 +21,10 @@ export class CustomersService {
     return JSON.parse(business).code;
   }
 
+  updateSubCustomer(params:any){
+    return  this.connectionSvc.send('put', `dataSubCustomer/update/${params.id}`, params); 
+  }
+
   async getAllUsers() {
     let code = this.getCode();
     return this.connectionSvc.send('get', `users/getByBusiness/${ code }/role/ROLE_CUSTOMER`);

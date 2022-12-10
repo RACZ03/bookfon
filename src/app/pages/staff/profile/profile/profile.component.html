@@ -69,12 +69,16 @@
         </div>
       </div>
     </div>
-    <div class="col-md-8 mt-3">
+    <div class="col-md-4 mt-3">
       <label for="phone_number" class="">Image</label>
+      <div class="d-flex justify-content-start">
       <div class="file-drop-area">
+        <img  [src]="f['image'].value || ''" alt="">
         <span class="file-msg"><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i>{{file?.name}}</span>
         <input (change)="onFileSelected($event.target)" class="file-input" type="file">
       </div>
+      </div>
+
     </div>
     <div class="col-md-4 mt-3">
       <label for="email" class=""><sup class="lb-required">*</sup>Email</label>
