@@ -39,6 +39,7 @@ export class ServicesComponent implements OnInit {
     let resp = await this.staffSvr.getServicesByStaff(id);
     // console.log(resp);
      let data = resp.data;
+    //  console.log(data);
     let arrayServicestaff: any[] = [];
      if (data?.content !== undefined) {
       let { content } = data || [];
@@ -47,7 +48,7 @@ export class ServicesComponent implements OnInit {
          arrayServicestaff.push(content[i].id);
        }
      }
-   // console.log(arrayServicestaff);
+  //  console.log(arrayServicestaff);
 
     this.ServiceaddStaffFomr.reset({
       services : arrayServicestaff == null ? [] : arrayServicestaff,

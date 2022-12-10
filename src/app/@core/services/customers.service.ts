@@ -26,7 +26,8 @@ export class CustomersService {
   }
 
   async getAllUsers() {
-    return this.connectionSvc.send('get', 'users/getByBusiness/oYvsH8VK/role/ROLE_CUSTOMER');
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `users/getByBusiness/${ code }/role/ROLE_CUSTOMER`);
   }
 
   async getAllSubCustomers(id: number) {

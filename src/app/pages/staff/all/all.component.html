@@ -15,7 +15,7 @@
         <tbody>
           <tr *ngFor="let item of data">
             <td class="align-middle">
-              <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+              <img [src]="item?.image" appBrokenImagen class="avatar" alt="">
             </td>
             <td class="align-middle">
               <label for="">{{item?.firstName }} {{item?.lastName }}</label>
