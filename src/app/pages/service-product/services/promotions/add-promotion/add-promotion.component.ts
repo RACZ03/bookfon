@@ -13,6 +13,7 @@ import { AlertService } from 'src/app/@core/utils/alert.service';
 export class AddPromotionComponent implements OnInit {
 
   @Output() onClose = new EventEmitter<boolean>();
+  
   @Input() dataPromotion: any[] = [];
   @Input() set dataUpdate(value: any) {
     this.loadDataForm(value);
@@ -94,6 +95,9 @@ export class AddPromotionComponent implements OnInit {
 
   loadDataForm(data: any = null) {
     if ( this.promotionForm == undefined )
+      return;
+
+    if ( data?.length == 0 || data == null || data == undefined)
       return;
 
     this.title = ( data == null || data == undefined ) ? 'New Promotion' : 'Update Promotion';
@@ -194,4 +198,9 @@ export class AddPromotionComponent implements OnInit {
       prometedLessonsdId: ['']
     })
   }
+
+  back() {
+    this.onClose.emit(true);
+  }
+
 }

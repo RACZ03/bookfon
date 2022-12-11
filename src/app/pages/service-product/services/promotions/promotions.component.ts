@@ -6,6 +6,8 @@ import { Subject } from 'rxjs';
 import { PromotionService } from 'src/app/@core/services/promotion.service';
 import { AlertService } from 'src/app/@core/utils/alert.service';
 
+declare var window: any;
+
 @Component({
   selector: 'app-promotions',
   templateUrl: './promotions.component.html',
@@ -18,8 +20,7 @@ export class PromotionsComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
-  
-  public formModal: any;
+
   public formModalDelete: any;
 
   public btns: any[] = [];
@@ -27,6 +28,7 @@ export class PromotionsComponent implements OnInit {
   public promotion: any = false;
   public idSelected: number = 0;
   public currentDate2 = moment().format('YYYY-MM-DD');
+  public activeForm: boolean = false;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -50,12 +52,10 @@ export class PromotionsComponent implements OnInit {
   ngOnInit(): void {
 
     this.loadData();
-    // this.formModal = new window.bootstrap.Modal(
-    //   document.getElementById('modalNewPromotions')
-    // );
-    // this.formModalDelete = new window.bootstrap.Modal(
-    //   document.getElementById('modalDeletePromotions')
-    // );
+    
+    this.formModalDelete = new window.bootstrap.Modal(
+      document.getElementById('modalDeletePromotion')
+    );
   }
 
   /* Load Data */
@@ -65,7 +65,7 @@ export class PromotionsComponent implements OnInit {
     
     if ( resp != undefined || resp != null ) {
       let { data } = resp;
-      console.log(data)
+      // console.log(data)
       this.data = data || [];
     } else {
       this.alertSvc.showAlert(3, 'No results found', '');
@@ -83,18 +83,18 @@ export class PromotionsComponent implements OnInit {
   }
 
   /* Section Save */
-  showModal(e: boolean) {
+  newPromotion(e: boolean) {
     if ( !e ) {
       return
     }
 
-    this.formModal.show();
+    this.activeForm = true;
   }
 
   closeModal(band: boolean) {
     this.promotion = null;
     if ( band )
-      this.formModal.hide();
+      this.activeForm = false;
 
     this.renderer();
     this.loadData();
@@ -125,14 +125,14 @@ export class PromotionsComponent implements OnInit {
     if ( resp != undefined || resp != null ) {
       let  { status } = resp;
 
-      if ( status !== undefined && status === 200 ) {
+      if ( status == 200 ) {
         this.idSelected = 0
         this.formModalDelete.hide();
-        this.alertSvc.showAlert(1, resp?.comment, 'Success')
+        this.alertSvc.showAlert(1, 'Success', resp?.comment)
         this.renderer();
         this.loadData();
       } else {
-        this.alertSvc.showAlert(4, resp?.comment, 'Error');
+        this.alertSvc.showAlert(4, 'Error', resp?.comment);
       }  
     } else {
       this.alertSvc.showAlert(4, 'Error', 'Error');
@@ -141,7 +141,7 @@ export class PromotionsComponent implements OnInit {
 
   /* Section Render & Destoy */
   renderer() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    this.dtElement?.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();
   });

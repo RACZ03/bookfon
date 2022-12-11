@@ -18,38 +18,37 @@ export class PromotionService {
   async save(promotion: any)
   {
     let obj: any = { 
-      promotion: {
-        dateFrom: promotion.startDate,
-        dateTo: promotion.endDate,
-        quantity: promotion.count,
-        applyWallet: promotion.applyWallet,
-        couponValidityDays: promotion.daysValidityCoupon,
-      },
-      servicesPurchaseList: [],
-      servicesGiftList: []
+      description: promotion.description,
+      dateFrom: promotion.startDate,
+      dateTo: promotion.endDate,
+      quantity: promotion.count,
+      applyWallet: promotion.applyWallet,
+      couponValidityDays: promotion.daysValidityCoupon,
+      servicesPurchase: [],
+      servicesGift: []
     }
 
     let dataListL = promotion.lessonsPurcharsed || [];
     for (let i = 0; i < dataListL.length; i++) {
       let item = { idService: dataListL[i]?.id };
-      obj.servicesPurchaseList.push(item);
+      obj.servicesPurchase.push(item);
     }
 
     let dataListP = promotion.prometedLessons || [];
     for (let i = 0; i < dataListP.length; i++) {
       let item = { idService: dataListP[i]?.id };
-      obj.servicesGiftList.push(item);
+      obj.servicesGift.push(item);
     }
 
     const params = JSON.stringify(obj);
     if ( promotion.id == 0 )
-      return await this.connectionSvc.send('post' ,'promotion/save', params);
+      return await this.connectionSvc.send('post' ,'promotions/save', params);
     else
-      return await this.connectionSvc.send('put', `promotion/update/${ 0 }`, params);
+      return await this.connectionSvc.send('put', `promotions/update/${ 0 }`, params);
 
   }
 
    async delete(id: number) {
-    return await this.connectionSvc.send('delete' ,'promocion/eliminar', id);
+    return await this.connectionSvc.send('delete' ,'promotions/delete/'+ id);
   }
 }

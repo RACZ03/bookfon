@@ -1,5 +1,19 @@
+
+
+<!-- Modal Delete Category -->
+<div class="modal fade" id="modalDeletePromotion" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
+ </div>
+ <!-- END-->
+
+<!-- New Setting -->
+<div *ngIf="activeForm">
+    <app-add-promotion [dataUpdate]="promotion" (onClose)="closeModal($event)"></app-add-promotion>
+</div>
+<!-- End-->
+
 <!-- Main page content-->
-<div class="container">
+<div class="container" *ngIf="!activeForm">
 
     <div class="mt-2" style="display: flex; gap: 20px;">
           <div class="container-seach">
@@ -7,10 +21,10 @@
                   <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
               </form>
           </div>
-          <!-- <button class="btn btn-add ">
+          <button class="btn btn-add " (click)="newPromotion(true)">
               <i class="bi bi-plus"></i>
-              Add new Categories
-          </button> -->
+              Add new Promotion
+          </button>
       </div>
       <br>
     <div class="table-responsive">
@@ -26,12 +40,12 @@
                     <th class="text-center">Apply Wallet</th>
                     <th class="text-center">Lessons Purchased</th>
                     <th class="text-center">Promoted Lessons</th>
-                    <!-- <th class="text-center">Actions</th> -->
+                    <th class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of data; let i = index">
-                    <td>{{ item?.descripcion }}</td>
+                    <td>{{ item?.description }}</td>
                     <td class="text-center">{{ item?.dateFrom | date: 'dd/MM/yyyy' }}</td>
                     <td class="text-center" [ngClass]="(currentDate2 >= item?.dateTo ? 'text-danger': '' )">
                         {{ item?.dateTo | date: 'dd/MM/yyyy' }}
@@ -56,14 +70,14 @@
                             </li>
                         </ul>
                     </td>
-                    <!-- <td class="text-center">
-                        <button class="btn btn-sm btn-outline-primary" (click)="onEdit(item?.id)">
+                    <td class="text-center">
+                        <!-- <button class="btn btn-sm btn-outline-primary" (click)="onEdit(item?.id)">
                             <i class="fa-solid fa-pencil"></i>
+                        </button> -->
+                        <button class="btn btn-sm" (click)="openModalDelete(item?.id)">
+                            <i class="bi bi-trash"></i>
                         </button>
-                        <button class="btn btn-sm btn-outline-danger ms-2" (click)="openModalDelete(item?.id)">
-                            <i class="fa-solid fa-trash"></i>
-                        </button>
-                    </td> -->
+                    </td>
                 </tr>
             </tbody>
         </table>
