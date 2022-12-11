@@ -29,6 +29,8 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/@theme/theme.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PromotionsComponent } from './services/promotions/promotions.component';
+import { AddPromotionComponent } from './services/promotions/add-promotion/add-promotion.component';
 
 
 @NgModule({
@@ -55,6 +57,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AddSubcategoriesComponent,
     AddClasificationsComponent,
     AddTaxratesComponent,
+    PromotionsComponent,
+    AddPromotionComponent,
   ],
   imports: [
     CommonModule,

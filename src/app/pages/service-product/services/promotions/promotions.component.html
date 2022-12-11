@@ -1,0 +1,71 @@
+<!-- Main page content-->
+<div class="container">
+
+    <div class="mt-2" style="display: flex; gap: 20px;">
+          <div class="container-seach">
+              <form class="d-flex">
+                  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
+              </form>
+          </div>
+          <!-- <button class="btn btn-add ">
+              <i class="bi bi-plus"></i>
+              Add new Categories
+          </button> -->
+      </div>
+      <br>
+    <div class="table-responsive">
+        <table class="table" style="width:100%"
+            datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th class="text-center">Start date</th>
+                    <th class="text-center">End date</th>
+                    <th class="text-center">Number of Lessons</th>
+                    <th class="text-center">Valid days of the coupon</th>
+                    <th class="text-center">Apply Wallet</th>
+                    <th class="text-center">Lessons Purchased</th>
+                    <th class="text-center">Promoted Lessons</th>
+                    <!-- <th class="text-center">Actions</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data; let i = index">
+                    <td>{{ item?.descripcion }}</td>
+                    <td class="text-center">{{ item?.dateFrom | date: 'dd/MM/yyyy' }}</td>
+                    <td class="text-center" [ngClass]="(currentDate2 >= item?.dateTo ? 'text-danger': '' )">
+                        {{ item?.dateTo | date: 'dd/MM/yyyy' }}
+                    </td>
+                    <td class="text-center">{{ item?.quantity }}</td>
+                    <td class="text-center">{{ item?.couponValidityDays }}</td>
+                    <td class="text-center">
+                        <span *ngIf="item?.applyWallet" class="badge bg-success">Yes</span>
+                        <span *ngIf="!item?.applyWallet" class="badge bg-danger">No</span>  
+                    </td>
+                    <td>
+                        <ul style="list-style-type: none; padding: 0px !important;">
+                            <li *ngFor="let lessons of item.servicesPurchase" class="text-center">
+                                <span class="badge">{{ lessons?.service?.name }}</span>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul style="list-style-type: none;">
+                            <li *ngFor="let lessons of item.servicesGift" class="text-center">
+                                <span class="badge ">{{ lessons?.service?.name }}</span>
+                            </li>
+                        </ul>
+                    </td>
+                    <!-- <td class="text-center">
+                        <button class="btn btn-sm btn-outline-primary" (click)="onEdit(item?.id)">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger ms-2" (click)="openModalDelete(item?.id)">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

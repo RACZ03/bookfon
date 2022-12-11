@@ -14,6 +14,7 @@ export class ServicesComponent implements OnInit {
     { title: 'Sub-Categories', active: false },
    // { title: 'Clasifications', active: false },
    // { title: 'Tax rates', active: false },
+    { title: 'Promotions', active: false },
     { title: 'Coupons', active: false },
    // { title: 'Subcriptions', active: false },
   ];

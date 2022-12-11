@@ -1,0 +1,150 @@
+
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">{{ title }}</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form (ngSubmit)="onSubmit()" [formGroup]="promotionForm">
+                <!-- ID -->
+                <input type="hidden" name="id" formControlName="id">
+                <!-- Form Group Description & number of lessons-->
+                <div class="row mt-2">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputLastName">Description: </label>
+                            <textarea class="form-control mb-2" id="inputLastName" type="text" placeholder="Enter your description" 
+                                formControlName="description"></textarea>
+                            <span *ngIf="validInput('description')" class="text-danger">
+                                This field is required.
+                            </span>
+                            <span *ngIf="validateInputLength('description')" class="text-danger">
+                                Description must be longer than {{ promotionForm.get('description')?.errors?.['minlength']?.requiredLength }} characters
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputLastName">Number of Lessons: </label>
+                            <input class="form-control" type="number" placeholder="Enter your number of lessons" formControlName="count">
+                            <span *ngIf="validInput('count')" class="text-danger">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- StartDate & EndDdate -->
+                <div class="row mt-2">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div>
+                            <label class="small mb-1" for="inputStartDate">Star Date: </label>
+                            <input class="form-control" type="date" name="inputStartDate" id="inputStartDate"
+                                    formControlName="startDate" min="{{currentDate}}" (change)="setValueStartDate()">
+                            <span *ngIf="validInput('startDate')" class="text-danger">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div>
+                            <label class="small mb-1" for="inputEndDate">End Date: </label>
+                            <input class="form-control" type="date" name="inputEndDate" id="inputEndDate" min="{{minEndDate}}"
+                                formControlName="endDate">
+                            <span *ngIf="validInput('endDate')" class="text-danger">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Apply wallet -->
+                <div class="row mt-4">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="pt-4">
+                            <input type="checkbox" class="form-check-input" style="margin-right: 20px;" name="applyWallet" id="applyWallet" formControlName="applyWallet">
+                            <label class="small mb-1" for="inputStartDate">Apply Wallet </label>
+                            <span *ngIf="validInput('startDate')" class="text-danger">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputLastName">Days Validity Coupon: </label>
+                            <input class="form-control" type="number" placeholder="Enter the days of validity of a promotion coupon" formControlName="daysValidityCoupon">
+                            <span *ngIf="validInput('count')" class="text-danger">
+                                This field is required.
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lessons Purcharsed & promoted -->
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label class="small mb-1" for="inputCategory"><strong>Lessons Purchased: </strong><span class="text-danger">*</span></label>
+                        <ng-select #select1 [items]="dataLessons" [selectOnTab]="true"
+                            bindValue="id" bindLabel="nombre" placeholder="Select Lessons" formControlName="lessonPurcharsedId">
+                        </ng-select>
+                        <div class="mt-2 text-end">
+                            <button type="button" class="btn btn-sm btn-secondary" (click)="addLessonsPurcharsed()">+</button>
+                        </div>
+                        <div class="mt-2">
+                            <table class="table">
+                                <thead class="">
+                                    <tr>
+                                        <td>Lessons</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of lessonsPurcharsed; let i = index">
+                                        <td>{{ item.nombre }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-danger" (click)="removeRow(item?.id, 1)">-</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label class="small mb-1 text-bold" for="inputCategory"><strong>Promoted Lessons: </strong><span class="text-danger">*</span></label>
+                        <ng-select #select2 [items]="dataLessons" [selectOnTab]="true"
+                            bindValue="id" bindLabel="nombre" placeholder="Select Lessons" formControlName="prometedLessonsdId">
+                        </ng-select>
+                        <div class="mt-2 text-end">
+                            <button type="button" class="btn btn-sm btn-secondary" (click)="addPrometedLessons()">+</button>
+                        </div>
+                        <div class="mt-2">
+                            <table class="table">
+                                <thead class="">
+                                    <tr>
+                                        <td>Lessons</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of prometedLessons">
+                                        <td>{{ item.nombre }}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-sm btn-danger" (click)="removeRow(item?.id, 2)">-</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Buttons -->
+                <div class="mt-4 mb-0 text-center">
+                    <button class="btn btn-primary"
+                        [disabled]="promotionForm.invalid">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

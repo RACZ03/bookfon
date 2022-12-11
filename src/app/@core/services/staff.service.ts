@@ -133,16 +133,20 @@ export class StaffService {
   }  
 
 //guardar servicio a staff
-  saveServiceToStaff(staffService: any): Promise<any> {
+  saveServiceToStaff(staffService: any, band: boolean = false): Promise<any> {
     const params = JSON.stringify(staffService);
-    return this.connectionSvc.send('post','staffServices/save' , params);
+    if ( !band ) {
+      return this.connectionSvc.send('post','staffServices/save' , params);
+    } else {
+      return this.connectionSvc.send('put','staffServices/update' , params);
+    }
   }
 
   // listar servicios del staff /staffServices/{{business}}/byStaff/7
   getServicesByStaff(id: number): Promise<any> {
     // console.log(id);
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-    return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaff/' + id
+    return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaffDashboard/' + id
     );
   }
 
