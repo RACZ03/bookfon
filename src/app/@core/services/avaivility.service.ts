@@ -25,8 +25,11 @@ export class AvailavilityService {
     return this.connectionSvc.send('get', `scheduleStaff/getListByIdStaff/${id}`);
   }
 
-  saveAvailability(data: any): Promise<any> {
-    return this.connectionSvc.send('post', `scheduleStaff/save`, data);
+  saveAvailability(data: any, band: boolean = false): Promise<any> {
+    if ( !band )
+      return this.connectionSvc.send('post', `scheduleStaff/save`, data);
+    else 
+      return this.connectionSvc.send('put', `scheduleStaff/update`, data);
   }
 
   delete(id: number): Promise<any> {

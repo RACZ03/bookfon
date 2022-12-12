@@ -36,7 +36,7 @@ export class PromotionsComponent implements OnInit {
     private alertSvc: AlertService
   ) {
     this.btns.push({ name: 'Add new Promotion', icon: 'plus' });
-
+    console.log('Load');
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 5,
@@ -133,9 +133,13 @@ export class PromotionsComponent implements OnInit {
         this.loadData();
       } else {
         this.alertSvc.showAlert(4, 'Error', resp?.comment);
+        this.renderer();
+        this.loadData();
       }  
     } else {
       this.alertSvc.showAlert(4, 'Error', 'Error');
+      this.renderer();
+      this.loadData();
     } 
   }
 
