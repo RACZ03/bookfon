@@ -85,10 +85,10 @@ export class AddAvailabilityComponent implements OnInit {
       }
     }
 
-    if ( obj.length == 0 ) {
-      this.alertSvc.showAlert(2, 'Please select at least one day and time range', 'Warning');
-      return;
-    }
+    // if ( obj.length == 0 ) {
+    //   this.alertSvc.showAlert(2, 'Please select at least one day and time range', 'Warning');
+    //   return;
+    // }
 
     for (let i = 0; i < this.dataDelete.length; i++) {
       if ( this.dataDelete[i].id != 0 ) {
