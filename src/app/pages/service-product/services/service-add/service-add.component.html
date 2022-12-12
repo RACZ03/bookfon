@@ -77,11 +77,12 @@
                   <div class="slider-main">
                     <div *ngFor="let item of imagesList; let i = index" (click)="clickedFile()"
                           [ngClass]="'item element-' + i">
+                      <button class="btn btn-danger btn-remove" *ngIf="i > 0" (click)="removeImage(i)">X</button>
                       <div class="img-wrapper">
                         <img *ngIf="item?.url !== '' " [src]="item?.url" class="avatar" appBrokenImagen alt="profile.png">
                       </div>
                       <i class="bi bi-plus btn-plus"></i>
-                      <input type="file" name="file" id="file" style="display: none;" (change)="SelectedFile($event)">
+                      <input type="file" name="file" id="fileService" style="display: none;" (change)="SelectedFile($event)">
                     </div>
                   </div>
                   <!-- Buttons -->
@@ -292,7 +293,7 @@
 -->
     </div>
     <div style="text-align: center;">
-      <button type="submit" class="btn btn-primary">Save Service</button>
+      <button type="submit" class="btn btn-primary" [disabled]="step">Save Service</button>
     </div>
   </form>
 </div>

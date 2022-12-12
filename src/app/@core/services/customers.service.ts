@@ -21,6 +21,11 @@ export class CustomersService {
     return JSON.parse(business).code;
   }
 
+  getIdBusiness(): number {
+    let business = localStorage.getItem('businessSelected') || '';
+    return JSON.parse(business).id;
+  }
+
   updateSubCustomer(params:any){
     return  this.connectionSvc.send('put', `dataSubCustomer/update/${params.id}`, params); 
   }
@@ -82,4 +87,19 @@ export class CustomersService {
     return moment(date).format('YYYY-MM-DD');
   }
 
+  async verifyWallet(id: number) {
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `v1/wallet/findByCustomerAndBusiness/${ id }/${ code }`);
+  }
+
+  async createWallet(id: number) {
+    let code = this.getCode();
+    let idBusiness = this.getIdBusiness();
+    let obj = {
+      idCustomer: id,
+      idBusiness: idBusiness,
+      balance: 0,
+    };
+    return this.connectionSvc.send('post', `v1/wallet`, obj);
+  }
 }

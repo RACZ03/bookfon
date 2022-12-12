@@ -47,17 +47,39 @@ export class WalletComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.formModalRecharge = new window.bootstrap.Modal(
       document.getElementById('modalRecharge')
     );
     // get id from url
     this.route.params.subscribe(params => {
       this.idSelected = params['id'];
-      this.loadDataTransactions();
-      this.loadDataBalance();
+      this.verifyWallet();
     });
 
+  }
+
+  async verifyWallet() {
+    let resp = await this.customerSvc.verifyWallet(this.idSelected);
+    if ( resp?.status == 200 ) {
+      let { data } = resp;
+      if ( data !== undefined ) {
+        this.balanceObj = { idWallet: data.id };
+        this.loadDataBalance();
+        this.loadDataTransactions();
+      } 
+    } else {
+      // create wallet
+      let resp2 = await this.customerSvc.createWallet(this.idSelected);
+      if ( resp2?.status == 200 ) {
+        let { data } = resp2;
+        if ( data !== undefined ) {
+          this.loadDataBalance();
+          this.loadDataTransactions();
+        }
+      } else {
+        this.alertSvc.showAlert(3,'', 'Error');
+      }
+    }
   }
 
   searchData(e: any) {
@@ -91,10 +113,10 @@ export class WalletComponent implements OnInit {
       if ( data !== undefined ) {
         this.data = data;
 
-        if ( this.data.length > 0 ) {
-          this.balanceObj = { idWallet: this.data[0]?.wallet?.id };
-          // console.log(this.balanceObj)
-        }
+        // if ( this.data.length > 0 ) {
+        //   this.balanceObj = { idWallet: this.data[0]?.wallet?.id };
+        //   // console.log(this.balanceObj)
+        // }
       }
     } else {
       this.alertSvc.showAlert(3,'', 'No data found');
