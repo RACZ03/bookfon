@@ -63,8 +63,13 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
+  removeImage() {
+    this.form.get('image')?.patchValue('');
+  }
 
   updateStaff(url?: string) {
+    // get image form
+    let image = this.form.get('image')?.value;
     this.service
       .updateStaff({
         id: this.itemStaff.id,
@@ -72,7 +77,7 @@ export class ProfileEditComponent implements OnInit {
         lastName: this.f['last_name'].value,
         phone: this.f['phone_number'].value,
         email: this.f['email'].value,
-        image: url ? url : '',
+        image: url ? url : (image ? image : ''),
       })
       .then(() => {
         this.loading = false;
