@@ -7,12 +7,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 @NgModule({
   declarations: [
     GeneralComponent,
-    SecurtyComponent
+    SecurtyComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
