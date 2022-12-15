@@ -2,7 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { BusinessService } from 'src/app/@core/services/business.service';
 import { UsersService } from 'src/app/@core/services/users.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
 declare var window: any;
 
 @Component({
@@ -12,145 +14,57 @@ declare var window: any;
 })
 export class AccountComponent implements OnInit {
 
-  @ViewChild(DataTableDirective, {static: false})
-  dtElement!: DataTableDirective;
-
-  dtOptions: DataTables.Settings = {};
-  dtTrigger: Subject<any> = new Subject<any>();
   
-  public newUser: any = {};
-  public formModalNew: any;
-  public ModalStaffForm!: FormGroup;
-  public identity: any;
-  public token: string = '';
-  public users: any[] = [];
 
-  public scrollOptions: any[] = [
-    { title: 'Staff permissions', active: true },
-  ];
-  public optionSelected: number = 0;
+  public formBusiness!: FormGroup;
+  @Input() identity: any;
 
   constructor(
-    private usersService: UsersService,
     private readonly fb: FormBuilder,
+    private businessSvc: BusinessService,
+    private alertSvc: AlertService
   ) { 
-    this.dtOptions = {
-      // pagingType: 'full_numbers',
-      pagingType: "simple_numbers",
-      pageLength: 5,
-      scrollX: true,
-      autoWidth: false,
-      destroy: true,
-      responsive: true,
-      dom: 'Bfrtip',
-      searching: true,
-      info: false,
-    }
   }
 
   ngOnInit(): void {
-    this.formModalNew = new window.bootstrap.Modal(
-      document.getElementById('modalNewStaff2')
-    );
-    this.ModalStaffForm = this.initForms();
-    let data = localStorage.getItem('identity') || '{}';
-    this.identity = JSON.parse(data);
-    let token = localStorage.getItem('token') || '';
-    this.token = token;
-    if (this.token){
-      this.getUsers();
-    }
+    this.formBusiness = this.initForms();
+    this.loadBusiness();
   }
 
-  searchData(e: any) {
-    let value = e.target.value;
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      dtInstance.search(value).draw();
-    });
-  }
-
-  async getUsers(){
-    let resp = await this.usersService.getAllStaffByBusiness(this.identity.businessList[0].code);
-    if (resp.status === '200' && resp.data){
-      this.users = resp.data;
+  async loadBusiness() { 
+    let resp = await this.businessSvc.findById(this.identity.businessList[0].id);
+    let { data } = resp;
+    // console.log(data);
+    if (resp.status === '200')
+    {
+      this.formBusiness.reset({
+        id: data.id,
+        name: data.name,
+      });
     }
-    this.dtTrigger.next(this.dtOptions);
   }
 
   initForms(): FormGroup {
     return this.fb.group({
      id: [''],
-     staffname: ['', [Validators.required ]],
-     stafflastName: ['', Validators.required],
-     staffemail: ['', Validators.required],
-     staffphone: ['', Validators.required],
-     staffpassword: ['', Validators.required],
-     staffprofile: ['', Validators.required],
-     staffsex: ['', Validators.required],
-     staffrole: ['', Validators.required]
+     name: ['', [Validators.required ]]
     });
   }
 
-  changeOptions(e: any, index: number) {
-    for (let i = 0; i < this.scrollOptions.length; i++) {
-      this.scrollOptions[i].active = false;
+  validInput(name: string) {
+    return this.formBusiness.get(name)?.touched && this.formBusiness.get(name)?.errors?.['required'];
+  }
 
-      if ( i == index )
-        this.scrollOptions[i].active = true;
+  async onSubmit() {
+    let resp = await this.businessSvc.update(this.formBusiness.value);
+
+    if (resp.status === '200'){
+      this.loadBusiness();
+      this.alertSvc.showAlert(1, '', 'Business updated successfully');
+    } else if ( resp.status === '403') {
+      this.alertSvc.showAlert(2, '', 'Access denied');
+    } else {
+      this.alertSvc.showAlert(4, '', 'Error updating business');
     }
-    this.optionSelected = index;
-  }
-
-  showModal(e: boolean = false) {
-    if ( !e ) {
-      return
-    }
-
-    this.formModalNew.show();
-  }
-
-  closeModal(band: boolean) {
-
-    if ( band )
-      this.formModalNew.hide();
-
-    this.getUsers();
-  }
-
-
-  async onSaveStaff(){
-    let data = {
-      firstName: this.ModalStaffForm.value.staffname,
-      lastName: this.ModalStaffForm.value.stafflastName,
-      phone: this.ModalStaffForm.value.staffphone,
-      email: this.ModalStaffForm.value.staffemail,
-      password: this.ModalStaffForm.value.staffpassword,
-      profile: this.ModalStaffForm.value.staffprofile,
-      image: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
-      idSex: this.ModalStaffForm.value.staffsex,
-      role: this.ModalStaffForm.value.staffrole
-    }
-
-    let resp = await this.usersService.saveStaff(data, this.identity.businessList[0].code);
-
-    if (resp)
-    {
-      this.closeModal(true);
-      this.renderer();
-      this.getUsers();
-    }
-  }
-
-  /* Section Render & Destoy */
-  renderer() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-      // Destroy the table first
-      dtInstance.destroy();
-    });
-  }
-
-  ngOnDestroy(): void {
-    // this.renderer
-    this.dtTrigger.unsubscribe();
   }
 }

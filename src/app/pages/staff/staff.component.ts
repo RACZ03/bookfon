@@ -27,6 +27,8 @@ export class StaffComponent implements OnInit {
   public idStaff: number = 0;
   public showModalOrder: boolean = false;
   public showBtn: boolean = true;
+  private identity: any = {};
+  public isAdmin: boolean = false;
   
   public module: any = false;
   data: any [] = [];
@@ -34,7 +36,24 @@ export class StaffComponent implements OnInit {
   constructor(
     private staffService : StaffService,
 
-  ) {}
+  ) {
+    this.identity = JSON.parse(localStorage.getItem('identity') || '{}');
+    // console.log(this.identity)
+    let roles: any[] = this.identity?.roleList;
+  
+      if ( roles != undefined ) {
+        if ( roles.length > 0) {
+        
+          let isExist = roles.find( item => item.role == 'ROLE_ADMIN');
+          if ( isExist != undefined ) {
+            this.isAdmin = true;
+          } else {
+            this.isAdmin = false;
+            this.selectedStaff(this.identity);
+          }
+        }
+      }
+  }
 
   ngOnInit(): void {
     this.loadData();
@@ -53,7 +72,7 @@ export class StaffComponent implements OnInit {
   }
 
   selectedStaff(item: any) {
-    console.log(item,":::::::");
+    console.log('EDIT', item);
     this.showBtn = false;
     this.idStaff= item.id;
     this.itemStaff = item;    

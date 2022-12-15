@@ -7,6 +7,7 @@ import { BootFonFullCalendarModule } from 'src/app/shared/components/full-calend
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ThemeModule } from 'src/app/@theme/theme.module';
 @NgModule({
   declarations: [
     BookfonServicesComponent
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     BootFonFullCalendarModule,
     NgSelectModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ThemeModule
     // HomeRoutingModule
   ]
 })

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BusinessService } from 'src/app/@core/services/business.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
 
 @Component({
   selector: 'app-business-details',
@@ -15,6 +16,7 @@ export class BusinessDetailsComponent implements OnInit {
   constructor(
     private businessSvc: BusinessService,
     private readonly fb: FormBuilder,
+    private alertSvc: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +81,12 @@ export class BusinessDetailsComponent implements OnInit {
     let resp = await this.businessSvc.update(data);
 
     if (resp.status === '200'){
-      window.location.reload();
+      this.getBusinessData();
+      this.alertSvc.showAlert(1, '', 'Business updated successfully');
+    } else if ( resp.status === '403') {
+      this.alertSvc.showAlert(2, '', 'Access denied');
+    } else {
+      this.alertSvc.showAlert(4, '', 'Error updating business');
     }
   }
 

@@ -74,10 +74,12 @@ export class StaffService {
     });
   }
 
-  async getScheduleStaff(): Promise<any> {
+  async getScheduleStaff(id: number): Promise<any> {
+    let code = this.getCode();
     const data = await this.connectionSvc.send(
       'get',
-      'v1/purchasedService/business/' + this.dataIdentity?.businessList[0].code
+      // 'v1/purchasedService/business/' + this.dataIdentity?.businessList[0].code,
+      `v1/purchasedService/${ code }/staff/${ id }`,
     );
     const scheduled = this.processDataSchedule(data?.data);
     return scheduled;
@@ -131,16 +133,20 @@ export class StaffService {
   }  
 
 //guardar servicio a staff
-  saveServiceToStaff(staffService: any): Promise<any> {
+  saveServiceToStaff(staffService: any, band: boolean = false): Promise<any> {
     const params = JSON.stringify(staffService);
-    return this.connectionSvc.send('post','staffServices/save' , params);
+    if ( !band ) {
+      return this.connectionSvc.send('post','staffServices/save' , params);
+    } else {
+      return this.connectionSvc.send('put','staffServices/update' , params);
+    }
   }
 
   // listar servicios del staff /staffServices/{{business}}/byStaff/7
   getServicesByStaff(id: number): Promise<any> {
     // console.log(id);
     let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-    return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaff/' + id
+    return this.connectionSvc.send('get','staffServices/' + identity.code +'/byStaffDashboard/' + id
     );
   }
 

@@ -24,6 +24,7 @@ import { SubCustomerComponent } from './customers/all/sub-customer/sub-customer.
 import { BootFonFullCalendarModule } from 'src/app/shared/components/full-calendar/full-calendar.module';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule } from '@angular/forms';
+import { ThemeModule } from 'src/app/@theme/theme.module';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -37,7 +38,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     SharedModule,
     FormsModule,
     DataTablesModule,
-    BootFonFullCalendarModule
+    BootFonFullCalendarModule,
+    ThemeModule
   ],
   declarations: [
     CustomersComponent,
@@ -54,7 +56,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     EditCustomerComponent,
     WalletComponent,
     ScheduleComponent,
-    SubCustomerComponent,
+    SubCustomerComponent
   ]
 })
 export class CustomersModule { }

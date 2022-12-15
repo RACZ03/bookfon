@@ -46,7 +46,8 @@ export class AddStaffComponent implements OnInit {
     private service: StaffService,
     private toast: ToastrService,
     private sanitizer:DomSanitizer
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.loadSex();
@@ -68,6 +69,7 @@ export class AddStaffComponent implements OnInit {
   }
 
   onSubmit() {
+    // console.log('SUBMIT')
     if (!this.form.valid) {
       this.form.markAllAsTouched();
       return;
@@ -92,6 +94,8 @@ export class AddStaffComponent implements OnInit {
   }
 
   createNewStaff(url?: string) {
+    // get image form
+    let image = this.form.get('image')?.value;
     this.service
       .createStaff({
         firstName: this.f['first_name'].value,
@@ -100,7 +104,7 @@ export class AddStaffComponent implements OnInit {
         email: this.f['email'].value,
         profile: this.f['profile'].value,
         password: this.f['password'].value,
-        image: url ? url : '',
+        image: url ? url : (image ? image : ''),
         idSex: this.f['sex'].value,
       })
       .then(() => {

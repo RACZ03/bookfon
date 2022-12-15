@@ -1,38 +1,39 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/@core/services/auth.service';
 import { UsersService } from 'src/app/@core/services/users.service';
 import { AlertService } from 'src/app/@core/utils/alert.service';
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
 
   passForm!: FormGroup;
   public id!: number;
-  @Input() title = 'Change Password';
-  @Input() showUser = false;
-  @Input() set setId (id: any) {
-    this.id = id;
-    
-  };
-  @Output() changePass: EventEmitter<boolean> = new EventEmitter<boolean>();
+  public title = 'Change Password';
 
   public fieldTextType: boolean = true;
   public fieldTextType2: boolean = true;
   public samePassword: boolean = false;
   public disabled: boolean = false;
+  private identity: any = {};
 
   constructor(
     private readonly fb: FormBuilder,
     private userSvc: UsersService,
-    private alertSvc: AlertService
-  ) { }
+    private alertSvc: AlertService,
+    private authSvc: AuthService
+  ) {
+  }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.passForm = this.initForms();
+    let user = await this.authSvc.getIdentity();
+    this.identity = JSON.parse(user);
+    this.id = this.identity.id;
   }
 
   changeType(input: any) {
@@ -40,8 +41,8 @@ export class ChangePasswordComponent implements OnInit {
       input.type = input.type === 'password' ? 'text' : 'password';
 
     this.fieldTextType = !this.fieldTextType;
-    const icon = document.getElementById('icon1');
-
+    const icon = document.getElementById('iconChangePass1') as HTMLElement;
+    
     if ( this.fieldTextType ) {
       icon?.classList.remove('bi-eye-slash');
       icon?.classList.add('bi-eye');
@@ -56,7 +57,7 @@ export class ChangePasswordComponent implements OnInit {
       input.type = input.type === 'password' ? 'text' : 'password';
 
     this.fieldTextType = !this.fieldTextType;
-    const icon = document.getElementById('icon2');
+    const icon = document.getElementById('iconChangePass2');
 
     if ( this.fieldTextType ) {
       icon?.classList.remove('bi-eye-slash');
@@ -96,7 +97,6 @@ export class ChangePasswordComponent implements OnInit {
 
 
   async onSubmit() {
-    console.log( this.passForm.invalid);
     if ( this.passForm.invalid ){ 
       return
     }
@@ -104,14 +104,11 @@ export class ChangePasswordComponent implements OnInit {
     let resp = await this.userSvc.changePassword(this.id, pass );
     if ( resp ) {
       this.alertSvc.showAlert(1, 'Success', 'Updated password');
-      this.changePass.emit(true);
+      let email = this.identity.email
+      this.authSvc.logout(email);
     } else {
       this.alertSvc.showAlert(4, 'Error', 'Could not update password');
     }
-  }
-
-  onClose() {
-    this.changePass.emit(false);
   }
 
   comparePassword() {
@@ -135,8 +132,4 @@ export class ChangePasswordComponent implements OnInit {
     }
   }
 
-  returnTo() {
-    this.changePass.emit(false);
-  }
 }
-

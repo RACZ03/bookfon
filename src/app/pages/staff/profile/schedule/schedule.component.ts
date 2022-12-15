@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StaffService } from 'src/app/@core/services/staff.service';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
@@ -13,6 +13,12 @@ export class ScheduleComponent implements OnInit {
   public modalPopUp: any;
   public itemSelected: any = {};
   loadingEvents: boolean = false;
+
+  public idStaff: number = 0;
+  @Input() set setIdProfile(id: number){
+    this.idStaff = id;
+  }; 
+
   constructor(private service: StaffService, private toast: ToastrService) {}
 
   async ngOnInit(): Promise<void> {
@@ -45,14 +51,14 @@ export class ScheduleComponent implements OnInit {
       let date = e.event.start,
         dateFormated = moment(date).format('YYYY-MM-DD');
       this.itemSelected = { ...found, dateFormated };
-      console.log("item event", this.itemSelected);
+      // console.log("item event", this.itemSelected);
       this.modalPopUp.show();
     }
   }
 
   async loadEvents() {
     await this.service
-      .getScheduleStaff()
+      .getScheduleStaff(this.idStaff)
       .then((res) => {
         this.events = res;
         this.loadingEvents = true;

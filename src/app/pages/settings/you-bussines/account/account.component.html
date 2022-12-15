@@ -1,192 +1,22 @@
-<!-- Modal -->
-<div class="modal fade" id="modalNewStaff2" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <label>New Staff</label>
-        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container-flex">
-          <form (ngSubmit)="onSaveStaff()" [formGroup]="ModalStaffForm">
-            <div class="row mt-4">
-              <div class="col">
-                <label for="name" class="">Name</label>
-                <input formControlName="staffname" required type="text" class="form-control" id="staffname" placeholder="name">
-              </div>
-              <div class="col">
-                <label for="last name" class="">last name</label>
-                <input formControlName="stafflastName" required type="text" class="form-control" id="stafflastName" placeholder="lastname">
-              </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="email" class="">Email</label>
-                <input formControlName="staffemail" required type="text" class="form-control" id="staffemail" placeholder="email">
-              </div>
-              <div class="col">
-                <label for="phone" class="">Phone</label>
-                <input formControlName="staffphone" required type="text" class="form-control" id="staffphone" placeholder="phone">
-              </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="password" class="">Password</label>
-                <input formControlName="staffpassword" required type="password" class="form-control" id="staffpassword" placeholder="password">
-              </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="password" class="">Profile</label>
-                <textarea formControlName="staffprofile" required name="profile" id="staffprofile" style="width: 100%;" rows="5" class="form-control"></textarea>
-              </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="Sex">Sex</label>
-                <select formControlName="staffsex" required class="form-select" aria-label="Default select example">
-                  <option selected>Open this select menu</option>
-                  <option value="5">Male</option>
-                  <option value="6">Female</option>
-                  <option value="7">Undefined</option>
-                </select>
-              </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="role">Rol</label>
-                <select formControlName="staffrole" required class="form-select" aria-label="Default select example">
-                  <option selected>Open this select menu</option>
-                  <option value="ADMIN">Administrator</option>
-                  <option value="STAFF">Staff</option>
-                  <option value="CUSTOMER">Customer</option>
-                </select>
-              </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col-4 offset-4">
-                <button [disabled]="ModalStaffForm.invalid" type="submit" style="width: 100%" class="btn btn-success">Save</button>
-              </div>
-            </div>
-          </form>
-        </div>
+<form (ngSubmit)="onSubmit()" [formGroup]="formBusiness">
+  <!-- ID -->
+  <input type="hidden" name="id" formControlName="id">
+  <!-- Form Group Description & number of lessons-->
+  <div class="row mt-2">
+      <div class="col-xl-5 col-lg-5 col-md-6 col-sm-6 col-xs-12">
+          <div class="mb-3">
+              <label class="small mb-1" for="inputLastName">Account name</label>
+              <input type="text" class="form-control" placeholder="Account name" formControlName="name">
+              <span *ngIf="validInput('description')" class="text-danger">
+                  This field is required.
+              </span>
+          </div>
       </div>
     </div>
-  </div>
-</div>
-
-<!-- Page -->
-<div div class="row" style="margin-left: 0px;">
-    <div class="content-1" style="padding-left: 0px !important;">
-        <ul class="scroll-menu" style="margin: 0px !important; padding: 0px !important">
-            <li *ngFor="let item of scrollOptions; let i = index;" [ngClass]="{'active': item.active}"
-                class="menu-item" (click)="changeOptions(item, i)">
-                {{ item.title }}
-            </li>
-        </ul>
+    <div class="mt-2 mb-0">
+      <button class="btn btn-primary" style="width: 150px;"
+          [disabled]="formBusiness.invalid">
+          Save
+      </button>
     </div>
-
-    <div class="content-2">
-        <div [ngSwitch]="optionSelected">
-            <div *ngSwitchCase="0">
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Require two-step authentication for your team</label>
-                </div>
-                <p>
-                    This Will require any team member without two-step authentication to enable in the next time they sign in.
-                </p>
-
-                <div class="row">
-                    <div class="col-xl-5 col-lg-5 col-md-7 col-sm-6 col-xs-12">
-                        <form class="d-flex">
-                          <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
-                        </form>
-                    </div>
-                    <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
-                        <button class="btn btn-add" (click)="showModal(true)">
-                            <i class="bi bi-plus"></i>
-                            Add new staff
-                        </button>
-
-                        <!-- <button class="btn btn-table">
-                            <img src="assets/images/icons/settings2.svg" alt="">
-                        </button>
-                        <button class="btn btn-table">
-                            <img src="assets/images/icons/pdf.svg" alt="">
-                        </button>
-                        <button class="btn btn-table">
-                            <img src="assets/images/icons/download.svg" alt="">
-                        </button> -->
-
-                    </div>
-                </div>
-                <br>
-                <div class="table-responsive">
-                    <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="checkbox" name="" id="">
-                                </th>
-                                <th>Mamber</th>
-                                <th>Roles</th>
-                                <th>Last login</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let item of users">
-                                <td class="align-middle">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="align-middle">
-                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
-                                    <label for="" class="td-name">{{item.firstName}} {{item.lastName}}</label><br>
-                                    <label for="" class="td-email">{{item.email}}</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">{{'role'}}</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">{{item.lastLogin}}</label>
-                                </td>
-                            </tr>
-                            <!-- <tr>
-                                <td class="align-middle">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="align-middle">
-                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
-                                    <label for="" class="td-name">Mario Harrinson</label><br>
-                                    <label for="" class="td-email">Marioharrison@mail.com</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">Administrador</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">September 22, 2022, 6:38 PM</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="align-middle">
-                                    <input type="checkbox" name="" id="">
-                                </td>
-                                <td class="align-middle">
-                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
-                                    <label for="" class="td-name">Mario Harrinson</label><br>
-                                    <label for="" class="td-email">Marioharrison@mail.com</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">Administrador</label>
-                                </td>
-                                <td class="align-middle">
-                                    <label for="">September 22, 2022, 6:38 PM</label>
-                                </td>
-                            </tr> -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+  </form>

@@ -4,6 +4,7 @@ import * as moment from 'moment';
 
 import { Subject } from 'rxjs';
 import { AvailavilityService } from 'src/app/@core/services/avaivility.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
 declare var window: any;
 
 @Component({
@@ -28,9 +29,9 @@ export class AvailavilityComponent implements OnInit {
   public data: any[] = [];
 
   public idProfile: number = 0;
-  notifySvc: any;
 
-  public formModal: any;
+  // public formModal: any;
+  public activeAdd: boolean = false;
   public formModalDelete: any;
 
   public coachSchedule: any = false;
@@ -41,6 +42,7 @@ export class AvailavilityComponent implements OnInit {
 
   constructor(
     private avaivilitySvr: AvailavilityService,
+    private alertSvc: AlertService,
   ) { 
     this.dtOptions = {
       // pagingType: 'full_numbers',
@@ -59,9 +61,9 @@ export class AvailavilityComponent implements OnInit {
   ngOnInit(): void {
     this.loadData();
 
-    this.formModal = new window.bootstrap.Modal(
-      document.getElementById('formNewSchedule')
-    );
+    // this.formModal = new window.bootstrap.Modal(
+    //   document.getElementById('formNewSchedule')
+    // );
 
     this.formModalDelete = new window.bootstrap.Modal(
       document.getElementById('modalDeleteSlotConfiguration')
@@ -74,7 +76,7 @@ export class AvailavilityComponent implements OnInit {
     // console.log(this.idStaff);
     let resp = await this.avaivilitySvr.getListByIdStaff(this.idStaff);
     //  console.log(resp);
-     if(resp.status == 404)
+     if(resp?.status == 404)
      this.buttonAdd = true;
 
     if ( resp != null || resp != undefined ) {
@@ -82,7 +84,7 @@ export class AvailavilityComponent implements OnInit {
       this.data = data || [];
     } else {
       this.data = [];
-      this.notifySvc.showAlert(3, 'No results found', '');
+      this.alertSvc.showAlert(3, '', 'No results found');
     }
     // console.log(this.data);
      this.dtTrigger.next(this.dtOptions);
@@ -93,17 +95,20 @@ export class AvailavilityComponent implements OnInit {
     if ( !e ) {
       return
     }
-    this.formModal.show();
+    // this.formModal.show();
+    this.activeAdd = true;
   }
 
   closeModal(band: boolean) {
-    if ( band )
-      this.formModal.hide();
+    if ( band ) {
+      // this.formModal.hide();
+      this.activeAdd = false;
+    }
 
     this.idSettings = 0;
     this.coachSchedule = false;
-    this.renderer();
     this.loadData();
+    this.renderer();
   }
 
   
@@ -112,7 +117,8 @@ export class AvailavilityComponent implements OnInit {
     this.coachSchedule = [];
     this.coachSchedule = this.data;
       
-    this.formModal.show();
+    // this.formModal.show();
+    this.activeAdd = true;
   }
 
 
@@ -134,21 +140,21 @@ export class AvailavilityComponent implements OnInit {
       if ( status !== undefined && status === 200 ) {
         this.id = 0
         this.formModalDelete.hide();
-        this.notifySvc.showAlert(1, resp?.comment, 'Success')
+        this.alertSvc.showAlert(1, 'Success', resp?.comment)
         this.renderer();
         this.loadData();
       } else {
-        this.notifySvc.showAlert(4, resp?.comment, 'Error');
+        this.alertSvc.showAlert(4, 'Error', resp?.comment);
       }   
     } else {
-      this.notifySvc.showAlert(4, 'Error', 'Error');
+      this.alertSvc.showAlert(4, 'Error', 'Error');
     }
   }
   // End Section: Modal Delete
 
   /* Section Render & Destoy */
   renderer() {
-    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    this.dtElement?.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
       dtInstance.destroy();
     });

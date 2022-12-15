@@ -13,12 +13,14 @@ import { AlertService } from 'src/app/@core/utils/alert.service';
 })
 export class AddAvailabilityComponent implements OnInit {
 
+  public isEdit: boolean = false;
   @Output() onClose = new EventEmitter<boolean>();
   @Input() set dataUpdate(value: any) {
     // console.log(value);
     if (value!= undefined && value != null && value != false) {
+      this.isEdit = true;
+      this.loadDataForm(value);
     }
-    this.loadDataForm(value);
   }
 
   @Input() isCoach = false;
@@ -83,10 +85,10 @@ export class AddAvailabilityComponent implements OnInit {
       }
     }
 
-    if ( obj.length == 0 ) {
-      this.alertSvc.showAlert(2, 'Please select at least one day and time range', 'Warning');
-      return;
-    }
+    // if ( obj.length == 0 ) {
+    //   this.alertSvc.showAlert(2, 'Please select at least one day and time range', 'Warning');
+    //   return;
+    // }
 
     for (let i = 0; i < this.dataDelete.length; i++) {
       if ( this.dataDelete[i].id != 0 ) {
@@ -97,22 +99,22 @@ export class AddAvailabilityComponent implements OnInit {
           endTime: this.dataDelete[i].endTime,
           idStaff: this.idCoach,
           idBusiness: this.businessSelected?.id,
-          pasivo: true
+          pasive: true
         });
       }
     }
     
     // Send Data
     // this.spinnerSvc.show();
-    let resp = await this.availabilitySvc.saveAvailability(obj);
+    let resp = await this.availabilitySvc.saveAvailability(obj, this.isEdit);
 
     
     // this.spinnerSvc.hide();
     if ( resp != null || resp != undefined ) {
       let { status } = resp;
-      if ( status == 201 ) {
+      if ( status == 201 || status == 200 ) {
         this.alertSvc.showAlert(1, resp?.comment, 'Success');
-        this.loadDataForm();
+        // this.loadDataForm();
         this.onClose.emit(true);
       } else {
         this.alertSvc.showAlert(4, resp?.comment, 'Error')
@@ -125,8 +127,8 @@ export class AddAvailabilityComponent implements OnInit {
   /* Load Data Form */
   loadDataForm(data: any = null) {
 
-    if ( this.coachScheduleForm == undefined )
-      return;
+    // if ( this.coachScheduleForm == undefined )
+    //   return;
 
     if ( data != null && data != undefined ) { 
       this.title = 'Update Coach Availability';
@@ -303,6 +305,10 @@ export class AddAvailabilityComponent implements OnInit {
       startTime: [''],
       endTime: [''],
     })
+  }
+
+  back() {
+    this.onClose.emit(true);
   }
 
 }

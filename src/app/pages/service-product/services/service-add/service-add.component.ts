@@ -26,6 +26,7 @@ export class ServiceAddComponent implements OnInit {
   public formModal: any;
   public imagesList: any[] = [{ url: '' }];
   public currencies: any[] = [];
+  public step: boolean = false;
   // hasta aqui
 
   public title = 'New Service';
@@ -124,11 +125,12 @@ export class ServiceAddComponent implements OnInit {
 
   clickedFile() {
     // click input file
-    let file = document.getElementById('file') as HTMLInputElement;
+    let file = document.getElementById('fileService') as HTMLInputElement;
     file.click();
   }
 
   async SelectedFile(event: any) {
+    this.step = true;
     // set image and upload
     let file = event.target.files[0];
     let reader = new FileReader();
@@ -136,7 +138,14 @@ export class ServiceAddComponent implements OnInit {
     let resp = await this.serviceSvr.uploadImage(file);
     if (resp != undefined || resp != null) {
       this.imagesList.push({ url: resp});
+      setTimeout(() => {
+        this.step = false;
+      }, 200);
     }
+  }
+
+  removeImage(index: number) {
+    this.imagesList.splice(index, 1);
   }
 
   async loadData() {
@@ -215,19 +224,6 @@ export class ServiceAddComponent implements OnInit {
 
   async onSubmit() {
     if (this.Serviceadd.invalid) return;
-
-    // Validate if exist image
-    // if (this.imagesList.length === 0 || this.imagesList == undefined ) {
-    //   this.alertSvc.showAlert(4, '', 'Please select an image');
-    //   return;
-    // }
-
-    // if ( this.imagesList.length === 1 && this.imagesList[0].url === '') {
-    //   if ( this.imagesList.length <= 1 ) {
-    //     this.alertSvc.showAlert(3, '', 'Please select an image');
-    //     return;
-    //   }
-    // }
 
     let data = this.Serviceadd.value;
     // console.log(data.categories);

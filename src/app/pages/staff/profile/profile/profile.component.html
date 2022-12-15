@@ -73,8 +73,9 @@
       <label for="phone_number" class="">Image</label>
       <div class="d-flex justify-content-start">
       <div class="file-drop-area">
+        <button class="btn btn-danger btn-remove" type="button" (click)="removeImage()">x</button>
         <img  [src]="f['image'].value || ''" alt="">
-        <span class="file-msg"><i *ngIf="!file?.name" class="bi bi-upload"> Upload</i>{{file?.name}}</span>
+        <span class="file-msg"><i *ngIf="file?.name" class="bi bi-upload"> Upload</i> {{ (file !== undefined) ? file.name : ''}}</span>
         <input (change)="onFileSelected($event.target)" class="file-input" type="file">
       </div>
       </div>

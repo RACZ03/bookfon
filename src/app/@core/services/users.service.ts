@@ -16,6 +16,12 @@ export class UsersService {
     private storage: AngularFireStorage
   ) { }
 
+  getCode(): string {
+    let business = localStorage.getItem('businessSelected') || '';
+    return JSON.parse(business).code;
+  }
+
+
   get(): Promise<any> {
     return this.connectionSvc.send('get', 'users');
   }
@@ -43,6 +49,14 @@ export class UsersService {
 
   getAllStaffByBusiness(businessCode: string): Promise<any>{
     return this.connectionSvc.send('get', `public/v1/${businessCode}/allStaffByBusiness`);
+  }
+
+  getAllStaffAdminByBusiness(): Promise<any>{
+    let code = this.getCode();
+    return this.connectionSvc.send(
+      'get',
+      `users/getByBusiness/${ code }/role/ROLE_ADMIN`
+    );
   }
 
   saveStaff(params: any, businessCode: string): Promise<any>{
