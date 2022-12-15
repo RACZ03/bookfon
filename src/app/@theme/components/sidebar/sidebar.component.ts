@@ -1,7 +1,7 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, HostListener, Inject, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/@core/services/auth.service';
-import { MenuItem, MENU_ITEMS, MENU_ITEMS_SETTINGS } from './pages-menu';
+import { MenuItem, MENU_ITEMS, MENU_ITEMS_STAFF, MENU_ITEMS_SETTINGS, MENU_ITEMS_SETTINGS_STAFF } from './pages-menu';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,19 +29,21 @@ export class SidebarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    // if (this.isAdmin) {
-    //   this.menu = MENU_ITEMS;
-    //   this.menuFooter = MENU_ITEMS_SETTINGS;
-    // } else {
-    //   // this.menu = MENU_ITEMS_COACH;
-    // }
-
-    // this.getScreenWidth = window.innerWidth;
-    // this.getScreenHeight = window.innerHeight;
+    // console.log('OnInit SidebarComponent')
+    if (this.isAdmin) {
       this.menu = MENU_ITEMS;
       this.menuFooter = MENU_ITEMS_SETTINGS;
-      this.isAdmin = true;
-      this.isExist = true;
+    } else {
+      this.menu = MENU_ITEMS_STAFF;
+      this.menuFooter = MENU_ITEMS_SETTINGS_STAFF;
+    }
+
+    this.getScreenWidth = window.innerWidth;
+    this.getScreenHeight = window.innerHeight;
+    // this.menu = MENU_ITEMS;
+    // this.menuFooter = MENU_ITEMS_SETTINGS;
+    // this.isAdmin = true;
+    this.isExist = true;
 
   }
   
@@ -50,14 +52,15 @@ export class SidebarComponent implements OnInit {
     this.businessSelected = JSON.parse(localStorage.getItem('businessSelected') || '{}');
     if (data) {
       this.identity = JSON.parse(data);
-      // console.log(this.businessSelected)
-      let roles: any[] = this.identity.roles;
+      let roles: any[] = this.identity?.roleList;
   
-      if ( roles != undefined && roles.length > 0) {
-        
-        this.isExist = roles.find( role => role.nombre == 'ADMIN');
-        if ( this.isExist != undefined ) {
-          this.isAdmin = true;
+      if ( roles != undefined ) {
+        if ( roles.length > 0) {
+          this.isExist = roles.find( item => item.role == 'ROLE_ADMIN');
+          if ( this.isExist != undefined ) {
+            this.isAdmin = true;
+            // console.log('isAdmin')
+          }
         }
       }
     }
