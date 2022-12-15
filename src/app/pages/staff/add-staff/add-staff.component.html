@@ -50,10 +50,11 @@
     </div>
     <div class="col-md-4 mt-3">
       <label for="profile" class=""><sup class="lb-required">*</sup>Profile</label>
-      <input type="text" formControlName="profile" class="form-control" autocomplete="new-profile" [ngClass]="{
+      <textarea rows="2" type="text" formControlName="profile" class="form-control" autocomplete="new-profile" [ngClass]="{
           'is-invalid':
             f['profile'].invalid && (f['profile'].touched || f['profile'].dirty)
-        }" />
+        }">
+      </textarea>
       <div *ngIf="f['profile'].errors" class="invalid-feedback">
         <div *ngIf="f['profile'].errors['required']">Profile is required</div>
       </div>
@@ -72,7 +73,7 @@
         Please provide sex name
       </div>
     </div>
-    <div class="col-md-4 mt-3">
+    <div class="col-md-4 m-0">
       <label for="phone_number" class="">Image</label>
       <div class="file-drop-area">
         <img [src]="f['image'].value || ''" alt="">

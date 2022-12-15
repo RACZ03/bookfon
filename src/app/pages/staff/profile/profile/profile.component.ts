@@ -24,6 +24,7 @@ export class ProfileEditComponent implements OnInit {
     last_name: new FormControl('', [Validators.required]),
     phone_number: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
+    profile: new FormControl(''),
     image: new FormControl(''),
   });
   constructor(
@@ -42,6 +43,7 @@ export class ProfileEditComponent implements OnInit {
     this.f['phone_number'].patchValue(this.itemStaff.phone);
     this.f['email'].patchValue(this.itemStaff.email);
     this.f['image'].patchValue(this.itemStaff.image);
+    this.f['profile'].patchValue(this.itemStaff.profile);
   }
 
   onSubmit(): void {
@@ -77,6 +79,7 @@ export class ProfileEditComponent implements OnInit {
         lastName: this.f['last_name'].value,
         phone: this.f['phone_number'].value,
         email: this.f['email'].value,
+        profile: this.f['profile'].value,
         image: url ? url : (image ? image : ''),
       })
       .then(() => {
