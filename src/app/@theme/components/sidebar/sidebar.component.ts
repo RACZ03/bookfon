@@ -66,7 +66,39 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  onSelectOption(item: any) {
+  onSelectOption(item: any, position: any, isFooter: boolean = false) {
+    // console.log('click')
+    // chenge icon
+    for (let i = 0; i < this.menu.length; i++) {
+      let idImg = 'icon-nav-';
+      let icon: any = document.getElementById(idImg + i) as HTMLElement;
+      if ( i == position ) {
+        // verify img -white.svg
+        if ( icon?.src.indexOf('-white.svg') > 0) {
+          icon.src = icon.src.replace('-white.svg', '.svg');
+        } else {
+          icon.src = icon.src.replace('.svg', '-white.svg');
+        }
+      } else {
+        icon.src = icon.src.replace('-white.svg', '.svg');
+        // icon.src = icon.src.replace('.svg', '.svg');
+      }
+    }  
+    for (let i = 0; i < this.menuFooter.length; i++) {
+      let idImg = 'icon-nav-footer-';
+      let icon: any = document.getElementById(idImg + i) as HTMLElement;
+      if ( i == position ) {
+        // verify img -white.svg
+        if ( icon?.src.indexOf('-white.svg') > 0) {
+          icon.src = icon.src.replace('-white.svg', '.svg');
+        } else {
+          icon.src = icon.src.replace('.svg', '-white.svg');
+        }
+      } else {
+        icon.src = icon.src.replace('-white.svg', '.svg');
+        // icon.src = icon.src.replace('.svg', '.svg');
+      }
+    }  
     if ( item === '/pages/logout') {
       this.logout();
       return;

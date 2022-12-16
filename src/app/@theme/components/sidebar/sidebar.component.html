@@ -18,15 +18,16 @@
             </span>
         </div>
         <!-- Sidenav Accordion Admin-->
-        <hr style="margin: 0px 20px;">
+        <hr style="margin: 0px 20px 10px 20px;">
         <div *ngFor="let item of menu; let i = index">
             <!-- Module Admin -->
             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" 
                 [attr.data-bs-target]="'#collapseDashboards' + i" aria-expanded="false" aria-controls="collapseDashboards"
                 [routerLink]="!isExist ? (item?.title === 'Dashboard') ? (item.link + '/2/' +identity?.id) : (item.link + identity?.id) : item.link" 
-                (click)="onSelectOption(item.link)">
+                routerLinkActive="active"
+                (click)="onSelectOption(item.link, i)">
                 <div class="nav-link-icon">
-                    <img [src]="'assets/images/icons/' + item.icon + '.svg'" alt="">
+                    <img [id]="'icon-nav-' + i" [src]="'assets/images/icons/' + item.icon + '.svg'" alt="">
                 </div>
                 {{ item.title }}
             </a>
@@ -37,9 +38,10 @@
             <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" 
                 [attr.data-bs-target]="'#collapseDashboards' + i" aria-expanded="false" aria-controls="collapseDashboards"
                 [routerLink]="!isExist ? (item?.title === 'Dashboard') ? (item.link + '/2/' +identity?.id) : (item.link + identity?.id) : item.link" 
-                (click)="onSelectOption(item.link)">
+                routerLinkActive="active"
+                (click)="onSelectOption(item.link, i, true)">
                 <div class="nav-link-icon">
-                    <img [src]="'assets/images/icons/' + item.icon + '.svg'" alt="">
+                    <img [id]="'icon-nav-footer-' + i" [src]="'assets/images/icons/' + item.icon + '.svg'" alt="">
                 </div>
                 {{ item.title }}
             </a>

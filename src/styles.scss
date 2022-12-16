@@ -631,6 +631,7 @@ body {
   }
   .sidenav-light .sidenav-menu .nav-link {
     color: #212832;
+    font-size: 14px;
   }
   .sidenav-light .sidenav-menu .nav-link .nav-link-icon {
     color: #a7aeb8;
@@ -642,10 +643,23 @@ body {
     color: #0061f2;
   }
   .sidenav-light .sidenav-menu .nav-link.active {
-    color: #0061f2;
-  }
+    background: #1f72ea;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding-left: 10px;
+    border-radius: 8px;
+    color: #fff;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    font-size: 14px;
+}
   .sidenav-light .sidenav-menu .nav-link.active .nav-link-icon {
-    color: #0061f2;
+    fill: #fff !important;
+  }
+  .sidenav-light .sidenav-menu .nav-link.active .nav-link-icon img {
+    fill: #fff !important;
   }
   .sidenav-light .sidenav-menu-nested {
     border-left-color: #d4dae3;

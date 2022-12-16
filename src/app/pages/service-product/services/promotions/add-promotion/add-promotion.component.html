@@ -35,7 +35,7 @@
                         <div class="row mt-2">
                             <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                                 <div class="mb-3">
-                                    <label class="small mb-1" for="inputLastName">Number of Lessons</label>
+                                    <label class="small mb-1" for="inputLastName">Number of free services</label>
                                     <input class="form-control" type="number" placeholder="0" formControlName="count" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                                     <span *ngIf="validInput('count')" class="text-danger">
                                         This field is required.
@@ -68,7 +68,7 @@
                             <div class="col-12">
                                 <div class="pt-4">
                                     <input type="checkbox" class="form-check-input" style="margin-right: 20px;" name="applyWallet" id="applyWallet" formControlName="applyWallet">
-                                    <label class="small mb-1" for="inputStartDate">Apply Wallet </label>
+                                    <label class="small mb-1" for="inputStartDate">This promotion apply for wallet payments</label>
                                     <span *ngIf="validInput('startDate')" class="text-danger">
                                         This field is required.
                                     </span>
@@ -92,7 +92,7 @@
                         <hr style="color: #6a6a6a">
                         <div class="row">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label class="small mb-1" for="inputCategory"><strong>Lessons Purchased </strong><span class="text-danger">*</span></label>
+                                <label class="small mb-1" for="inputCategory"><strong>Customer will buy</strong><span class="text-danger">*</span></label>
                                 <ng-select #select1 [items]="dataLessons" [selectOnTab]="true"
                                     bindValue="id" bindLabel="name" placeholder="Select Lessons" formControlName="lessonPurcharsedId">
                                 </ng-select>
@@ -119,7 +119,7 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                <label class="small mb-1 text-bold" for="inputCategory"><strong>Promoted Lessons</strong><span class="text-danger">*</span></label>
+                                <label class="small mb-1 text-bold" for="inputCategory"><strong>Customer will get</strong><span class="text-danger">*</span></label>
                                 <ng-select #select2 [items]="dataLessons" [selectOnTab]="true"
                                     bindValue="id" bindLabel="name" placeholder="Select Lessons" formControlName="prometedLessonsdId">
                                 </ng-select>

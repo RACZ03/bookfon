@@ -14,7 +14,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of data; let i = index">
-            <td class="align-middle">
+            <td class="align-middle text-center">
               <img [src]="item?.image" appBrokenImagen class="avatar" alt="">
             </td>
             <td class="align-middle">
@@ -51,7 +51,7 @@
 
 <!-- modal confirm change status staff -->
 <div class="modal fade" id="confirmChangeStatusModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <app-modal-delete [btnYes]="'Enabled/Disable'" [message]="'Do you really want to enabled/disable this record? This process cannot be undone'" (delete)="confirmChangeStatusOnDelete($event)"></app-modal-delete> 
+  <app-modal-delete [btnYes]="'Enable/Disable'" [message]="'Do you really want to enable/disable this record? This process cannot be undone'" (delete)="confirmChangeStatusOnDelete($event)"></app-modal-delete> 
 </div>
 
 <!-- modal delete record -->

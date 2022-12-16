@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17.726" height="18.245" viewBox="0 0 17.726 18.245">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="SVGID" d="M1986.7,1230.235H1973.42c-2.847.529-2.13,3.53-2.13,3.53h17.541S1989.548,1230.764,1986.7,1230.235Z" transform="translate(-1971.21 -1230.235)" fill="#fff"/>
+    </clipPath>
+  </defs>
+  <g id="Grupo_10562" data-name="Grupo 10562" transform="translate(-1026.134 -379.294)">
+    <path id="Trazado_160" data-name="Trazado 160" d="M1979.854,1276.849q-3.02,0-6.04,0a3.569,3.569,0,0,1-1.04-.11,2.363,2.363,0,0,1-1.714-2.14c-.013-.178-.009-.359-.009-.538q0-4.306,0-8.612c0-.209,0-.419.015-.627a.246.246,0,0,1,.215-.241,3.822,3.822,0,0,1,.523-.03q8.1,0,16.193,0c.088,0,.175,0,.262,0,.437.022.487.064.488.539q.007,4.081,0,8.163c0,.389.01.778,0,1.166a2.387,2.387,0,0,1-2.241,2.416c-.232.021-.467.011-.7.012Z" transform="translate(-944.916 -879.312)" fill="#7a7a7a"/>
+    <rect id="Rectángulo_7" data-name="Rectángulo 7" width="1.057" height="3.678" rx="0.528" transform="translate(1030.102 379.294)" fill="#7a7a7a"/>
+    <rect id="Rectángulo_8" data-name="Rectángulo 8" width="1.057" height="3.678" rx="0.528" transform="translate(1034.652 379.294)" fill="#7a7a7a"/>
+    <rect id="Rectángulo_9" data-name="Rectángulo 9" width="1.057" height="3.678" rx="0.528" transform="translate(1039.265 379.294)" fill="#7a7a7a"/>
+    <path id="Trazado_161" data-name="Trazado 161" d="M1986.7,1230.235H1973.42c-2.847.529-2.13,3.53-2.13,3.53h17.541S1989.548,1230.764,1986.7,1230.235Z" transform="translate(-945.052 -849.53)" fill="#7a7a7a"/>
+    <rect id="Rectángulo_10" data-name="Rectángulo 10" width="3.578" height="3.578" rx="1.789" transform="translate(1027.638 387.061)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+    <rect id="Rectángulo_11" data-name="Rectángulo 11" width="3.578" height="3.578" rx="1.789" transform="translate(1033.276 387.061)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+    <rect id="Rectángulo_12" data-name="Rectángulo 12" width="3.578" height="3.578" rx="1.789" transform="translate(1038.877 387.061)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+    <rect id="Rectángulo_13" data-name="Rectángulo 13" width="3.578" height="3.578" rx="1.789" transform="translate(1027.638 392.123)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+    <rect id="Rectángulo_14" data-name="Rectángulo 14" width="3.578" height="3.578" rx="1.789" transform="translate(1033.276 392.123)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+    <rect id="Rectángulo_15" data-name="Rectángulo 15" width="3.578" height="3.578" rx="1.789" transform="translate(1038.877 392.123)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+    <g id="Grupo_62" data-name="Grupo 62" transform="translate(1026.156 380.705)">
+      <g id="Grupo_61" data-name="Grupo 61" clip-path="url(#clip-path)">
+        <rect id="Rectángulo_16" data-name="Rectángulo 16" width="1.057" height="3.678" rx="0.528" transform="translate(3.944 -1.41)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+        <rect id="Rectángulo_17" data-name="Rectángulo 17" width="1.057" height="3.678" rx="0.528" transform="translate(8.494 -1.41)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+        <rect id="Rectángulo_18" data-name="Rectángulo 18" width="1.057" height="3.678" rx="0.528" transform="translate(13.107 -1.41)" fill="#fff" style="mix-blend-mode: normal;isolation: isolate"/>
+      </g>
+    </g>
+  </g>
+</svg>
