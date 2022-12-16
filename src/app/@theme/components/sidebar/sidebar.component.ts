@@ -81,7 +81,6 @@ export class SidebarComponent implements OnInit {
         }
       } else {
         icon.src = icon.src.replace('-white.svg', '.svg');
-        // icon.src = icon.src.replace('.svg', '.svg');
       }
     }  
     for (let i = 0; i < this.menuFooter.length; i++) {
