@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of data">
+          <tr *ngFor="let item of data; let i = index">
             <td class="align-middle">
               <img [src]="item?.image" appBrokenImagen class="avatar" alt="">
             </td>
@@ -34,7 +34,10 @@
               <button (click)="editStaff(item)" class="btn btn-link m-1"><i
                   class="bi bi-pencil-square"></i></button>
               <div class="form-check form-switch">
-                <input (click)="openModalChangeStatus(item.id)" class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
+                <input (click)="openModalChangeStatus(item.id, i)" 
+                      class="form-check-input mt-3" 
+                      type="checkbox" 
+                      id="chechedStatus-{{i}}" [checked]="item?.businessList?.[0]?.enabled">
               </div>
               <button (click)="openModalChangePass(item.id)" class="btn btn-link m-1"><i class="bi bi-key-fill"></i></button>
               <!-- <button (click)="openModalDeleteRecord(item.id)" class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button> -->
@@ -48,7 +51,7 @@
 
 <!-- modal confirm change status staff -->
 <div class="modal fade" id="confirmChangeStatusModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <app-modal-delete [btnYes]="'Disable'" [message]="'Do you really want to disable this record? This process cannot be undone'" (delete)="confirmChangeStatusOnDelete($event)"></app-modal-delete> 
+  <app-modal-delete [btnYes]="'Enabled/Disable'" [message]="'Do you really want to enabled/disable this record? This process cannot be undone'" (delete)="confirmChangeStatusOnDelete($event)"></app-modal-delete> 
 </div>
 
 <!-- modal delete record -->

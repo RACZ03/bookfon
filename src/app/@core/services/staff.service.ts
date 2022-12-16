@@ -41,6 +41,11 @@ export class StaffService {
     return this.connectionSvc.send('get', `public/v1/${code}/allStaffByBusiness`);
   }
 
+  getStaffByBusiness(): Promise<StaffI> {
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `users/getStaffByBusiness/${code}`);
+  }
+
   enableDisableStaff(id_staff:number):Promise<any>{
     return this.connectionSvc.send(
       'post',

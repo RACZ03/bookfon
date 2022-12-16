@@ -27,6 +27,7 @@ export class AllComponent implements OnInit, OnDestroy {
   dtTrigger: Subject<any> = new Subject<any>();
   staff: staffItem[] = [];
   id: number = 0;
+  position: number = 0;
   status: number = 0;
   message: string = '';
   comment: string = '';
@@ -78,9 +79,13 @@ export class AllComponent implements OnInit, OnDestroy {
   }
 
   async loadData() {
-    this.staffService.getStaffOrder().then((response) => {
-      // console.log(response);
-      this.data = response?.data;
+    this.staffService.getStaffByBusiness().then((response: any) => {
+      let { data } = response;
+      if ( data !== undefined ) {
+        this.data = data;
+      } else {
+        this.data = [];
+      }
       this.status = response?.status;
       this.message = response?.message;
       this.comment = response?.comment;
@@ -104,8 +109,9 @@ export class AllComponent implements OnInit, OnDestroy {
     this.deleteRecordConfirmModal.show();
   }
 
-  async openModalChangeStatus(id: number) {
+  async openModalChangeStatus(id: number, i: number) {
     this.idSelected = id;
+    this.position = i;
     this.confirmChangeStatusModal.show();
   }
 
@@ -135,6 +141,11 @@ export class AllComponent implements OnInit, OnDestroy {
       this.changeStatusStaff(this.idSelected);
     } else {
       this.closeModalChangStatus();
+      if ( this.position != 0 ) {
+        // cheched input
+        let input = document.getElementById('chechedStatus-'+this.position) as HTMLInputElement;  
+        input.checked = true;
+      }
     }
 
   }

@@ -60,7 +60,8 @@ export class StaffComponent implements OnInit {
   }
 
   async loadData() {
-   let resp = await this.staffService.getStaffOrder();
+  //  let resp = await this.staffService.getStaffOrder();
+  let resp = await this.staffService.getStaffByBusiness();
   //  console.log(resp, "resp");
     if ( resp !== undefined ) {
       this.data = resp?.data;

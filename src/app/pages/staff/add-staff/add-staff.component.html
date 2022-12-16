@@ -50,7 +50,7 @@
     </div>
     <div class="col-md-4 mt-3">
       <label for="profile" class=""><sup class="lb-required">*</sup>Profile</label>
-      <textarea rows="2" type="text" formControlName="profile" class="form-control" autocomplete="new-profile" [ngClass]="{
+      <textarea rows="2" type="text" formControlName="profile" class="form-control" rows="8" autocomplete="new-profile" [ngClass]="{
           'is-invalid':
             f['profile'].invalid && (f['profile'].touched || f['profile'].dirty)
         }">
