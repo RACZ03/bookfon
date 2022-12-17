@@ -1,0 +1,93 @@
+
+<div class="row mb-5">
+    <!-- <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-xs-12"></div> -->
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">{{ title }}</h5>
+                    <button class="btn btn-sm btn-outline-primary" (click)="back()">Go Back</button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="onSubmit()" [formGroup]="walletCashBackForm">
+                        <!-- ID -->
+                        <input type="hidden" name="id" formControlName="id">
+                        <!-- Form Group Description & number of lessons-->
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputLastName">Description </label>
+                                    <textarea class="form-control mb-2" id="inputLastName" type="text" placeholder="Enter your description" 
+                                        formControlName="description" rows="4"></textarea>
+                                    <span *ngIf="validInput('description')" class="text-danger">
+                                        This field is required.
+                                    </span>
+                                    <span *ngIf="validateInputLength('description')" class="text-danger">
+                                        Description must be longer than {{ walletCashBackForm.get('description')?.errors?.['minlength']?.requiredLength }} characters
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                
+                            </div> -->
+                        </div>
+                        <!-- StartDate & EndDdate -->
+                        <div class="row mt-2">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div>
+                                    <label class="small mb-1" for="inputStartDate">Star Date</label>
+                                    <input class="form-control" type="date" name="inputStartDate" id="inputStartDate"
+                                            formControlName="startDate" min="{{currentDate}}" (change)="setValueStartDate()">
+                                    <span *ngIf="validInput('startDate')" class="text-danger">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div>
+                                    <label class="small mb-1" for="inputEndDate">End Date </label>
+                                    <input class="form-control" type="date" name="inputEndDate" id="inputEndDate" min="{{minEndDate}}"
+                                        formControlName="endDate">
+                                    <span *ngIf="validInput('endDate')" class="text-danger">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Amount & Amount Promotion -->
+                        <div class="row mt-2">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div>
+                                    <label class="small mb-1" for="inputStartDate">Recharge Amount</label>
+                                    <input class="form-control" type="text" name="inputStartDate" formControlName="amount"
+                                            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                                    <span *ngIf="validInput('amount')" class="text-danger">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <div>
+                                    <label class="small mb-1" for="inputEndDate">Promotion Amount</label>
+                                    <input class="form-control" type="text" name="promotionAmount" formControlName="promotionAmount"
+                                            onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                                    <span *ngIf="validInput('promotionAmount')" class="text-danger">
+                                        This field is required.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="mt-4 mb-0">
+                            <button class="btn btn-primary" style="width: 150px;"
+                                [disabled]="walletCashBackForm.invalid">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                    <!-- <pre style="color: black;">{{ walletCashBackForm.value | json }}</pre> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

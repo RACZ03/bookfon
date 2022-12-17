@@ -40,7 +40,7 @@ export class ServiceAddComponent implements OnInit {
     private actroute: ActivatedRoute,
     private catalogSvc: CatalogService
   ) {
-    console.log('Hi')
+    // console.log('Hi')
   }
 
   async ngOnInit(): Promise<void> {

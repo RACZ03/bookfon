@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/@core/services/auth.service';
 import { MenuItem, MENU_ITEMS, MENU_ITEMS_STAFF, MENU_ITEMS_SETTINGS, MENU_ITEMS_SETTINGS_STAFF } from './pages-menu';
 
@@ -8,7 +9,7 @@ import { MenuItem, MENU_ITEMS, MENU_ITEMS_STAFF, MENU_ITEMS_SETTINGS, MENU_ITEMS
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
 
   public menu: MenuItem[] = [];
   public menuFooter: MenuItem[] = [];
@@ -23,7 +24,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private authSvc: AuthService
+    private authSvc: AuthService,
+    private activeRoute: ActivatedRoute,
   ) { 
     this.loadData();
   }
@@ -44,7 +46,22 @@ export class SidebarComponent implements OnInit {
     // this.menuFooter = MENU_ITEMS_SETTINGS;
     // this.isAdmin = true;
     this.isExist = true;
+    // get path url 
+  }
 
+  ngAfterViewInit(): void {
+    let path = this.activeRoute.snapshot;
+    if (path.firstChild) {
+      let p = path.firstChild.routeConfig?.path;
+      // active icon menu
+      let position = this.menu.findIndex( (item: any) => item.link == '/pages/'+p);
+      let item = this.menu[position];
+      if (position == -1) {
+        position = this.menuFooter.findIndex( (item: any) => item.link == '/pages/'+p);
+        item = this.menuFooter[position];
+      }
+      this.onSelectOption(item, position);
+    }
   }
   
   loadData() {

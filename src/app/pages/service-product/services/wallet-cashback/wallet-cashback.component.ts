@@ -3,17 +3,17 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import * as moment from 'moment';
 import { Subject } from 'rxjs';
-import { PromotionService } from 'src/app/@core/services/promotion.service';
+import { WalletCashbackService } from 'src/app/@core/services/wallet-cashback.service';
 import { AlertService } from 'src/app/@core/utils/alert.service';
 
 declare var window: any;
 
 @Component({
-  selector: 'app-promotions',
-  templateUrl: './promotions.component.html',
-  styleUrls: ['./promotions.component.scss']
+  selector: 'app-wallet-cashback',
+  templateUrl: './wallet-cashback.component.html',
+  styleUrls: ['./wallet-cashback.component.scss']
 })
-export class PromotionsComponent implements OnInit {
+export class WalletCashbackComponent implements OnInit {
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement!: DataTableDirective;
@@ -32,10 +32,10 @@ export class PromotionsComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: any,
-    private promotionsSvc: PromotionService,
+    private walletCashBackSvc: WalletCashbackService,
     private alertSvc: AlertService
   ) {
-    this.btns.push({ name: 'Add service promotion', icon: 'plus' });
+    this.btns.push({ name: 'Add wallet promotion', icon: 'plus' });
     // console.log('Load');
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -54,14 +54,14 @@ export class PromotionsComponent implements OnInit {
     this.loadData();
     
     this.formModalDelete = new window.bootstrap.Modal(
-      document.getElementById('modalDeletePromotion')
+      document.getElementById('modalDeleteWalletCashBack')
     );
   }
 
   /* Load Data */
   async loadData() {
     // this.spinnerSvc.show();
-    let resp = await this.promotionsSvc.getData();
+    let resp = await this.walletCashBackSvc.getData();
     
     if ( resp != undefined || resp != null ) {
       let { data } = resp;
@@ -71,7 +71,7 @@ export class PromotionsComponent implements OnInit {
       this.alertSvc.showAlert(3, 'No results found', '');
       this.data = [];
     }
-    this.dtTrigger.next(this.dtOptions);
+    this.dtTrigger?.next(this.dtOptions);
     // this.spinnerSvc.hide();
   } 
 
@@ -103,7 +103,9 @@ export class PromotionsComponent implements OnInit {
   /* Section Edit */
   async onEdit(item: any) {
     this.promotion = null;
+
     this.promotion = item;
+    this.activeForm = true;
     
   }
 
@@ -120,7 +122,7 @@ export class PromotionsComponent implements OnInit {
       return
     }
 
-    let resp = await this.promotionsSvc.delete(this.idSelected);
+    let resp = await this.walletCashBackSvc.delete(this.idSelected);
     
     if ( resp != undefined || resp != null ) {
       let  { status } = resp;
@@ -155,5 +157,6 @@ export class PromotionsComponent implements OnInit {
     // this.renderer
     this.dtTrigger.unsubscribe();
   }
+
 
 }

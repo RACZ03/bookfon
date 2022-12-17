@@ -31,6 +31,8 @@ import { ThemeModule } from 'src/app/@theme/theme.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PromotionsComponent } from './services/promotions/promotions.component';
 import { AddPromotionComponent } from './services/promotions/add-promotion/add-promotion.component';
+import { WalletCashbackComponent } from './services/wallet-cashback/wallet-cashback.component';
+import { AddWalletCashbackComponent } from './services/wallet-cashback/add-wallet-cashback/add-wallet-cashback.component';
 
 
 @NgModule({
@@ -59,6 +61,8 @@ import { AddPromotionComponent } from './services/promotions/add-promotion/add-p
     AddTaxratesComponent,
     PromotionsComponent,
     AddPromotionComponent,
+    WalletCashbackComponent,
+    AddWalletCashbackComponent,
   ],
   imports: [
     CommonModule,

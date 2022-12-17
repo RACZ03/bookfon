@@ -21,7 +21,7 @@ export class AddPromotionComponent implements OnInit {
 
   promotionForm!: FormGroup;
 
-  public title: string = 'New Promotion';
+  public title: string = 'New Service Promotion';
   public selectIndex: number = 1;
   public dataLessons: any[] = [];
   public lessonsPurcharsed: any[] = [];
@@ -100,7 +100,7 @@ export class AddPromotionComponent implements OnInit {
     if ( data?.length == 0 || data == null || data == undefined)
       return;
 
-    this.title = ( data == null || data == undefined ) ? 'New Promotion' : 'Update Promotion';
+    this.title = ( data == null || data == undefined ) ? 'New Service Promotion' : 'Update Service Promotion';
 
     this.promotionForm.reset({
       id: (data == null) ? 0 : data?.id,

@@ -17,6 +17,7 @@ export class ServicesComponent implements OnInit {
     { title: 'Promotions', active: false },
     { title: 'Coupons', active: false },
    // { title: 'Subcriptions', active: false },
+   { title: 'Wallet cashback', active: false },
   ];
   public optionSelected: number = 0;
 

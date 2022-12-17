@@ -23,7 +23,7 @@
           </div>
           <button class="btn btn-add " (click)="newPromotion(true)">
               <i class="bi bi-plus"></i>
-              Add new Promotion
+              Add service promotion
           </button>
       </div>
       <br>
@@ -35,9 +35,9 @@
                     <th>Description</th>
                     <th class="text-center">Start date</th>
                     <th class="text-center">End date</th>
-                    <th class="text-center">Number of Lessons</th>
-                    <th class="text-center">Valid days of the coupon</th>
-                    <th class="text-center">Apply Wallet</th>
+                    <th class="text-center"># of Lessons</th>
+                    <th class="text-center">Valid days</th>
+                    <th class="text-center">Apply to Wallet</th>
                     <th class="text-center">Lessons Purchased</th>
                     <th class="text-center">Promoted Lessons</th>
                     <th class="text-center">Actions</th>
@@ -75,7 +75,7 @@
                             <i class="fa-solid fa-pencil"></i>
                         </button> -->
                         <button class="btn btn-sm" (click)="openModalDelete(item?.id)">
-                            <i class="bi bi-trash"></i>
+                            <i class="bi bi-x-circle-fill"></i>
                         </button>
                     </td>
                 </tr>
