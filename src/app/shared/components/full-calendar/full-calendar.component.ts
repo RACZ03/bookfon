@@ -1,4 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import * as moment from 'moment';
+import { environment } from 'src/environments/environment';
+
+
+declare var window: any;
 
 @Component({
   selector: 'app-full-calendar',
@@ -15,11 +20,22 @@ export class BootFonFullCalendar implements OnInit {
   public calendarOptions: any;
   @Input() showCustomButton:boolean=true; 
   @Input() events: Array<any> = [];
+  
+  @Input() previewCoach: boolean = false;
+  @Input() previewCustomer: boolean = false;
+  public currentDate = moment().format('YYYY-MM-DD');
+
+  public item: any = {};
+  public modalPopUp: any = {};
 
   constructor() {}
 
   ngOnInit(): void {
     this.loadCalendar();
+    this.modalPopUp = new window.bootstrap.Modal(
+      document.getElementById('modalPopUp')
+    );
+
   }
 
   handleDateClick(selectInfo: any) {
@@ -28,7 +44,9 @@ export class BootFonFullCalendar implements OnInit {
   }
 
   handleEventClick(clickInfo: any) {
-    this.clickEventEmitter.emit(clickInfo);
+    // console.log('Log')
+    // this.clickEventEmitter.emit(clickInfo);
+    this.popup(clickInfo);
   }
 
   handleEventDrop(eventDropInfo: any) {
@@ -45,6 +63,7 @@ export class BootFonFullCalendar implements OnInit {
     // console.log('events1:::', this.events);
     let ct = this;
     this.calendarOptions = {
+      schedulerLicenseKey: environment.FullCalendarKey,
       customButtons: {
         newEvent: {
           text: 'Reload Calendar',
@@ -64,9 +83,10 @@ export class BootFonFullCalendar implements OnInit {
       initialView: 'dayGridMonth',
       themeSystem: 'bootstrap5',
       events: this.events,
+      slotMinWidth: 125,
       weekends: true,
+      displayEventEnd: true,
       editable: false,
-      overlap: false,
       selectable: false,
       selectMirror: false,
       droppable: false,
@@ -80,11 +100,15 @@ export class BootFonFullCalendar implements OnInit {
       eventContent: function (arg: any) {
         let { ui } = arg.event._def;
         let { extendedProps } = arg.event._def;
-        let { time, service_name, service_description, ubication } =
+        let { time, service_name, service_description, ubication, customer } =
           extendedProps;
+          // console.log(customer);
+        // convert time to 12 hours format
+        let startTime = moment(time.startTime, 'HH:mm:ss').format('hh:mm A');
+        let endTime = moment(time.endTime, 'HH:mm:ss').format('hh:mm A');
         return {
           html: `<div class="fc-event-content"
-           style="min-height: 40px;
+          style="height:auto;display:flex;position:relative; min-height: 40px;
            background-color: ${ct.hexToRgba((ui.backgroundColor!=''? ui.backgroundColor: '#fff'), 0.26)};
            min-width: 100%;
            border-top-right-radius: 10px !important;
@@ -92,24 +116,44 @@ export class BootFonFullCalendar implements OnInit {
            border-left: 5px solid ${ui.borderColor};
            padding: 5px;"
            pointer-events: none;  cursor: default;>
-         <img src="https://api-rest-btc.herokuapp.com/${
-           arg.event._def.url
-         }" appBrokenImagen
-             class="rounded-circle" width="35" height="35" style="position: absolute; top: -10px; border: 3px solid ${
-               ui.borderColor
-             }">
-         <br>
          <div class="fc-event-title" style="text-align: center;">
          <label style="font-size: 12px; font-weight: 700; color: black;">${arg.event.title}</label>
            <br>
-           <label style="font-size: 9px;font-weight:700;text-alight:center;color:black">${time.startTime.slice(0,5)} - ${time.endTime.slice(0, 5)}</label>
+           <label style="font-size: 9px;font-weight:700;text-alight:center;color:black">${ startTime } - ${ endTime }</label>
            <br>
-           <label style="font-size: 9px;color:black;text-alight:center">${service_name} ${service_description}</label>
+           <label style="font-size: 9px;color:black;text-alight:center">${service_name} ${service_description}</label><br>
+           <label style="font-size: 9px;color:black;text-alight:center">Customer: ${ customer?.firstName } ${ customer?.lastName }</label>
          </div>
        </div>`,
+      // html:
+      // `<div class="fc-event-content" title=""
+      //     style="height:auto;display:flex;position:relative;
+      //     background-color: ${ct.hexToRgba((ui.backgroundColor!=''? ui.backgroundColor: '#fff'), 0.26)};
+      //     min-width: 100%;
+      //     border-top-right-radius: 3px !important;
+      //     border-bottom-right-radius: 3px !important;
+      //     border-left: 4px solid ${ui.borderColor};
+      //     padding: 3px;"
+      //     cursor: pointer !important">
+      //   <div class="fc-event-title" style="font-weight: bold;text-align: center;color:${ '#000' }">
+      //   <label class="d-block" style="font-size: 12px; font-weight: bold;display:block;white-space: nowrap;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${ arg.event.title }</label>
+      //   </div>
+      // </div>`
         };
       },
     };
+  }
+
+  popup(e: any) {
+    let found = this.events.find( item => item.id == e.event.id );
+    // console.log(found);
+    if ( found ) {
+      let date = e.event.start,
+        dateFormated = moment(date).format('YYYY-MM-DD');
+
+      this.item = {...found, dateFormated };
+      this.modalPopUp.show();
+    }
   }
 
   hexToRgba(hex: any, alpha: any) {

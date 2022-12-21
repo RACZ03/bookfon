@@ -9,6 +9,7 @@ export const environment = {
     storageBucket: "bpb-training.appspot.com",
     messagingSenderId: "532152662318",
     appId: "1:532152662318:web:d221b87617f96e2bc562bf",
-    measurementId: "G-2QG6ZM2D3Z"
+    measurementId: "G-2QG6ZM2D3Z",
   },
+  FullCalendarKey:'0425202178-fcs-1671111408'
 };
