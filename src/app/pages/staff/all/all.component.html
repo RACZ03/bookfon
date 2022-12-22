@@ -1,4 +1,4 @@
-<div class="content w-100 bg-transparent">
+<div class="content w-100 bg-transparent" *ngIf="!lockTemporaryAvailability">
   <div class="card p-2 rounded-3 border-0">
     <div class="table-responsive">
       <table class="table" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
@@ -30,16 +30,22 @@
             <td class="align-middle">
               <label for="">{{ (item?.lastLogin !== null) ? (item.lastLogin | date: 'd/M/yyyy'): ''}}</label>
             </td>
-            <td class="d-flex justify-content-center">
-              <button (click)="editStaff(item)" class="btn btn-link m-1"><i
+            <td class="d-flex justify-content-center" style="min-height: 50px;">
+              <!-- <button (click)="openModalLockAvailavility(item.id)" class="btn btn-link">
+                <i class="bi bi-lock-fill"></i>
+              </button> -->
+              <button (click)="editStaff(item)" class="btn btn-link "><i
                   class="bi bi-pencil-square"></i></button>
-              <div class="form-check form-switch">
+              <div class="form-check form-switch" style="padding-left: 3.2em !important;">
                 <input (click)="openModalChangeStatus(item.id, i)" 
-                      class="form-check-input mt-3" 
+                      class="form-check-input" style="margin-top: 20px;" 
                       type="checkbox" 
                       id="chechedStatus-{{i}}" [checked]="item?.businessList?.[0]?.enabled">
               </div>
-              <button (click)="openModalChangePass(item.id)" class="btn btn-link m-1"><i class="bi bi-key-fill"></i></button>
+              <button (click)="openModalChangePass(item.id)" class="btn btn-link">
+                <!-- <i class="bi bi-key-fill"></i> -->
+                <img src="./assets/images/icons/key-2.svg" alt="">
+              </button>
               <!-- <button (click)="openModalDeleteRecord(item.id)" class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button> -->
             </td>
           </tr>
@@ -68,4 +74,9 @@
 <!--add categories-->
 <div class="modal fade" id="modalPositionCoach" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <app-modal-position [data]="data" (onClose)="closeModalpositions($event)"></app-modal-position>
+</div>
+
+<!--Content lock temporary availability-->
+<div *ngIf="lockTemporaryAvailability">
+  <app-lock-temporay-availability  [idStaff]="idSelected" (close)="closeModalLockAvailavility($event)"></app-lock-temporay-availability>
 </div>

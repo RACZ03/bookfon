@@ -23,6 +23,7 @@ import { ModalPositionComponent } from './modal-position/modal-position.componen
 import { ThemeModule } from 'src/app/@theme/theme.module';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LockTemporayAvailabilityComponent } from './all/lock-temporay-availability/lock-temporay-availability.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         AddStaffComponent,
         AddAvailabilityComponent,
         ModalPositionComponent,
+        LockTemporayAvailabilityComponent,
     ],
     imports: [
         CommonModule,

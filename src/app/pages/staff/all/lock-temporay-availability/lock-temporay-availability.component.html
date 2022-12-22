@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-xs-12"></div>
+    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        
+        <div class="card p-4">
+            <div class="card-head">
+                <button class="btn btn-sm btn-outline-primary" style="float:right" (click)="back()">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+                <h5>
+                    Lock temporary availability
+                </h5>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="temporaryAvailabilityForm" (submit)="onSubmit()">
+                    <div class="row">
+                        <!-- START DATE -->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="" style="font-size: 13px;">Start Date</label>
+                                <input class="form-control" type="date" name="startDate" formControlName="startDate" [min]="currentDate">
+                                <span *ngIf="validInput('startDate')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                        </div>
+                        <!-- END DATE -->
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="" style="font-size: 13px;">End Date</label>
+                                <input class="form-control" type="date" name="endDate" formControlName="endDate" [min]="startDateInput"
+                                        (change)="validateInputEnd()">
+                                <span *ngIf="validInput('endDate')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="align-items: center !important;">
+                        <!-- Start Time -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="display: flex;">
+                            <span class="text mt-4 ml-2" style="font-size: 13px;">Start</span>
+                            <div class="m-1" style="width:100px;">
+                                <label class="smal" for="inputHoraIni" style="font-size: 12px;">Hour: <span class="text-danger">*</span></label>
+                                <ng-select #HoraIniSelect [items]="dataHourInit" [selectOnTab]="true"
+                                    bindValue="value" [id]="'txtHourInit'" formControlName="hourInit"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                                </ng-select>
+                                <span *ngIf="validInput('hourInit')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                            <div class="m-1" style="width:100px;">
+                                <label class="small" for="inputminuteIni" style="font-size: 12px;">Minutes: <span class="text-danger">*</span></label>
+                                <ng-select #minuteIniSelect [items]="dataMinuteInit" [selectOnTab]="true" 
+                                    bindValue="value" [id]="'txtMinuteInit'" formControlName="minuteInit"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                                </ng-select>
+                                <span *ngIf="validInput('minuteInit')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                            <div class="m-1" style="width:100px;">
+                                <label class="small" for="inputampmini"><span class="text-danger"></span></label>
+                                <ng-select #durationSelect [items]="dataAmPmInit" [selectOnTab]="true" 
+                                    bindValue="value" [id]="'txtAmPmInit'" formControlName="amPmInit">
+                                </ng-select>
+                                <span *ngIf="validInput('amPmInit')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End Time -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12" style="display: flex;">
+                            <span class="text mt-4 ml-2" style="font-size: 13px;">End</span>
+                            <div class="m-1" style="width:100px;">
+                                <label class="smal" for="inputHorafin" style="font-size: 12px;">Hour: <span class="text-danger">*</span></label>
+                                <ng-select #HoraIniSelect [items]="dataHourfin" [selectOnTab]="true"
+                                    bindValue="value" [id]="'txtHourEnd'" formControlName="hourFinish"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                                </ng-select>
+                                <span *ngIf="validInput('hourFinish')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                            <div class="m-1" style="width:100px;">
+                                <label class="small" for="inputminuteIni" style="font-size: 12px;">Minutes: <span class="text-danger">*</span></label>
+                                <ng-select #minuteIniSelect [items]="dataMinutefin" [selectOnTab]="true"
+                                    bindValue="value" [id]="'txtMinuteEnd'" formControlName="minuteFinish"
+                                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                                </ng-select>
+                                <span *ngIf="validInput('minuteFinish')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                            <div class="m-1" style="width:100px;">
+                                <label class="small" for="inputampmini"><span class="text-danger"></span></label>
+                                <ng-select #durationSelect [items]="dataAmPmfin" [selectOnTab]="true"
+                                    bindValue="value" [id]="'txtAmPmEnd'" formControlName="amPmFinish"
+                                    (change)="validateHourEnd()">
+                                </ng-select>
+                                <span *ngIf="validInput('amPmFinish')" class="text-danger mt-2">
+                                    Required field
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="mt-3 mb-3">
+                    <div class="form-group">
+                        <label for="" style="font-size: 13px;">Reason</label>
+                        <input class="form-control" type="text" name="reason" formControlName="reason">
+                        <span *ngIf="validInput('reason')" class="text-danger mt-2">
+                            Required field
+                        </span>
+                    </div>
+                    <div class="form-group mt-2">
+                        <label for="" style="font-size: 13px;">Alert text</label>
+                        <input class="form-control" type="text" name="alertText" formControlName="alertText">
+                        <span *ngIf="validInput('alertText')" class="text-danger mt-2">
+                            Required field
+                        </span>
+                    </div>
+                    <div class="form-group mt-4">
+                        <button class="btn btn-primary ps-5 pe-5" [disabled]="temporaryAvailabilityForm.invalid">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

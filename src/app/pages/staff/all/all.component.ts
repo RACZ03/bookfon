@@ -22,6 +22,7 @@ export class AllComponent implements OnInit, OnDestroy {
   public deleteRecordConfirmModal: any;
   public idSelected: number = 0;
   public formModalPositionCoach: any;
+  public lockTemporaryAvailability: boolean = false;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -80,16 +81,18 @@ export class AllComponent implements OnInit, OnDestroy {
 
   async loadData() {
     this.staffService.getStaffByBusiness().then((response: any) => {
-      let { data } = response;
-      if ( data !== undefined ) {
-        this.data = data;
-      } else {
-        this.data = [];
+      if ( response !== undefined) {
+        let { data } = response;
+        if ( data !== undefined ) {
+          this.data = data;
+        } else {
+          this.data = [];
+        }
+        this.status = response?.status;
+        this.message = response?.message;
+        this.comment = response?.comment;
+        this.dtTrigger.next(this.dtOptions);
       }
-      this.status = response?.status;
-      this.message = response?.message;
-      this.comment = response?.comment;
-      this.dtTrigger.next(this.dtOptions);
     });
   }
 
@@ -113,6 +116,24 @@ export class AllComponent implements OnInit, OnDestroy {
     this.idSelected = id;
     this.position = i;
     this.confirmChangeStatusModal.show();
+  }
+
+  openModalLockAvailavility(id: number) {
+    this.idSelected = id;
+    this.lockTemporaryAvailability = true;
+  }
+
+  closeModalLockAvailavility(band: boolean) {
+    if (!band) {
+      this.lockTemporaryAvailability = false; 
+      return;
+    }
+
+    this.idSelected = 0;
+    if ( this.dtElement !== undefined ) {
+      this.renderer();
+    }
+    this.loadData();
   }
 
   ngOnDestroy(): void {
