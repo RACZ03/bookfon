@@ -31,11 +31,12 @@
               <label for="">{{ (item?.lastLogin !== null) ? (item.lastLogin | date: 'd/M/yyyy'): ''}}</label>
             </td>
             <td class="d-flex justify-content-center" style="min-height: 50px;">
-              <!-- <button (click)="openModalLockAvailavility(item.id)" class="btn btn-link">
+              <button (click)="openModalLockAvailavility(item.id)" class="btn btn-link">
                 <i class="bi bi-lock-fill"></i>
-              </button> -->
-              <button (click)="editStaff(item)" class="btn btn-link "><i
-                  class="bi bi-pencil-square"></i></button>
+              </button>
+              <button (click)="editStaff(item)" class="btn btn-link ">
+                <i class="bi bi-pencil-square"></i>
+              </button>
               <div class="form-check form-switch" style="padding-left: 3.2em !important;">
                 <input (click)="openModalChangeStatus(item.id, i)" 
                       class="form-check-input" style="margin-top: 20px;" 
@@ -74,9 +75,4 @@
 <!--add categories-->
 <div class="modal fade" id="modalPositionCoach" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <app-modal-position [data]="data" (onClose)="closeModalpositions($event)"></app-modal-position>
-</div>
-
-<!--Content lock temporary availability-->
-<div *ngIf="lockTemporaryAvailability">
-  <app-lock-temporay-availability  [idStaff]="idSelected" (close)="closeModalLockAvailavility($event)"></app-lock-temporay-availability>
 </div>

@@ -15,9 +15,18 @@ export class TemporaryAvailabilityService {
     return JSON.parse(business).code;
   }
 
-  findById(id: number): Promise<any> {
+  getAllByBusiness(): Promise<any> {
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `getAllLockTemporaryAvailability/${ code }`);
+  }
+
+  findListById(id: number): Promise<any> {
     let code = this.getCode();
     return this.connectionSvc.send('get', `lockTemporaryAvailabilityList/${ code }/byIdStaff/${ id }`);
+  }
+
+  findById(id: number): Promise<any> {
+    return this.connectionSvc.send('get', `getLockTemporaryAvailabilityById/${ id }`);
   }
 
   save(data: any, band: boolean = false): Promise<any> {
@@ -26,5 +35,9 @@ export class TemporaryAvailabilityService {
       return this.connectionSvc.send('post', `lockTemporaryAvailability/save`, data);
     else 
       return this.connectionSvc.send('put', `lockTemporaryAvailability/update/${ id }`, data);
+  }
+
+  delete(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `lockTemporaryAvailability/delete/${ id }`);
   }
 }

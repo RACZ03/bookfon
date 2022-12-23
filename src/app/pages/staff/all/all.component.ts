@@ -4,6 +4,7 @@ import { staffItem } from 'src/app/@core/Interfaces/Staff';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 declare var window: any;
 @Component({
   selector: 'app-all',
@@ -11,11 +12,11 @@ declare var window: any;
   styleUrls: ['./all.component.scss'],
 })
 export class AllComponent implements OnInit, OnDestroy {
+
   @ViewChild(DataTableDirective, { static: false })
   dtElement!: DataTableDirective;
 
   @Output() selectedStaff = new EventEmitter();
-  
 
   public formModalChangePass: any;
   public confirmChangeStatusModal: any;
@@ -34,7 +35,21 @@ export class AllComponent implements OnInit, OnDestroy {
   comment: string = '';
   data:any;
 
-  constructor(private staffService: StaffService, private toast: ToastrService) { }
+  constructor(private staffService: StaffService, private toast: ToastrService, private router: Router) { 
+    this.dtOptions = {
+      // pagingType: 'full_numbers',
+      pagingType: "simple_numbers",
+      pageLength: 5,
+      scrollX: true,
+      autoWidth: false,
+      destroy: true,
+      responsive: true,
+      dom: 'Bfrtip',
+      searching: true,
+      search: false,
+      info: false,
+    }
+  }
 
 
   ngOnInit(): void {
@@ -119,21 +134,7 @@ export class AllComponent implements OnInit, OnDestroy {
   }
 
   openModalLockAvailavility(id: number) {
-    this.idSelected = id;
-    this.lockTemporaryAvailability = true;
-  }
-
-  closeModalLockAvailavility(band: boolean) {
-    if (!band) {
-      this.lockTemporaryAvailability = false; 
-      return;
-    }
-
-    this.idSelected = 0;
-    if ( this.dtElement !== undefined ) {
-      this.renderer();
-    }
-    this.loadData();
+    this.router.navigate(['/pages/staff/lock-temporary-availability/', id]);
   }
 
   ngOnDestroy(): void {
