@@ -24,8 +24,8 @@
               <label for="">{{item?.phone? (item.phone | mask: '(000) 000-0000' ): '' }}</label>
             </td>
             <td class="align-middle">
-              <button *ngIf="item.lastLogin" class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-danger"></i></button>
-              <button *ngIf="!item.lastLogin"  class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-success"></i></button>
+              <button *ngIf="!item?.businessList?.[0]?.enabled" class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-danger"></i></button>
+              <button *ngIf="item?.businessList?.[0]?.enabled"  class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-success"></i></button>
             </td>
             <td class="align-middle">
               <label for="">{{ (item?.lastLogin !== null) ? (item.lastLogin | date: 'd/M/yyyy'): ''}}</label>
