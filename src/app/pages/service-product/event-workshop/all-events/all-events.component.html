@@ -23,33 +23,33 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Created</th>
-                    <th>Updated</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th class="align-middle text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of data; let i = index">
                     <td class="align-middle" style="display: flex;">
-                        <img src="{{item?.imagePrincipal}}" appBrokenImagen class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;">
+                        <!-- <img src="{{item?.imagePrincipal}}" appBrokenImagen class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;"> -->
                         <div class="ms-3">
                             <label for="" class="td-name">{{item?.name}}</label><br>
-                            <label for="" class="td-price">{{'$'+item?.cost+' USD'}}</label>
+                            <label for="" class="td-price">{{ item?.price | currency }}</label>
                         </div>
                     </td>
                     <td class="align-middle">
-                        <label for="">{{item?.duration}}</label>
+                        <label for="">{{item?.startDate}}</label>
                     </td>
                     <td class="align-middle">
-                        <label for="">{{item?.duration}}</label>
+                        <label for="">{{item?.endDate}}</label>
                     </td>
                     <td class="align-middle text-center">
                         <button class="btn btn-sm" (click)="editService(item.id)">
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
+                        <!-- <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
                             <i class="bi bi-x-circle-fill"></i>
-                        </button>
+                        </button> -->
                     </td>
                 </tr>
             </tbody>

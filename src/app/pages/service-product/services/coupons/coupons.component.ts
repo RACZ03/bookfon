@@ -42,7 +42,8 @@ export class CouponsComponent implements OnInit {
     this.data = [];
     let resp = await this.serviceSvr.getCuponsByBusiness();
       this.data = resp.data;
-    // console.log(this.data);
+    
+    if ( this.dtTrigger !== undefined )
       this.dtTrigger.next(this.dtOptions);
 
   }

@@ -1,0 +1,44 @@
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel" style="color: #848383;">{{title}}</h5>
+            <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <form (ngSubmit)="onSubmit()" [formGroup]="Categoryadd">
+              <input type="hidden" name="id" formControlName="id">
+              <div class="row">
+                 <div class="col-12">
+                    <div class="mb-3">
+                      <label class="small mb-1" for="inputName">Name: <span class="text-danger">*</span></label>
+                      <input class="form-control mb-2" id="inputtName" type="text" placeholder="Name Category"
+                          formControlName="name" [class.is-invalid]="validInput('name')" />
+                      <span *ngIf="validInput('name')" class="text-danger mt-2">
+                        Required field
+                      </span>
+                  </div>
+                  <div class="mb-3">
+                    <label class="small mb-1" for="inputdescription">Description:</label>
+                    <textarea class="form-control mb-2" id="inputdescription" type="text" placeholder="Description"s
+                        formControlName="description"> </textarea>
+                    <!-- <span *ngIf="validInput('description')" class="text-danger mt-2">
+                        Campo requerido.
+                    </span> -->
+                  </div>
+                </div>
+                <div class="col-12" style="text-align: center;" >
+                  <button  class="btn btn-sm btn-success me-2" type="button" (click)="addCategories()" *ngIf="butonFalse">Save and add more</button>
+                  <button class="btn btn-sm btn-primary" type="submit" [disabled]="Categoryadd.invalid">Save</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  </div>
+  
+  
+  
+  

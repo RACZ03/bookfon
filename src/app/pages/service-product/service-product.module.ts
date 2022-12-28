@@ -35,6 +35,8 @@ import { WalletCashbackComponent } from './services/wallet-cashback/wallet-cashb
 import { AddWalletCashbackComponent } from './services/wallet-cashback/add-wallet-cashback/add-wallet-cashback.component';
 import { AllEventsComponent } from './event-workshop/all-events/all-events.component';
 import { AddEventAndWorkshopComponent } from './event-workshop/add-event-and-workshop/add-event-and-workshop.component';
+import { CategoriesWorkshopComponent } from './event-workshop/categories-workshop/categories-workshop.component';
+import { AddCategoriesWorkshopComponent } from './event-workshop/add-categories-workshop/add-categories-workshop.component';
 
 
 @NgModule({
@@ -67,6 +69,8 @@ import { AddEventAndWorkshopComponent } from './event-workshop/add-event-and-wor
     AddWalletCashbackComponent,
     AllEventsComponent,
     AddEventAndWorkshopComponent,
+    CategoriesWorkshopComponent,
+    AddCategoriesWorkshopComponent,
   ],
   imports: [
     CommonModule,

@@ -59,9 +59,18 @@ export class AllEventsComponent implements OnInit {
 
   async loadData() {
     this.data = [];
-    // let resp = await this.eventAndWorkshopSvr.getAllEnventAndWor();
-      // this.data = resp.data;
-      // console.log(this.data);
+    let resp = await this.eventAndWorkshopSvr.getData();
+   
+    if ( resp != null || resp != undefined ) {
+      let  { status } = resp;
+      if ( status !== undefined && status == 200 ) {
+        this.data = resp.data;
+        console.log(this.data);
+      } else {
+        this.alertSvc.showAlert(3, '', 'No data found');
+      }
+    }
+    
     if ( this.dtTrigger !== undefined )
       this.dtTrigger.next(this.dtOptions);
 

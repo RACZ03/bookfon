@@ -10,8 +10,6 @@ export class EventWorkshopComponent implements OnInit {
   public scrollOptions: any[] = [
     { title: 'All Events & Workshops', active: true },
     { title: 'Categories', active: false },
-    { title: 'Sub-Categories', active: false },
-   { title: 'Tax rates', active: false },
   ];
   public optionSelected: number = 0;
 

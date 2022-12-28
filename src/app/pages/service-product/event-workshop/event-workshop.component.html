@@ -17,19 +17,12 @@
     <div class="content-2">
         <div [ngSwitch]="optionSelected">
             <div *ngSwitchCase="0">
-              <app-all-events></app-all-events>
+                <app-all-events></app-all-events>
             </div>
-            <!-- <div *ngSwitchCase="1">
+            <div *ngSwitchCase="1">
+                <app-categories-workshop></app-categories-workshop>
             </div>
-            <div *ngSwitchCase="2">
-            </div> -->
-            <!--
-            <div *ngSwitchCase="3">
-                <app-clasifications></app-clasifications>
-            </div>
-            <div *ngSwitchCase="4">
-              <app-tax-rates></app-tax-rates>
-            </div>-->
+            
         </div>
     </div>
 </div>
