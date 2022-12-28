@@ -89,7 +89,9 @@ export class LockTemporayAvailabilityComponent implements OnInit {
   closeForm() {
     this.divNew = false;
     this.temporaryAvailabilityForm.reset();
-    this.getFindById();
+
+    // reload data
+    window.location.reload();
   }
 
   async getFindById() {
