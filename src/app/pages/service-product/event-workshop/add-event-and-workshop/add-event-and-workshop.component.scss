@@ -1,6 +1,10 @@
 .container{
 
-    margin-top: 10px;
+    label {
+        font-size: 13px !important;
+    }
+
+    margin-top: 15px;
     color: #7A7A7A;
     h5{
         font-weight: 800;
@@ -14,8 +18,7 @@
     }
 
     .row{
-        margin-left: 20px;
-        margin-right: 20px;
+        margin: 20px;
         .col-md-6{
             .form-group{
                 label{

@@ -1,0 +1,58 @@
+<!-- Modal Delete -->
+<div class="modal fade" id="modalDeleteEventAndWorkshop" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- <app-modal-delete (delete)="onDelete($event)"></app-modal-delete> -->
+ </div>
+ <!-- END-->
+
+<div class="container">
+    <div class="mt-2" style="display: flex; gap: 20px;">
+        <div class="container-seach">
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
+            </form>
+        </div>
+        <button class="btn btn-add" routerLink="/pages/services/add-event-workshop">
+            <i class="bi bi-plus"></i>
+            Add new Event & Workshop
+        </button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table" style="width:100% ;"
+        datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th class="align-middle text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data; let i = index">
+                    <td class="align-middle" style="display: flex;">
+                        <!-- <img src="{{item?.imagePrincipal}}" appBrokenImagen class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;"> -->
+                        <div class="ms-3">
+                            <label for="" class="td-name">{{item?.name}}</label><br>
+                            <label for="" class="td-price">{{ item?.price | currency }}</label>
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                        <label for="">{{item?.startDate}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <label for="">{{item?.endDate}}</label>
+                    </td>
+                    <td class="align-middle text-center">
+                        <button class="btn btn-sm" (click)="editService(item.id)">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <!-- <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

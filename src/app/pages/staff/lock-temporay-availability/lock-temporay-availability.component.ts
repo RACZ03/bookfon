@@ -276,7 +276,7 @@ export class LockTemporayAvailabilityComponent implements OnInit {
       minuteFinish: ['', Validators.required],
       amPmFinish: ['', Validators.required],
       reason: ['', Validators.required],
-      alertText: ['', Validators.required],
+      alertText: [''],
     });
 
   }

@@ -1,0 +1,341 @@
+<!--add categories-->
+<div class="modal fade" id="modalNewCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <!-- <app-add-categories [dataupdateCategories]="module" (onClose)="closeModalCategories($event)"></app-add-categories> -->
+</div>
+  
+  <!--add  Sub categories categories-->
+<!-- <div class="modal fade" id="modalNewSubCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-add-subcategories  [dataupdateSubCategories]="module" (onClose)="closeModalSubCategories($event)"></app-add-subcategories>
+</div> -->
+  <div class="container mb-5">
+     <form (ngSubmit)="onSubmit()" [formGroup]="eventForm">
+      <div class="border-bottom border-3">
+        <button class="btn btn-sm btn-add" routerLink="/pages/services" style="float: right;">
+          <i class="bi bi-arrow-bar-left"></i>
+          Return list
+        </button>
+        <span>Events & Workshop</span>
+      </div>
+      <div class="row">
+        <!-- Categories -->
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <label class="small mb-1" for="inputibrachoffices">Category</label>
+          <div class="mb-2" style="display: flex;">
+            <ng-select #CategorySelect [items]="categoryData" [selectOnTab]="true" [multiple]="true" [maxSelectedItems]="1"
+                bindValue="id" bindLabel="name" placeholder="select a category" formControlName="categories" style="width: 45%;">
+            </ng-select>
+            <span *ngIf="validInput('categories')" class="text-danger mt-2">
+                This field is required.
+            </span>
+            <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
+            font-weight: 600; font-size: 12px;" (click)="showModalCategoriesAdd(true)">+ Add /Create more categories</button>
+          </div>
+        </div>
+        <!-- Event & workshop name -->
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+          <label class="small mb-1" for="inputName">Event / Workshop name</label>
+          <input class="form-control mb-2" id="inputtName" type="text" placeholder="Name of the event or workshop" 
+                      formControlName="name" [class.is-invalid]="validInput('name')"/>
+          <span *ngIf="validInput('name')" class="text-danger mt-2">
+            Campo requerido.
+          </span>
+        </div>
+      </div>
+      <div class="row m-0">
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12">
+          <!-- Sales -->
+          <div class="row m-0">
+            <!-- Sales channels -->
+            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
+              <label class="small mb-1" for="inputName">Sales Channels</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Web App</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">iOS & Android MobileApp</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Point of Sale</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">bookfon marketplace</label>
+              </div>
+            </div>
+            <!-- Staff -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <label class="small mb-1" for="inputName">Staff</label><br>
+              <ng-select #staffSelect [items]="staffData" [selectOnTab]="true" [multiple]="true" [maxSelectedItems]="1"
+                bindValue="id" bindLabel="name" placeholder="select a staff member" formControlName="staff">
+              </ng-select>
+              <span *ngIf="validInput('categories')" class="text-danger mt-2">
+                  This field is required.
+              </span>
+            </div>
+            <!-- Mask staff -->
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <label class="small mb-1" for="inputName">Mask Staff</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">No</label>
+              </div>
+            </div>
+          </div>
+          <!-- Sessions -->
+          <div class="row m-0 mt-3">
+            <div class="col-4">
+              <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                <button type="button" [ngClass]="btnSession ? 'btn btn-primary me-4' : 'btn btn-outline-primary me-4'" style="width: 150px;" (click)="btnSession = !btnSession"> 
+                  Sessions
+                </button>
+                <button type="button" [ngClass]="!btnSession ? 'btn btn-primary me-4' : 'btn btn-outline-primary me-4'" style="width: 150px;" (click)="btnSession = !btnSession"> 
+                  Consecutive
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Prices -->
+          <div class="row m-0 mt-3">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="" style="font-size: 13px;">Total capacity</label>
+                <input type="text" name="" id="" class="form-control" wailistCapacityplaceholder="" aria-describedby="helpId" formControlName="totalCapacity">
+                <span *ngIf="validInput('totalCapacity')" class="text-danger mt-2">
+                  Campo requerido.
+                </span>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="" style="font-size: 13px;">How many can wailist</label>
+                <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" formControlName="wailistCapacity">
+                <span *ngIf="validInput('wailistCapacity')" class="text-danger mt-2">
+                  Campo requerido.
+                </span>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <label for="exampleInputEmail1" class="small" style="font-size: 13px;">Price</label><br>
+              <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="price"
+                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                    <div class="input-group-append">
+                      <select class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9; height: 40px;">
+                        <option *ngFor="let item of currencies" [value]="item?.id"> {{ item?.name }}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12" *ngIf="btnSession">
+              <label for="exampleInputEmail1" class="small" style="font-size: 13px;">Package Price(book all sessions)</label><br>
+              <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="packagePrice"
+                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                    <div class="input-group-append">
+                      <select class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9; height: 40px;">
+                        <option *ngFor="let item of currencies" [value]="item?.id"> {{ item?.name }}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <!-- IF BTN SESSION IS FALSE, SHOW CONFIG DATE -->
+          <div class="row m-0 mt-2" *ngIf="!btnSession">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="">Start Dale</label>
+                <input type="date" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="">End Dale</label>
+                <input type="date" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="">Start Time</label>
+                <input type="time" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="">End Time</label>
+                <input type="time" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+              </div>
+            </div>
+
+            <!-- Days -->
+            <label for="" class="mt-2">Days</label><br>
+            <div class="col-12" style="display: flex;">
+              <div *ngFor="let item of daysList; let i = index">
+                <button type="button" [ngClass]="item.active ? ' btn btn-sm btn-outline-primary me-2' : 'btn btn-sm btn-outline-secondary me-2'" (click)="activeOptionDays(i)">
+                  {{ item.day }}
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Cancelations -->
+          <div class="row m-0 mt-3">
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <label class="small mb-1" for="inputName">Accept Canellations</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">No</label>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="" style="font-size: 13px;">Hour before</label>
+                <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" formControlName="hourBefore">
+                <span *ngIf="validInput('hourBefore')" class="text-danger mt-2">
+                  Campo requerido.
+                </span>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <label class="small mb-1" for="inputName">Cancellation charge</label><br>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                <label class="form-check-label" for="inlineCheckbox1">No</label>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+              <label for="exampleInputEmail1" class="small" style="font-size: 13px;">Cancellation fee</label><br>
+              <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="cancellationFee"
+                    onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                    <div class="input-group-append">
+                      <select class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9; height: 40px;">
+                        <option *ngFor="let item of currencies" [value]="item?.id"> {{ item?.name }}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <!-- IF BTN SESSION IS ACTIVE  -->
+          <div *ngIf="btnSession">
+            <div *ngFor="let item of sessionsList; let i = index" class="pt-2" style="border-top: 1px solid #dad7d7;">
+              <span style="color: #393939;">
+                Session {{ i+1 }} 
+              </span>
+              <span style="font-size: 13px;">(Only happens ones)</span>
+              <button class="btn" style="color: #0d6efd;" (click)="addMoreSessions()">
+                <i class="bi bi-plus"></i>
+                Add more sessions
+              </button>
+              <button class="btn" style="color: red; float: right;" *ngIf="i > 0" (click)="removeItemSessions(i)">
+                <i class="bi bi-x-circle"></i>
+              </button>
+              <div class="row m-0 mt-2">
+                <div class="form-group mb-2">
+                  <label for="" style="font-size: 14px;">Session name</label>
+                  <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                </div>
+                <!-- Sessions Sales -->
+                <div class="row m-0">
+                  <!-- Sales channels -->
+                  <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <label class="small mb-1" for="inputName">Sales Channels</label><br>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">Web App</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">iOS & Android MobileApp</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">Point of Sale</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">bookfon marketplace</label>
+                    </div>
+                  </div>
+                  <!-- Staff -->
+                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <label class="small mb-1" for="inputName">Staff</label><br>
+                    <ng-select #staffSelect [items]="staffData" [selectOnTab]="true" [multiple]="true" [maxSelectedItems]="1"
+                      bindValue="id" bindLabel="name" placeholder="select a staff member">
+                    </ng-select>
+                  </div>
+                  <!-- Mask staff -->
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <label class="small mb-1" for="inputName">Mask Staff</label><br>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                      <label class="form-check-label" for="inlineCheckbox1">No</label>
+                    </div>
+                  </div>
+                </div>
+                <!-- Sessions prices -->
+                <div class="row m-0  mt-2">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <label for="exampleInputEmail1" class="small" style="font-size: 13px;">Season price</label><br>
+                    <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;"
+                          onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
+                          <div class="input-group-append">
+                            <select class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9; height: 40px;">
+                              <option *ngFor="let item of currencies" [value]="item?.id"> {{ item?.name }}</option>
+                            </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="">Date</label>
+                      <input type="date" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="">Start Time</label>
+                      <input type="time" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                      <label for="">End Time</label>
+                      <input type="time" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <button type="buttons" class="btn btn-primary me-4" style="width: 180px; background: #3DD598; border: #3DD598;">
+          Save and add more
+        </button>
+        <button type="submit" class="btn btn-primary" style="width: 180px;">Save Service</button>
+      </div>
+    </form>
+</div>
+    
