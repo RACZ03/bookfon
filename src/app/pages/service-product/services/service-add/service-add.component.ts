@@ -27,6 +27,7 @@ export class ServiceAddComponent implements OnInit {
   public imagesList: any[] = [{ url: '' }];
   public currencies: any[] = [];
   public step: boolean = false;
+
   // hasta aqui
 
   public title = 'New Service';
@@ -125,7 +126,7 @@ export class ServiceAddComponent implements OnInit {
 
   clickedFile() {
     // click input file
-    let file = document.getElementById('fileService') as HTMLInputElement;
+    let file = document.getElementById('fileEventWorkshop') as HTMLInputElement;
     file.click();
   }
 
