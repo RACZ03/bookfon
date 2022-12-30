@@ -23,33 +23,43 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th>Category</th>
+                    <th>Type</th>
                     <th class="align-middle text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let item of data; let i = index">
                     <td class="align-middle" style="display: flex;">
-                        <!-- <img src="{{item?.imagePrincipal}}" appBrokenImagen class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;"> -->
+                        <img src="{{item?.workshopDetails?.urlImage}}" appBrokenImagen class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;">
                         <div class="ms-3">
-                            <label for="" class="td-name">{{item?.name}}</label><br>
-                            <label for="" class="td-price">{{ item?.price | currency }}</label>
+                            <label for="" class="td-name">{{item?.workshopDetails?.name}}</label><br>
+                            <label for="" class="td-price">
+                                {{ (item?.workshopDetails?.type == 1 || item?.workshopDetails?.type == null) ? item?.workshopDetails?.pricePackage : item?.workshopDetails?.price | currency }}
+                            </label>
                         </div>
                     </td>
                     <td class="align-middle">
-                        <label for="">{{item?.startDate}}</label>
+                        <label for="">{{item?.workshopDetails?.startDate}}</label>
                     </td>
                     <td class="align-middle">
-                        <label for="">{{item?.endDate}}</label>
+                        <label for="">{{item?.workshopDetails?.endDate}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <label for="">{{item?.workshopDetails?.category?.name}}</label>
+                    </td>
+                    <td class="align-middle">
+                        <label for="">{{ (item?.workshopDetails?.type == 1 || item?.workshopDetails?.type == null) ? 'Sessions' : 'Consecutive' }}</label>
                     </td>
                     <td class="align-middle text-center">
-                        <button class="btn btn-sm" (click)="editService(item.id)">
+                        <button class="btn btn-sm" (click)="editService(item?.workshopDetails?.id)">
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <!-- <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
+                        <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
                             <i class="bi bi-x-circle-fill"></i>
-                        </button> -->
+                        </button>
                     </td>
                 </tr>
             </tbody>
