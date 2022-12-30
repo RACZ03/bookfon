@@ -24,7 +24,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
   public sessionListDeleted: any[] = [];
   public formModalCategorie: any;
   eventForm!: FormGroup;
-  public urlImage: string = 'https://firebasestorage.googleapis.com/v0/b/bpb-training.appspot.com/o/workshops%2Fheroes.jpg-1672286257914?alt=media&token=e8eb097d-3544-4a15-bd4a-c6cb720105ff';
+  public urlImage: string = '';
 
   public daysList: any[] = [];
 
@@ -503,7 +503,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
       idCategory: ['', [ Validators.required ]],
       idStaff: ['', [ Validators.required ]],
       maskStaff: [''],
-      urlImage: ['https://firebasestorage.googleapis.com/v0/b/bpb-training.appspot.com/o/workshops%2Fheroes.jpg-1672286257914?alt=media&token=e8eb097d-3544-4a15-bd4a-c6cb720105ff', [ Validators.required ]],
+      urlImage: [''],
       idCurrency: ['', [ Validators.required ]],
       type: [ 1, [ Validators.required ]],
       name: ['', [ Validators.required ]],
