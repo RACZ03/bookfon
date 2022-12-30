@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { CatalogService } from 'src/app/@core/services/catalogs.service';
 import { EventWorkshopService } from 'src/app/@core/services/event-workshop.service';
@@ -21,6 +21,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
   public currencies: any[] = [];
   public categoryData: any[] = [];
   public staffData: any[] = [];
+  public sessionListDeleted: any[] = [];
   public formModalCategorie: any;
   eventForm!: FormGroup;
   public urlImage: string = 'https://firebasestorage.googleapis.com/v0/b/bpb-training.appspot.com/o/workshops%2Fheroes.jpg-1672286257914?alt=media&token=e8eb097d-3544-4a15-bd4a-c6cb720105ff';
@@ -29,6 +30,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
 
   public btnSession: boolean = true;
   public businessSelected: any = {};
+  public isEdit: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +38,8 @@ export class AddEventAndWorkshopComponent implements OnInit {
     private eventWorkshopSvc: EventWorkshopService,
     private staffSvc: StaffService,
     private alertSvc: AlertService,
-    private router: Router
+    private router: Router,
+    private ActivatedRoute: ActivatedRoute
   ) { 
 
     this.businessSelected = JSON.parse(localStorage.getItem('businessSelected') || '{}');
@@ -90,6 +93,19 @@ export class AddEventAndWorkshopComponent implements OnInit {
     this.getCurrencies();
     this.loadDataCategories();
     this.loadStaffList();
+
+    // get id from url
+    this.ActivatedRoute.params.subscribe((params) => {
+      let { id } = params;
+      if (id !== undefined) {
+        this.module = true;
+        // this.title = 'Edit event';
+        this.getEventById(id);
+      } else {
+        this.module = false;
+        // this.title = 'Add event';
+      }
+    });
   }
 
   clickedFile() {
@@ -117,7 +133,6 @@ export class AddEventAndWorkshopComponent implements OnInit {
     if (resp != undefined || resp != null) {
       let { data } = resp;
       if (data !== undefined) {
-        // console.log(data);
         this.currencies = data || [];
       }
     }
@@ -163,8 +178,179 @@ export class AddEventAndWorkshopComponent implements OnInit {
     this.staffData.unshift({ fullName: 'Staff member', id: null });
   }
 
+  async getEventById(id: number) {
+    let resp = await this.eventWorkshopSvc.getEventById(id);
+    if (resp != undefined || resp != null) {
+      if (resp.status === 404) {
+        this.router.navigate(['/pages/services/add-event-workshop']);
+      } else {
+        let { data } = resp;
+        if (data !== undefined) {
+          let { workshopDetails } = data;
+          if (workshopDetails == null || workshopDetails == undefined) {
+            this.router.navigate(['/pages/services/add-event-workshop']);
+          }
+          if ( workshopDetails.type == null ) {
+            this.btnSession = true;
+          } else {
+            this.btnSession = ( workshopDetails.type == 1 ) ? true : false;
+          }
+          this.isEdit = true;
+          if ( this.btnSession ) {
+            this.loadFormSession(workshopDetails);
+          } else {
+            this.loadFormConsecutive(workshopDetails);
+          }
+        }
+      }
+    } else {
+      this.router.navigate(['/pages/services/add-event-workshop']);
+    }
+  }
+
+  loadFormSession(data: any) {
+    // load data form sessions
+    this.eventForm.get('id')?.setValue(data?.id);
+    this.eventForm.get('idBusiness')?.setValue(data?.business?.id);
+    this.eventForm.get('idCategory')?.setValue(data?.category?.id);
+
+    this.eventForm.get('idCurrency')?.setValue(data?.currency?.id);
+    this.eventForm.get('name')?.setValue(data?.name);
+    this.eventForm.get('description')?.setValue(data?.description);
+    this.eventForm.get('urlImage')?.setValue(data?.urlImage);
+    this.urlImage = data?.urlImage;
+    this.eventForm.get('type')?.setValue(data?.type);  
+    this.eventForm.get('totalCapacity')?.setValue(data?.totalCapacity);
+    this.eventForm.get('manyCanWaitList')?.setValue(data?.manyCanWaitList);
+    this.eventForm.get('pricePackage')?.setValue(data?.pricePackage);
+    let { cancellationPolicy } = data;
+
+    if (cancellationPolicy != null || cancellationPolicy != undefined) {
+      let { hoursBefore, cancellationFee, cancellationAccept, cancellationCharge } = cancellationPolicy || {};
+      this.eventForm.get('cancellationPolicy.hoursBefore')?.setValue(hoursBefore);
+      this.eventForm.get('cancellationPolicy.cancellationFee')?.setValue(cancellationFee);
+      this.eventForm.get('cancellationPolicy.cancellationAccept')?.setValue((cancellationAccept == "true") ? true : false);
+      this.eventForm.get('cancellationPolicy.cancellationCharge')?.setValue((cancellationCharge == "true") ? true : false);
+      this.eventForm.get('cancellationPolicy.idCurrency')?.setValue(data.currency.id);
+      // checked radio cancellation Accept
+      let radioAccept, radioCharge;
+      if ( cancellationAccept == true || cancellationAccept == "true" ) {
+        radioAccept = document.getElementById('radioCancellationAcceptTrue'); 
+      } else {
+        radioAccept = document.getElementById('radioCancellationAcceptFalse');
+      }
+      if ( cancellationCharge == true || cancellationCharge == "true" ) {
+        radioCharge = document.getElementById('radioCancellationChargeTrue');
+      } else {
+        radioCharge = document.getElementById('radioCancellationChargeFalse');
+      }
+      radioCharge?.click();
+      radioAccept?.click();
+    }
+
+    let { workshopSession } = data;
+    if ( workshopSession != null || workshopSession != undefined ) {
+      // reset form array sessions
+      this.sessions.clear();
+      for (let i = 0; i < workshopSession.length; i++) {
+        let obj = {
+          id: workshopSession[i]?.id,
+          sessionName: workshopSession[i]?.name,
+          // salesChannels: ['', [ Validators.required ]],
+          idCurrency: data.currency.id,
+          idStaff: workshopSession[i]?.idStaff,
+          maskStaff: workshopSession[i]?.maskStaff || false,
+          sessionPrice: workshopSession[i]?.sessionPrice,
+          date: workshopSession[i]?.date,
+          startTime: workshopSession[i]?.startTime,
+          endTime:  workshopSession[i]?.endTime,
+          description: workshopSession[i]?.description,
+        };
+        // set value to form array sessions into eventForm
+        this.sessions.push(this.fb.group(obj));
+
+        // check radio button mask staff
+        setTimeout(() => {
+          let radio;
+          if ( obj.maskStaff ) {
+            radio = document.getElementById('maskStaffSessionTrue_' + i);
+          } else {
+            radio = document.getElementById('maskStaffSessionFalse_' + i);
+          }
+          radio?.click();
+        }, 200);
+        
+      }
+      
+    }
+
+  }
+
+  loadFormConsecutive(data: any) {
+    
+    this.eventForm.get('id')?.setValue(data?.id);
+    this.eventForm.get('idBusiness')?.setValue(data?.business?.id);
+    this.eventForm.get('idCategory')?.setValue(data?.category?.id);
+
+    this.eventForm.get('idCurrency')?.setValue(data?.currency?.id);
+    this.eventForm.get('name')?.setValue(data?.name);
+    this.eventForm.get('description')?.setValue(data?.description);
+    this.eventForm.get('urlImage')?.setValue(data?.urlImage);
+    this.urlImage = data?.urlImage;
+    this.eventForm.get('type')?.setValue(data?.type);  
+    this.eventForm.get('totalCapacity')?.setValue(data?.totalCapacity);
+    this.eventForm.get('manyCanWaitList')?.setValue(data?.manyCanWaitList);
+    this.eventForm.get('startDate')?.setValue(data?.startDate);
+    this.eventForm.get('endDate')?.setValue(data?.endDate);
+    this.eventForm.get('startTime')?.setValue(data?.startTime);
+    this.eventForm.get('endTime')?.setValue(data?.endTime);
+    this.eventForm.get('price')?.setValue(data?.price);
+    let { cancellationPolicy } = data;
+
+    if (cancellationPolicy != null || cancellationPolicy != undefined) {
+      let { hoursBefore, cancellationFee, cancellationAccept, cancellationCharge } = cancellationPolicy || {};
+      this.eventForm.get('cancellationPolicy.hoursBefore')?.setValue(hoursBefore);
+      this.eventForm.get('cancellationPolicy.cancellationFee')?.setValue(cancellationFee);
+      this.eventForm.get('cancellationPolicy.cancellationAccept')?.setValue((cancellationAccept == "true") ? true : false);
+      this.eventForm.get('cancellationPolicy.cancellationCharge')?.setValue((cancellationCharge == "true") ? true : false);
+      this.eventForm.get('cancellationPolicy.idCurrency')?.setValue(data.currency.id);
+      // checked radio cancellation Accept
+      let radioAccept, radioCharge;
+      if ( cancellationAccept == true || cancellationAccept == "true" ) {
+        radioAccept = document.getElementById('radioCancellationAcceptTrue'); 
+      } else {
+        radioAccept = document.getElementById('radioCancellationAcceptFalse');
+      }
+      if ( cancellationCharge == true || cancellationCharge == "true" ) {
+        radioCharge = document.getElementById('radioCancellationChargeTrue');
+      } else {
+        radioCharge = document.getElementById('radioCancellationChargeFalse');
+      }
+      radioCharge?.click();
+      radioAccept?.click();
+    }
+
+    let { schedule } = data;
+    if ( schedule != null || schedule != undefined ) {
+      // reset form array schedule
+      this.schedule.clear();
+      for (let i = 0; i < this.daysList.length; i++) {
+        let find = schedule.find( (e: any) => e.day == this.daysList[i].day );
+        if ( find != undefined ) {
+          this.daysList[i].active = true;
+          // set value to form array sessions into eventForm
+          let obj = {
+            day: this.daysList[i].day,
+            startTime: find?.startTime,
+            endTime: find?.endTime,
+          }
+          this.schedule.push(this.fb.group(obj));
+        }
+      }
+    }
+  }
+
   verifyAmount() {
-    // console.log('verifyAmount');
     // verify how many can wailist no more than total capacity
     let totalCapacity = this.eventForm.get('totalCapacity')?.value;
     let waitlist = this.eventForm.get('manyCanWaitList')?.value;
@@ -206,11 +392,22 @@ export class AddEventAndWorkshopComponent implements OnInit {
 
   removeItemSessions(index: number) { 
     // remove session form array
+    this.sessionListDeleted.push( { ...this.sessions.value[index], pasive: true } );
     this.sessions.removeAt(index);
   }
 
   activeOptionDays(i: any) {
     this.daysList[i].active = !this.daysList[i].active;
+
+    // valida if desactive days
+    if ( this.daysList[i].active == false ) {
+      // delete elements from array schedule
+      this.schedule.value.forEach( (e: any, index: number) => {
+        if ( e.day == this.daysList[i].day ) {
+          this.schedule.removeAt(index);
+        }
+      });
+    }
   }
 
   async onSubmit() {
@@ -225,7 +422,13 @@ export class AddEventAndWorkshopComponent implements OnInit {
     let resp;
     // IF TYPE IS 1: save session
     if (type === 1) {
-      resp = await this.eventWorkshopSvc.saveSession(this.eventForm.value);
+      // validate session delete list is not empty
+      if ( this.sessionListDeleted.length > 0 ) {
+        // add session deleted to form session list
+        this.sessions.value.push(...this.sessionListDeleted);
+      }
+
+      resp = await this.eventWorkshopSvc.saveSession(this.eventForm.value, this.isEdit);
     } else {
       // set value schedule
       let days = this.daysList.filter((item: any) => item.active === true) || [];
@@ -248,21 +451,20 @@ export class AddEventAndWorkshopComponent implements OnInit {
         this.eventForm.get('schedule')?.value.push(day);
       }
 
-      resp = await this.eventWorkshopSvc.saveConsecutive(this.eventForm.value);
+      resp = await this.eventWorkshopSvc.saveConsecutive(this.eventForm.value, this.isEdit);
     }
 
     if (resp != undefined || resp != null) {
       if (resp.status === 404) {
         this.alertSvc.showAlert(4, '', 'Error');
       } else {
-        this.alertSvc.showAlert(1, 'Success', 'Workshop saved successfully');
+        this.alertSvc.showAlert(1, 'Success', resp?.comment);
         this.router.navigate(['/pages/services']);
       }
     } else {
       this.alertSvc.showAlert(3, '', 'Registration not done');
     }
 
-    // console.log(resp);
   }
 
   changeType(type: number) {
@@ -274,6 +476,10 @@ export class AddEventAndWorkshopComponent implements OnInit {
 
   get sessions() {
     return this.eventForm.get('sessions') as FormArray;
+  }
+
+  get schedule() {
+    return this.eventForm.get('schedule') as FormArray;
   }
 
   validInputSessionForm(name: string, index: number) {
@@ -301,6 +507,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
       idCurrency: ['', [ Validators.required ]],
       type: [ 1, [ Validators.required ]],
       name: ['', [ Validators.required ]],
+      description: [''],
       totalCapacity: ['', [ Validators.required ]],
       manyCanWaitList: ['', [ Validators.required ]],
       price: [''],
@@ -327,6 +534,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
 
   initSessionsForm(): FormGroup {
     return this.fb.group({
+      id: [''],
       sessionName: ['', [ Validators.required ]],
       // salesChannels: ['', [ Validators.required ]],
       idCurrency: [''],

@@ -17,6 +17,9 @@ const routes: Routes = [
   },
   {
     path: 'add-event-workshop', component : AddEventAndWorkshopComponent
+  },
+  {
+    path: 'edit-event-workshop/:id', component : AddEventAndWorkshopComponent
   }
 ];
 
