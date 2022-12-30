@@ -22,7 +22,7 @@
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-xs-12">
           <label class="small mb-1" for="inputibrachoffices">Category</label>
           <div class="mb-2" style="display: flex;">
-            <ng-select #CategorySelect [items]="categoryData" [selectOnTab]="true" [multiple]="true" [maxSelectedItems]="1"
+            <ng-select id="ngSelectCategory" [items]="categoryData" [selectOnTab]="true" [multiple]="false"
                 bindValue="id" bindLabel="name" placeholder="select a category" formControlName="idCategory" style="width: 45%;">
             </ng-select>
             <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
@@ -49,13 +49,18 @@
           </div>
         </div>
         <!-- Event & workshop name -->
-        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-xs-12">
-          <label class="small mb-1" for="inputName">Event / Workshop name</label>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <label class="small mb-2" for="inputName">Event / Workshop name</label>
           <input class="form-control " id="inputtName" type="text" placeholder="Name of the event or workshop" 
                       formControlName="name" [class.is-invalid]="validInput('name')"/>
           <span *ngIf="validInput('name')" class="text-danger mt-2" style="font-size: 12px;">
             Required field.
           </span>
+        </div>
+        <!-- Description -->
+        <div class="form-group mt-2">
+          <label for="" style="font-size: 14px;">Description</label>
+          <textarea class="form-control" name="" id="" cols="30" rows="3" formControlName="description"></textarea>
         </div>
       </div>
       <div class="row m-0">
@@ -96,11 +101,11 @@
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
               <label class="small mb-1" for="inputName">Mask Staff</label><br>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="true" formControlName="maskStaff">
+                <input class="form-check-input" type="radio" id="maskStaffConsecutive" value="true" formControlName="maskStaff">
                 <label class="form-check-label" for="inlineCheckbox1">Yes</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckbox1" value="false" formControlName="maskStaff">
+                <input class="form-check-input" type="radio" id="maskStaffConsecutive" value="false" formControlName="maskStaff">
                 <label class="form-check-label" for="inlineCheckbox1">No</label>
               </div>
             </div>
@@ -206,11 +211,11 @@
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
               <label class="small mb-1" for="inputName">Accept Cancellations</label><br>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckboxAcept" value="true" formControlName="cancellationAccept">
+                <input class="form-check-input" type="radio" id="radioCancellationAcceptTrue" value="true" formControlName="cancellationAccept">
                 <label class="form-check-label" for="inlineCheckbox1">Yes</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckboxAcept" value="false" formControlName="cancellationAccept">
+                <input class="form-check-input" type="radio" id="radioCancellationAcceptFalse" value="false" formControlName="cancellationAccept">
                 <label class="form-check-label" for="inlineCheckbox1">No</label>
               </div>
             </div>
@@ -227,11 +232,11 @@
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
               <label class="small mb-1" for="inputName">Cancellation charge</label><br>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckboxCancellationCharge" value="true" formControlName="cancellationCharge">
+                <input class="form-check-input" type="radio" id="radioCancellationChargeTrue" value="true" formControlName="cancellationCharge">
                 <label class="form-check-label" for="inlineCheckbox1">Yes</label>
               </div>
               <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" id="inlineCheckboxCancellationCharge" value="false" formControlName="cancellationCharge">
+                <input class="form-check-input" type="radio" id="radioCancellationChargeFalse" value="false" formControlName="cancellationCharge">
                 <label class="form-check-label" for="inlineCheckbox1">No</label>
               </div>
             </div>
@@ -313,11 +318,11 @@
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
                       <label class="small mb-1" for="inputName">Mask Staff</label><br>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineCheckbox1" value="true" formControlName="maskStaff">
+                        <input class="form-check-input" type="radio" [id]="'maskStaffSessionTrue_' + i" value="true" formControlName="maskStaff">
                         <label class="form-check-label" for="inlineCheckbox1">Yes</label>
                       </div>
                       <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="inlineCheckbox1" value="false" formControlName="maskStaff">
+                        <input class="form-check-input" type="radio" [id]="'maskStaffSessionFalse_' + i" value="false" formControlName="maskStaff">
                         <label class="form-check-label" for="inlineCheckbox1">No</label>
                       </div>
                     </div>

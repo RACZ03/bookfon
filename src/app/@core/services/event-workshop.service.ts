@@ -17,7 +17,9 @@ export class EventWorkshopService {
     private connectionSvc: ConnectionService,
     private router: Router,
     private storage: AngularFireStorage
-  ) { }
+  ) { 
+    console.log('EventWorkshopService');
+  }
 
   private getCode(): string {
     let business = localStorage.getItem('businessSelected') || '';
@@ -30,11 +32,14 @@ export class EventWorkshopService {
   }
 
   getData(): Promise<any> {
-    return this.connectionSvc.send('get', `v1/workshops/consecutive/current/${ this.getIdBusiness() }`);
+    return this.connectionSvc.send('get', `v1/workshops/allByCodeBusiness/${ this.getCode() }`);
   }
 
+  getEventById(id: number): Promise<any> {
+    return this.connectionSvc.send('get', `v1/workshops/byId/${id}`);
+  }
 
-  saveConsecutive(consecutive: any): Promise<any> {
+  saveConsecutive(consecutive: any, isEdit: boolean = false): Promise<any> {
     let id = consecutive.id;
 
 
@@ -45,13 +50,13 @@ export class EventWorkshopService {
       cancellationFee: parseFloat((consecutive.cancellationPolicy.cancellationFee == undefined) ? 0 : consecutive.cancellationPolicy.cancellationFee),
     }
     let schedule = consecutive.schedule;
-    // remove first elements 
-    schedule.shift();
+    // validated if the first elements day is empty remote
+    if ( schedule[0].day == "" ) schedule.shift();
 
     let obj = {
       id: consecutive.id,
       idBusiness: parseInt(consecutive.idBusiness),
-      idCategory: parseInt(consecutive.idCategory[0]),
+      idCategory: parseInt(consecutive.idCategory),
       idCurrency: parseInt(consecutive.idCurrency),
       maskStaff: consecutive.maskStaff,
       name: consecutive.name,
@@ -65,32 +70,38 @@ export class EventWorkshopService {
       schedule: schedule,
       cancellationPolicy: cancellationPolicy
     }
-    if (id !== 0 && id !== null && id !== undefined && id !== '') {
+    if ( isEdit ) {
       return this.connectionSvc.send('put', `v1/workshops/consecutive/update/${id}`, obj);
     } else {
       return this.connectionSvc.send('post', `v1/workshops/consecutive/save`, obj);
     }
   }
 
-  deleteConsecutive(id: number): Promise<any> {
-    return this.connectionSvc.send('delete', `v1/workshops/consecutive/delete/${id}`);
-  }
-
-  saveSession(session: any): Promise<any> {
+  saveSession(session: any, isEdit: boolean = false): Promise<any> {
     let id = session.id;
 
-    let sessionsMap = session.sessions.map((item: any) => {
-      return {
-        date:   item.date,
-        sessionName: item.sessionName,
-        description: item.description,
-        idStaff: item.idStaff,
-        maskStaff: (item.maskStaff == "true") ? true : false,
-        startTime: moment(item.startTime, 'HH:mm').format('HH:mm:ss'),
-        endTime: moment(item.endTime, 'HH:mm').format('HH:mm:ss'),
-        sessionPrice: parseFloat(item.sessionPrice),
+    let sessionsMap: any = [],
+        sessions = session.sessions;
+    for (let i = 0; i < sessions.length; i++) {
+      let e: any = {
+        date: sessions[i].date,
+        sessionName: sessions[i].sessionName,
+        description: sessions[i].description,
+        idStaff: sessions[i].idStaff,
+        maskStaff: (sessions[i].maskStaff == "true") ? true : false,
+        startTime: moment(sessions[i].startTime, 'HH:mm').format('HH:mm:ss'),
+        endTime: moment(sessions[i].endTime, 'HH:mm').format('HH:mm:ss'),
+        sessionPrice: parseFloat(sessions[i].sessionPrice),
       }
-    });
+      if ( sessions[i].id != undefined ) {
+        e['id'] = sessions[i].id;
+      }
+      if ( sessions[i].pasive !== undefined ) {
+        e['pasive'] = sessions[i].pasive;
+      }
+
+      sessionsMap.push(e);
+    }
 
     let cancellationPolicy = {
       cancellationAccept: (session.cancellationPolicy.cancellationAccept == "true") ? true : false,
@@ -102,9 +113,10 @@ export class EventWorkshopService {
     let obj = {
       id: session.id,
       idBusiness: parseInt(session.idBusiness),
-      idCategory: parseInt(session.idCategory[0]),
+      idCategory: parseInt(session.idCategory),
       idCurrency: parseInt(session.idCurrency),
       name: session.name,
+      description: session.description,
       type: 1,
       totalCapacity: parseInt(session.totalCapacity),
       manyCanWaitList: parseInt(session.manyCanWaitList),
@@ -114,15 +126,15 @@ export class EventWorkshopService {
       cancellationPolicy: cancellationPolicy
     }
 
-    if (id !== 0 && id !== null && id !== undefined && id !== '') {
+    if ( isEdit ) {
       return this.connectionSvc.send('put', `v1/workshops/session/update/${id}`, obj);
     } else {
       return this.connectionSvc.send('post', `v1/workshops/session/save`, obj);
     }
   }
 
-  deleteSession(id: number): Promise<any> {
-    return this.connectionSvc.send('delete', `v1/workshops/session/delete/${id}`);
+  deleteWorkshop(id: number): Promise<any> {
+    return this.connectionSvc.send('delete', `v1/workshops/delete/${id}`);
   }
 
   ///////-------------------CATEGORIES---------------------------------///////
