@@ -1,7 +1,8 @@
 export const environment = {
   production: true,
   // APIUrl: 'https://api.bookfon.com', // <-- URL Production
-  APIUrl: 'http://bookfonstag.us-east-1.elasticbeanstalk.com', // <-- URL Local
+  APIUrl: 'https://testbookfon.bookfon.com', // <-- URL development
+  // APIUrl: 'http://bookfonstag.us-east-1.elasticbeanstalk.com', // <-- URL Local
   firebaseConfig: {
     apiKey: "AIzaSyAL81QAR_z-odJJ4cNgJuPozc2H0gWPa7w",
     authDomain: "bpb-training.firebaseapp.com",
