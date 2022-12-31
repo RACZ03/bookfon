@@ -1,6 +1,6 @@
 <!-- Modal Delete -->
 <div class="modal fade" id="modalDeleteEventAndWorkshop" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <!-- <app-modal-delete (delete)="onDelete($event)"></app-modal-delete> -->
+    <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
  </div>
  <!-- END-->
 
@@ -57,7 +57,7 @@
                         <button class="btn btn-sm" (click)="editService(item?.workshopDetails?.id)">
                             <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
+                        <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.workshopDetails?.id)">
                             <i class="bi bi-x-circle-fill"></i>
                         </button>
                     </td>
