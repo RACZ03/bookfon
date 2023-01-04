@@ -25,14 +25,14 @@
             <label for="">
               <strong>{{ previewCoach ? 'Customer' : 'Staff' }}</strong>
             </label>
-            <h6 *ngIf="!previewCoach">{{ item?.staff?.firstName }} {{ item?.staff?.lastName }}</h6>
+            <h6 *ngIf="!previewCoach">{{ item?.staff?.firstName || '' }} {{ item?.staff?.lastName || '' }}</h6>
             <!-- <h5 *ngIf="previewCoach">{{ item?.cliente?.nombre }} {{ item?.cliente?.apellido }}</h5> -->
           </div>
           <hr>
           <table>
             <tr>
-                <td><strong>Service:</strong></td>
-                <td>{{ item?.service?.name }}</td>
+                <td><strong>{{ (item?.isService) ?  'Service:' : 'Workshop:'}}</strong></td>
+                <td>{{ (item?.isService) ? item?.service?.name : item?.workshop?.name }}</td>
             </tr>
             <tr *ngIf="!previewCoach && !previewCustomer">
                 <td><strong>Customer:</strong></td>

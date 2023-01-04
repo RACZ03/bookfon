@@ -220,6 +220,11 @@ export class AddEventAndWorkshopComponent implements OnInit {
     this.eventForm.get('urlImage')?.setValue(data?.urlImage);
     this.urlImage = data?.urlImage;
     this.eventForm.get('type')?.setValue(data?.type);  
+
+    // disable buttons sessions
+    let btnSession = document.getElementById('btnConsecutiveID') as HTMLInputElement;
+    btnSession.disabled = true;
+
     this.eventForm.get('totalCapacity')?.setValue(data?.totalCapacity);
     this.eventForm.get('manyCanWaitList')?.setValue(data?.manyCanWaitList);
     this.eventForm.get('pricePackage')?.setValue(data?.pricePackage);
@@ -287,7 +292,11 @@ export class AddEventAndWorkshopComponent implements OnInit {
   }
 
   loadFormConsecutive(data: any) {
-    
+
+    // disable buttons sessions
+    let btnSession = document.getElementById('btnSessionID') as HTMLInputElement;
+    btnSession.disabled = true;
+
     this.eventForm.get('id')?.setValue(data?.id);
     this.eventForm.get('idBusiness')?.setValue(data?.business?.id);
     this.eventForm.get('idCategory')?.setValue(data?.category?.id);
@@ -305,6 +314,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
     this.eventForm.get('startTime')?.setValue(data?.startTime);
     this.eventForm.get('endTime')?.setValue(data?.endTime);
     this.eventForm.get('price')?.setValue(data?.price);
+
     let { cancellationPolicy } = data;
 
     if (cancellationPolicy != null || cancellationPolicy != undefined) {
@@ -335,12 +345,12 @@ export class AddEventAndWorkshopComponent implements OnInit {
       // reset form array schedule
       this.schedule.clear();
       for (let i = 0; i < this.daysList.length; i++) {
-        let find = schedule.find( (e: any) => e.day == this.daysList[i].day );
+        let find = schedule.find( (e: any) => e.day == this.daysList[i].id );
         if ( find != undefined ) {
           this.daysList[i].active = true;
           // set value to form array sessions into eventForm
           let obj = {
-            day: this.daysList[i].day,
+            day: this.daysList[i].id,
             startTime: find?.startTime,
             endTime: find?.endTime,
           }
@@ -348,6 +358,17 @@ export class AddEventAndWorkshopComponent implements OnInit {
         }
       }
     }
+
+    setTimeout(() => {
+      if ( data?.staff?.id != null ) {
+        this.eventForm.get('idStaff')?.setValue(data?.staff?.id);
+      } else {
+        // selected first options in select staff
+        let staff = document.getElementById('staffSelectFirst');
+        // first option
+        staff?.children[0].setAttribute('selected', 'selected');
+      }
+    }, 200);
   }
 
   verifyAmount() {
@@ -410,11 +431,27 @@ export class AddEventAndWorkshopComponent implements OnInit {
     }
   }
 
+  validateEndTime() {
+    let startTime = this.eventForm.get('startTime')?.value;
+    let endTime = this.eventForm.get('endTime')?.value;
+    if ( startTime > endTime ) {
+      this.eventForm.get('endTime')?.setValue('');
+      this.alertSvc.showAlert(4, 'The end time must be greater than the start time', 'Error');
+    }
+  }
+
   async onSubmit() {
     // Validate urlImage not empty
     let urlImage = this.eventForm.get('urlImage')?.value;
     if ( urlImage === '' || urlImage === undefined || urlImage === null ) {
       this.alertSvc.showAlert(4,  'Error', 'The image is required');
+      return;
+    }
+
+    // validate idCurrency not empty
+    let idCurrency = this.eventForm.get('idCurrency')?.value;
+    if ( idCurrency === '' || idCurrency === undefined || idCurrency === null ) {
+      this.alertSvc.showAlert(4,  'Error', 'The currency is required');
       return;
     }
 
@@ -430,6 +467,17 @@ export class AddEventAndWorkshopComponent implements OnInit {
 
       resp = await this.eventWorkshopSvc.saveSession(this.eventForm.value, this.isEdit);
     } else {
+      // VALIDATE startTime and endTime
+      let startTime = this.eventForm.get('startTime')?.value;
+      let endTime = this.eventForm.get('endTime')?.value;
+      if ( startTime === '' || startTime === undefined || startTime === null ) {
+        this.alertSvc.showAlert(4,  'Error', 'The start time is required');
+        return;
+      }
+      if ( endTime === '' || endTime === undefined || endTime === null ) {
+        this.alertSvc.showAlert(4,  'Error', 'The end time is required');
+        return;
+      }
       // set value schedule
       let days = this.daysList.filter((item: any) => item.active === true) || [];
 
@@ -450,6 +498,16 @@ export class AddEventAndWorkshopComponent implements OnInit {
         };
         this.eventForm.get('schedule')?.value.push(day);
       }
+
+      // filter days repeated
+      let daysFilter = this.eventForm.get('schedule')?.value.filter((item: any, index: number, self: any) => {
+        return index === self.findIndex((t: any) => {
+          return t.day === item.day;
+        });
+      });
+
+      // set value days filter
+      this.eventForm.get('schedule')?.setValue(daysFilter);
 
       resp = await this.eventWorkshopSvc.saveConsecutive(this.eventForm.value, this.isEdit);
     }
@@ -501,7 +559,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
       id: [''],
       idBusiness: [ this.businessSelected?.id , [ Validators.required ]],
       idCategory: ['', [ Validators.required ]],
-      idStaff: ['', [ Validators.required ]],
+      idStaff: [''],
       maskStaff: [''],
       urlImage: [''],
       idCurrency: ['', [ Validators.required ]],
@@ -538,7 +596,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
       sessionName: ['', [ Validators.required ]],
       // salesChannels: ['', [ Validators.required ]],
       idCurrency: [''],
-      idStaff: ['', [ Validators.required ]],
+      idStaff: [''],
       maskStaff: ['', [ Validators.required ]],
       sessionPrice: ['', [ Validators.required ]],
       date: ['', [ Validators.required ]],

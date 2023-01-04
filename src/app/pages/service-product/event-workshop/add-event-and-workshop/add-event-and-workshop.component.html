@@ -90,7 +90,7 @@
             <!-- Staff -->
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
               <label class="small mb-1" for="inputName">Staff</label><br>
-              <ng-select #staffSelect [items]="staffData" [selectOnTab]="true" [multiple]="false"
+              <ng-select id="staffSelectFirst" [items]="staffData" [selectOnTab]="true" [multiple]="false"
                 bindValue="id" bindLabel="fullName" placeholder="select a staff member" formControlName="idStaff">
               </ng-select>
               <span *ngIf="validInput('idStaff')" class="text-danger mt-2"  style="font-size: 12px;">
@@ -114,10 +114,10 @@
           <div class="row m-0 mt-3">
             <div class="col-4">
               <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <button type="button" [ngClass]="btnSession ? 'btn btn-primary me-4' : 'btn btn-outline-primary me-4'" style="width: 150px;" (click)="changeType(1)"> 
+                <button type="button" id="btnSessionID" [ngClass]="btnSession ? 'btn btn-primary me-4' : 'btn btn-outline-primary me-4'" style="width: 150px;" (click)="changeType(1)"> 
                   Sessions
                 </button>
-                <button type="button" [ngClass]="!btnSession ? 'btn btn-primary me-4' : 'btn btn-outline-primary me-4'" style="width: 150px;" (click)="changeType(2)"> 
+                <button type="button" id="btnConsecutiveID"  [ngClass]="!btnSession ? 'btn btn-primary me-4' : 'btn btn-outline-primary me-4'" style="width: 150px;" (click)="changeType(2)"> 
                   Consecutive
                 </button>
               </div>
@@ -192,7 +192,7 @@
             <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-xs-12">
               <div class="form-group">
                 <label for="">End Time</label>
-                <input type="time" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" formControlName="endTime">
+                <input type="time" name="" id="" class="form-control" placeholder="" aria-describedby="helpId" formControlName="endTime" (change)="validateEndTime()">
               </div>
             </div>
 

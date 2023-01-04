@@ -125,27 +125,13 @@ export class BootFonFullCalendar implements OnInit {
            <label style="font-size: 9px;color:black;text-alight:center">Customer: ${ customer?.firstName } ${ customer?.lastName }</label>
          </div>
        </div>`,
-      // html:
-      // `<div class="fc-event-content" title=""
-      //     style="height:auto;display:flex;position:relative;
-      //     background-color: ${ct.hexToRgba((ui.backgroundColor!=''? ui.backgroundColor: '#fff'), 0.26)};
-      //     min-width: 100%;
-      //     border-top-right-radius: 3px !important;
-      //     border-bottom-right-radius: 3px !important;
-      //     border-left: 4px solid ${ui.borderColor};
-      //     padding: 3px;"
-      //     cursor: pointer !important">
-      //   <div class="fc-event-title" style="font-weight: bold;text-align: center;color:${ '#000' }">
-      //   <label class="d-block" style="font-size: 12px; font-weight: bold;display:block;white-space: nowrap;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">${ arg.event.title }</label>
-      //   </div>
-      // </div>`
         };
       },
     };
   }
 
   popup(e: any) {
-    let found = this.events.find( item => item.id == e.event.id );
+    let found = e.event?.extendedProps;
     // console.log(found);
     if ( found ) {
       let date = e.event.start,

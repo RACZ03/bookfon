@@ -59,7 +59,7 @@ export class EventWorkshopService {
       idCategory: parseInt(consecutive.idCategory),
       idCurrency: parseInt(consecutive.idCurrency),
       idStaff: consecutive.idStaff,
-      maskStaff: consecutive.maskStaff,
+      maskStaff: (consecutive.maskStaff == "true") ? true : false,
       name: consecutive.name,
       description: consecutive.description,
       urlImage: consecutive.urlImage,
