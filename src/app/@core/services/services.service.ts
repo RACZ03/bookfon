@@ -37,6 +37,7 @@ export class ServicesService {
     if(data?.length<=0 || data ==undefined || data==null){return[]}
 
     let events = [];
+    let eventWorkshop = [];
     let { services: dataService, workshops: dataWorkshop } = data;
 
     if (dataService !== undefined && dataService !== null && dataService.length > 0 ) {
@@ -71,39 +72,52 @@ export class ServicesService {
     }
     
     if ( dataWorkshop !== undefined && dataWorkshop !== null && dataWorkshop.length > 0 ) {
+      // console.log('dataWorkshop', dataWorkshop);
       for (let j = 0; j < dataWorkshop.length; j++) {
         let { purchaseWorkshopDetails } = dataWorkshop[j];
-        events.push({
-          id: purchaseWorkshopDetails?.id,
-          title: purchaseWorkshopDetails?.workshop?.name,
-          start: (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate,
-          end: (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate,
-          time: {
-            startTime: (purchaseWorkshopDetails?.workshopSession !== null ) ? 
-                        purchaseWorkshopDetails?.workshopSession?.startTime : 
-                        purchaseWorkshopDetails?.workshop?.schedule[0].startTime,
-            endTime: (purchaseWorkshopDetails?.workshopSession !== null ) ?
-                      purchaseWorkshopDetails?.workshopSession?.endTime :
-                      purchaseWorkshopDetails?.workshop?.schedule[0].endTime,
-          },
-          workshop: purchaseWorkshopDetails?.workshop,
-          workshop_name: purchaseWorkshopDetails?.workshop?.name,
-          workshop_description: purchaseWorkshopDetails?.workshop?.description,
-          allDay: false,
-          idStaff:purchaseWorkshopDetails?.staff?.id,
-          staff: purchaseWorkshopDetails?.staff,
-          // url: data[index]['staff'].image? data[index]['staff'].image : '',
-          customer: purchaseWorkshopDetails?.customer,
-          backgroundColor: '#FF946F',
-          borderColor: '#FF946F',
-          textColor: '#000',
-          description: purchaseWorkshopDetails?.workshop?.description,
-          isService: false,
-        });
+        // validate if the same workshop already exists, for the same date and time
+        // let  find: any = eventWorkshop.find((item:any) => {
+        //   return item?.start === (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate &&
+        //           item?.time?.startTime === (purchaseWorkshopDetails?.workshopSession !== null ) ?  purchaseWorkshopDetails?.workshopSession?.startTime : purchaseWorkshopDetails?.workshop?.schedule[0].startTime &&
+        //           item?.time?.endTime === (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.endTime : purchaseWorkshopDetails?.workshop?.schedule[0].endTime &&
+        //           item?.workshop_name === purchaseWorkshopDetails?.workshop?.name
+        // });
+        // if ( find === undefined ) {
+          eventWorkshop.push({
+            id: purchaseWorkshopDetails?.id,
+            title: purchaseWorkshopDetails?.workshop?.name,
+            start: (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate,
+            end: (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate,
+            time: {
+              startTime: (purchaseWorkshopDetails?.workshopSession !== null ) ? 
+                          purchaseWorkshopDetails?.workshopSession?.startTime : 
+                          purchaseWorkshopDetails?.workshop?.schedule[0].startTime,
+              endTime: (purchaseWorkshopDetails?.workshopSession !== null ) ?
+                        purchaseWorkshopDetails?.workshopSession?.endTime :
+                        purchaseWorkshopDetails?.workshop?.schedule[0].endTime,
+            },
+            workshop: purchaseWorkshopDetails?.workshop,
+            workshop_name: purchaseWorkshopDetails?.workshop?.name,
+            workshop_description: purchaseWorkshopDetails?.workshop?.description,
+            allDay: false,
+            idStaff:purchaseWorkshopDetails?.staff?.id,
+            staff: purchaseWorkshopDetails?.staff,
+            // url: data[index]['staff'].image? data[index]['staff'].image : '',
+            customer: purchaseWorkshopDetails?.customer,
+            backgroundColor: '#FF946F',
+            borderColor: '#FF946F',
+            textColor: '#000',
+            description: purchaseWorkshopDetails?.workshop?.description,
+            isService: false,
+          });
+        // } else {
+        //   // if the same workshop already exists, add the session to the existing workshop
+        //   find.workshopSession = purchaseWorkshopDetails?.workshopSession;
+        // }
       }
     }
 
-    return events;
+    return [...events, ...eventWorkshop];
   }
 
   convertDate(date: any) {

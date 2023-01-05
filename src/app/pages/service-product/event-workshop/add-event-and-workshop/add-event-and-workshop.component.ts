@@ -431,6 +431,12 @@ export class AddEventAndWorkshopComponent implements OnInit {
     }
   }
 
+  setMinData() {
+    // set input min date to end date
+    let startDate = this.eventForm.get('startDate')?.value;
+    let inputMinDate = document.getElementById('inputMinDate');
+    inputMinDate?.setAttribute('min', startDate);
+  }
   validateEndTime() {
     let startTime = this.eventForm.get('startTime')?.value;
     let endTime = this.eventForm.get('endTime')?.value;
@@ -506,6 +512,10 @@ export class AddEventAndWorkshopComponent implements OnInit {
         });
       });
 
+      // validate if first element is day = '' and startTime = '' and endTime = '' then delete
+      if ( daysFilter[0].day === '' && daysFilter[0].startTime === '' && daysFilter[0].endTime === '' ) {
+        daysFilter.shift();
+      }
       // set value days filter
       this.eventForm.get('schedule')?.setValue(daysFilter);
 
@@ -566,10 +576,10 @@ export class AddEventAndWorkshopComponent implements OnInit {
       type: [ 1, [ Validators.required ]],
       name: ['', [ Validators.required ]],
       description: [''],
-      totalCapacity: ['', [ Validators.required ]],
-      manyCanWaitList: ['', [ Validators.required ]],
-      price: [''],
-      pricePackage: [''],
+      totalCapacity: [0, [ Validators.required ]],
+      manyCanWaitList: [0, [ Validators.required ]],
+      price: [0],
+      pricePackage: [0],
       startDate: [''],
       endDate: [''],
       startTime: [''],
@@ -584,8 +594,8 @@ export class AddEventAndWorkshopComponent implements OnInit {
     return this.fb.group({
       cancellationAccept: ['', [ Validators.required ]],
       cancellationCharge: ['', [ Validators.required ]],
-      hoursBefore: ['', [ Validators.required ]],
-      cancellationFee: ['', [ Validators.required ]],
+      hoursBefore: [0, [ Validators.required ]],
+      cancellationFee: [0, [ Validators.required ]],
       idCurrency: [''],
     });
   }
