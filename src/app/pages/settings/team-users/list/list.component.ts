@@ -2,7 +2,10 @@ import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { SexsI, SexsItem } from 'src/app/@core/Interfaces/Sexs';
 import { UsersService } from 'src/app/@core/services/users.service';
+import { AlertService } from 'src/app/@core/utils/alert.service';
+import { CatalogsService } from 'src/app/@core/utils/catalogs.service';
 declare var window: any;
 
 @Component({
@@ -24,6 +27,8 @@ export class ListComponent implements OnInit {
   public newUser: any = {};
   public formModalNew: any;
   public ModalStaffForm!: FormGroup;
+  public emailRegex: string ='^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
+  sexs: SexsItem[] = [];
 
   public scrollOptions: any[] = [
     { title: 'Staff permissions', active: true },
@@ -33,6 +38,8 @@ export class ListComponent implements OnInit {
   constructor(
     private usersService: UsersService,
     private readonly fb: FormBuilder,
+    private alertSvc: AlertService,
+    private catalogService: CatalogsService,
   ) { 
     this.dtOptions = {
       // pagingType: 'full_numbers',
@@ -52,6 +59,7 @@ export class ListComponent implements OnInit {
     this.formModalNew = new window.bootstrap.Modal(
       document.getElementById('modalNewStaff')
     );
+    this.loadSex();
     this.ModalStaffForm = this.initForms();
 
     setTimeout(() => {
@@ -59,6 +67,18 @@ export class ListComponent implements OnInit {
         this.dtTrigger.next(this.dtOptions);
       }
     }, 1000);
+  }
+
+  loadSex() {
+    this.catalogService
+      .getSexs()
+      .then((res: SexsI) => {
+        this.sexs = res?.data;
+      })
+      .catch((err) => {
+        // console.log(err);
+        // this.toast.error('Error unexpected, loading sex', 'Error');
+      });
   }
 
   searchData(e: any) {
@@ -73,10 +93,11 @@ export class ListComponent implements OnInit {
      id: [''],
      name: ['', [Validators.required ]],
      lastName: ['', Validators.required],
-     email: ['', Validators.required],
-     phone: ['', Validators.required],
-     password: ['', Validators.required],
-     profile: ['', Validators.required],
+     email: ['', [Validators.required, Validators.pattern(this.emailRegex)],],
+     phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+     password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+     password_confirm: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
+     profile: [''],
      sex: ['', Validators.required],
      role: ['', Validators.required]
     });
@@ -108,6 +129,30 @@ export class ListComponent implements OnInit {
     this.onCloseModal.emit(true);
   }
 
+  /* SECTION VALIDATIONS */
+  validInput(name: string) {
+    return this.ModalStaffForm.get(name)?.touched && this.ModalStaffForm.get(name)?.errors?.['required'];
+  }
+
+  validInputMin(name: string) {
+    return this.ModalStaffForm.get(name)?.touched && this.ModalStaffForm.get(name)?.errors?.['minlength'];
+  }
+
+  validEmail(name: string) {
+    return this.ModalStaffForm.get(name)?.touched && this.ModalStaffForm.get(name)?.errors?.['pattern'];
+  }
+
+  comparePasswords() {
+    let pass = this.ModalStaffForm.get('password')?.value;
+    let passConfirm = this.ModalStaffForm.get('password_confirm')?.value;
+
+    if (pass !== passConfirm) {
+      this.alertSvc.showAlert(3, '', 'Passwords do not match');
+      // set value
+      this.ModalStaffForm.get('password_confirm')?.setValue('');
+    }
+  }
+  // !SECTION VALIDATIONS
 
   async onSaveStaff(){
     let data = {
@@ -122,7 +167,7 @@ export class ListComponent implements OnInit {
       role: this.ModalStaffForm.value.role
     }
 
-    let resp = await this.usersService.saveStaff(data, this.businessCode);
+    let resp = await this.usersService.saveUser(data, this.businessCode);
 
     if (resp)
     {

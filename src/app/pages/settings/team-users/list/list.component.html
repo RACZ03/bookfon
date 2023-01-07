@@ -9,58 +9,98 @@
       <div class="modal-body">
         <div class="container-flex">
           <form (ngSubmit)="onSaveStaff()" [formGroup]="ModalStaffForm">
-            <div class="row mt-4">
-              <div class="col">
-                <label for="name" class="">Name</label>
+            <div class="row mt-2">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="name" class="">First Name<sup class="text-danger">*</sup></label>
                 <input formControlName="name" required type="text" class="form-control" id="name" placeholder="name">
+                <span *ngIf="validInput('name')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
-              <div class="col">
-                <label for="last name" class="">last name</label>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="last name" class="">Last name<sup class="text-danger">*</sup></label>
                 <input formControlName="lastName" required type="text" class="form-control" id="lastName" placeholder="lastname">
+                <span *ngIf="validInput('lastName')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
             </div>
             <div class="row mt-4">
-              <div class="col">
-                <label for="email" class="">Email</label>
-                <input formControlName="email" required type="text" class="form-control" id="email" placeholder="email">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="email" class="">Email<sup class="text-danger">*</sup></label>
+                <input formControlName="email" required type="text" class="form-control" id="email" placeholder="email" autocomplete="new-semail">
+                <span *ngIf="validInput('email')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <!-- valid regext -->
+                <span *ngIf="validEmail('email')" class="text-danger mt-2">
+                  Invalid email
+                </span>
               </div>
-              <div class="col">
-                <label for="phone" class="">Phone</label>
-                <input formControlName="phone" required type="text" class="form-control" id="phone" placeholder="phone">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="phone" class="">Phone<sup class="text-danger">*</sup></label>
+                <input formControlName="phone" required type="text" class="form-control" placeholder="(000) 000-0000" mask="(000) 000-0000">
+                <span *ngIf="validInput('phone')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <span *ngIf="validInputMin('phone')" class="text-danger mt-2">
+                  Min 10 characters
+                </span>
               </div>
             </div>
             <div class="row mt-4">
-              <div class="col">
-                <label for="password" class="">Password</label>
-                <input formControlName="password" required type="password" class="form-control" id="password" placeholder="password">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="password" class="">Password <sup class="text-danger">*</sup></label>
+                <input formControlName="password" required type="password" class="form-control" id="password" placeholder="password" autocomplete="new-password">
+                <span *ngIf="validInput('password')" class="text-danger mt-2">
+                  Required field
+                </span>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="password" class="">Password confirm<sup class="text-danger">*</sup></label>
+                <input formControlName="password_confirm" required type="password" class="form-control" autocomplete="new-password_confirm"
+                  id="password_confirm" placeholder="password" (change)="comparePasswords()">
+                <span *ngIf="validInput('password_confirm')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col">
                 <label for="password" class="">Profile</label>
-                <textarea formControlName="profile" required name="profile" id="profile" style="width: 100%;" rows="5" class="form-control"></textarea>
+                <textarea formControlName="profile" name="profile" id="profile" style="width: 100%;" rows="3" class="form-control"></textarea>
               </div>
             </div>
             <div class="row mt-4">
-              <div class="col">
-                <label for="Sex">Sex</label>
-                <select formControlName="sex" required class="form-select" aria-label="Default select example">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="Sex">Sex<sup class="text-danger">*</sup></label>
+                <!-- <select formControlName="sex" required class="form-select" aria-label="Default select example">
                   <option selected>Open this select menu</option>
                   <option value="5">Male</option>
                   <option value="6">Female</option>
                   <option value="7">Undefined</option>
-                </select>
+                </select> -->
+                <select class="form-select" formControlName="sex">
+                <option disabled value="" readonly>choose sex</option>
+                <option *ngFor="let item of sexs" [value]="item.id">
+                  {{ item.name }}
+                </option>
+              </select>
+                <span *ngIf="validInput('sex')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="role">Rol</label>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="role">Rol <sup class="text-danger">*</sup></label>
                 <select formControlName="role" required class="form-select" aria-label="Default select example">
                   <option selected>Open this select menu</option>
                   <option value="ADMIN">Administrator</option>
                   <option value="STAFF">Staff</option>
                   <option value="CUSTOMER">Customer</option>
                 </select>
+                <span *ngIf="validInput('role')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
             </div>
             <div class="row mt-4">
@@ -69,6 +109,12 @@
               </div>
             </div>
           </form>
+          <!-- <pre style="color: black;">
+            {{ ModalStaffForm.value | json }}
+          </pre>
+          <pre style="color: black;">
+            INVALID VALIDO: {{ ModalStaffForm.invalid }}
+          </pre> -->
         </div>
       </div>
     </div>

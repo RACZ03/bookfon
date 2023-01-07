@@ -30,7 +30,7 @@
           'is-invalid':
             f['phone_number'].invalid &&
             (f['phone_number'].touched || f['phone_number'].dirty)
-        }" required type="text" class="form-control" id="phone_number" placeholder="phone number" />
+        }" required type="text" class="form-control" id="phone_number" placeholder="(000) 000-0000" />
       <div *ngIf="f['phone_number'].errors" class="invalid-feedback">
         <div *ngIf="f['phone_number'].errors['required']">
           Phone number is required
@@ -49,7 +49,7 @@
       </div>
     </div>
     <div class="col-md-4 mt-3">
-      <label for="profile" class=""><sup class="lb-required">*</sup>Profile</label>
+      <label for="profile" class="">Profile</label>
       <textarea rows="2" type="text" formControlName="profile" class="form-control" rows="8" autocomplete="new-profile" [ngClass]="{
           'is-invalid':
             f['profile'].invalid && (f['profile'].touched || f['profile'].dirty)
@@ -106,7 +106,7 @@
           'is-invalid':
             f['confirmPassword'].invalid &&
             (f['confirmPassword'].touched || f['confirmPassword'].dirty)
-        }" />
+        }" (change)="comparePasswords()"/>
       <div *ngIf="this.f['password'].value != this.f['confirmPassword'].value" class="invalid-feedback">
         <div>Confirm Password does not match</div>
       </div>

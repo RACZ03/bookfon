@@ -23,6 +23,7 @@ import { IdentityComponent } from './you-bussines/branding/identity/identity.com
 import { ChekoutComponent } from './you-bussines/branding/chekout/chekout.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 
@@ -60,6 +61,7 @@ import { DataTablesModule } from 'angular-datatables';
     FormsModule,
     ReactiveFormsModule,
     DataTablesModule, 
+    NgxMaskModule.forRoot(),
   ]
 })
 export class SettingsModule { }

@@ -73,7 +73,7 @@ export class StaffComponent implements OnInit {
   }
 
   selectedStaff(item: any) {
-    console.log('EDIT', item);
+    // console.log('EDIT', item);
     this.showBtn = false;
     this.idStaff= item.id;
     this.itemStaff = item;    

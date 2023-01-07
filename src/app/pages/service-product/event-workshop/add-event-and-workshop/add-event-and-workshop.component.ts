@@ -292,7 +292,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
   }
 
   loadFormConsecutive(data: any) {
-
+    // console.log(data);
     // disable buttons sessions
     let btnSession = document.getElementById('btnSessionID') as HTMLInputElement;
     btnSession.disabled = true;
@@ -311,8 +311,8 @@ export class AddEventAndWorkshopComponent implements OnInit {
     this.eventForm.get('manyCanWaitList')?.setValue(data?.manyCanWaitList);
     this.eventForm.get('startDate')?.setValue(data?.startDate);
     this.eventForm.get('endDate')?.setValue(data?.endDate);
-    this.eventForm.get('startTime')?.setValue(data?.startTime);
-    this.eventForm.get('endTime')?.setValue(data?.endTime);
+    // this.eventForm.get('startTime')?.setValue(data?.startTime);
+    // this.eventForm.get('endTime')?.setValue(data?.endTime);
     this.eventForm.get('price')?.setValue(data?.price);
 
     let { cancellationPolicy } = data;
@@ -347,6 +347,8 @@ export class AddEventAndWorkshopComponent implements OnInit {
       for (let i = 0; i < this.daysList.length; i++) {
         let find = schedule.find( (e: any) => e.day == this.daysList[i].id );
         if ( find != undefined ) {
+          this.eventForm.get('startTime')?.setValue(find?.startTime);
+          this.eventForm.get('endTime')?.setValue(find?.endTime);  
           this.daysList[i].active = true;
           // set value to form array sessions into eventForm
           let obj = {
@@ -492,6 +494,12 @@ export class AddEventAndWorkshopComponent implements OnInit {
         return;
       }
       
+      // reset value schedule
+      let schedule = this.eventForm.get('schedule')?.value;
+      for (let i = 0; i < schedule.length; i++) {
+        schedule.pop();
+      }
+
       // set value days
       for (let i = 0; i < days.length; i++) {
         // construct object days
@@ -505,19 +513,19 @@ export class AddEventAndWorkshopComponent implements OnInit {
         this.eventForm.get('schedule')?.value.push(day);
       }
 
-      // filter days repeated
-      let daysFilter = this.eventForm.get('schedule')?.value.filter((item: any, index: number, self: any) => {
-        return index === self.findIndex((t: any) => {
-          return t.day === item.day;
-        });
-      });
+      // // filter days repeated
+      // let daysFilter = this.eventForm.get('schedule')?.value.filter((item: any, index: number, self: any) => {
+      //   return index === self.findIndex((t: any) => {
+      //     return t.day === item.day;
+      //   });
+      // });
 
       // validate if first element is day = '' and startTime = '' and endTime = '' then delete
-      if ( daysFilter[0].day === '' && daysFilter[0].startTime === '' && daysFilter[0].endTime === '' ) {
-        daysFilter.shift();
-      }
+      // if ( daysFilter[0].day === '' && daysFilter[0].startTime === '' && daysFilter[0].endTime === '' ) {
+      //   daysFilter.shift();
+      // }
       // set value days filter
-      this.eventForm.get('schedule')?.setValue(daysFilter);
+      // this.eventForm.get('schedule')?.setValue(daysFilter);
 
       resp = await this.eventWorkshopSvc.saveConsecutive(this.eventForm.value, this.isEdit);
     }

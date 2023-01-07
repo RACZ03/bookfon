@@ -11,6 +11,8 @@ import { SexsI, SexsItem } from 'src/app/@core/Interfaces/Sexs';
 import { StaffService } from 'src/app/@core/services/staff.service';
 import { ImageFile } from 'src/app/@core/Interfaces/Image-file';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/@core/utils/alert.service';
 
 @Component({
   selector: 'app-add-staff',
@@ -31,7 +33,7 @@ export class AddStaffComponent implements OnInit {
     last_name: new FormControl('', [Validators.required]),
     phone_number: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    profile: new FormControl('', [Validators.required]),
+    profile: new FormControl(''),
     sex: new FormControl('', [Validators.required]),
     password: new FormControl('', [
       Validators.required,
@@ -39,18 +41,20 @@ export class AddStaffComponent implements OnInit {
       Validators.maxLength(12),
     ]),
     confirmPassword: new FormControl('', [Validators.required]),
-    image: new FormControl('',[]),
+    image: new FormControl('', []),
   });
   constructor(
     private catalogService: CatalogsService,
     private service: StaffService,
     private toast: ToastrService,
-    private sanitizer:DomSanitizer
-  ) {
-  }
+    private sanitizer: DomSanitizer,
+    private router: Router,
+    private alertSvc: AlertService
+  ) {}
 
   ngOnInit(): void {
     this.loadSex();
+    console.log('load')
   }
 
   onFileSelected(file: any) {
@@ -61,10 +65,25 @@ export class AddStaffComponent implements OnInit {
     ) {
       this.fileValid = true;
       this.file = file?.files[0];
-      this.f['image'].patchValue(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file.files[0])));
+      this.f['image'].patchValue(
+        this.sanitizer.bypassSecurityTrustUrl(
+          URL.createObjectURL(file.files[0])
+        )
+      );
     } else {
       this.fileValid = false;
       this.f['image'].patchValue('');
+    }
+  }
+
+  comparePasswords() {
+    let pass = this.form.get('password')?.value;
+    let passConfirm = this.form.get('confirmPassword')?.value;
+
+    if (pass !== passConfirm) {
+      this.alertSvc.showAlert(3, '', 'Passwords do not match');
+      // set value
+      this.form.get('confirmPassword')?.setValue('');
     }
   }
 
@@ -104,19 +123,21 @@ export class AddStaffComponent implements OnInit {
         email: this.f['email'].value,
         profile: this.f['profile'].value,
         password: this.f['password'].value,
-        image: url ? url : (image ? image : ''),
+        image: url ? url : image ? image : '',
         idSex: this.f['sex'].value,
       })
       .then(() => {
         this.loading = false;
         this.toast.success('Staff created successfully', 'Success');
         this.form.reset();
-        this.file=undefined;
+        this.file = undefined;
       })
       .catch(() => {
         this.toast.error('Error unexpected, creating staff', 'Error');
         this.loading = false;
       });
+    // return /pages/staff
+    this.router.navigate(['/pages/staff']);
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -134,7 +155,7 @@ export class AddStaffComponent implements OnInit {
       })
       .catch((err) => {
         console.log(err);
-        this.toast.error('Error unexpected, loading sex', 'Error');
+        // this.toast.error('Error unexpected, loading sex', 'Error');
       });
   }
 
