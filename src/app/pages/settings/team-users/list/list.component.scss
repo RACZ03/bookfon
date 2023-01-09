@@ -98,9 +98,19 @@ $text-dark: #9F9F9F;
                 margin-left: 8px;
             }
             tr .td-email {
-                margin-left: 46px;
+                margin-left: 58px;
                 position: absolute;
                 margin-top: -12px;
+            }
+
+            tr .avatar {
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
             }
         }
     }

@@ -64,7 +64,7 @@ export class UsersService {
   }
 
   saveUser(params: any, businessCode: string): Promise<any>{
-    return this.connectionSvc.send('post', `/v1/business/${ businessCode }/users/save`, params)
+    return this.connectionSvc.send('post', `v1/business/${ businessCode }/users/save?roleName=ROLE_${params.role}`, params)
   }
 
 
@@ -101,4 +101,15 @@ export class UsersService {
   changePassword(id: number, pass: string): Promise<any> {
     return this.connectionSvc.send('put', `users/updatePassword/${ id }?password=${ pass }`);
   }
+
+
+  verifyUser(email: string, phone: string, role: string): Promise<any> {
+    let obj = {
+      email: email,
+      phone: phone,
+    };
+
+    return this.connectionSvc.send('post', `users/verifyExists/${ role }`, obj);
+  }
+
 }

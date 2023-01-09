@@ -24,6 +24,8 @@ import { ChekoutComponent } from './you-bussines/branding/chekout/chekout.compon
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTablesModule } from 'angular-datatables';
 import { NgxMaskModule } from 'ngx-mask';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ThemeModule } from 'src/app/@theme/theme.module';
 
 
 
@@ -62,6 +64,8 @@ import { NgxMaskModule } from 'ngx-mask';
     ReactiveFormsModule,
     DataTablesModule, 
     NgxMaskModule.forRoot(),
+    SharedModule,
+    ThemeModule
   ]
 })
 export class SettingsModule { }

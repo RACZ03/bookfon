@@ -1,5 +1,10 @@
-<!-- Modal -->
-<div class="modal fade" id="modalNewStaff" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Validate new User -->
+<div class="modal fade" id="modalValidateNewStaffSettings" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-validate-new-user [title]="'New User'" [showSettings]="true" (onCloseModalAndOpenOld)="onCloseModalAndOpenOld($event)"></app-validate-new-user>
+</div>
+
+<!-- Modal New Settings-->
+<div class="modal fade" id="modalNewStaffSettings" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -55,6 +60,9 @@
                 <span *ngIf="validInput('password')" class="text-danger mt-2">
                   Required field
                 </span>
+                <span *ngIf="validInputMin('password')" class="text-danger mt-2">
+                  Min 6 characters
+                </span>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="password" class="">Password confirm<sup class="text-danger">*</sup></label>
@@ -62,6 +70,9 @@
                   id="password_confirm" placeholder="password" (change)="comparePasswords()">
                 <span *ngIf="validInput('password_confirm')" class="text-danger mt-2">
                   Required field
+                </span>
+                <span *ngIf="validInputMin('password_confirm')" class="text-danger mt-2">
+                  Min 6 characters
                 </span>
               </div>
             </div>
@@ -186,7 +197,7 @@
                                     <input type="checkbox" name="" id="">
                                 </td>
                                 <td class="align-middle">
-                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                                    <img [src]=" item?.image !== '' ? item.image : 'assets/images/bookfons/user-found-1.png'" class="avatar" appBrokenImagen alt="">
                                     <label for="" class="td-name">{{item.firstName}} {{item.lastName}}</label><br>
                                     <label for="" class="td-email">{{item.email}}</label>
                                 </td>
@@ -194,7 +205,7 @@
                                     <label for="">ADMIN</label>
                                 </td>
                                 <td class="align-middle">
-                                    <label for="">{{item.lastLogin}}</label>
+                                    <label for="">{{ item.lastLogin | date: 'dd/MM/yyyy hh:mm a' }}</label>
                                 </td>
                             </tr>
                             <!-- <tr>

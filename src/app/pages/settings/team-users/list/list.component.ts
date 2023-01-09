@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { SexsI, SexsItem } from 'src/app/@core/Interfaces/Sexs';
@@ -26,6 +27,7 @@ export class ListComponent implements OnInit {
   @Output() onCloseModal = new EventEmitter<boolean>();
   public newUser: any = {};
   public formModalNew: any;
+  public formModalValidate: any;
   public ModalStaffForm!: FormGroup;
   public emailRegex: string ='^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   sexs: SexsItem[] = [];
@@ -40,6 +42,7 @@ export class ListComponent implements OnInit {
     private readonly fb: FormBuilder,
     private alertSvc: AlertService,
     private catalogService: CatalogsService,
+    private router: Router
   ) { 
     this.dtOptions = {
       // pagingType: 'full_numbers',
@@ -57,13 +60,18 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.formModalNew = new window.bootstrap.Modal(
-      document.getElementById('modalNewStaff')
+      document.getElementById('modalNewStaffSettings')
     );
+    this.formModalValidate = new window.bootstrap.Modal(
+      document.getElementById('modalValidateNewStaffSettings')
+    );
+
     this.loadSex();
     this.ModalStaffForm = this.initForms();
 
     setTimeout(() => {
       if (this.userList.length > 0) {
+        console.log(this.userList)
         this.dtTrigger.next(this.dtOptions);
       }
     }, 1000);
@@ -113,12 +121,29 @@ export class ListComponent implements OnInit {
     this.optionSelected = index;
   }
 
+  // show modal validate
   showModal(e: boolean = false) {
     if ( !e ) {
       return
     }
 
+    // Open modal validations
+    // this.formModalValidate.show();
     this.formModalNew.show();
+  }
+
+  onCloseModalAndOpenOld(event: any) {
+    if ( !event ) {
+      this.formModalValidate.hide();
+      this.router.navigate(['/pages/settings']);
+      return
+    } else {
+      // Execute endpoint add permisses
+      this.formModalValidate.hide();
+      setTimeout(() => {
+        this.formModalNew.show();
+      }, 200);
+    }
   }
 
   closeModal(band: boolean) {
@@ -169,9 +194,29 @@ export class ListComponent implements OnInit {
 
     let resp = await this.usersService.saveUser(data, this.businessCode);
 
-    if (resp)
-    {
-      this.closeModal(true);
+    if ( resp !== undefined ) {
+      let { status, comment } = resp;
+      if ( status == 201 || status == 200 ) {
+        this.alertSvc.showAlert(1, '', comment);
+        // this.closeModal(true);
+        window.location.reload();
+      } else {
+        this.alertSvc.showAlert(3, '', (comment !== undefined ? comment : 'Error unexpected, try again'));
+      }
+    } else {
+      this.alertSvc.showAlert(3, '', 'Error unexpected, try again');
     }
+    // if (resp)
+    // {
+    //   this.alertSvc.showAlert(1, '', 'Staff added successfully');
+    //   this.closeModal(true);
+    // }
   }
+
+  renderer() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+  }
+
 }

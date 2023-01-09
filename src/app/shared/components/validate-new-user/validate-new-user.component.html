@@ -1,0 +1,80 @@
+<div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header" *ngIf="step1">
+        <label>{{ title }}</label>
+        <button class="btn-close" type="button" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+        <!-- STEP 1: SEND DATA FOR THE VALIDATE NEW USER -->
+        <div class="container-flex" *ngIf="step1">
+          <form (ngSubmit)="onSubmit()" [formGroup]="modalValidate">
+
+            <div class="row mt-2">
+              <div class="col-12">
+                <label for="email" class="">Email<sup class="text-danger">*</sup></label>
+                <input formControlName="email" required type="text" class="form-control" id="email" placeholder="email" autocomplete="new-semail">
+                <span *ngIf="validInput('email')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <!-- valid regext -->
+                <span *ngIf="validEmail('email')" class="text-danger mt-2">
+                  Invalid email
+                </span>
+              </div>
+              <div class="col-12 mt-2">
+                <label for="phone" class="">Phone<sup class="text-danger">*</sup></label>
+                <input formControlName="phone" required type="text" class="form-control" placeholder="(000) 000-0000" mask="(000) 000-0000">
+                <span *ngIf="validInput('phone')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <span *ngIf="validInputMin('phone')" class="text-danger mt-2">
+                  Min 10 characters
+                </span>
+              </div>
+            </div>
+            <div class="row mt-4" *ngIf="showSettings">
+              <div class="col-12">
+                <label for="role">Rol <sup class="text-danger">*</sup></label>
+                <select formControlName="role" required class="form-select" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="ADMIN">Administrator</option>
+                  <option value="STAFF">Staff</option>
+                  <option value="CUSTOMER">Customer</option>
+                </select>
+                <span *ngIf="validInput('role')" class="text-danger mt-2">
+                  Required field
+                </span>
+              </div>
+            </div>
+            <div class="row mt-4">
+                <div class="text-center">
+                    <p style="color: #7A7A7A; font-size: 13px;">Let's check if the user already exists.</p>
+                </div>
+                <div class="col-4 offset-4">
+                    <button [disabled]="modalValidate.invalid" type="submit" style="width: 100%" class="btn btn-primary">Validate</button>
+                </div>
+            </div>
+          </form>
+          <!-- <pre style="color: black;">
+            {{ modalValidate.value | json }}
+          </pre>
+          <pre style="color: black;">
+            INVALID VALIDO: {{ modalValidate.invalid }}
+          </pre> -->
+        </div>
+        <!-- STEP 2: SHOW RESPONSE -->
+        <div class="container-flex" *ngIf="step2">
+            <div class="text-center">
+                <i class="bi bi-info-circle" style="color: #7A7A7A;font-size: 32px;"></i>
+                <p style="color: #7A7A7A;font-size: 16px;">
+                    We've found the user NAME, do you want to continue and add this permissions ?
+                </p>
+            </div>
+            <div class="mt-4 text-center">
+                <button class="btn btn-danger" style="margin-right: 10px;" (click)="cancelAndOpenOldModal()">No, cancel</button>
+                <button class="btn btn-primary">Yes, continue</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
