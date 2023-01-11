@@ -112,4 +112,15 @@ export class UsersService {
     return this.connectionSvc.send('post', `users/verifyExists/${ role }`, obj);
   }
 
+  addNewRole(email: string, phone: string, role: string): Promise<any> {
+    let obj = {
+      email: email,
+      phone: phone,
+      rolName: role,
+      businessCode: this.getCode()
+    };
+
+    return this.connectionSvc.send('post', `role/addToUser`, obj);
+  }
+
 }

@@ -35,12 +35,10 @@
             <div class="row mt-4" *ngIf="showSettings">
               <div class="col-12">
                 <label for="role">Rol <sup class="text-danger">*</sup></label>
-                <select formControlName="role" required class="form-select" aria-label="Default select example">
-                  <option selected>Open this select menu</option>
-                  <option value="ADMIN">Administrator</option>
-                  <option value="STAFF">Staff</option>
-                  <option value="CUSTOMER">Customer</option>
-                </select>
+                <!-- <select formControlName="role" required class="form-select" aria-label="Default select example">
+                </select> -->
+                <ng-select [items]="roles" bindValue="name" bindLabel="name" placeholder="select role" formControlName="role">
+                  </ng-select>
                 <span *ngIf="validInput('role')" class="text-danger mt-2">
                   Required field
                 </span>
@@ -67,13 +65,20 @@
             <div class="text-center">
                 <i class="bi bi-info-circle" style="color: #7A7A7A;font-size: 32px;"></i>
                 <p style="color: #7A7A7A;font-size: 16px;">
-                    We've found the user NAME, do you want to continue and add this permissions ?
+                    {{ messageResponse }}
+                </p>
+                <p style="color: #7A7A7A;font-size: 16px;">
+                  {{ questions }}
                 </p>
             </div>
-            <div class="mt-4 text-center">
+            <div class="mt-4 text-center" *ngIf="!hasRole">
                 <button class="btn btn-danger" style="margin-right: 10px;" (click)="cancelAndOpenOldModal()">No, cancel</button>
-                <button class="btn btn-primary">Yes, continue</button>
+                <button class="btn btn-primary" (click)="onSave()">Yes, continue</button>
             </div>
+            <div class="mt-4 text-center" *ngIf="hasRole">
+              <button class="btn btn-danger" style="margin-right: 10px;" (click)="cancelAndOpenOldModal(true)">No, cancel</button>
+              <button class="btn btn-primary" (click)="cancelAndOpenOldModal(true)">Create another user</button>
+          </div>
         </div>
       </div>
     </div>

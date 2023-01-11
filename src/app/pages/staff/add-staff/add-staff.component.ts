@@ -54,7 +54,16 @@ export class AddStaffComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadSex();
-    console.log('load')
+     // get data email and phone from localstorage
+     let data = JSON.parse(localStorage.getItem('new-user') || '');
+     // delete localstorage item new-user
+     localStorage.removeItem('new-user');
+     if ( data !== undefined ) {
+       let { email, phone, role } = data;
+       this.form.get('email')?.setValue(email);
+       this.form.get('phone_number')?.setValue(phone);
+      //  this.form.get('role')?.setValue(role);
+     }
   }
 
   onFileSelected(file: any) {
@@ -154,7 +163,7 @@ export class AddStaffComponent implements OnInit {
         this.comment = res?.comment;
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         // this.toast.error('Error unexpected, loading sex', 'Error');
       });
   }

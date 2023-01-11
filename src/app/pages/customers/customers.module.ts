@@ -25,6 +25,7 @@ import { BootFonFullCalendarModule } from 'src/app/shared/components/full-calend
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule } from '@angular/forms';
 import { ThemeModule } from 'src/app/@theme/theme.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -39,7 +40,8 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     FormsModule,
     DataTablesModule,
     BootFonFullCalendarModule,
-    ThemeModule
+    ThemeModule,
+    NgSelectModule
   ],
   declarations: [
     CustomersComponent,

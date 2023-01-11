@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { SexsI, SexsItem } from 'src/app/@core/Interfaces/Sexs';
+import { CatalogService } from 'src/app/@core/services/catalogs.service';
 import { UsersService } from 'src/app/@core/services/users.service';
 import { AlertService } from 'src/app/@core/utils/alert.service';
 import { CatalogsService } from 'src/app/@core/utils/catalogs.service';
@@ -31,6 +32,7 @@ export class ListComponent implements OnInit {
   public ModalStaffForm!: FormGroup;
   public emailRegex: string ='^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   sexs: SexsItem[] = [];
+  public roles: [] = [];
 
   public scrollOptions: any[] = [
     { title: 'Staff permissions', active: true },
@@ -42,6 +44,7 @@ export class ListComponent implements OnInit {
     private readonly fb: FormBuilder,
     private alertSvc: AlertService,
     private catalogService: CatalogsService,
+    private catalogSvc: CatalogService,
     private router: Router
   ) { 
     this.dtOptions = {
@@ -67,14 +70,27 @@ export class ListComponent implements OnInit {
     );
 
     this.loadSex();
+    this.getRoles();
     this.ModalStaffForm = this.initForms();
 
     setTimeout(() => {
       if (this.userList.length > 0) {
-        console.log(this.userList)
+        // console.log(this.userList)
         this.dtTrigger.next(this.dtOptions);
       }
     }, 1000);
+  }
+
+  async getRoles() {
+    let resp = await this.catalogSvc.getRoles();
+    if ( resp !== undefined ) {
+      let { status } = resp;
+      if ( status == 200 ) {
+        let { data } = resp;
+        this.roles = data;
+        // console.log(this.roles)
+      }
+    }
   }
 
   loadSex() {
@@ -128,8 +144,8 @@ export class ListComponent implements OnInit {
     }
 
     // Open modal validations
-    // this.formModalValidate.show();
-    this.formModalNew.show();
+    this.formModalValidate.show();
+    // this.formModalNew.show();
   }
 
   onCloseModalAndOpenOld(event: any) {
@@ -141,6 +157,18 @@ export class ListComponent implements OnInit {
       // Execute endpoint add permisses
       this.formModalValidate.hide();
       setTimeout(() => {
+
+        // get data email and phone from localstorage
+        let data = JSON.parse(localStorage.getItem('new-user') || '');
+        // delete localstorage item new-user
+        localStorage.removeItem('new-user');
+        if ( data !== undefined ) {
+          let { email, phone, role } = data;
+          this.ModalStaffForm.get('email')?.setValue(email);
+          this.ModalStaffForm.get('phone')?.setValue(phone);
+          this.ModalStaffForm.get('role')?.setValue(role);
+        }
+
         this.formModalNew.show();
       }, 200);
     }

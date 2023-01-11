@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { StaffService } from 'src/app/@core/services/staff.service';
@@ -29,12 +30,14 @@ export class StaffComponent implements OnInit {
   public showBtn: boolean = true;
   private identity: any = {};
   public isAdmin: boolean = false;
+  public formModalValidate: any;
   
   public module: any = false;
   data: any [] = [];
 
   constructor(
     private staffService : StaffService,
+    private router: Router,
 
   ) {
     this.identity = JSON.parse(localStorage.getItem('identity') || '{}');
@@ -56,7 +59,11 @@ export class StaffComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.formModalValidate = new window.bootstrap.Modal(
+      document.getElementById('modalValidateNewStaffAll')
+    );
     this.loadData();
+
   }
 
   async loadData() {
@@ -81,8 +88,9 @@ export class StaffComponent implements OnInit {
   }
 
   showScreenNewStaff() {
-    this.editStaff = false;
-    this.newStaff = true;
+    // this.editStaff = false;
+    // this.newStaff = true;
+    this.formModalValidate.show();
   }
 
   showModalPositionsCoach(e: boolean) {
@@ -91,6 +99,23 @@ export class StaffComponent implements OnInit {
     }
     
     this.showModalOrder = true;
+  }
+
+  onCloseModalAndOpenOld(event: any) {
+    // console.log('Hi')
+    if ( !event ) {
+      this.formModalValidate.hide();
+      this.router.navigate(['/pages/staff']);
+      return
+    } else {
+      // Execute endpoint add permisses
+      this.formModalValidate.hide();
+      // setTimeout(() => {
+      //   this.formModalNew.show();
+      // }, 200);
+      this.editStaff = false;
+      this.newStaff = true;
+    }
   }
 
   renderer() {

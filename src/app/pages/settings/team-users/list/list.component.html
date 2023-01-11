@@ -85,30 +85,23 @@
             <div class="row mt-4">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="Sex">Sex<sup class="text-danger">*</sup></label>
-                <!-- <select formControlName="sex" required class="form-select" aria-label="Default select example">
-                  <option selected>Open this select menu</option>
-                  <option value="5">Male</option>
-                  <option value="6">Female</option>
-                  <option value="7">Undefined</option>
-                </select> -->
-                <select class="form-select" formControlName="sex">
-                <option disabled value="" readonly>choose sex</option>
-                <option *ngFor="let item of sexs" [value]="item.id">
-                  {{ item.name }}
-                </option>
-              </select>
+                
+                <ng-select [items]="sexs" bindValue="id" bindLabel="name" placeholder="select role" formControlName="sex">
+                </ng-select>
                 <span *ngIf="validInput('sex')" class="text-danger mt-2">
                   Required field
                 </span>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                 <label for="role">Rol <sup class="text-danger">*</sup></label>
-                <select formControlName="role" required class="form-select" aria-label="Default select example">
+                <!-- <select formControlName="role" required class="form-select" aria-label="Default select example">
                   <option selected>Open this select menu</option>
                   <option value="ADMIN">Administrator</option>
                   <option value="STAFF">Staff</option>
                   <option value="CUSTOMER">Customer</option>
-                </select>
+                </select> -->
+                <ng-select [items]="roles" bindValue="name" bindLabel="name" placeholder="select role" formControlName="role">
+                </ng-select>
                 <span *ngIf="validInput('role')" class="text-danger mt-2">
                   Required field
                 </span>

@@ -32,6 +32,10 @@
       <app-all *ngIf="!editStaff && !newStaff" (selectedStaff)='selectedStaff($event)'></app-all>
       <app-profile [itemStaff]="itemStaff" *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile>
       <!-- <app-profile *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile> -->
+      <!-- Modal Validate new User -->
+      <div class="modal fade" id="modalValidateNewStaffAll" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <app-validate-new-user [title]="'New Staff'" [showSettings]="false" [showFromStaff]="true" (onCloseModalAndOpenOld)="onCloseModalAndOpenOld($event)"></app-validate-new-user>
+      </div>
       <app-add-staff *ngIf="newStaff"></app-add-staff>
     </div>
   </div>

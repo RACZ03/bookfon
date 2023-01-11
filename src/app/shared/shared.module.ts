@@ -8,6 +8,7 @@ import { SendMessageComponent } from './components/send-message/send-message.com
 import { RechargeComponent } from './components/recharge/recharge.component';
 import { ValidateNewUserComponent } from './components/validate-new-user/validate-new-user.component';
 import { NgxMaskModule } from 'ngx-mask';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -24,6 +25,7 @@ import { NgxMaskModule } from 'ngx-mask';
     ReactiveFormsModule,
     ThemeModule,
     NgxMaskModule.forRoot(),
+    NgSelectModule
   ],
   exports:[
     ModalDeleteComponent,

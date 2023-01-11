@@ -29,7 +29,7 @@ export class SettingsComponent implements OnInit {
   async getUsers(){
     let resp = await this.userService.getAllStaffAdminByBusiness();
     if (resp.status === '200' && resp.data){
-      console.log(resp.data)
+      // console.log(resp.data)
       this.users = resp.data;
     }
   }

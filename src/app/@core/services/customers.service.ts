@@ -168,4 +168,15 @@ export class CustomersService {
     };
     return this.connectionSvc.send('post', `v1/wallet`, obj);
   }
+
+  async save(obj: any): Promise<any> {
+    let code = this.getCode();
+    return this.connectionSvc.send(
+      'post',
+      'v1/business/' +
+        code +
+        '/users/save?roleName=ROLE_CUSTOMER',
+      obj
+    );
+  }
 }

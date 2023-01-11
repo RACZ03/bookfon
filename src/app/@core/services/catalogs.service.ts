@@ -19,4 +19,8 @@ constructor(
     return this.connectionSvc.send('get', `catalogs/byRef/CURRENCY`);
   }
 
+  getRoles(): Promise<any> {
+    let code = this.getCode();
+    return this.connectionSvc.send('get', `role/getForBusiness/${ code }`);
+  }
 }

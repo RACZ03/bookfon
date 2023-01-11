@@ -35,6 +35,7 @@ export class AllComponent implements OnInit, OnDestroy {
   public divSubCustomers: boolean = false;
 
   public phoneNumberSelected: number = 0;
+  public formModalValidate: any;
 
   constructor(
     private customerSvc: CustomersService,
@@ -66,6 +67,9 @@ export class AllComponent implements OnInit, OnDestroy {
     );
     this.formModalSendMessage = new window.bootstrap.Modal(
       document.getElementById('modalSendMessage')
+    );
+    this.formModalValidate = new window.bootstrap.Modal(
+      document.getElementById('modalValidateNewCustomerAll')
     );
   }
 
@@ -142,6 +146,32 @@ export class AllComponent implements OnInit, OnDestroy {
 
   openSchedule( id: number ) {
     this.router.navigateByUrl(`/pages/customers/schedule/${id}`);
+  }
+
+  showScreenNewCustomer() {
+    this.formModalValidate.show();
+  }
+
+  closeModalEdit(event: any) {
+    this.formModalEdit.hide();
+    this.renderer();
+    this.loadData();
+  }
+
+  onCloseModalAndOpenOld(event: any) {
+    // console.log('Hi')
+    if ( !event ) {
+      this.formModalValidate.hide();
+      this.router.navigate(['/pages/customers']);
+      return
+    } else {
+      // Execute endpoint add permisses
+      this.formModalValidate.hide();
+      setTimeout(() => {
+        this.itemSelected = { isNew: true };
+        this.formModalEdit.show();
+      }, 200);
+    }
   }
 
 }
