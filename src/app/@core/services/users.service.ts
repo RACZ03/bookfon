@@ -47,6 +47,16 @@ export class UsersService {
     return this.connectionSvc.send('delete', `users/${ id }`);
   }
 
+  removeRole(email: string, roleName: string): Promise<any> {
+    let obj = {
+      email: email,
+      rolName: roleName,
+      businessCode: this.getCode()
+    };
+
+    return this.connectionSvc.send('delete', `role/deleteFromUser`, obj);
+  }
+
   getAllStaffByBusiness(businessCode: string): Promise<any>{
     return this.connectionSvc.send('get', `public/v1/${businessCode}/allStaffByBusiness`);
   }

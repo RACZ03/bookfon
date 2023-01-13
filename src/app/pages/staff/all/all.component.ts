@@ -5,6 +5,8 @@ import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/@core/utils/alert.service';
+import { UsersService } from 'src/app/@core/services/users.service';
 declare var window: any;
 @Component({
   selector: 'app-all',
@@ -24,6 +26,7 @@ export class AllComponent implements OnInit, OnDestroy {
   public idSelected: number = 0;
   public formModalPositionCoach: any;
   public lockTemporaryAvailability: boolean = false;
+  public itemDelete: any;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
@@ -35,7 +38,12 @@ export class AllComponent implements OnInit, OnDestroy {
   comment: string = '';
   data:any;
 
-  constructor(private staffService: StaffService, private toast: ToastrService, private router: Router) { 
+  constructor(
+    private staffService: StaffService, 
+    private userSvc: UsersService,
+    private alertSvc: AlertService,
+    private router: Router
+    ) { 
     this.dtOptions = {
       // pagingType: 'full_numbers',
       pagingType: "simple_numbers",
@@ -84,16 +92,6 @@ export class AllComponent implements OnInit, OnDestroy {
     this.loadData();
   }
 
-  async deleteRecordStaff() {
-    this.staffService.deleteStaff(this.idSelected).then(response => {
-      this.renderer();
-      this.loadData();
-      this.toast.success("success delete record", "Success");
-    }).catch(error => {
-      this.toast.error("It is not possible to delete record", "Error");
-    });
-  }
-
   async loadData() {
     this.staffService.getStaffByBusiness().then((response: any) => {
       if ( response !== undefined) {
@@ -122,8 +120,8 @@ export class AllComponent implements OnInit, OnDestroy {
     this.formModalChangePass.show();
   }
 
-  openModalDeleteRecord(id: number): void {
-    this.idSelected = id;
+  openModalDeleteRecord(item: any): void {
+    this.itemDelete = item;
     this.deleteRecordConfirmModal.show();
   }
 
@@ -150,13 +148,31 @@ export class AllComponent implements OnInit, OnDestroy {
     this.loadData();
   }
   confirmDeleteRecord(band: boolean) {
-    if (band == true && this.idSelected != 0) {
+
+    if (band == true && this.itemDelete != undefined) {
       this.deleteRecordStaff();
       this.deleteRecordConfirmModal.hide();
     } else {
       this.deleteRecordConfirmModal.hide();
     }
   }
+
+  async deleteRecordStaff() {
+    let resp = await this.userSvc.removeRole(this.itemDelete?.email, 'ROLE_ADMIN');
+    if ( resp !== undefined ) {
+      let { status, comment } = resp;
+      if ( status == 200 ) {
+        this.alertSvc.showAlert(1, '', comment);
+        this.renderer();
+      } else {
+        this.alertSvc.showAlert(3, '', (comment !== undefined ? comment : 'Error unexpected, try again'));
+      }
+    } else {
+      this.alertSvc.showAlert(3, '', 'Error unexpected, try again');
+    }
+  }
+
+  //  change status
 
   confirmChangeStatusOnDelete(data: boolean) {
     if (data == true && this.idSelected != 0) {
@@ -178,13 +194,13 @@ export class AllComponent implements OnInit, OnDestroy {
 
   changeStatusStaff(id: number) {
     this.staffService.enableDisableStaff(id).then(response => {
-      this.toast.success("Status has been changed", "Success");
+      this.alertSvc.showAlert(1, '', 'Status has been changed');
       this.renderer();
       this.loadData();
       this.closeModalChangStatus();
     }).catch(error => {
       this.renderer();
-      this.toast.error("It is not possible to change the status at this time", "Error");
+      this.alertSvc.showAlert(4, '', 'It is not possible to change the status at this time');
     });
   }
 

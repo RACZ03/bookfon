@@ -209,6 +209,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
   }
 
   loadFormSession(data: any) {
+    // console.log(data )
     // load data form sessions
     this.eventForm.get('id')?.setValue(data?.id);
     this.eventForm.get('idBusiness')?.setValue(data?.business?.id);
@@ -263,7 +264,7 @@ export class AddEventAndWorkshopComponent implements OnInit {
           sessionName: workshopSession[i]?.name,
           // salesChannels: ['', [ Validators.required ]],
           idCurrency: data.currency.id,
-          idStaff: workshopSession[i]?.idStaff,
+          idStaff: workshopSession[i]?.staff?.id,
           maskStaff: workshopSession[i]?.maskStaff || false,
           sessionPrice: workshopSession[i]?.sessionPrice,
           date: workshopSession[i]?.date,
@@ -531,7 +532,10 @@ export class AddEventAndWorkshopComponent implements OnInit {
     }
 
     if (resp != undefined || resp != null) {
-      if (resp.status === 404) {
+      if (resp.status == 400) {
+        this.alertSvc.showAlert(2, 'Warning', resp?.comment);
+        return
+      } else if (resp.status === 404) {
         this.alertSvc.showAlert(4, '', 'Error');
       } else {
         this.alertSvc.showAlert(1, 'Success', resp?.comment);

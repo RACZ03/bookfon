@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { CustomersService } from 'src/app/@core/services/customers.service';
+import { UsersService } from 'src/app/@core/services/users.service';
 import { AlertService } from 'src/app/@core/utils/alert.service';
 
 declare var window: any;
@@ -24,6 +25,8 @@ export class AllComponent implements OnInit, OnDestroy {
 
   public idSelected: number = 0;
   public itemSelected: any = null;
+  public itemDelete: any;
+  public modalDelete: any;
 
   public formModalEdit: any;
   public formModalChangePass: any;
@@ -40,7 +43,8 @@ export class AllComponent implements OnInit, OnDestroy {
   constructor(
     private customerSvc: CustomersService,
     private alertSvc: AlertService,
-    private router: Router
+    private router: Router,
+    private usersService: UsersService
   ) { 
     this.loadData();
     this.dtOptions = {
@@ -70,6 +74,10 @@ export class AllComponent implements OnInit, OnDestroy {
     );
     this.formModalValidate = new window.bootstrap.Modal(
       document.getElementById('modalValidateNewCustomerAll')
+    );
+
+    this.modalDelete = new window.bootstrap.Modal(
+      document.getElementById('modalDeleteCustomer')
     );
   }
 
@@ -171,6 +179,33 @@ export class AllComponent implements OnInit, OnDestroy {
         this.itemSelected = { isNew: true };
         this.formModalEdit.show();
       }, 200);
+    }
+  }
+
+  // Delete
+  showModalDelete(item: any) {
+    this.itemDelete = item;
+    // open modal
+    this.modalDelete.show();
+  }
+
+  async onDelete(e: any) {
+    this.modalDelete.hide();
+    if ( !e ) {
+      return;
+    }
+    // hide
+    let resp = await this.usersService.removeRole(this.itemDelete.email, 'ROLE_ADMIN');
+    if ( resp !== undefined ) {
+      let { status, comment } = resp;
+      if ( status == 200 ) {
+        this.alertSvc.showAlert(1, '', comment);
+        this.renderer();
+      } else {
+        this.alertSvc.showAlert(3, '', (comment !== undefined ? comment : 'Error unexpected, try again'));
+      }
+    } else {
+      this.alertSvc.showAlert(3, '', 'Error unexpected, try again');
     }
   }
 

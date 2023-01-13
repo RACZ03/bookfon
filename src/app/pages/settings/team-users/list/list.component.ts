@@ -30,9 +30,16 @@ export class ListComponent implements OnInit {
   public formModalNew: any;
   public formModalValidate: any;
   public ModalStaffForm!: FormGroup;
+  public modalDelete: any;
+
   public emailRegex: string ='^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$';
   sexs: SexsItem[] = [];
   public roles: [] = [];
+  public isEdit: boolean = false;
+  public backupEdit: any = {};
+  public emailError: boolean = false;
+  public phoneError: boolean = false;
+  public itemDelete: any = {};
 
   public scrollOptions: any[] = [
     { title: 'Staff permissions', active: true },
@@ -67,6 +74,9 @@ export class ListComponent implements OnInit {
     );
     this.formModalValidate = new window.bootstrap.Modal(
       document.getElementById('modalValidateNewStaffSettings')
+    );
+    this.modalDelete = new window.bootstrap.Modal(
+      document.getElementById('modalDeleteStaffSettings')
     );
 
     this.loadSex();
@@ -115,14 +125,14 @@ export class ListComponent implements OnInit {
   initForms(): FormGroup {
     return this.fb.group({
      id: [''],
-     name: ['', [Validators.required ]],
+     firstName: ['', [Validators.required ]],
      lastName: ['', Validators.required],
      email: ['', [Validators.required, Validators.pattern(this.emailRegex)],],
      phone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
      password_confirm: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(12)]],
      profile: [''],
-     sex: ['', Validators.required],
+     idSex: ['', Validators.required],
      role: ['', Validators.required]
     });
   }
@@ -208,15 +218,27 @@ export class ListComponent implements OnInit {
   // !SECTION VALIDATIONS
 
   async onSaveStaff(){
+
+    if ( this.isEdit ) {
+      this.sendEdit(this.ModalStaffForm.value);
+      return
+    }
+
+    // verify emailErro or phoneError is true
+    if ( this.emailError || this.phoneError ) {
+      this.alertSvc.showAlert(3, '', 'Email or phone already exists');
+      return;
+    }
+
     let data = {
-      firstName: this.ModalStaffForm.value.name,
+      firstName: this.ModalStaffForm.value.firstName,
       lastName: this.ModalStaffForm.value.lastName,
       phone: this.ModalStaffForm.value.phone,
       email: this.ModalStaffForm.value.email,
       password: this.ModalStaffForm.value.password,
       profile: this.ModalStaffForm.value.profile,
       image: "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
-      idSex: this.ModalStaffForm.value.sex,
+      idSex: this.ModalStaffForm.value.idSex,
       role: this.ModalStaffForm.value.role
     }
 
@@ -247,4 +269,144 @@ export class ListComponent implements OnInit {
     });
   }
 
+  async verifyUser(byEmail: boolean = false ){
+    // console.log('VERIFY')
+    let email = null;
+    let phone = null;
+    if ( byEmail ) {
+      email = this.ModalStaffForm.value.email;
+    } else {
+      phone = this.ModalStaffForm.value.phone;
+      if ( phone < 10) {
+        return;
+      }
+    }
+    let role = this.ModalStaffForm.value.role;
+    let resp = await this.usersService.verifyUser(email, phone, role);
+
+    if ( resp !== undefined ) {
+      let { status, data } = resp;
+      if ( status == 200) {
+        let { withEmail, withPhone } = data; 
+        // validate email is iqualts backup email
+        if ( withEmail ) {
+          if ( this.backupEdit.email !== email ) { 
+            this.emailError = true;
+            this.alertSvc.showAlert(3, '', 'Email already exists');
+            // set invalid form control email
+            // this.ModalStaffForm.get('email')?.setErrors({'incorrect': true});
+          }
+        } else {
+          // validate email is iqualts backup phone
+          if ( withPhone ) {
+            if ( this.backupEdit.phone !== phone ) {
+              this.alertSvc.showAlert(3, '', 'Phone already exists');
+              this.phoneError = true;
+            }
+          }
+        }
+      } else {
+        if ( byEmail ) {
+          this.emailError = false;
+        } else {
+          this.phoneError = false;
+        }
+      }
+    }
+  }
+
+  // Edit
+  async edit(id: number) {
+    
+    let resp = await this.usersService.findById(id);
+    if ( resp !== undefined ) {
+      let { status, comment, data } = resp;
+      if ( status == 200 ) {
+        this.loadDataForm(data);
+        this.formModalNew.show();
+      } else {
+        this.alertSvc.showAlert(3, '', (comment !== undefined ? comment : 'Error unexpected, try again'));
+      }
+    } else {
+      this.alertSvc.showAlert(3, '', 'Error unexpected, try again');
+    }
+  }
+  
+  loadDataForm(data: any) {
+    this.backupEdit = data;
+    // console.log(data);
+    this.isEdit = true;
+    this.ModalStaffForm.get('id')?.setValue(data.id);
+    this.ModalStaffForm.get('firstName')?.setValue(data.firstName);
+    this.ModalStaffForm.get('lastName')?.setValue(data.lastName);
+    this.ModalStaffForm.get('phone')?.setValue(data.phone);
+    this.ModalStaffForm.get('email')?.setValue(data.email);
+    this.ModalStaffForm.get('profile')?.setValue(data.profile);
+    this.ModalStaffForm.get('idSex')?.setValue(data.idSex);
+    this.ModalStaffForm.get('password')?.setValue('123456');
+    this.ModalStaffForm.get('password_confirm')?.setValue('123456');    
+
+  
+    let { roleList } = data;
+    if ( roleList !== undefined ) {
+      let found = roleList.find((item: any) => item.role == 'ROLE_SUPER_ADMIN' || item.role == 'ROLE_ADMIN');
+      if ( found !== undefined ) {
+        this.ModalStaffForm.get('role')?.setValue(found.role);
+        // disabled role
+        this.ModalStaffForm.get('role')?.disable();
+      }
+    }
+    // this.ModalStaff
+  }
+
+  async sendEdit(data: any) {
+    // verify emailErro or phoneError is true
+    if ( this.emailError || this.phoneError ) {
+      this.alertSvc.showAlert(3, '', 'Email or phone already exists');
+      return;
+    }
+    //remove password and password_confirm
+    delete data.password;
+    delete data.password_confirm;
+
+    let resp = await this.usersService.put(data);
+    if ( resp !== undefined ) {
+      let { status, comment } = resp;
+      if ( status == 200 ) {
+        this.alertSvc.showAlert(1, '', comment);
+        this.closeModal(true);
+      } else {
+        this.alertSvc.showAlert(3, '', (comment !== undefined ? comment : 'Error unexpected, try again'));
+      }
+    } else {
+      this.alertSvc.showAlert(3, '', 'Error unexpected, try again');
+    }
+  }
+
+  // Delete
+  showModalDelete(item: any) {
+    this.itemDelete = item;
+    // open modal
+    this.modalDelete.show();
+  }
+
+  async onDelete(e: any) {
+    this.modalDelete.hide();
+    if ( !e ) {
+      return;
+    }
+    // hide
+    let resp = await this.usersService.removeRole(this.itemDelete.email, 'ROLE_ADMIN');
+    if ( resp !== undefined ) {
+      let { status, comment } = resp;
+      if ( status == 200 ) {
+        this.alertSvc.showAlert(1, '', comment);
+        this.renderer();
+      } else {
+        this.alertSvc.showAlert(3, '', (comment !== undefined ? comment : 'Error unexpected, try again'));
+      }
+    } else {
+      this.alertSvc.showAlert(3, '', 'Error unexpected, try again');
+    }
+  }
 }
