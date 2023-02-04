@@ -1,4 +1,4 @@
-<div class="content w-100 bg-transparent">
+<div class="content w-100 bg-transparent" *ngIf="!lockTemporaryAvailability">
   <div class="card p-2 rounded-3 border-0">
     <div class="table-responsive">
       <table class="table" style="width:100%" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
@@ -13,9 +13,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of data">
-            <td class="align-middle">
-              <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+          <tr *ngFor="let item of data; let i = index">
+            <td class="align-middle text-center">
+              <img [src]="item?.image" appBrokenImagen class="avatar" alt="">
             </td>
             <td class="align-middle">
               <label for="">{{item?.firstName }} {{item?.lastName }}</label>
@@ -24,20 +24,31 @@
               <label for="">{{item?.phone? (item.phone | mask: '(000) 000-0000' ): '' }}</label>
             </td>
             <td class="align-middle">
-              <button *ngIf="item.lastLogin" class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-danger"></i></button>
-              <button *ngIf="!item.lastLogin"  class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-success"></i></button>
+              <button *ngIf="!item?.businessList?.[0]?.enabled" class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-danger"></i></button>
+              <button *ngIf="item?.businessList?.[0]?.enabled"  class="btn btn-link m-1"><i class="bi bi-check-circle-fill bg-icon-success"></i></button>
             </td>
             <td class="align-middle">
               <label for="">{{ (item?.lastLogin !== null) ? (item.lastLogin | date: 'd/M/yyyy'): ''}}</label>
             </td>
-            <td class="d-flex justify-content-center">
-              <button (click)="editStaff(item)" class="btn btn-link m-1"><i
-                  class="bi bi-pencil-square"></i></button>
-              <div class="form-check form-switch">
-                <input (click)="openModalChangeStatus(item.id)" class="form-check-input mt-3" type="checkbox" id="flexSwitchCheckDefault">
+            <td class="d-flex justify-content-center" style="min-height: 50px;">
+              <button (click)="openModalLockAvailavility(item.id)" class="btn btn-link">
+                <i class="bi bi-lock-fill"></i>
+              </button>
+              <button (click)="editStaff(item)" class="btn btn-link ">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              <div class="form-check form-switch" style="padding-left: 3.2em !important;">
+                <input (click)="openModalChangeStatus(item.id, i)" 
+                      class="form-check-input" style="margin-top: 20px;" 
+                      type="checkbox" 
+                      id="chechedStatus-{{i}}" [checked]="item?.businessList?.[0]?.enabled">
               </div>
-              <button (click)="openModalChangePass(item.id)" class="btn btn-link m-1"><i class="bi bi-key-fill"></i></button>
-              <!-- <button (click)="openModalDeleteRecord(item.id)" class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button> -->
+              <button (click)="openModalChangePass(item.id)" class="btn btn-link">
+                <!-- <i class="bi bi-key-fill"></i> -->
+                <img src="./assets/images/icons/key-2.svg" alt="">
+              </button>
+              
+              <button (click)="openModalDeleteRecord(item)" class="btn btn-link m-1"><i class="bi bi-x-circle-fill"></i></button>
             </td>
           </tr>
         </tbody>
@@ -48,7 +59,7 @@
 
 <!-- modal confirm change status staff -->
 <div class="modal fade" id="confirmChangeStatusModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <app-modal-delete [btnYes]="'Disable'" [message]="'Do you really want to disable this record? This process cannot be undone'" (delete)="confirmChangeStatusOnDelete($event)"></app-modal-delete> 
+  <app-modal-delete [btnYes]="'Enable/Disable'" [message]="'Do you really want to enable/disable this record? This process cannot be undone'" (delete)="confirmChangeStatusOnDelete($event)"></app-modal-delete> 
 </div>
 
 <!-- modal delete record -->

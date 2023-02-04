@@ -37,30 +37,87 @@ export class ServicesService {
     if(data?.length<=0 || data ==undefined || data==null){return[]}
 
     let events = [];
-    for (let index = 0; index < data.length; index++) {
-      events.push({
-        id: data[index].id,
-        title: data[index]['service'].name,
-        start: this.convertDate(data[index].date),
-        end: this.convertDate(data[index].date),
-        time: {
-          startTime: data[index].startTime,
-          endTime: data[index].endTime,
-        },
-        service: data[index]['service'],
-        service_name: data[index]['service'].name,
-        service_description: data[index]['service'].description,
-        allDay: false,
-        idStaff:data[index].idStaff,
-        staff: data[index]['staff'],
-        url: data[index]['staff'].image? data[index]['staff'].image : '',
-        backgroundColor: '#FF946F',
-        borderColor: '#FF946F',
-        textColor: '#000',
-        description: data[index]['service'].description,
-      });
+    let eventWorkshop = [];
+    let { services: dataService, workshops: dataWorkshop } = data;
+
+    if (dataService !== undefined && dataService !== null && dataService.length > 0 ) {
+      for (let i = 0; i < dataService.length; i++) {
+        let { purchaseServiceDetails } = dataService[i];
+        events.push({
+          id: purchaseServiceDetails?.id,
+          title: purchaseServiceDetails?.service?.name,
+          start: purchaseServiceDetails?.date,
+          end: purchaseServiceDetails?.date,
+          time: {
+            startTime: purchaseServiceDetails?.startTime,
+            endTime: purchaseServiceDetails?.endTime,
+          },
+          service: purchaseServiceDetails?.service,
+          service_name: purchaseServiceDetails?.service?.name,
+          service_description: purchaseServiceDetails?.service?.description,
+          allDay: false,
+          idStaff:purchaseServiceDetails?.staff?.id,
+          staff: purchaseServiceDetails?.staff,
+          // url: data[index]['staff'].image? data[index]['staff'].image : '',
+          customer: purchaseServiceDetails?.customer,
+          backgroundColor: '#FF946F',
+          borderColor: '#FF946F',
+          textColor: '#000',
+          description: purchaseServiceDetails?.service?.description,
+          isService: true,
+        });
+
+        
+      }
     }
-    return events;
+    
+    if ( dataWorkshop !== undefined && dataWorkshop !== null && dataWorkshop.length > 0 ) {
+      // console.log('dataWorkshop', dataWorkshop);
+      for (let j = 0; j < dataWorkshop.length; j++) {
+        let { purchaseWorkshopDetails } = dataWorkshop[j];
+        // validate if the same workshop already exists, for the same date and time
+        // let  find: any = eventWorkshop.find((item:any) => {
+        //   return item?.start === (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate &&
+        //           item?.time?.startTime === (purchaseWorkshopDetails?.workshopSession !== null ) ?  purchaseWorkshopDetails?.workshopSession?.startTime : purchaseWorkshopDetails?.workshop?.schedule[0].startTime &&
+        //           item?.time?.endTime === (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.endTime : purchaseWorkshopDetails?.workshop?.schedule[0].endTime &&
+        //           item?.workshop_name === purchaseWorkshopDetails?.workshop?.name
+        // });
+        // if ( find === undefined ) {
+          eventWorkshop.push({
+            id: purchaseWorkshopDetails?.id,
+            title: purchaseWorkshopDetails?.workshop?.name,
+            start: (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate,
+            end: (purchaseWorkshopDetails?.workshopSession !== null ) ? purchaseWorkshopDetails?.workshopSession?.date : purchaseWorkshopDetails?.workshop?.endDate,
+            time: {
+              startTime: (purchaseWorkshopDetails?.workshopSession !== null ) ? 
+                          purchaseWorkshopDetails?.workshopSession?.startTime : 
+                          purchaseWorkshopDetails?.workshop?.schedule[0].startTime,
+              endTime: (purchaseWorkshopDetails?.workshopSession !== null ) ?
+                        purchaseWorkshopDetails?.workshopSession?.endTime :
+                        purchaseWorkshopDetails?.workshop?.schedule[0].endTime,
+            },
+            workshop: purchaseWorkshopDetails?.workshop,
+            workshop_name: purchaseWorkshopDetails?.workshop?.name,
+            workshop_description: purchaseWorkshopDetails?.workshop?.description,
+            allDay: false,
+            idStaff:purchaseWorkshopDetails?.staff?.id,
+            staff: purchaseWorkshopDetails?.staff,
+            // url: data[index]['staff'].image? data[index]['staff'].image : '',
+            customer: purchaseWorkshopDetails?.customer,
+            backgroundColor: '#FF946F',
+            borderColor: '#FF946F',
+            textColor: '#000',
+            description: purchaseWorkshopDetails?.workshop?.description,
+            isService: false,
+          });
+        // } else {
+        //   // if the same workshop already exists, add the session to the existing workshop
+        //   find.workshopSession = purchaseWorkshopDetails?.workshopSession;
+        // }
+      }
+    }
+
+    return [...events, ...eventWorkshop];
   }
 
   convertDate(date: any) {
@@ -108,7 +165,7 @@ export class ServicesService {
       recurrentPayment: recurrentPayment,
       categories: categoriesnew,
       subCategories: subcategoriesnew,
-      idCurrency: 8,
+      idCurrency: service.idCurrency,
       idBusiness: identity.id,
       imagePrincipal: imagePrincipal,
       images: img,

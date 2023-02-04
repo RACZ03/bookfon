@@ -1,0 +1,198 @@
+.container{
+
+    label {
+        font-size: 13px !important;
+    }
+
+    margin-top: 15px;
+    color: #7A7A7A;
+    h5{
+        font-weight: 800;
+        color: #181C33;
+        font-family:Arial, Helvetica, sans-serif;
+    }
+
+    span{
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    .row{
+        margin: 20px;
+        .col-md-6{
+            .form-group{
+                label{
+                    font-size: 14px;
+                    font-weight: 700;
+                    color: #181C33;
+                }
+                input{
+                    border: 1px solid #181C33;
+                    border-radius: 5px;
+                    height: 40px;
+                    padding-left: 10px;
+                }
+            }
+        }
+
+        .row{
+            span{
+                font-size: 12px;
+                color: #7A7A7A;
+            }
+            .chek{
+                margin-top: 10px;
+                .form-check{
+
+                    margin: 10px;
+                    label{
+                        font-size: 14px;
+                        color: #7A7A7A;
+            
+                    }
+                }
+            }
+        }
+    }
+
+    .row{
+        .timer{
+            width: 112px;
+            height: 41px;
+            border: 1px solid #c2c2c2;
+            color: #7A7A7A;
+            border-radius: 5px;
+        }
+       
+        
+       .btn-add {
+           border-style: dashed;
+           border-width: 1px;
+           border-color: #1F72EA;
+           color: #1F72EA;
+           padding: 6px 30px;
+           margin-top: 24px;
+           margin-left: 15px;
+       }
+    }
+
+    .slider-wrap{
+        position: relative;
+        overflow: hidden;
+        height: 110px;
+
+        .slider-main{
+            position: absolute;
+            width: 150%;
+            margin-left: 5%;
+            .item {
+                display: inline-block;
+                width: 120px;
+                height: 100px;
+                //background: rgb(151, 2, 2);
+                box-shadow: 0px 0px 1px 0.7px #d5d5d5;
+                position: relative;
+                margin: 4px;
+                padding: 2px;
+                border-style: dashed;
+                border-width: 1px;
+
+                cursor: pointer;
+                
+                .text {
+                    text-align: center;
+                    color: #707070;
+                    font-size: 11px;
+                    font-weight: 600;
+                }
+                .btn-remove {
+                    position: absolute;
+                    top: -4px;
+                    right: 0;
+                    z-index: 1000;
+                    padding: 4px 8px;
+                    border-radius: 50%;
+                    font-size: 10px;
+                }
+                .img-wrapper {
+                    position: relative;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        height: 100px !important;
+                        width: 110px !important;
+
+                        max-height: 100px !important;
+                        max-width: 110px !important;
+                    }
+
+                    
+                }
+                .btn-plus {
+                    position: absolute;
+                    color: #1F72EA;
+                    top: 40px;
+                    left: 50px;
+                }
+            }
+
+            .item:hover {
+                border-style: dashed;
+                border-width: 1px;
+                border: 1px solid #556ee6;
+            }
+
+            .item.active {
+                border: 1px solid #556ee6 !important;
+            }
+        }
+
+        .button-area {
+            background: #CCCCCC;
+            
+            .prev {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                border: none;
+            }
+
+            .next {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 100%;
+                border: none;
+            }
+        }
+    }
+}
+
+.btn-add {
+    border-style: dashed;
+    border-width: 1px;
+    border-color: #1F72EA;
+    color: #1F72EA;
+    margin-bottom: 25px;
+    margin-left: 25px
+}
+
+.img-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        height: 100px !important;
+        width: 110px !important;
+
+        max-height: 100px !important;
+        max-width: 110px !important;
+    }
+
+    
+}

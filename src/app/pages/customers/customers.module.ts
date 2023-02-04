@@ -23,6 +23,9 @@ import { ScheduleComponent } from './customers/all/schedule/schedule.component';
 import { SubCustomerComponent } from './customers/all/sub-customer/sub-customer.component';
 import { BootFonFullCalendarModule } from 'src/app/shared/components/full-calendar/full-calendar.module';
 import { DataTablesModule } from 'angular-datatables';
+import { FormsModule } from '@angular/forms';
+import { ThemeModule } from 'src/app/@theme/theme.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -34,8 +37,11 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     ReactiveFormsModule,
     NgxMaskModule.forRoot(),
     SharedModule,
+    FormsModule,
     DataTablesModule,
-    BootFonFullCalendarModule
+    BootFonFullCalendarModule,
+    ThemeModule,
+    NgSelectModule
   ],
   declarations: [
     CustomersComponent,
@@ -52,7 +58,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     EditCustomerComponent,
     WalletComponent,
     ScheduleComponent,
-    SubCustomerComponent,
+    SubCustomerComponent
   ]
 })
 export class CustomersModule { }

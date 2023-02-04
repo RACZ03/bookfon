@@ -29,6 +29,14 @@ import { DataTablesModule } from 'angular-datatables';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from 'src/app/@theme/theme.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PromotionsComponent } from './services/promotions/promotions.component';
+import { AddPromotionComponent } from './services/promotions/add-promotion/add-promotion.component';
+import { WalletCashbackComponent } from './services/wallet-cashback/wallet-cashback.component';
+import { AddWalletCashbackComponent } from './services/wallet-cashback/add-wallet-cashback/add-wallet-cashback.component';
+import { AllEventsComponent } from './event-workshop/all-events/all-events.component';
+import { AddEventAndWorkshopComponent } from './event-workshop/add-event-and-workshop/add-event-and-workshop.component';
+import { CategoriesWorkshopComponent } from './event-workshop/categories-workshop/categories-workshop.component';
+import { AddCategoriesWorkshopComponent } from './event-workshop/add-categories-workshop/add-categories-workshop.component';
 
 
 @NgModule({
@@ -55,6 +63,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
     AddSubcategoriesComponent,
     AddClasificationsComponent,
     AddTaxratesComponent,
+    PromotionsComponent,
+    AddPromotionComponent,
+    WalletCashbackComponent,
+    AddWalletCashbackComponent,
+    AllEventsComponent,
+    AddEventAndWorkshopComponent,
+    CategoriesWorkshopComponent,
+    AddCategoriesWorkshopComponent,
   ],
   imports: [
     CommonModule,

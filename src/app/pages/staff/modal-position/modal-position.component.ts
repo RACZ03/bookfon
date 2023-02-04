@@ -31,22 +31,23 @@ export class ModalPositionComponent implements OnInit {
       }
 
  async  onSave() {
-    this.newData = [];
-    let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
-   //s console.log(identity, "identity");
-    for (let i = 0; i < this.data.length; i++) {
-      let obj = {
-        id: this.data[i].id,
-        order: i+1,
-        idBusiness : identity.id
-      }
-      this.newData.push(obj);
+  console.log('Hi');
+  this.newData = [];
+  let identity = JSON.parse(localStorage.getItem('businessSelected') || '{}');
+  //s console.log(identity, "identity");
+  for (let i = 0; i < this.data.length; i++) {
+    let obj = {
+      id: this.data[i].id,
+      order: i+1,
+      idBusiness : identity.id
     }
-    let resp = await this.serviceStaff.changeOrderStaff(this.newData);
-    // console.log(resp)
-    if ( resp?.status == 200 ) {
-      this.onClose.emit(true);
-    }
+    this.newData.push(obj);
+  }
+  let resp = await this.serviceStaff.changeOrderStaff(this.newData);
+  // console.log(resp)
+  if ( resp?.status == 200 ) {
+    this.onClose.emit(true);
+  }
  
   }
 

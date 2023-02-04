@@ -1,3 +1,7 @@
+*{
+  color: rgb(36, 34, 34);
+}
+
 #title{
   color: black;
   font-weight: bold;
@@ -22,26 +26,108 @@
 label{
   color:black;
 }
-mdb-carousel-item{
-  div{
-    padding-top: 20px;
-    padding-bottom: 20px;
-    div:hover{
-      background-color: rgb(226, 255, 221);
-      cursor: pointer;
-    }
-    img{
-      width: 40px;
-      height: 40px;
-      border: lightskyblue 2px solid;
-      border-radius: 20px;
-    }
-    label{
-      font-size: 10px;
-      color: gray;
-      font-weight: bold;
-      margin-left: 5px;
-      cursor: pointer;
-    }
+// mdb-carousel-item{
+//   div{
+//     padding-top: 20px;
+//     padding-bottom: 20px;
+//     div:hover{
+//       background-color: rgb(226, 255, 221);
+//       cursor: pointer;
+//     }
+//     img{
+//       width: 40px;
+//       height: 40px;
+//       border: lightskyblue 2px solid;
+//       border-radius: 20px;
+//     }
+//     label{
+//       font-size: 10px;
+//       color: gray;
+//       font-weight: bold;
+//       margin-left: 5px;
+//       cursor: pointer;
+//     }
+//   }
+// }
+
+.div-staff{
+  padding: 10px 0;
+
+  .slider-wrap{
+      position: relative;
+      overflow: hidden;
+      height: 100px;
+
+      .slider-main{
+          position: absolute;
+          width: 150%;
+          margin-left: 5%;
+          .item {
+              display: inline-block;
+              width: 120px;
+              height: 90px;
+              //background: rgb(151, 2, 2);
+              box-shadow: 0px 0px 1px 0.7px #d5d5d5;
+              position: relative;
+              margin: 4px;
+              padding: 2px;
+              border-radius: 10px;
+              -webkit-border-radius: 10px;
+              -moz-border-radius: 10px;
+              -ms-border-radius: 10px;
+              -o-border-radius: 10px;
+              cursor: pointer;
+              
+              .text {
+                  text-align: center;
+                  color: #707070;
+                  font-size: 11px;
+                  font-weight: 600;
+              }
+
+              .img-wrapper {
+                  position: relative;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+
+                  .avatar {
+                      vertical-align: middle;
+                      width: 65px !important;
+                      height: 65px !important;
+                      border-radius: 50%;
+                      border: 2px solid;
+                   }
+              }
+          }
+
+          .item:hover {
+              border: 1px solid #556ee6;
+          }
+
+          .item.active {
+              border: 1px solid #556ee6 !important;
+          }
+      }
+
+      .button-area {
+          background: #CCCCCC;
+          
+          .prev {
+              position: absolute;
+              left: 0;
+              top: 0;
+              height: 100%;
+              border: none;
+          }
+
+          .next {
+              position: absolute;
+              right: 0;
+              top: 0;
+              height: 100%;
+              border: none;
+          }
+      }
   }
 }

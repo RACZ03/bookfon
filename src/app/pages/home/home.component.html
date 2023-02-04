@@ -1,8 +1,19 @@
 <div class="banner shadow">
     <!-- <img src="assets/images/bookfons/banner.jpg" alt=""> -->
-    <h3>Hi, {{ identity?.firstName + ' ' + identity?.lastName }}!</h3>
+    <h4>Hi, {{ identity?.firstName + ' ' + identity?.lastName }}!</h4>
     <div style="display: flex;">
-        <img class="img-fluid" appBrokenImagen [src]="identity != undefined ? identity?.image : 'assets/images/bookfons/user-found-3.png'"/>
-        <h4>Welcome, it's nice to have you back.</h4>
+        <!-- <img class="img-fluid" appBrokenImagen [src]="identity != undefined ? identity?.image : 'assets/images/bookfons/user-found-3.png'"/> -->
+        <h5>Welcome, it's nice to have you back.</h5>
+    </div>
+</div>
+
+<div class="banner2 shadow">
+    <!-- <img src="assets/images/bookfons/banner.jpg" alt=""> -->
+    <div style="display: flex;">
+        <h6>
+            We’re working on adding KPI views of various data sources for efficient goals tracking to 
+            provide businessess with a birds-eye view of their performance on an operational or 
+            strategic level. and would love your feedback on which ones to add.  <a style="color: #1f72ea;"> Let us know </a>
+        </h6>
     </div>
 </div>

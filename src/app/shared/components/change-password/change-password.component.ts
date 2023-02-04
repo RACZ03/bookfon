@@ -43,11 +43,11 @@ export class ChangePasswordComponent implements OnInit {
     const icon = document.getElementById('icon1');
 
     if ( this.fieldTextType ) {
-      icon?.classList.remove('fa-eye-slash');
-      icon?.classList.add('fa-eye');
+      icon?.classList.remove('bi-eye-slash');
+      icon?.classList.add('bi-eye');
     } else {
-      icon?.classList.remove('fa-eye');
-      icon?.classList.add('fa-eye-slash');
+      icon?.classList.remove('bi-eye');
+      icon?.classList.add('bi-eye-slash');
     }
   }
 
@@ -59,11 +59,11 @@ export class ChangePasswordComponent implements OnInit {
     const icon = document.getElementById('icon2');
 
     if ( this.fieldTextType ) {
-      icon?.classList.remove('bi bi-eye-slash');
-      icon?.classList.add('bi bi-eye');
+      icon?.classList.remove('bi-eye-slash');
+      icon?.classList.add('bi-eye');
     } else {
-      icon?.classList.remove('bi bi-eye');
-      icon?.classList.add('bi bi-eye-slash');
+      icon?.classList.remove('bi-eye');
+      icon?.classList.add('bi-eye-slash');
     }
   }
 

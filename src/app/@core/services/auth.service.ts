@@ -189,7 +189,7 @@ export class AuthService {
   {
     // Revisar este metodo
     let resp = await this.connectionSvc.send('put', `users/updateLastLogin?email=${email}`);
-    console.log(resp);
+    
     this.token = null;
     this.identity = null;
     localStorage.removeItem('token');

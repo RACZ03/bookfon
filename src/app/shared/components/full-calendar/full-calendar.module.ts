@@ -7,6 +7,7 @@ import listPlugin from '@fullcalendar/list';
 import interactionPlugin from '@fullcalendar/interaction';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ThemeModule } from 'src/app/@theme/theme.module';
 
 FullCalendarModule.registerPlugins([
   // register FullCalendar plugins
@@ -19,7 +20,7 @@ FullCalendarModule.registerPlugins([
 
 @NgModule({
   declarations: [BootFonFullCalendar],
-  imports: [CommonModule, FullCalendarModule],
+  imports: [CommonModule, FullCalendarModule, ThemeModule],
   exports: [BootFonFullCalendar],
 })
 export class BootFonFullCalendarModule {}

@@ -6,21 +6,21 @@
 <!--add  Sub categories categories-->
 <div class="modal fade" id="modalNewSubCategories" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <app-add-subcategories  [dataupdateSubCategories]="module" (onClose)="closeModalSubCategories($event)"></app-add-subcategories>
-  </div>
+</div>
 
-  <button class="btn btn-add" routerLink="/pages/services">
-    <i class="bi bi-arrow-bar-left"></i>
-   Return list Service
-</button>
 <div class="container mb-5">
    <form (ngSubmit)="onSubmit()" [formGroup]="Serviceadd">
     <h5>{{title}}</h5>
-    <div class="border-bottom border-3">
+    <div class="border-bottom border-3" style="padding-bottom: 5px;">
+      <button class="btn btn-sm btn-add" routerLink="/pages/services" style="float: right;">
+        <i class="bi bi-arrow-bar-left"></i>
+        Return list Service
+      </button>
         <span>Service detail</span>
     </div>
     <div class="row">
               <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="mb-3">
+                <div class="mb-2">
                   <label class="small mb-1" for="inputName">Name Service: <span class="text-danger">*</span></label>
                   <input class="form-control mb-2" id="inputtName" type="text" placeholder="Name Service" 
                       formControlName="name" [class.is-invalid]="validInput('name')"/>
@@ -28,7 +28,7 @@
                       Campo requerido.
                   </span>
               </div>
-              <div class="mb-3">
+              <div class="mb-2">
                 <label class="small mb-1" for="inputdescription">Description: <span class="text-danger">*</span></label>
                 <textarea class="form-control mb-2" id="inputdescription" type="text" placeholder="Ingrese la Descripcion"
                     formControlName="description" rows="5"></textarea>
@@ -77,11 +77,12 @@
                   <div class="slider-main">
                     <div *ngFor="let item of imagesList; let i = index" (click)="clickedFile()"
                           [ngClass]="'item element-' + i">
+                      <button class="btn btn-danger btn-remove" *ngIf="i > 0" (click)="removeImage(i)">X</button>
                       <div class="img-wrapper">
                         <img *ngIf="item?.url !== '' " [src]="item?.url" class="avatar" appBrokenImagen alt="profile.png">
                       </div>
                       <i class="bi bi-plus btn-plus"></i>
-                      <input type="file" name="file" id="file" style="display: none;" (change)="SelectedFile($event)">
+                      <input type="file" name="file" id="fileService" style="display: none;" (change)="SelectedFile($event)">
                     </div>
                   </div>
                   <!-- Buttons -->
@@ -100,8 +101,8 @@
           <!-- END CARUSEL -->
            <div class="row">
             <label class="small mb-1" for="inputibrachoffices">Category <span class="text-danger">*</span></label>
-            <div class="mb-3" style="display: flex;">
-              <ng-select #BusinessSelect [items]="categoryData" [selectOnTab]="true" [multiple]="true"
+            <div class="mb-2" style="display: flex;">
+              <ng-select #BusinessSelect [items]="categoryData" [selectOnTab]="true" [multiple]="true" [maxSelectedItems]="1"
                   bindValue="id" bindLabel="name" placeholder="select a category" formControlName="categories" style="width: 45%;">
               </ng-select>
               <span *ngIf="validInput('categories')" class="text-danger mt-2">
@@ -111,16 +112,16 @@
               font-weight: 600; font-size: 12px;" (click)="showModalCategoriesAdd(true)">+ Add /Create more categories</button>
             </div>
             <label class="small mb-1" for="inputibrachoffices">Sub'Category <span class="text-danger">*</span></label>
-                <div class="mb-3" style="display: flex;">
-                  <ng-select #BusinessSelect [items]="subcategoryData" [selectOnTab]="true" [multiple]="true"
-                      bindValue="id" bindLabel="name" placeholder="select a sub_category" formControlName="subcategories" style="width: 45%;">
-                  </ng-select>
-                  <span *ngIf="validInput('categories')" class="text-danger mt-2">
-                      This field is required.
-                  </span>
-                   <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
-                   font-weight: 600; font-size: 12px;" (click)="showModalSubCategoriesAdd(true)">+ Add /Create more Sub-category</button>
-                </div>    
+              <div class="mb-3" style="display: flex;">
+                <ng-select #BusinessSelect [items]="subcategoryData" [selectOnTab]="true" [multiple]="true" [maxSelectedItems]="1"
+                    bindValue="id" bindLabel="name" placeholder="select a sub_category" formControlName="subcategories" style="width: 45%;">
+                </ng-select>
+                <span *ngIf="validInput('categories')" class="text-danger mt-2">
+                    This field is required.
+                </span>
+                  <button type="button" class="ms-2 text-primary" style="width: 45%; background-color: rgba(255, 248, 220, 0); border: 0;
+                  font-weight: 600; font-size: 12px;" (click)="showModalSubCategoriesAdd(true)">+ Add /Create more Sub-category</button>
+              </div>    
                    <!--
                 <label class="p-0 mb-2 mt-2">Clasification</label>
                    <select class="form-select" aria-label="Default select example" style="width: 40%;">
@@ -137,7 +138,7 @@
     <div class="row border-bottom border-3">
 
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12" style="display: flex;">
-            <div class="mb-3">
+            <div class="mb-2">
                 <label class="small" for="">Duration</label><br>
                 <input type="text" class="form-control" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="duration"
                 onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
@@ -148,18 +149,20 @@
             <div class="mb-3 ms-2 ">
                 <label for="exampleInputEmail1" class="small">Price</label><br>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="$0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="price"
+                    <input type="text" class="form-control" placeholder="0.00" aria-label="Price" aria-describedby="basic-addon2" style="width: 80px;" formControlName="price"
                     onkeypress="return (event.charCode >= 48 && event.charCode <= 57)">
                     <div class="input-group-append">
-                      <span class="input-group-text" id="basic-addon2" style="background-color: #F9F9F9;">USD</span>
+                      <select class="input-group-text" id="basic-addon2" formControlName="idCurrency" style="background-color: #F9F9F9; height: 40px;">
+                        <option *ngFor="let item of currencies" [value]="item?.id"> {{ item?.name }}</option>
+                      </select>
                     </div>
-                  </div>
+                </div>
             </div>
-            <div class="btn-group mt-4 me-4 ms-4" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px; width: 112px;">
+            <div class="btn-group mt-4 me-3 ms-3" role="group" aria-label="Basic radio toggle button group" style="height: 41px; border-radius: 10px;">
               <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off">
-              <label class="btn btn-outline-primary" for="btnradio1">Onetime</label>
+              <label class="btn btn-outline-primary" for="btnradio1">One time</label>
                <div class="ms-4"></div>
-              <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+              <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" disabled>
               <label class="btn btn-outline-primary" for="btnradio2">Recurring</label>
            </div>
           </div>
@@ -289,8 +292,8 @@
      </div>
 -->
     </div>
-    <div style="text-align: center;">
-      <button type="submit" class="btn btn-primary">Save Service</button>
+    <div style="text-align: center; margin-top: 5px;">
+      <button type="submit" class="btn btn-primary" [disabled]="step">Save Service</button>
     </div>
   </form>
 </div>

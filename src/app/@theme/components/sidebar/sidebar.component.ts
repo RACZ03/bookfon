@@ -1,14 +1,15 @@
 import { DOCUMENT } from '@angular/common';
-import { Component, HostListener, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/@core/services/auth.service';
-import { MenuItem, MENU_ITEMS, MENU_ITEMS_SETTINGS } from './pages-menu';
+import { MenuItem, MENU_ITEMS, MENU_ITEMS_STAFF, MENU_ITEMS_SETTINGS, MENU_ITEMS_SETTINGS_STAFF } from './pages-menu';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, AfterViewInit {
 
   public menu: MenuItem[] = [];
   public menuFooter: MenuItem[] = [];
@@ -23,26 +24,44 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private authSvc: AuthService
+    private authSvc: AuthService,
+    private activeRoute: ActivatedRoute,
   ) { 
     this.loadData();
   }
 
   async ngOnInit() {
-    // if (this.isAdmin) {
-    //   this.menu = MENU_ITEMS;
-    //   this.menuFooter = MENU_ITEMS_SETTINGS;
-    // } else {
-    //   // this.menu = MENU_ITEMS_COACH;
-    // }
-
-    // this.getScreenWidth = window.innerWidth;
-    // this.getScreenHeight = window.innerHeight;
+    // console.log('OnInit SidebarComponent')
+    if (this.isAdmin) {
       this.menu = MENU_ITEMS;
       this.menuFooter = MENU_ITEMS_SETTINGS;
-      this.isAdmin = true;
-      this.isExist = true;
+    } else {
+      this.menu = MENU_ITEMS_STAFF;
+      this.menuFooter = MENU_ITEMS_SETTINGS_STAFF;
+    }
 
+    this.getScreenWidth = window.innerWidth;
+    this.getScreenHeight = window.innerHeight;
+    // this.menu = MENU_ITEMS;
+    // this.menuFooter = MENU_ITEMS_SETTINGS;
+    // this.isAdmin = true;
+    this.isExist = true;
+    // get path url 
+  }
+
+  ngAfterViewInit(): void {
+    let path = this.activeRoute.snapshot;
+    if (path.firstChild) {
+      let p = path.firstChild.routeConfig?.path;
+      // active icon menu
+      let position = this.menu.findIndex( (item: any) => item.link == '/pages/'+p);
+      let item = this.menu[position];
+      if (position == -1) {
+        position = this.menuFooter.findIndex( (item: any) => item.link == '/pages/'+p);
+        item = this.menuFooter[position];
+      }
+      this.onSelectOption(item, position);
+    }
   }
   
   loadData() {
@@ -50,20 +69,52 @@ export class SidebarComponent implements OnInit {
     this.businessSelected = JSON.parse(localStorage.getItem('businessSelected') || '{}');
     if (data) {
       this.identity = JSON.parse(data);
-      // console.log(this.businessSelected)
-      let roles: any[] = this.identity.roles;
+      let roles: any[] = this.identity?.roleList;
   
-      if ( roles != undefined && roles.length > 0) {
-        
-        this.isExist = roles.find( role => role.nombre == 'ADMIN');
-        if ( this.isExist != undefined ) {
-          this.isAdmin = true;
+      if ( roles != undefined ) {
+        if ( roles.length > 0) {
+          this.isExist = roles.find( item => item.role == 'ROLE_ADMIN');
+          if ( this.isExist != undefined ) {
+            this.isAdmin = true;
+            // console.log('isAdmin')
+          }
         }
       }
     }
   }
 
-  onSelectOption(item: any) {
+  onSelectOption(item: any, position: any, isFooter: boolean = false) {
+    // console.log('click')
+    // chenge icon
+    for (let i = 0; i < this.menu.length; i++) {
+      let idImg = 'icon-nav-';
+      let icon: any = document.getElementById(idImg + i) as HTMLElement;
+      if ( i == position ) {
+        // verify img -white.svg
+        if ( icon?.src.indexOf('-white.svg') > 0) {
+          icon.src = icon.src.replace('-white.svg', '.svg');
+        } else {
+          icon.src = icon.src.replace('.svg', '-white.svg');
+        }
+      } else {
+        icon.src = icon.src.replace('-white.svg', '.svg');
+      }
+    }  
+    for (let i = 0; i < this.menuFooter.length; i++) {
+      let idImg = 'icon-nav-footer-';
+      let icon: any = document.getElementById(idImg + i) as HTMLElement;
+      if ( i == position ) {
+        // verify img -white.svg
+        if ( icon?.src.indexOf('-white.svg') > 0) {
+          icon.src = icon.src.replace('-white.svg', '.svg');
+        } else {
+          icon.src = icon.src.replace('.svg', '-white.svg');
+        }
+      } else {
+        icon.src = icon.src.replace('-white.svg', '.svg');
+        // icon.src = icon.src.replace('.svg', '.svg');
+      }
+    }  
     if ( item === '/pages/logout') {
       this.logout();
       return;

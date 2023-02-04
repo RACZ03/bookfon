@@ -2,7 +2,7 @@
 <!-- Edit profile -->
 <div class="modal fade" id="modalEditCustomer" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <!-- <app-add [dataUpdate]="module" (onClose)="closeModal($event)"></app-add> -->
-    <app-edit-customer [customer]="itemSelected"></app-edit-customer>
+    <app-edit-customer [customer]="itemSelected" (onClose)="closeModalEdit($event)"></app-edit-customer>
 </div>
 <!-- End Edit Profile -->
 
@@ -18,6 +18,18 @@
 </div>
 <!-- End Message -->
 
+<!-- Modal Validate new User -->
+<div class="modal fade" id="modalValidateNewCustomerAll" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-validate-new-user [title]="'New Customer'" [showSettings]="false" [showFromCustomer]="true" (onCloseModalAndOpenOld)="onCloseModalAndOpenOld($event)"></app-validate-new-user>
+  </div>
+<!-- end -->
+
+<!-- Modal Delete -->
+<div class="modal fade" id="modalDeleteCustomer" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
+  </div>
+  <!-- END-->
+
 <!-- Content Principal -->
 <div *ngIf="divPrincipal">
     <div class="row">
@@ -27,10 +39,10 @@
             </form>
         </div>
         <div class="col-xl-7 col-lg-7 col-md-5 col-sm-6 col-xs-12">
-            <!-- <button class="btn btn-add">
+            <button (click)="showScreenNewCustomer()" class="btn btn-add border-dashed-primary float-start" data-bs-toggle="modal" data-bs-target="#newStaffModal">
                 <i class="bi bi-plus"></i>
-                Add new staff
-            </button> -->
+                Add new customer
+              </button>
     
             <!-- <button class="btn btn-table">
                 <img src="assets/images/icons/settings2.svg" alt="">
@@ -64,21 +76,21 @@
                         <input type="checkbox" name="" id="">
                     </td>
                     <td class="align-middle">
-                        <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                        <img [src]="(item.image !== undefined) ? item?.image : 'assets/images/bookfons/user-found-1.png' " appBrokenImagen class="avatar" alt="">
                         <label for="" class="td-name">{{ item?.fullName }}</label><br>
                     </td>
                     <td class="align-middle">
                         <label for="">{{ item?.phone | mask:'(000) 000-0000' }}</label>
                     </td>
                     <td class="align-middle">
-                        <!-- <button class="btn btn-table">
+                        <button class="btn btn-table" (click)="showModalDelete(item)">
                             <i class="bi bi-x-circle-fill"></i>
-                        </button> -->
+                        </button>
                         <!-- <button class="btn btn-table">
                             <i class="bi bi-envelope-at-fill"></i>
                         </button> -->
                         <button class="btn btn-table" (click)="openSendSMS(item)">
-                            <i class="bi bi-envelope"></i>
+                            <span class="sms-icon"></span>
                         </button>
                         <button class="btn btn-table" (click)="openModalChangePass(item?.id)">
                             <i class="bi bi-key-fill"></i>
@@ -99,6 +111,7 @@
                         <button class="btn btn-table" (click)="openEdit(item)">
                             <i class="bi bi-pencil-square"></i>
                         </button>
+                        
                     </td>
                 </tr>
             </tbody>

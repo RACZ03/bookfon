@@ -1,15 +1,10 @@
 import {
   Component,
-  EventEmitter,
-  Input,
   OnInit,
-  Output,
-  ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { DataTableDirective } from 'angular-datatables';
-import { Subject } from 'rxjs';
+import { CatalogService } from 'src/app/@core/services/catalogs.service';
 import { ServicesService } from 'src/app/@core/services/services.service';
 import { AlertService } from 'src/app/@core/utils/alert.service';
 declare var window: any;
@@ -30,6 +25,9 @@ export class ServiceAddComponent implements OnInit {
   public formModalCategorie: any;
   public formModal: any;
   public imagesList: any[] = [{ url: '' }];
+  public currencies: any[] = [];
+  public step: boolean = false;
+
   // hasta aqui
 
   public title = 'New Service';
@@ -40,8 +38,11 @@ export class ServiceAddComponent implements OnInit {
     private serviceSvr: ServicesService,
     private alertSvc: AlertService,
     private router: Router,
-    private actroute: ActivatedRoute
-  ) {}
+    private actroute: ActivatedRoute,
+    private catalogSvc: CatalogService
+  ) {
+    // console.log('Hi')
+  }
 
   async ngOnInit(): Promise<void> {
     this.formModalCategorie = new window.bootstrap.Modal(
@@ -54,12 +55,25 @@ export class ServiceAddComponent implements OnInit {
     this.loadData();
     this.loadDataCategories();
     this.loadDataSubCategory();
+    this.getCurrencies();
 
     //recuperar datos de la ruta
     this.actroute.params.subscribe((param) => {
       this.idSelected = param['id'];
       this.loadData();
     });
+  }
+
+  async getCurrencies() {
+    this.currencies = [];
+    let resp = await this.catalogSvc.getCurrencies();
+    if (resp != undefined || resp != null) {
+      let { data } = resp;
+      if (data !== undefined) {
+        // console.log(data);
+        this.currencies = data || [];
+      }
+    }
   }
 
   async loadDataSubCategory() {
@@ -106,16 +120,18 @@ export class ServiceAddComponent implements OnInit {
       subcategories: [],
       duration: ['', [Validators.required]],
       price: ['', [Validators.required]],
+      idCurrency: ['', [Validators.required]],
     });
   }
 
   clickedFile() {
     // click input file
-    let file = document.getElementById('file') as HTMLInputElement;
+    let file = document.getElementById('fileEventWorkshop') as HTMLInputElement;
     file.click();
   }
 
   async SelectedFile(event: any) {
+    this.step = true;
     // set image and upload
     let file = event.target.files[0];
     let reader = new FileReader();
@@ -123,7 +139,14 @@ export class ServiceAddComponent implements OnInit {
     let resp = await this.serviceSvr.uploadImage(file);
     if (resp != undefined || resp != null) {
       this.imagesList.push({ url: resp});
+      setTimeout(() => {
+        this.step = false;
+      }, 200);
     }
+  }
+
+  removeImage(index: number) {
+    this.imagesList.splice(index, 1);
   }
 
   async loadData() {
@@ -172,6 +195,7 @@ export class ServiceAddComponent implements OnInit {
       price: (data == null || data == undefined) ? '' : data?.cost,
       categories: arraycategory == null ? [] : arraycategory,
       subcategories: arraysubcategory == null ? [] : arraysubcategory,
+      idCurrency: (data == null || data == undefined) ? '' : data?.idCurrency,
     });
 
     if ( data !== undefined ) {
@@ -186,7 +210,7 @@ export class ServiceAddComponent implements OnInit {
             if ( imagesList[i]?.url !== undefined)
               this.imagesList.push({ url: imagesList[i]?.url });
           }
-          console.log(this.imagesList)
+          // console.log(this.imagesList)
         }
       }
     }
@@ -232,7 +256,7 @@ export class ServiceAddComponent implements OnInit {
     if (resp != null || resp != undefined) {
       let { status } = resp;
 
-      if (status == 201) {
+      if (status == 200 || status == 201) {
         this.alertSvc.showAlert(1, resp?.comment, 'Success');
         this.loadDataForm();
         //this.onClose.emit(true);

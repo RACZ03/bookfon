@@ -1,0 +1,64 @@
+
+
+<!-- Modal Delete Category -->
+<div class="modal fade" id="modalDeleteWalletCashBack" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
+ </div>
+ <!-- END-->
+
+<!-- New Setting -->
+<div *ngIf="activeForm">
+    <app-add-wallet-cashback [dataUpdate]="promotion" (onClose)="closeModal($event)"></app-add-wallet-cashback>
+</div>
+<!-- End-->
+
+<!-- Main page content-->
+<div class="container" *ngIf="!activeForm">
+
+    <div class="mt-2" style="display: flex; gap: 20px;">
+          <div class="container-seach">
+              <form class="d-flex">
+                  <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
+              </form>
+          </div>
+          <button class="btn btn-add " (click)="newPromotion(true)">
+              <i class="bi bi-plus"></i>
+              Add wallet promotion
+          </button>
+      </div>
+      <br>
+    <div class="table-responsive">
+        <table class="table" style="width:100%"
+            datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+            <thead>
+                <tr>
+                    <th class="align-middle">Description</th>
+                    <th class="align-middle text-center">Start date</th>
+                    <th class="align-middle text-center">End date</th>
+                    <th class="align-middle text-center">Recharge Amount</th>
+                    <th class="align-middle text-center">Amount Promotion</th>
+                    <th class="align-middle text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data; let i = index">
+                    <td class="align-middle">{{ item?.description }}</td>
+                    <td class="align-middle text-center">{{ item?.startDate | date: 'dd/MM/yyyy' }}</td>
+                    <td class="align-middle text-center" [ngClass]="(currentDate2 >= item?.endDate ? 'text-danger': '' )">
+                        {{ item?.endDate | date: 'dd/MM/yyyy' }}
+                    </td>
+                    <td class="align-middle text-center">{{ item?.amount | number }}</td>
+                    <td class="align-middle text-center">{{ item?.promotionAmount | number }}</td>
+                    <td class="align-middle text-center">
+                        <button class="btn btn-sm" (click)="onEdit(item)">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+                        <button class="btn btn-sm" (click)="openModalDelete(item?.id)">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

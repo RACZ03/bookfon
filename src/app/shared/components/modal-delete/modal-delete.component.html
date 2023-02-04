@@ -14,7 +14,7 @@
 				<p>{{message}}</p>
 			</div>
 			<div class="modal-footer justify-content-center">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Cancel</button>
+				<a type="button" id="btn-remove-modal" class="btn btn-secondary" (click)="onCloseModal()">Cancel</a>
 				<button type="button" class="btn btn-danger" (click)="onDelete()">{{btnYes}}</button>
 			</div>
         </div>

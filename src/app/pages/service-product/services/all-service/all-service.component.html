@@ -33,7 +33,7 @@
                         <img src="{{item?.imagePrincipal}}" appBrokenImagen class="avatar m-2" style="width: 40px; height: 40px; border-radius: 50%;">
                         <div class="ms-3">
                             <label for="" class="td-name">{{item?.name}}</label><br>
-                            <label for="" class="td-price">{{item?.cost}}</label>
+                            <label for="" class="td-price">{{'$'+item?.cost+' USD'}}</label>
                         </div>
                     </td>
                     <td class="align-middle">
@@ -44,7 +44,7 @@
                             <i class="bi bi-pencil-square"></i>
                         </button>
                         <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
-                            <i class="bi bi-trash-fill"></i>
+                            <i class="bi bi-x-circle-fill"></i>
                         </button>
                     </td>
                 </tr>

@@ -22,7 +22,7 @@ export class BookfonServicesComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     await this.loadServices();
-    await this.loadScheduleBissnes();
+    await this.loadScheduleBusiness();
     await this.loadStaff();
   }
 
@@ -41,6 +41,7 @@ export class BookfonServicesComponent implements OnInit {
 
   async loadStaff() {
     this.staffService.getAllStaff().then(response => {
+      // console.log(response.data)
       this.staff = response.data;
     }).catch(error => {
       // console.log(error);
@@ -55,7 +56,7 @@ export class BookfonServicesComponent implements OnInit {
     }, 1000);
   }
 
-  async loadScheduleBissnes() {
+  async loadScheduleBusiness() {
     await this.service
       .getScheduleBussines()
       .then((res) => {

@@ -1,1 +1,20 @@
 
+.modal {
+    color: #000;
+
+    label {
+        font-size: 11px;
+        font-weight: 500;
+        color: #000;
+    }
+}
+
+a
+.fc-daygrid-day-number {
+    color: #000 !important;
+}
+
+.fc-theme-bootstrap5 a:not([href]) {
+    color: #000 !important;
+    text-decoration: inherit;
+  }

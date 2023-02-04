@@ -52,7 +52,7 @@
 
                 <div class="footerBx">
                     <p>
-                        New the bookfon? <a [routerLink]="'/auth/create-account'">Create an account</a>
+                        New to bookfon? <a [routerLink]="'/auth/create-account'">Create an account</a>
                     </p>
 
                     <div class="divGrays">
@@ -96,7 +96,7 @@
             <!-- Forms STEP 3-->
             <div class="formBx" *ngIf="step3">
                 <div class="headerBx">
-                    <h5>Welcomme back!</h5>
+                    <h5>Welcome back!</h5>
                     <p>
                         Choose how to sign in to
                         <br><span>{{ (loginForm.get('email')?.value !== '') ? loginForm.get('email')?.value : 'charlesjhonson@mail.test' }}</span>
@@ -126,13 +126,13 @@
                     <br>
                     <div class="itemBx3">
                         
-                        <label for="" class="label-or">OR</label>
+                        <!-- <label for="" class="label-or">OR</label>
                         <br>
                         <input type="text" class="form-control input-code" 
                             placeholder="Tex a code to (****)******** {{ (loginForm.get('codePhone')?.value !== '') ? (loginForm.get('codePhone')?.value | slice:-2) : '' }}" 
                             formControlName="codePhone" [class.is-invalid]="validInput('codePhone')">
                     
-                        <br><br>
+                        <br><br> -->
                         <a class="item-link" style="cursor: pointer;" (click)="backStep2()">Sign in a different way</a>
                         <br><br>
                     </div>

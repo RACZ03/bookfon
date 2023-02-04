@@ -17,17 +17,24 @@ export class RechargeComponent implements OnInit {
   @Input() set setCustomer( value: any) {
     if( value == 0 ) return;
 
+    // console.log('jso')
     this.customer = value;
     if ( this.customer !== undefined ) {
       // console.log(this.customer)
       if ( this.customer?.idWallet !== undefined ) {
         this.rechargeForm.patchValue({
           idWallet: this.customer?.idWallet,
+          // clearn incomeAmount
+          incomeAmount: '',
+          promotionAmount: '',
         });
       } else {
         this.rechargeForm.patchValue({
           idBusiness: this.businessSelected?.id,
           idCustomer: (this.customer?.idCustomer !== undefined) ? this.customer?.idCustomer : 0,
+          // clearn incomeAmount
+          incomeAmount: '',
+          promotionAmount: '',
         })
       }
     }

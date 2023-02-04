@@ -6,6 +6,9 @@ import { ChangePasswordComponent } from './components/change-password/change-pas
 import { ModalDeleteComponent } from './components/modal-delete/modal-delete.component';
 import { SendMessageComponent } from './components/send-message/send-message.component';
 import { RechargeComponent } from './components/recharge/recharge.component';
+import { ValidateNewUserComponent } from './components/validate-new-user/validate-new-user.component';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -15,17 +18,21 @@ import { RechargeComponent } from './components/recharge/recharge.component';
     ChangePasswordComponent,
     SendMessageComponent,
     RechargeComponent,
+    ValidateNewUserComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ThemeModule
+    ThemeModule,
+    NgxMaskModule.forRoot(),
+    NgSelectModule
   ],
   exports:[
     ModalDeleteComponent,
     ChangePasswordComponent,
     SendMessageComponent,
     RechargeComponent,
+    ValidateNewUserComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

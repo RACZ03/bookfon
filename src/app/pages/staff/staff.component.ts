@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { StaffService } from 'src/app/@core/services/staff.service';
@@ -18,7 +19,6 @@ export class StaffComponent implements OnInit {
 
   @Input() set setIdProfile(id: number){
     this.idStaff = id;
-    //console.log(this.idStaff , "serstaffvice");
   }; 
 
   editStaff: boolean = false;
@@ -28,21 +28,47 @@ export class StaffComponent implements OnInit {
   public idStaff: number = 0;
   public showModalOrder: boolean = false;
   public showBtn: boolean = true;
+  private identity: any = {};
+  public isAdmin: boolean = false;
+  public formModalValidate: any;
   
   public module: any = false;
   data: any [] = [];
 
   constructor(
     private staffService : StaffService,
+    private router: Router,
 
-  ) {}
+  ) {
+    this.identity = JSON.parse(localStorage.getItem('identity') || '{}');
+    // console.log(this.identity)
+    let roles: any[] = this.identity?.roleList;
+  
+      if ( roles != undefined ) {
+        if ( roles.length > 0) {
+        
+          let isExist = roles.find( item => item.role == 'ROLE_ADMIN');
+          if ( isExist != undefined ) {
+            this.isAdmin = true;
+          } else {
+            this.isAdmin = false;
+            this.selectedStaff(this.identity);
+          }
+        }
+      }
+  }
 
   ngOnInit(): void {
+    this.formModalValidate = new window.bootstrap.Modal(
+      document.getElementById('modalValidateNewStaffAll')
+    );
     this.loadData();
+
   }
 
   async loadData() {
-   let resp = await this.staffService.getStaffOrder();
+  //  let resp = await this.staffService.getStaffOrder();
+  let resp = await this.staffService.getStaffByBusiness();
   //  console.log(resp, "resp");
     if ( resp !== undefined ) {
       this.data = resp?.data;
@@ -54,6 +80,7 @@ export class StaffComponent implements OnInit {
   }
 
   selectedStaff(item: any) {
+    // console.log('EDIT', item);
     this.showBtn = false;
     this.idStaff= item.id;
     this.itemStaff = item;    
@@ -61,8 +88,9 @@ export class StaffComponent implements OnInit {
   }
 
   showScreenNewStaff() {
-    this.editStaff = false;
-    this.newStaff = true;
+    // this.editStaff = false;
+    // this.newStaff = true;
+    this.formModalValidate.show();
   }
 
   showModalPositionsCoach(e: boolean) {
@@ -71,6 +99,23 @@ export class StaffComponent implements OnInit {
     }
     
     this.showModalOrder = true;
+  }
+
+  onCloseModalAndOpenOld(event: any) {
+    // console.log('Hi')
+    if ( !event ) {
+      this.formModalValidate.hide();
+      this.router.navigate(['/pages/staff']);
+      return
+    } else {
+      // Execute endpoint add permisses
+      this.formModalValidate.hide();
+      // setTimeout(() => {
+      //   this.formModalNew.show();
+      // }, 200);
+      this.editStaff = false;
+      this.newStaff = true;
+    }
   }
 
   renderer() {

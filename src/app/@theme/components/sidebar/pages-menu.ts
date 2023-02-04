@@ -83,3 +83,27 @@ export const MENU_ITEMS_SETTINGS: MenuItem[] = [
     home: false
   }
 ];
+
+export const MENU_ITEMS_STAFF: MenuItem[] = [
+  {
+    title: 'Home',
+    icon: 'home',
+    link: '/pages/home',
+    home: true,
+  },
+  {
+    title: 'Staff',
+    icon: 'staff',
+    link: '/pages/staff',
+    home: false
+  },
+];
+
+export const MENU_ITEMS_SETTINGS_STAFF: MenuItem[] = [
+  {
+    title: 'Log Out',
+    icon: 'logout',
+    link: '/pages/logout',
+    home: false
+  }
+];

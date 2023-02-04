@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ImageFile } from 'src/app/@core/Interfaces/Image-file';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   AbstractControl,
   FormControl,
@@ -23,11 +24,13 @@ export class ProfileEditComponent implements OnInit {
     last_name: new FormControl('', [Validators.required]),
     phone_number: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
+    profile: new FormControl(''),
     image: new FormControl(''),
   });
   constructor(
     private service: StaffService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +42,8 @@ export class ProfileEditComponent implements OnInit {
     this.f['last_name'].patchValue(this.itemStaff.lastName);
     this.f['phone_number'].patchValue(this.itemStaff.phone);
     this.f['email'].patchValue(this.itemStaff.email);
+    this.f['image'].patchValue(this.itemStaff.image);
+    this.f['profile'].patchValue(this.itemStaff.profile);
   }
 
   onSubmit(): void {
@@ -60,8 +65,13 @@ export class ProfileEditComponent implements OnInit {
     }
   }
 
+  removeImage() {
+    this.form.get('image')?.patchValue('');
+  }
 
   updateStaff(url?: string) {
+    // get image form
+    let image = this.form.get('image')?.value;
     this.service
       .updateStaff({
         id: this.itemStaff.id,
@@ -69,7 +79,8 @@ export class ProfileEditComponent implements OnInit {
         lastName: this.f['last_name'].value,
         phone: this.f['phone_number'].value,
         email: this.f['email'].value,
-        image: url ? url : '',
+        profile: this.f['profile'].value,
+        image: url ? url : (image ? image : ''),
       })
       .then(() => {
         this.loading = false;
@@ -89,6 +100,7 @@ export class ProfileEditComponent implements OnInit {
     ) {
       this.fileValid = true;
       this.file = file?.files[0];
+      this.f['image'].patchValue(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file.files[0])));
     } else {
       this.fileValid = false;
       this.f['image'].patchValue('');

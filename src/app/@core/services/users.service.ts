@@ -16,6 +16,12 @@ export class UsersService {
     private storage: AngularFireStorage
   ) { }
 
+  getCode(): string {
+    let business = localStorage.getItem('businessSelected') || '';
+    return JSON.parse(business).code;
+  }
+
+
   get(): Promise<any> {
     return this.connectionSvc.send('get', 'users');
   }
@@ -41,13 +47,36 @@ export class UsersService {
     return this.connectionSvc.send('delete', `users/${ id }`);
   }
 
+  removeRole(email: string, roleName: string): Promise<any> {
+    let obj = {
+      email: email,
+      rolName: roleName,
+      businessCode: this.getCode()
+    };
+
+    return this.connectionSvc.send('delete', `role/deleteFromUser`, obj);
+  }
+
   getAllStaffByBusiness(businessCode: string): Promise<any>{
     return this.connectionSvc.send('get', `public/v1/${businessCode}/allStaffByBusiness`);
+  }
+
+  getAllStaffAdminByBusiness(): Promise<any>{
+    let code = this.getCode();
+    return this.connectionSvc.send(
+      'get',
+      `users/getByBusiness/${ code }/role/ROLE_ADMIN`
+    );
   }
 
   saveStaff(params: any, businessCode: string): Promise<any>{
     return this.connectionSvc.send('post', `v1/business/${businessCode}/users/saveStaff?roleName=ROLE_${params.role}`, params)
   }
+
+  saveUser(params: any, businessCode: string): Promise<any>{
+    return this.connectionSvc.send('post', `v1/business/${ businessCode }/users/save?roleName=ROLE_${params.role}`, params)
+  }
+
 
   uploadImage(file: any, data: any, idAdmin: boolean = false): Promise<any> {
     // method update image profile
@@ -82,4 +111,26 @@ export class UsersService {
   changePassword(id: number, pass: string): Promise<any> {
     return this.connectionSvc.send('put', `users/updatePassword/${ id }?password=${ pass }`);
   }
+
+
+  verifyUser(email: string, phone: string, role: string): Promise<any> {
+    let obj = {
+      email: email,
+      phone: phone,
+    };
+
+    return this.connectionSvc.send('post', `users/verifyExists/${ role }`, obj);
+  }
+
+  addNewRole(email: string, phone: string, role: string): Promise<any> {
+    let obj = {
+      email: email,
+      phone: phone,
+      rolName: role,
+      businessCode: this.getCode()
+    };
+
+    return this.connectionSvc.send('post', `role/addToUser`, obj);
+  }
+
 }

@@ -9,12 +9,12 @@
         data-bs-target="#setting" type="button" role="tab" aria-controls="setting" aria-selected="true">Settings
       </button>
     </li> -->
-    <li class="nav-item col-md-2" role="all">
+    <li class="nav-item col-md-2" role="all" *ngIf="isAdmin">
       <button (click)="editStaff = false; activeTab = 1 ; newStaff = false; showBtn = !showBtn" class="nav-link active links" id="profile-tab" data-bs-toggle="tab"
         data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="false">All staff
         {{editStaff ? ' / edit' : ( newStaff ? '/ Add' : '' ) }}</button>
     </li>
-    <div *ngIf="activeTab==1" class="justify-content-end col-md-10">
+    <div *ngIf="activeTab==1 && isAdmin" class="justify-content-end col-md-10">
       <button type="button" *ngIf="showBtn"  class="btn btn-primary float-end m-1" id="showModalOrderStaff"><i class="bi bi-list-ol" style="color: #f9f9f9 ;"></i> Change display
         position</button>
       <button (click)="showScreenNewStaff()" class="btn btn-add border-dashed-primary float-end m-1" data-bs-toggle="modal" data-bs-target="#newStaffModal">
@@ -32,6 +32,10 @@
       <app-all *ngIf="!editStaff && !newStaff" (selectedStaff)='selectedStaff($event)'></app-all>
       <app-profile [itemStaff]="itemStaff" *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile>
       <!-- <app-profile *ngIf="editStaff" [setIdProfile]="idStaff"></app-profile> -->
+      <!-- Modal Validate new User -->
+      <div class="modal fade" id="modalValidateNewStaffAll" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <app-validate-new-user [title]="'New Staff'" [showSettings]="false" [showFromStaff]="true" (onCloseModalAndOpenOld)="onCloseModalAndOpenOld($event)"></app-validate-new-user>
+      </div>
       <app-add-staff *ngIf="newStaff"></app-add-staff>
     </div>
   </div>

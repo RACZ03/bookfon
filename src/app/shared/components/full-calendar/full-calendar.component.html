@@ -1,3 +1,62 @@
 <div class="m-0 p-2 mb-3">
   <full-calendar [options]="calendarOptions"></full-calendar>
 </div>
+
+<!-- Modal Popup -->
+
+<div class="modal" tabindex="-1" id="modalPopUp">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">Hiring</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 text-center">
+            <img class="avatar-img img-fluid"
+              style="height: 120px; width: 120px; max-width: 120px; max-height: 120px; border-radius: 15px;"
+              appBrokenImagen [src]="item?.staff?.image" alt="staff">
+            <!-- <img class="avatar-img img-fluid"
+              style="height: 180px; width: 180px; max-width: 180px; max-height: 180px; border-radius: 15px;"
+              appBrokenImagen [src]="item?.cliente?.imagen" alt="coach"> -->
+          </div>
+          <div class="text-center">
+            <label for="">
+              <strong>{{ previewCoach ? 'Customer' : 'Staff' }}</strong>
+            </label>
+            <h6 *ngIf="!previewCoach">{{ item?.staff?.firstName || '' }} {{ item?.staff?.lastName || '' }}</h6>
+            <!-- <h5 *ngIf="previewCoach">{{ item?.cliente?.nombre }} {{ item?.cliente?.apellido }}</h5> -->
+          </div>
+          <hr>
+          <table>
+            <tr>
+                <td><strong>{{ (item?.isService) ?  'Service:' : 'Workshop:'}}</strong></td>
+                <td>{{ (item?.isService) ? item?.service?.name : item?.workshop?.name }}</td>
+            </tr>
+            <tr *ngIf="!previewCoach && !previewCustomer">
+                <td><strong>Customer:</strong></td>
+                <td>{{ item?.customer?.firstName }} {{ item?.customer?.lastName }}</td>
+            </tr>
+            <!-- <tr *ngIf="item?.idCliente != undefined">
+              <td><strong>Athlete:</strong></td>
+              <td>{{ item?.cliente?.nombre }} {{ item?.cliente?.apellido }}</td>
+            </tr> -->
+            <tr>
+                <td><strong>Date:</strong></td>
+                <td>{{ item?.dateFormated }}</td>
+            </tr>
+            <tr>
+                <td><strong>Start:</strong></td>
+                <td>{{  currentDate + ' ' +  (item?.time?.startTime == undefined ? '00:00:00' : item?.time?.startTime) | date :'shortTime' }}</td>
+            </tr>
+            <tr>
+                <td><strong>End:</strong></td>
+                <td>{{  currentDate + ' ' + (item?.time?.endTime == undefined ? '00:00:00' : item?.time?.endTime) | date :'shortTime' }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

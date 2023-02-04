@@ -11,7 +11,7 @@
     <div class="content-2">
         <div [ngSwitch]="optionSelected">
             <div *ngSwitchCase="0">
-                <app-account></app-account>
+                <app-account [identity]="identity"></app-account>
             </div>
             <div *ngSwitchCase="1">
                 <app-public-details [identity]="identity"></app-public-details>

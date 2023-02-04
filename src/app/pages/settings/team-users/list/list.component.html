@@ -1,66 +1,121 @@
-<!-- Modal -->
-<div class="modal fade" id="modalNewStaff" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Validate new User -->
+<div class="modal fade" id="modalValidateNewStaffSettings" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-validate-new-user [title]="'New User'" [showSettings]="true" (onCloseModalAndOpenOld)="onCloseModalAndOpenOld($event)"></app-validate-new-user>
+</div>
+<!--  -->
+
+<!-- Modal Delete -->
+<div class="modal fade" id="modalDeleteStaffSettings" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
+</div>
+<!-- END-->
+
+<!-- Modal New Settings-->
+<div class="modal fade" id="modalNewStaffSettings" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <label>New Staff</label>
+        <label>{{ isEdit ? 'Edit User' : 'New User' }}</label>
         <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-flex">
           <form (ngSubmit)="onSaveStaff()" [formGroup]="ModalStaffForm">
-            <div class="row mt-4">
-              <div class="col">
-                <label for="name" class="">Name</label>
-                <input formControlName="name" required type="text" class="form-control" id="name" placeholder="name">
+            <div class="row mt-2">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="name" class="">First Name<sup class="text-danger">*</sup></label>
+                <input formControlName="firstName" required type="text" class="form-control" id="firstName" placeholder="name">
+                <span *ngIf="validInput('firstName')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
-              <div class="col">
-                <label for="last name" class="">last name</label>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="last name" class="">Last name<sup class="text-danger">*</sup></label>
                 <input formControlName="lastName" required type="text" class="form-control" id="lastName" placeholder="lastname">
+                <span *ngIf="validInput('lastName')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
             </div>
             <div class="row mt-4">
-              <div class="col">
-                <label for="email" class="">Email</label>
-                <input formControlName="email" required type="text" class="form-control" id="email" placeholder="email">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="email" class="">Email<sup class="text-danger">*</sup></label>
+                <input formControlName="email" required type="text" 
+                      ngClass="{{ (!validEmail('email') && !validInput('email') && !emailError) ? 'form-control is-valid' : 'form-control is-invalid' }}"
+                      placeholder="email" autocomplete="new-semail" (change)="verifyUser( true )">
+                <span *ngIf="validInput('email')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <!-- valid regext -->
+                <span *ngIf="validEmail('email')" class="text-danger mt-2">
+                  Invalid email
+                </span>
               </div>
-              <div class="col">
-                <label for="phone" class="">Phone</label>
-                <input formControlName="phone" required type="text" class="form-control" id="phone" placeholder="phone">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="phone" class="">Phone<sup class="text-danger">*</sup></label>
+                <input formControlName="phone" required type="text" 
+                ngClass="{{ (!validInput('phone') && !validInputMin('phone') && !phoneError)? 'form-control is-valid' : 'form-control is-invalid' }}"
+                placeholder="(000) 000-0000" mask="(000) 000-0000" (change)="verifyUser()">
+                <span *ngIf="validInput('phone')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <span *ngIf="validInputMin('phone')" class="text-danger mt-2">
+                  Min 10 characters
+                </span>
               </div>
             </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="password" class="">Password</label>
-                <input formControlName="password" required type="password" class="form-control" id="password" placeholder="password">
+            <div class="row mt-4" *ngIf="!isEdit">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="password" class="">Password <sup class="text-danger">*</sup></label>
+                <input formControlName="password" required type="password" class="form-control" id="password" placeholder="password" autocomplete="new-password">
+                <span *ngIf="validInput('password')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <span *ngIf="validInputMin('password')" class="text-danger mt-2">
+                  Min 6 characters
+                </span>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="password" class="">Password confirm<sup class="text-danger">*</sup></label>
+                <input formControlName="password_confirm" required type="password" class="form-control" autocomplete="new-password_confirm"
+                  id="password_confirm" placeholder="password" (change)="comparePasswords()">
+                <span *ngIf="validInput('password_confirm')" class="text-danger mt-2">
+                  Required field
+                </span>
+                <span *ngIf="validInputMin('password_confirm')" class="text-danger mt-2">
+                  Min 6 characters
+                </span>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col">
                 <label for="password" class="">Profile</label>
-                <textarea formControlName="profile" required name="profile" id="profile" style="width: 100%;" rows="5" class="form-control"></textarea>
+                <textarea formControlName="profile" name="profile" id="profile" style="width: 100%;" rows="3" class="form-control"></textarea>
               </div>
             </div>
             <div class="row mt-4">
-              <div class="col">
-                <label for="Sex">Sex</label>
-                <select formControlName="sex" required class="form-select" aria-label="Default select example">
-                  <option selected>Open this select menu</option>
-                  <option value="5">Male</option>
-                  <option value="6">Female</option>
-                  <option value="7">Undefined</option>
-                </select>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="Sex">Sex<sup class="text-danger">*</sup></label>
+                
+                <ng-select [items]="sexs" bindValue="id" bindLabel="name" placeholder="select role" formControlName="idSex">
+                </ng-select>
+                <span *ngIf="validInput('idSex')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
-            </div>
-            <div class="row mt-4">
-              <div class="col">
-                <label for="role">Rol</label>
-                <select formControlName="role" required class="form-select" aria-label="Default select example">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label for="role">Rol <sup class="text-danger">*</sup></label>
+                <!-- <select formControlName="role" required class="form-select" aria-label="Default select example">
                   <option selected>Open this select menu</option>
                   <option value="ADMIN">Administrator</option>
                   <option value="STAFF">Staff</option>
                   <option value="CUSTOMER">Customer</option>
-                </select>
+                </select> -->
+                <ng-select [items]="roles" bindValue="name" bindLabel="name" placeholder="select role" formControlName="role">
+                </ng-select>
+                <span *ngIf="validInput('role')" class="text-danger mt-2">
+                  Required field
+                </span>
               </div>
             </div>
             <div class="row mt-4">
@@ -69,6 +124,12 @@
               </div>
             </div>
           </form>
+          <!-- <pre style="color: black;">
+            {{ ModalStaffForm.value | json }}
+          </pre>
+          <pre style="color: black;">
+            INVALID VALIDO: {{ ModalStaffForm.invalid }}
+          </pre> -->
         </div>
       </div>
     </div>
@@ -132,6 +193,7 @@
                                 <th>Mamber</th>
                                 <th>Roles</th>
                                 <th>Last login</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -140,15 +202,23 @@
                                     <input type="checkbox" name="" id="">
                                 </td>
                                 <td class="align-middle">
-                                    <img src="assets/images/bookfons/user-found-1.png" class="avatar" alt="">
+                                    <img [src]=" item?.image !== '' ? item.image : 'assets/images/bookfons/user-found-1.png'" class="avatar" appBrokenImagen alt="">
                                     <label for="" class="td-name">{{item.firstName}} {{item.lastName}}</label><br>
                                     <label for="" class="td-email">{{item.email}}</label>
                                 </td>
                                 <td class="align-middle">
-                                    <label for="">{{'role'}}</label>
+                                    <label for="">ADMIN</label>
                                 </td>
                                 <td class="align-middle">
-                                    <label for="">{{item.lastLogin}}</label>
+                                    <label for="">{{ item.lastLogin | date: 'dd/MM/yyyy hh:mm a' }}</label>
+                                </td>
+                                <td class="align-middle text-center">
+                                  <button class="btn btn-sm" (click)="edit(item?.id)">
+                                    <i class="bi bi-pencil-square"></i>
+                                  </button>
+                                  <button class="btn btn-sm ms-2" (click)="showModalDelete(item)">
+                                      <i class="bi bi-x-circle-fill"></i>
+                                  </button>
                                 </td>
                             </tr>
                             <!-- <tr>

@@ -1,0 +1,58 @@
+<!--add categories-->
+<div class="modal fade" id="modalNewCategoriesWorkshop" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-add-categories-workshop [dataupdateCategories]="module" (onClose)="closeModalCategories($event)"></app-add-categories-workshop>
+</div>
+
+<div class="modal fade" id="modalDeleteCategoriesWorkshop" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <app-modal-delete (delete)="onDelete($event)"></app-modal-delete>
+ </div>
+
+<!--List Categories-->
+<div class="container">
+
+  <div class="mt-2" style="display: flex; gap: 20px;">
+        <div class="container-seach">
+            <form class="d-flex">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keyup)="searchData($event)">
+            </form>
+        </div>
+        <button class="btn btn-add " (click)="showModalCategoriesAdd(true)">
+            <i class="bi bi-plus"></i>
+            Add New Workshop Category
+        </button>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table" datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"> 
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th class="align-middle text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data">
+                    <td class="align-middle">
+                        <div class="ms-3">
+                            <label for="" class="td-name">{{item.name}}</label>
+                        </div>
+                    </td>
+                    <td class="align-middle">
+                    <div class="ms-3">
+                        <label for="" class="td-name">{{item.description}}</label>
+                    </div>
+                </td>
+                <td class="align-middle text-center">
+                    <button class="btn btn-sm" (click)="onEditCategories(item)">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class="btn btn-sm ms-2" (click)="openModalDelete(item?.id)">
+                        <i class="bi bi-x-circle-fill"></i>
+                    </button>
+                </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
